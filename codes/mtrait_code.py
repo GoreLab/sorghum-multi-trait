@@ -277,19 +277,52 @@ df['loc'] = df['loc'].replace(['16EF', '16FF'], ['EF', 'FF'])
 # Printing the number of entries within each block:
 df['block'].value_counts()
 
-# Removing checks from experiment:
+# Removing checks row from data not related to this experiment project:
 df = df[df['block'] != 'CHK_STRP'][:]
 
+# Changing data type of the DAP:
+df.dap = df.dap.astype(object)
+
+# Averaging over the data structure except the factors evaluated in the multi trait project
+df = df.groupby(['id_gbs', 'loc', 'year', 'trait', 'dap'], as_index=False).mean()
+
+# Computing the mean of the numeric features:
+tmp = df[df.trait == 'biomass'].mean()
+
+# Index for subsetting rows:
+index = (df.trait == 'biomass') & df.adf.isnull()
+
+# Imputing adp:
+df.adf[index] = np.repeat(tmp['adf'], np.sum(index))
+
+# Index for subsetting rows:
+index = (df.trait == 'biomass') & df.moisture.isnull()
+
+# Imputing adp:
+df.moisture[index] = np.repeat(tmp['moisture'], np.sum(index))
+
+# Index for subsetting rows:
+index = (df.trait == 'biomass') & df.ndf.isnull()
+
+# Imputing adp:
+df.ndf[index] = np.repeat(tmp['ndf'], np.sum(index))
+
+# Index for subsetting rows:
+index = (df.trait == 'biomass') & df.protein.isnull()
+
+# Imputing adp:
+df.protein[index] = np.repeat(tmp['protein'], np.sum(index))
+
+# Index for subsetting rows:
+index = (df.trait == 'biomass') & df.starch.isnull()
+
+# Imputing adp:
+df.starch[index] = np.repeat(tmp['starch'], np.sum(index))
+
 ## To do list:
-# 1. Average across blocks
-# 2. Apply log transformation from nonnormal features, using the kaggle code
-# 3. Design the cross-validation scheme
-# 4. Ask the RNAseq data for Ravi
-
-# Tring to mean across blocks:
-# tmp = df.groupby(np.setdiff1d(df.columns, 'block').tolist()).mean(df.select_dtypes(float).columns)
-
-
+# 1. Apply log transformation from nonnormal features, using the kaggle code
+# 2. Design the cross-validation scheme
+# 3. Ask the RNAseq data for Ravi
 
 
 
