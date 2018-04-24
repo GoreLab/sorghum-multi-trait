@@ -1,6 +1,6 @@
 # General information
 
-The repository contains codes and information related to the sorghum multi trait project. The data set has features of height measures over different days after planting, dry mass content, and other biomass compositional traits. The main goal of the project is the development of a Bayesian Network that integrates crop, genomic, and transcriptomic data, and recovery of information across traits though the inclusion of pleiotropic effects into a unique model. The benchmarking will be done via mult trait linear mixed models. A code also will be written for massive run of deep neural networks through random guesses of hyperparameters in a multivariate space using TensorFlow to compare with the Bayesian Network written in the probabilistic programming language stan.
+The repository contains codes and information related to the sorghum multi trait project. The data set has height measures over different days after planting, dry mass content, and other biomass compositional traits. The main goal of the project is the development of a Bayesian Network that integrates crop, genomic, and transcriptomic data, and recovery of information across traits though the inclusion of pleiotropic effects into a unique model. The benchmarking will be done via mult trait linear mixed models. A code also will be written for massive run of deep neural networks through random guesses of hyperparameters in a multivariate space using TensorFlow to compare with the Bayesian Network written in the probabilistic programming language stan.
 
 # Folder 'codes'
 
