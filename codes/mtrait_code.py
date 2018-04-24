@@ -245,8 +245,8 @@ W_bin = pd.DataFrame(W_bin)
 W_bin.index = line_names.astype(str)
 W_bin.columns = map('bin_{}'.format, range(W_bin.shape[1]))
 
-# Removing M from memory by specifying an empty list:
-M = []
+# Removing M from memory:
+M = None
 
 # Subsetting only the inbred lines that were genotyped and phenotyped into the data frame:
 tmp = np.where(df.id_gbs.isin(line_names))
@@ -317,8 +317,22 @@ df.protein[index] = np.repeat(tmp['protein'], np.sum(index))
 index = (df.trait == 'biomass') & df.starch.isnull()
 df.starch[index] = np.repeat(tmp['starch'], np.sum(index))
 
+# Traits list:
+tmp = ['adf', 'drymass', 'moisture', 'ndf', 'protein', 'starch', 'height']
+
+# Ploting figure:
+for i in range(len(tmp)):
+	fig = plt.hist(df[tmp[i]].dropna().values, normed=0)
+	plt.title(tmp[i].title())
+	plt.xlabel(tmp[i].title() + ' values')
+	plt.ylabel("Frequency")
+	plt.savefig(prefix_out + 'plots/' + tmp[i] + '.pdf')
+	plt.clf()
+
+
+
+
 ## To do list:
-# 1. Apply log transformation from nonnormal features, using the kaggle code
-# 2. Design the cross-validation scheme
-# 3. Ask the RNAseq data for Ravi
+# 1. Design the cross-validation scheme
+# 2. Ask the RNAseq data for Ravi
 

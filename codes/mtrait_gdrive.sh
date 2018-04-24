@@ -37,11 +37,11 @@ gdrive sync download --delete-extraneous --timeout 10000000 1N45DjnYKcAmQiOpX_4X
 ####################################### Dayhoff1 #########################################
 
 ## Uploading the folder content [Whole folder]:
-/data1/aafgarci/jhonathan/mtrait-proj/codes/gdrive sync upload --delete-extraneous --timeout 10000000 /data1/aafgarci/jhonathan/resul_mtrait-proj \
+/data1/aafgarci/jhonathan/sorghum-multi-trait/codes/gdrive sync upload --delete-extraneous --timeout 10000000 /data1/aafgarci/jhonathan/resul_mtrait-proj \
  1N45DjnYKcAmQiOpX_4Xg9gESyfihXikN
 
 ## Downloading the folder content [Kaggle submission]:
-/data1/aafgarci/jhonathan/mtrait-proj/codes/gdrive sync download --delete-extraneous  --timeout 10000000 1N45DjnYKcAmQiOpX_4Xg9gESyfihXikN \
+/data1/aafgarci/jhonathan/sorghum-multi-trait/codes/gdrive sync download --delete-extraneous  --timeout 10000000 1N45DjnYKcAmQiOpX_4Xg9gESyfihXikN \
 /data1/aafgarci/jhonathan/resul_mtrait-proj
 
 
