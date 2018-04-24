@@ -286,44 +286,39 @@ df.dap = df.dap.astype(object)
 # Averaging over the data structure except the factors evaluated in the multi trait project
 df = df.groupby(['id_gbs', 'loc', 'year', 'trait', 'dap'], as_index=False).mean()
 
+# Removing the DAP values from biomass, DAP values were taken only for plant height:
+index = ((df.trait == 'biomass') & (df.dap == 120)) | (df.trait == 'height')
+df = df[index] 
+
+# Removing the DAP of 120 for biomass, it is not a right feature of biomass, actually it was collected in the end of the season:
+index = (df.trait == 'biomass') & (df.dap == 120)
+df.dap[index] = np.nan
+
 # Computing the mean of the numeric features:
 tmp = df[df.trait == 'biomass'].mean()
 
-# Index for subsetting rows:
-index = (df.trait == 'biomass') & df.adf.isnull()
-
 # Imputing adp:
+index = (df.trait == 'biomass') & df.adf.isnull()
 df.adf[index] = np.repeat(tmp['adf'], np.sum(index))
 
-# Index for subsetting rows:
-index = (df.trait == 'biomass') & df.moisture.isnull()
-
 # Imputing adp:
+index = (df.trait == 'biomass') & df.moisture.isnull()
 df.moisture[index] = np.repeat(tmp['moisture'], np.sum(index))
 
-# Index for subsetting rows:
-index = (df.trait == 'biomass') & df.ndf.isnull()
-
 # Imputing adp:
+index = (df.trait == 'biomass') & df.ndf.isnull()
 df.ndf[index] = np.repeat(tmp['ndf'], np.sum(index))
 
-# Index for subsetting rows:
-index = (df.trait == 'biomass') & df.protein.isnull()
-
 # Imputing adp:
+index = (df.trait == 'biomass') & df.protein.isnull()
 df.protein[index] = np.repeat(tmp['protein'], np.sum(index))
 
-# Index for subsetting rows:
-index = (df.trait == 'biomass') & df.starch.isnull()
-
 # Imputing adp:
+index = (df.trait == 'biomass') & df.starch.isnull()
 df.starch[index] = np.repeat(tmp['starch'], np.sum(index))
 
 ## To do list:
 # 1. Apply log transformation from nonnormal features, using the kaggle code
 # 2. Design the cross-validation scheme
 # 3. Ask the RNAseq data for Ravi
-
-
-
 
