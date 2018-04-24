@@ -327,5 +327,3 @@ df.starch[index] = np.repeat(tmp['starch'], np.sum(index))
 
 
 
-
-
