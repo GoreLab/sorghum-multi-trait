@@ -284,7 +284,7 @@ df = df[df['block'] != 'CHK_STRP'][:]
 df.dap = df.dap.astype(object)
 
 # Averaging over the data structure except the factors evaluated in the multi trait project
-df = df.groupby(['id_gbs', 'loc', 'year', 'trait', 'dap'], as_index=False).mean()
+df = df.groupby(['id_gbs','name1','name2', 'loc', 'year', 'trait', 'dap'], as_index=False).mean()
 
 # Removing the DAP values from biomass, DAP values were taken only for plant height:
 index = ((df.trait == 'biomass') & (df.dap == 120)) | (df.trait == 'height')
@@ -356,8 +356,15 @@ n_loci_per_bin = int(T.shape[1]/n_bin)
 # Transforming the transcriptomic matrix into a binned one:
 T_bin = get_bin(x=T, step_size=n_loci_per_bin)
 
+# 
+
+np.sum(df.name2.isin(T.index))
+
+
 ## To do list:
 # 1. Design the cross-validation scheme
+
+
 
 
 

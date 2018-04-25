@@ -26,7 +26,10 @@ Just for saving less important files, and also so save notes related to the proj
 
 Just for saving the workspace and project from sublime text editor
 
+# Useful directories at the 'cbsugore02'
 
+The git-hub repository directory is: /workdir/jp2476/repo/sorghum-multi-trait
+The gdrive repository directory is (data and plots): /workdir/jp2476/repo/resul_mtrait-proj
 
 
 
