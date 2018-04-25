@@ -27,11 +27,12 @@ from sklearn.metrics import normalized_mutual_info_score
 
 # Prefix of the directory of the project is in:
 # prefix_proj = "/home/jhonathan/Documentos/mtrait-proj/"
-prefix_proj = "/data1/aafgarci/jhonathan/sorghum-multi-trait/"
+# prefix_proj = "/data1/aafgarci/jhonathan/sorghum-multi-trait/"
+prefix_proj = "/workdir/jp2476/repo/sorghum-multi-trait/"
 
 # Prefix where the outputs will be saved:
 # prefix_out = "/home/jhonathan/Documentos/resul_mtrait-proj/"
-prefix_out = "/data1/aafgarci/jhonathan/resul_mtrait-proj/"
+prefix_out = "/workdir/jp2476/repo/resul_mtrait-proj/"
 
 # Setting directory:
 os.chdir(prefix_proj + "codes")
@@ -284,7 +285,7 @@ df = df[df['block'] != 'CHK_STRP'][:]
 df.dap = df.dap.astype(object)
 
 # Averaging over the data structure except the factors evaluated in the multi trait project
-df = df.groupby(['id_gbs','name1','name2', 'loc', 'year', 'trait', 'dap'], as_index=False).mean()
+df = df.groupby(['id_gbs', 'name1', 'name2', 'taxa', 'loc', 'year', 'trait', 'dap'], as_index=False).mean()
 
 # Removing the DAP values from biomass, DAP values were taken only for plant height:
 index = ((df.trait == 'biomass') & (df.dap == 120)) | (df.trait == 'height')
@@ -301,19 +302,19 @@ tmp = df[df.trait == 'biomass'].mean()
 index = (df.trait == 'biomass') & df.adf.isnull()
 df.adf[index] = np.repeat(tmp['adf'], np.sum(index))
 
-# Imputing adp:
+# Imputing moisture:
 index = (df.trait == 'biomass') & df.moisture.isnull()
 df.moisture[index] = np.repeat(tmp['moisture'], np.sum(index))
 
-# Imputing adp:
+# Imputing ndf:
 index = (df.trait == 'biomass') & df.ndf.isnull()
 df.ndf[index] = np.repeat(tmp['ndf'], np.sum(index))
 
-# Imputing adp:
+# Imputing protein:
 index = (df.trait == 'biomass') & df.protein.isnull()
 df.protein[index] = np.repeat(tmp['protein'], np.sum(index))
 
-# Imputing adp:
+# Imputing starch:
 index = (df.trait == 'biomass') & df.starch.isnull()
 df.starch[index] = np.repeat(tmp['starch'], np.sum(index))
 
@@ -347,6 +348,15 @@ for i in range(1,len(tmp[0])): T = np.concatenate([T, rnaseq.filter(like=tmp[0][
 # Transforming to pandas type:
 T = pd.DataFrame(T.transpose(), index=tmp[0], columns=rnaseq.index)
 
+# Indexing just the IDs where there is both genotypic, phenotypic and transcriptomic data:
+tmp = df[df.name1.isin(T.index)][['name1', 'id_gbs']].drop_duplicates()
+
+# Reordering the transcriptomic RNAseq data, and indexing just phenotyped and genotyped individuals:
+T = T.loc[tmp.name1]
+
+# Replacing by the name1 index to the id_gbs index:
+T.index = tmp.id_gbs
+
 # Number of bins:
 n_bin = 700
 
@@ -356,10 +366,11 @@ n_loci_per_bin = int(T.shape[1]/n_bin)
 # Transforming the transcriptomic matrix into a binned one:
 T_bin = get_bin(x=T, step_size=n_loci_per_bin)
 
-# 
+# Transforming the bin matrix into pandas class:
+T_bin = pd.DataFrame(T_bin, index=T.index, columns=map('bin_{}'.format, range(T_bin.shape[1])))
 
-np.sum(df.name2.isin(T.index))
-
+# Removing T from memory:
+T = None
 
 ## To do list:
 # 1. Design the cross-validation scheme
