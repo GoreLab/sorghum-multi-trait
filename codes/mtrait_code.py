@@ -360,6 +360,9 @@ df.protein[index] = np.repeat(tmp['protein'], np.sum(index))
 index = (df.trait == 'biomass') & df.starch.isnull()
 df.starch[index] = np.repeat(tmp['starch'], np.sum(index))
 
+# Removing the range column, it will not be used into the analysis:
+df = df.drop('range', axis=1)
+
 # Traits list:
 tmp = ['adf', 'drymass', 'moisture', 'ndf', 'protein', 'starch', 'height']
 
