@@ -284,8 +284,50 @@ df = df[df['block'] != 'CHK_STRP'][:]
 # Changing data type of the DAP:
 df.dap = df.dap.astype(object)
 
+# Reading RNAseq transcriptomic data:
+rnaseq = pd.read_table("df_STAR_HTSeq_counts_sbDiverse_DESeq2_vstNormalized.txt", index_col=0)
+
+# Getting the inbred lines names that we have RNAseq data:
+tmp = []
+tmp.append(np.unique(rnaseq.columns.str.split('_').str.get(0)))
+
+# Matrix of the transcriptomic data:
+T = np.array((rnaseq.filter(like=tmp[0][0], axis=1).mean(axis=1)))
+T = T.reshape([T.shape[0], 1])
+tmp.append(T.shape)
+
+# Averaging over tissues types:
+for i in range(1,len(tmp[0])): T = np.concatenate([T, rnaseq.filter(like=tmp[0][i], axis=1).mean(axis=1).values.reshape(tmp[1])], axis=1)
+
+# Transforming to pandas type:
+T = pd.DataFrame(T.transpose(), index=tmp[0], columns=rnaseq.index)
+
+# Indexing just the IDs where there is both genotypic, phenotypic and transcriptomic data:
+tmp = df[df.name1.isin(T.index)][['name1', 'id_gbs']].drop_duplicates()
+
+# Reordering the transcriptomic RNAseq data, and indexing just phenotyped and genotyped individuals:
+T = T.loc[tmp.name1]
+
+# Replacing by the name1 index to the id_gbs index:
+T.index = tmp.id_gbs
+
+# Number of bins:
+n_bin = 700
+
+# Number of loci per bin:
+n_loci_per_bin = int(T.shape[1]/n_bin)
+
+# Transforming the transcriptomic matrix into a binned one:
+T_bin = get_bin(x=T, step_size=n_loci_per_bin)
+
+# Transforming the bin matrix into pandas class:
+T_bin = pd.DataFrame(T_bin, index=T.index, columns=map('bin_{}'.format, range(T_bin.shape[1])))
+
+# Removing T from memory:
+T = None
+
 # Averaging over the data structure except the factors evaluated in the multi trait project
-df = df.groupby(['id_gbs', 'name1', 'name2', 'taxa', 'loc', 'year', 'trait', 'dap'], as_index=False).mean()
+df = df.groupby(['id_gbs', 'loc', 'year', 'trait', 'dap'], as_index=False).mean()
 
 # Removing the DAP values from biomass, DAP values were taken only for plant height:
 index = ((df.trait == 'biomass') & (df.dap == 120)) | (df.trait == 'height')
@@ -330,47 +372,6 @@ for i in range(len(tmp)):
 	plt.savefig(prefix_out + 'plots/' + tmp[i] + '.pdf')
 	plt.clf()
 
-# Reading RNAseq transcriptomic data:
-rnaseq = pd.read_table("df_STAR_HTSeq_counts_sbDiverse_DESeq2_vstNormalized.txt", index_col=0)
-
-# Getting the inbred lines names that we have RNAseq data:
-tmp = []
-tmp.append(np.unique(rnaseq.columns.str.split('_').str.get(0)))
-
-# Matrix of the transcriptomic data:
-T = np.array((rnaseq.filter(like=tmp[0][0], axis=1).mean(axis=1)))
-T = T.reshape([T.shape[0], 1])
-tmp.append(T.shape)
-
-# Averaging over tissues types:
-for i in range(1,len(tmp[0])): T = np.concatenate([T, rnaseq.filter(like=tmp[0][i], axis=1).mean(axis=1).values.reshape(tmp[1])], axis=1)
-
-# Transforming to pandas type:
-T = pd.DataFrame(T.transpose(), index=tmp[0], columns=rnaseq.index)
-
-# Indexing just the IDs where there is both genotypic, phenotypic and transcriptomic data:
-tmp = df[df.name1.isin(T.index)][['name1', 'id_gbs']].drop_duplicates()
-
-# Reordering the transcriptomic RNAseq data, and indexing just phenotyped and genotyped individuals:
-T = T.loc[tmp.name1]
-
-# Replacing by the name1 index to the id_gbs index:
-T.index = tmp.id_gbs
-
-# Number of bins:
-n_bin = 700
-
-# Number of loci per bin:
-n_loci_per_bin = int(T.shape[1]/n_bin)
-
-# Transforming the transcriptomic matrix into a binned one:
-T_bin = get_bin(x=T, step_size=n_loci_per_bin)
-
-# Transforming the bin matrix into pandas class:
-T_bin = pd.DataFrame(T_bin, index=T.index, columns=map('bin_{}'.format, range(T_bin.shape[1])))
-
-# Removing T from memory:
-T = None
 
 ## To do list:
 # 1. Design the cross-validation scheme
