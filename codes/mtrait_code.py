@@ -26,12 +26,12 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import normalized_mutual_info_score
 
 # Prefix of the directory of the project is in:
-# prefix_proj = "/home/jhonathan/Documentos/sorghum-multi-trait/"
+# prefix_proj = "/home/jhonathan/Documentos/mtrait-proj/"
 prefix_proj = "/data1/aafgarci/jhonathan/sorghum-multi-trait/"
 
 # Prefix where the outputs will be saved:
-# prefix_out = "/home/jhonathan/Documentos/resul_sorghum-multi-trait/"
-prefix_out = "/data1/aafgarci/jhonathan/resul_sorghum-multi-trait/"
+# prefix_out = "/home/jhonathan/Documentos/resul_mtrait-proj/"
+prefix_out = "/data1/aafgarci/jhonathan/resul_mtrait-proj/"
 
 # Setting directory:
 os.chdir(prefix_proj + "codes")
@@ -358,7 +358,11 @@ T_bin = get_bin(x=T, step_size=n_loci_per_bin)
 
 
 ## To do list:
-# 1. Design the cross-validation scheme
+# 1. Process RNAseq data:
+#   1.1 Average the expression over different sampled issues to reduce the dimension of the data frame
+#   1.2 Subset only data from the inbred lines that we have phenotypic data
+#	1.2 Create new features by averaging expression data into bins, this will reduce the computational time of the analysis
+# 2. Design the cross-validation scheme
 
 
 
