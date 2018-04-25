@@ -356,13 +356,8 @@ n_loci_per_bin = int(T.shape[1]/n_bin)
 # # Transforming the transcriptomic matrix into a binned one:
 T_bin = get_bin(x=T, step_size=n_loci_per_bin)
 
-
 ## To do list:
-# 1. Process RNAseq data:
-#   1.1 Average the expression over different sampled issues to reduce the dimension of the data frame
-#   1.2 Subset only data from the inbred lines that we have phenotypic data
-#	1.2 Create new features by averaging expression data into bins, this will reduce the computational time of the analysis
-# 2. Design the cross-validation scheme
+# 1. Design the cross-validation scheme
 
 
 
