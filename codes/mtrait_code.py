@@ -353,7 +353,7 @@ n_bin = 700
 # Number of loci per bin:
 n_loci_per_bin = int(T.shape[1]/n_bin)
 
-# # Transforming the transcriptomic matrix into a binned one:
+# Transforming the transcriptomic matrix into a binned one:
 T_bin = get_bin(x=T, step_size=n_loci_per_bin)
 
 ## To do list:
