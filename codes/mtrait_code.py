@@ -26,12 +26,12 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import normalized_mutual_info_score
 
 # Prefix of the directory of the project is in:
-# prefix_proj = "/home/jhonathan/Documentos/mtrait-proj/"
-prefix_proj = "/data1/aafgarci/jhonathan/mtrait-proj/"
+# prefix_proj = "/home/jhonathan/Documentos/sorghum-multi-trait/"
+prefix_proj = "/data1/aafgarci/jhonathan/sorghum-multi-trait/"
 
 # Prefix where the outputs will be saved:
-# prefix_out = "/home/jhonathan/Documentos/resul_mtrait-proj/"
-prefix_out = "/data1/aafgarci/jhonathan/resul_mtrait-proj/"
+# prefix_out = "/home/jhonathan/Documentos/resul_sorghum-multi-trait/"
+prefix_out = "/data1/aafgarci/jhonathan/resul_sorghum-multi-trait/"
 
 # Setting directory:
 os.chdir(prefix_proj + "codes")
@@ -333,15 +333,32 @@ for i in range(len(tmp)):
 rnaseq = pd.read_table("df_STAR_HTSeq_counts_sbDiverse_DESeq2_vstNormalized.txt", index_col=0)
 
 # Getting the inbred lines names that we have RNAseq data:
-tmp = np.unique(rnaseq.columns.str.split('_').str.get(0))
+tmp = []
+tmp.append(np.unique(rnaseq.columns.str.split('_').str.get(0)))
+
+# Matrix of the transcriptomic data:
+T = np.array((rnaseq.filter(like=tmp[0][0], axis=1).mean(axis=1)))
+T = T.reshape([T.shape[0], 1])
+tmp.append(T.shape)
+
+# Averaging over tissues types:
+for i in range(1,len(tmp[0])): T = np.concatenate([T, rnaseq.filter(like=tmp[0][i], axis=1).mean(axis=1).values.reshape(tmp[1])], axis=1)
+
+# Transforming to pandas type:
+T = pd.DataFrame(T.transpose(), index=tmp[0], columns=rnaseq.index)
+
+# Number of bins:
+n_bin = 700
+
+# Number of loci per bin:
+n_loci_per_bin = int(T.shape[1]/n_bin)
+
+# # Transforming the transcriptomic matrix into a binned one:
+T_bin = get_bin(x=T, step_size=n_loci_per_bin)
 
 
 ## To do list:
-# 1. Process RNAseq data:
-#   1.1 Average the expression over different sampled issues to reduce the dimension of the data frame
-#   1.2 Subset only data from the inbred lines that we have phenotypic data
-#	1.2 Create new features by averaging expression data into bins, this will reduce the computational time of the analysis
-# 2. Design the cross-validation scheme
+# 1. Design the cross-validation scheme
 
 
 
