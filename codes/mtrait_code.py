@@ -329,10 +329,19 @@ for i in range(len(tmp)):
 	plt.savefig(prefix_out + 'plots/' + tmp[i] + '.pdf')
 	plt.clf()
 
+# Reading RNAseq transcriptomic data:
+rnaseq = pd.read_table("df_STAR_HTSeq_counts_sbDiverse_DESeq2_vstNormalized.txt", index_col=0)
 
+# Getting the inbred lines names that we have RNAseq data:
+tmp = np.unique(rnaseq.columns.str.split('_').str.get(0))
 
 
 ## To do list:
-# 1. Design the cross-validation scheme
-# 2. Ask the RNAseq data for Ravi
+# 1. Process RNAseq data:
+#   1.1 Average the expression over different sampled issues to reduce the dimension of the data frame
+#   1.2 Subset only data from the inbred lines that we have phenotypic data
+#	1.2 Create new features by averaging expression data into bins, this will reduce the computational time of the analysis
+# 2. Design the cross-validation scheme
+
+
 
