@@ -6,23 +6,23 @@ The repository contains codes and information related to the **sorghum multi tra
 
 The folder 'codes' contains the codes written during the development of the project. The most important codes are:
 
-1. mtrait_code.py: Contains all the python code for data processing, cleaning, unification of all data sets into a unique data frame, and the Bayesian Network and Random Deep Neural Network codes, as well as the cross-validation evaluation (under development).
+1. **mtrait_code.py**: Contains all the python code for data processing, cleaning, unification of all data sets into a unique data frame, and the Bayesian Network and Random Deep Neural Network codes, as well as the cross-validation evaluation (under development).
 
-2. mtrait_data_processing.py: Piece of the code within the 'mtrait_code.py', but just containing the data processing part (done).
+2. **mtrait_data_processing.py**: Piece of the code within the 'mtrait_code.py', but just containing the data processing part (done).
 
-3. mtrait_cross_validation_and_models.py: Piece of the code within the 'mtrait_code.py', but just containing the cross-validation and models evaluated (under development).
+3. **mtrait_cross_validation_and_models.py**: Piece of the code within the 'mtrait_code.py', but just containing the cross-validation and models evaluated (under development).
 
-2. external_functions.py: Set of functions already written that the codes (1, 2, 3) depends on (done).
+2. **external_functions.py**: Set of functions already written that the codes (1, 2, 3) depends on (done).
 
-3. mtrait_gdrive.sh: Bash code for transfering data and plots between machines, and also as cloud backup mecanism (done).
+3. **mtrait_gdrive.sh**: Bash code for transfering data and plots between machines, and also as cloud backup mecanism (done).
 
-4. gbs_from_rdata_to_csv.R: Code for transforming the raw ".RData" provided by Sam into ".csv" extension for easy loading into python (done).
+4. **gbs_from_rdata_to_csv.R**: Code for transforming the raw ".RData" provided by Sam into ".csv" extension for easy loading into python (done).
 
-5. useful_bash_code.sh: Useful unix-based bash code, including for run python processes into terminal, as well as to do some local software installation (under development).
+5. **useful_bash_code.sh**: Useful unix-based bash code, including for run python processes into terminal, as well as to do some local software installation (under development).
 
-6. tmp.py: Just to write temporary code in python.
+6. **tmp.py**: Just to write temporary code in python.
 
-7. tmp.R: Just to write temporary code in R.
+7. **tmp.R**: Just to write temporary code in R.
 
 # Folder 'notes'
 
