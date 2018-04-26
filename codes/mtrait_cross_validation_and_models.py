@@ -90,8 +90,45 @@ index = df.trait=='biomass'
 y_biomass = df.drymass[index][np.invert(df.drymass[index].isnull())]
 
 
-#-----------------------------------Preparing data for cross-validation--------------------------------------#
+#----------------------------------Preparing data for cross-validation---------------------------------------#
 
+# Subsetting data into train and (dev set + test set) for height data:
+X_height_trn, X_height_dev, y_height_trn, y_height_dev = train_test_split(X_height,
+ 		                                                            	  y_height,
+                                                          				  test_size=0.2,
+                                                          				  random_state=1234)
 
+# Subsetting (dev set + test set) into dev set and test set:
+X_height_dev, X_height_tst, y_height_dev, y_height_tst = train_test_split(X_height_dev,
+	                                                            		  y_height_dev,
+                                                          				  test_size=0.50,
+                                                          				  random_state=1234)
 
+# Subsetting data into train and (dev set + test set) for biomass data:
+X_biomass_trn, X_biomass_dev, y_biomass_trn, y_biomass_dev = train_test_split(X_biomass,
+ 		                                                            	  	  y_biomass,
+                                                          				  	  test_size=0.2,
+                                                          				  	  random_state=1234)
+
+# Subsetting (dev set + test set) into dev set and test set:
+X_biomass_dev, X_biomass_tst, y_biomass_dev, y_biomass_tst = train_test_split(X_biomass_dev,
+	                                                            		  	  y_biomass_dev,
+                                                          				  	  test_size=0.50,
+                                                          				  	  random_state=1234)
+
+# Checking shapes of the matrices related to height:
+X_height_trn.shape
+X_height_dev.shape
+X_height_tst.shape
+y_height_trn.shape
+y_height_dev.shape
+y_height_tst.shape
+
+# Checking shapes of the matrices related to biomass:
+X_biomass_trn.shape
+X_biomass_dev.shape
+X_biomass_tst.shape
+y_biomass_trn.shape
+y_biomass_dev.shape
+y_biomass_tst.shape
 
