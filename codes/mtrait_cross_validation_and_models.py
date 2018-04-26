@@ -47,17 +47,24 @@ from external_functions import *
 os.chdir(prefix_out + "data")
 
 # Loading the data frame with phenotypic data and id's:
-df = pd.read_csv("df.csv")
+df = pd.read_csv("df.csv", header = 0, index_col=0)
 
 # Loading the genomic binned matrix under Cockerham's model:
-W_bin = pd.read_csv("W_bin.csv")
+W_bin = pd.read_csv("W_bin.csv", header = 0, index_col=0)
 
 # Loading the transcriptomic binned matrix:
-T_bin = pd.read_csv("T_bin.csv")
-
+T_bin = pd.read_csv("T_bin.csv", header = 0, index_col=0)
 
 ## To do list:
 # 1. Build the feature matrix
 # 2. Split the feature matrix into 80% train, 10% dev, and 10% test randomly
+
+
+
+
+
+X = pd.get_dummies(df.loc[:,"DAP":"BLOCK"])
+
+
 
 
