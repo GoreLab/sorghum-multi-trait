@@ -382,7 +382,8 @@ for i in range(len(tmp)):
 df.to_csv("df.csv")
 
 # Writing the genomic binned matrix under Cockerham's model:						
-df.to_csv("W_bin.csv")
+W_bin.to_csv("W_bin.csv")
 
 # Writing the transcriptomic binned matrix:
-df.to_csv("T_bin.csv")
+T_bin.to_csv("T_bin.csv")
+
