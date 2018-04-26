@@ -378,12 +378,11 @@ for i in range(len(tmp)):
 
 ## Writing into the disk the cleaned data:
 
-# Loading the data frame with phenotypic data and id's:
-df = pd.read_csv("df.csv")
+# Writing the full data frame with phenotypic data and IDs:
+df.to_csv("df.csv")
 
-# Loading the genomic binned matrix under Cockerham's model:
-W_bin = pd.read_csv("W_bin.csv")
+# Writing the genomic binned matrix under Cockerham's model:						
+W_bin.to_csv("W_bin.csv")
 
-# Loading the transcriptomic binned matrix:
-T_bin = pd.read_csv("T_bin.csv")
-
+# Writing the transcriptomic binned matrix:
+T_bin.to_csv("T_bin.csv")

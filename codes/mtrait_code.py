@@ -386,4 +386,3 @@ W_bin.to_csv("W_bin.csv")
 
 # Writing the transcriptomic binned matrix:
 T_bin.to_csv("T_bin.csv")
-
