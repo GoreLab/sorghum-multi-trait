@@ -95,7 +95,7 @@ y_biomass = df.drymass[index][np.invert(df.drymass[index].isnull())]
 # Subsetting data into train and (dev set + test set) for height data:
 X_height_trn, X_height_dev, y_height_trn, y_height_dev = train_test_split(X_height,
  		                                                            	  y_height,
-                                                          				  test_size=0.2,
+                                                          				  test_size=0.3,
                                                           				  random_state=1234)
 
 # Subsetting (dev set + test set) into dev set and test set:
@@ -107,7 +107,7 @@ X_height_dev, X_height_tst, y_height_dev, y_height_tst = train_test_split(X_heig
 # Subsetting data into train and (dev set + test set) for biomass data:
 X_biomass_trn, X_biomass_dev, y_biomass_trn, y_biomass_dev = train_test_split(X_biomass,
  		                                                            	  	  y_biomass,
-                                                          				  	  test_size=0.2,
+                                                          				  	  test_size=0.3,
                                                           				  	  random_state=1234)
 
 # Subsetting (dev set + test set) into dev set and test set:
