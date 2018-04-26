@@ -55,3 +55,9 @@ W_bin = pd.read_csv("W_bin.csv")
 # Loading the transcriptomic binned matrix:
 T_bin = pd.read_csv("T_bin.csv")
 
+
+## To do list:
+# 1. Build the feature matrix
+# 2. Split the feature matrix into 80% train, 10% dev, and 10% test randomly
+
+
