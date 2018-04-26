@@ -70,7 +70,21 @@ X_height = pd.get_dummies(df.loc[df.trait=='height', index])
 tmp = pd.get_dummies(df.id_gbs[df.trait=='height'])
 X_height = np.hstack((np.dot(tmp, W_bin.loc[tmp.columns.tolist()]), X_height))
 
+# Removing rows of the missing entries from the feature matrix:
+X_height = X_height[np.invert(df.height.isnull())]
 
+
+
+# # Building the feature matrix for the biomass:
+# index = ['loc', 'year', 'dap']
+# X_biomass = pd.get_dummies(df.loc[df.trait=='biomass', index])
+
+# # Adding the bin matrix to the feature matrix:
+# tmp = pd.get_dummies(df.id_gbs[df.trait=='biomass'])
+# X_biomass = np.hstack((np.dot(tmp, W_bin.loc[tmp.columns.tolist()]), X_biomass))
+
+	
+	
 
 
 
