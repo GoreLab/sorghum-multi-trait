@@ -41,7 +41,8 @@ os.chdir(prefix_proj + "codes")
 # Loading external functions:
 from external_functions import * 
 
-#-----------------------------------Preparing data for cross-validation--------------------------------------#
+
+#--------------------------Building design/feature matrices for height and biomass---------------------------#
 
 # Setting the directory:
 os.chdir(prefix_out + "data")
@@ -55,10 +56,6 @@ W_bin = pd.read_csv("W_bin.csv", header = 0, index_col=0)
 # Loading the transcriptomic binned matrix:
 T_bin = pd.read_csv("T_bin.csv", header = 0, index_col=0)
 
-## To do list:
-# 1. Build the feature matrix
-# 2. Split the feature matrix into 80% train, 10% dev, and 10% test randomly
-
 # Changing the class of the year column:
 df.year = df.year.astype(object)
 
@@ -71,20 +68,30 @@ tmp = pd.get_dummies(df.id_gbs[df.trait=='height'])
 X_height = np.hstack((np.dot(tmp, W_bin.loc[tmp.columns.tolist()]), X_height))
 
 # Removing rows of the missing entries from the feature matrix:
-X_height = X_height[np.invert(df.height.isnull())]
+X_height = X_height[np.invert(df.height[df.trait=='height'].isnull())]
+
+# Creating a variable to receive the response without the missing values:
+index = df.trait=='height'
+y_height = df.height[index][np.invert(df.height[index].isnull())]
+
+# Building the feature matrix for the biomass:
+index = ['loc', 'year', 'adf', 'moisture', 'ndf', 'protein', 'starch']
+X_biomass = pd.get_dummies(df.loc[df.trait=='biomass', index])
+
+# Adding the bin matrix to the feature matrix:
+tmp = pd.get_dummies(df.id_gbs[df.trait=='biomass'])
+X_biomass = np.hstack((np.dot(tmp, W_bin.loc[tmp.columns.tolist()]), X_biomass))
+
+# Removing rows of the missing entries from the feature matrix:
+X_biomass = X_biomass[np.invert(df.drymass[df.trait=='biomass'].isnull())]
+
+# Creating a variable to receive the response without the missing values:
+index = df.trait=='biomass'
+y_biomass = df.drymass[index][np.invert(df.drymass[index].isnull())]
 
 
+#-----------------------------------Preparing data for cross-validation--------------------------------------#
 
-# # Building the feature matrix for the biomass:
-# index = ['loc', 'year', 'dap']
-# X_biomass = pd.get_dummies(df.loc[df.trait=='biomass', index])
-
-# # Adding the bin matrix to the feature matrix:
-# tmp = pd.get_dummies(df.id_gbs[df.trait=='biomass'])
-# X_biomass = np.hstack((np.dot(tmp, W_bin.loc[tmp.columns.tolist()]), X_biomass))
-
-	
-	
 
 
 
