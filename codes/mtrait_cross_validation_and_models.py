@@ -66,8 +66,6 @@ X_height = pd.get_dummies(df.loc[df.trait=='height', index])
 
 
 
-X_biomass = pd.get_dummies(df.loc[:,"DAP":"BLOCK"])
-
 
 
 

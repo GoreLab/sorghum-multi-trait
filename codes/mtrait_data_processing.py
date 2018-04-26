@@ -365,7 +365,7 @@ df.starch[index] = np.repeat(tmp['starch'], np.sum(index))
 df = df.drop('range', axis=1)
 
 # Changing the data type of the 'year' feature:
-df.year = df.year.dtype(object)
+df.year = df.year.astype(object)
 
 # Traits list:
 tmp = ['adf', 'drymass', 'moisture', 'ndf', 'protein', 'starch', 'height']
