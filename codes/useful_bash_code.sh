@@ -13,7 +13,6 @@ PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
 ${PREFIX_python}/python ${PREFIX_code}/mtrait_data_processing.py & 
 
 
-
 ############################ Install python locally ####################################
 
 # For install python local:
@@ -31,6 +30,7 @@ bash ./Anaconda3-5.0.1-Linux-x86_64.sh
 # Bug-solve instruction in tensorflow:
 # when saving the output from the tensorflow,
 # define the dir first, then do ./ on the dir arg of tf_saver
+
 
 #########################################################################################
 
