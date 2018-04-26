@@ -59,12 +59,16 @@ T_bin = pd.read_csv("T_bin.csv", header = 0, index_col=0)
 # 1. Build the feature matrix
 # 2. Split the feature matrix into 80% train, 10% dev, and 10% test randomly
 
+# Changing the class of the year column:
+df.year = df.year.astype(object)
 
 # Building the feature matrix for the height:
 index = ['loc', 'year', 'dap']
 X_height = pd.get_dummies(df.loc[df.trait=='height', index])
 
-
+# Adding the bin matrix to the feature matrix:
+tmp = pd.get_dummies(df.id_gbs[df.trait=='height'])
+X_height = np.hstack((np.dot(tmp, W_bin.loc[tmp.columns.tolist()]), X_height))
 
 
 
