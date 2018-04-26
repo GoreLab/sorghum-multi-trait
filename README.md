@@ -10,7 +10,7 @@ The folder 'codes' contains the codes written during the development of the proj
 
 2. mtrait_data_processing.py: Piece of the code within the 'mtrait_code.py', but just containing the data processing part (done).
 
-3. mtrait_cross_validation_and_models: Piece of the code within the 'mtrait_code.py', but just containing the cross-validation and models evaluated (under development).
+3. mtrait_cross_validation_and_models.py: Piece of the code within the 'mtrait_code.py', but just containing the cross-validation and models evaluated (under development).
 
 2. external_functions.py: Set of functions already written that the codes (1, 2, 3) depends on (done).
 
