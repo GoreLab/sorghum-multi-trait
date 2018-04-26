@@ -30,7 +30,7 @@ Just for saving less important files, and also so save notes related to the proj
 
 Just for saving the workspace and project from sublime text editor
 
-# Useful directories at the 'cbsugore02' lab cluster
+# Directories at the 'cbsugore02' lab cluster
 
 **The github repository directory is (code, notes, and sublime workspace):** */workdir/jp2476/repo/sorghum-multi-trait*
 
