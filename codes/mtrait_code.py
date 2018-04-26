@@ -376,6 +376,11 @@ for i in range(len(tmp)):
 	plt.savefig(prefix_out + 'plots/' + tmp[i] + '.pdf')
 	plt.clf()
 
+# Reordering the columns of the data frame:
+tmp = df.columns.tolist()
+tmp = tmp[0:5] + [tmp[5]] + tmp[7:11] + [tmp[6]] + [tmp[-1]]
+df = df[tmp]
+
 ## Writing into the disk the cleaned data:
 
 # Writing the full data frame with phenotypic data and IDs:
