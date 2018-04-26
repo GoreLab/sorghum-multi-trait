@@ -26,7 +26,7 @@ The folder 'codes' contains the codes written during the development of the proj
 
 # Folder 'notes'
 
-Just for saving less important files, and also so save notes related to the project
+Just for saving less important files, and also so save notes related to the project.
 
 # Folder 'sublime'
 

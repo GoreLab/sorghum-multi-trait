@@ -162,7 +162,7 @@ tmp = list(itertools.combinations(range(0,n_df), 2))
 print(tmp)
 
 # Checking intersection of the plots across data sets:
-for i,j in tmp: len(np.unique(np.intersect1d(df[i]["plot"], df[j]["plot"])))
+for i, j in tmp: len(np.unique(np.intersect1d(df[i]["plot"], df[j]["plot"])))
 
 # Lacking information on the height/2016:
 print(np.setdiff1d(list(df[0]), list(df[2])))
@@ -363,6 +363,9 @@ df.starch[index] = np.repeat(tmp['starch'], np.sum(index))
 
 # Removing the range column, it will not be used into the analysis:
 df = df.drop('range', axis=1)
+
+# Changing the data type of the 'year' feature:
+df.year = df.year.dtype(object)
 
 # Traits list:
 tmp = ['adf', 'drymass', 'moisture', 'ndf', 'protein', 'starch', 'height']

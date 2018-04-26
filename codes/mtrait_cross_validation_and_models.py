@@ -60,10 +60,14 @@ T_bin = pd.read_csv("T_bin.csv", header = 0, index_col=0)
 # 2. Split the feature matrix into 80% train, 10% dev, and 10% test randomly
 
 
+# Building the feature matrix for the height:
+index = ['loc', 'year', 'dap']
+X_height = pd.get_dummies(df.loc[df.trait=='height', index])
 
 
 
-X = pd.get_dummies(df.loc[:,"DAP":"BLOCK"])
+X_biomass = pd.get_dummies(df.loc[:,"DAP":"BLOCK"])
+
 
 
 
