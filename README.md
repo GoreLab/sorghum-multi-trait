@@ -14,13 +14,15 @@ The folder 'codes' contains the codes written during the development of the proj
 
 2. external_functions.py: Set of functions already written that the codes (1, 2, 3) depends on (done).
 
-3. mtrait_gdrive.sh: Bash code for transfering data and plots between machines, and also as cloud backup mecanism, and other useful bash codes (done).
+3. mtrait_gdrive.sh: Bash code for transfering data and plots between machines, and also as cloud backup mecanism (done).
 
 4. gbs_from_rdata_to_csv.R: Code for transforming the raw ".RData" provided by Sam into ".csv" extension for easy loading into python (done).
 
-5. tmp.py: Just to write temporary code in python.
+5. useful_bash_code.sh: Useful unix-based bash code, including for run python processes into terminal, as well as to do some local software installation (under development).
 
-6. tmp.R: Just to write temporary code in R.
+6. tmp.py: Just to write temporary code in python.
+
+7. tmp.R: Just to write temporary code in R.
 
 # Folder 'notes'
 

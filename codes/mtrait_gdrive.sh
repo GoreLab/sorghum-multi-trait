@@ -1,5 +1,4 @@
 
-
 ########################################Spalla###########################################
 
 ## Uploading the folder content [Whole folder]:
@@ -38,7 +37,7 @@ gdrive sync download --delete-extraneous --timeout 10000000 1N45DjnYKcAmQiOpX_4X
 /data1/aafgarci/jhonathan/sorghum-multi-trait/codes/gdrive sync download --delete-extraneous  --timeout 10000000 1N45DjnYKcAmQiOpX_4Xg9gESyfihXikN \
 /data1/aafgarci/jhonathan/resul_mtrait-proj
 
-####################################### cbsugore02 #########################################
+####################################### cbsugore02 #######################################
 
 ## Uploading the folder content [Whole folder]:
 /workdir/jp2476/repo/sorghum-multi-trait/codes/gdrive sync upload --delete-extraneous --timeout 10000000 /workdir/jp2476/repo/resul_mtrait-proj \
@@ -48,27 +47,4 @@ gdrive sync download --delete-extraneous --timeout 10000000 1N45DjnYKcAmQiOpX_4X
 /workdir/jp2476/repo/sorghum-multi-trait/codes/gdrive sync download --delete-extraneous  --timeout 10000000 1N45DjnYKcAmQiOpX_4Xg9gESyfihXikN \
 /workdir/jp2476/repo/resul_mtrait-proj
 
-############################ Install python locally ####################################
-
-
-# For install python local:
-bash ./Anaconda3-5.0.1-Linux-x86_64.sh
-
-# Folder where the python is installed:
-/workdir/jp2476/software/python
-
-# To install modules:
-/workdir/jp2476/software/python/bin/pip install SOFTWARE_NAME --upgrade
-
-# To fire bash:
-/workdir/jp2476/software/python/bin/python/bash_2layers.py > out.txt
-
-# Bug instruction:
-# when saving the output from the tensorflow, define the dir first, then do ./ on the dir arg of tf_saver
-
-#########################################################################################
-
-
-
-
-## On going analysi
+##########################################################################################
