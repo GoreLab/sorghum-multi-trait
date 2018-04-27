@@ -146,6 +146,3 @@ X_biomass_tst.shape
 y_biomass_tst.shape
 
 #----------------------------Subdivision of the height data into mini-batches--------------------------------#
-
-
-
