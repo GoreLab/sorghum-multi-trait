@@ -69,7 +69,7 @@ X['height'] = pd.get_dummies(df.loc[df.trait=='height', index])
 
 # Adding the bin matrix to the feature matrix:
 tmp = pd.get_dummies(df.id_gbs[df.trait=='height'])
-X['height'] = np.hstack((np.dot(tmp, W_bin.loc[tmp.columns.tolist()]), X['height']))
+X['height'] = pd.concat([X['height'], tmp.dot(W_bin.loc[tmp.columns.tolist()])], axis=1)
 
 # Removing rows of the missing entries from the feature matrix:
 X['height'] = X['height'][np.invert(df.height[df.trait=='height'].isnull())]
@@ -79,12 +79,12 @@ index = df.trait=='height'
 y['height'] = df.height[index][np.invert(df.height[index].isnull())]
 
 # Building the feature matrix for the biomass:
-index = ['loc', 'year', 'adf', 'moisture', 'ndf', 'protein', 'starch']
+index = ['loc', 'year']
 X['biomass'] = pd.get_dummies(df.loc[df.trait=='biomass', index])
 
 # Adding the bin matrix to the feature matrix:
 tmp = pd.get_dummies(df.id_gbs[df.trait=='biomass'])
-X['biomass'] = np.hstack((np.dot(tmp, W_bin.loc[tmp.columns.tolist()]), X['biomass']))
+X['biomass'] = pd.concat([X['biomass'], tmp.dot(W_bin.loc[tmp.columns.tolist()])], axis=1)
 
 # Removing rows of the missing entries from the feature matrix:
 X['biomass'] = X['biomass'][np.invert(df.drymass[df.trait=='biomass'].isnull())]
@@ -178,13 +178,9 @@ for k in tmp:
 		# Getting the positions on the height training set related to the mini-batch i:
 		index = df.id_gbs.loc[index_cv['height_' + k]].isin(index_mbatch[i])
 		# Indexing height values of the mini-batch i:
-		y['height_'+ k + '_mb_' + str(i)] = y['height_' + k][index]
 		X['height_'+ k + '_mb_' + str(i)] = X['height_' + k][index]
+		y['height_'+ k + '_mb_' + str(i)] = y['height_' + k][index]
 		index_cv['height_'+ k +'_mb_' + str(i)] = index_cv['height_' + k][index]
 		# Printing shapes:
-		y['height_'+ k + '_mb_' + str(i)].shape
 		X['height_'+ k + '_mb_' + str(i)].shape
-
-
-
-
+		y['height_'+ k + '_mb_' + str(i)].shape
