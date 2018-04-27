@@ -365,9 +365,6 @@ df.starch[index] = np.repeat(tmp['starch'], np.sum(index))
 # Removing the range column, it will not be used into the analysis:
 df = df.drop('range', axis=1)
 
-# Changing the data type of the 'year' feature:
-df.year = df.year.astype(object)
-
 # Traits list:
 tmp = ['adf', 'drymass', 'moisture', 'ndf', 'protein', 'starch', 'height']
 
@@ -384,6 +381,12 @@ for i in range(len(tmp)):
 tmp = df.columns.tolist()
 tmp = tmp[0:5] + [tmp[5]] + tmp[7:11] + [tmp[6]] + [tmp[-1]]
 df = df[tmp]
+
+# Changing the indexes of the data frame:
+df.index = range(df.shape[0]) 
+
+# Changing the data type of the 'year' feature:
+df.year = df.year.astype(object)
 
 ## Writing into the disk the cleaned data:
 

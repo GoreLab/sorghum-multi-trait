@@ -92,11 +92,15 @@ y_biomass = df.drymass[index][np.invert(df.drymass[index].isnull())]
 
 #----------------------------------Preparing data for cross-validation---------------------------------------#
 
+# Index to receive the position of the data frame:
+index_cv = dict()
+
 # Subsetting data into train and (dev set + test set) for height data:
-X_height_trn, X_height_dev, y_height_trn, y_height_dev = train_test_split(X_height,
- 		                                                            	  y_height,
-                                                          				  test_size=0.3,
-                                                          				  random_state=1234)
+X_height_trn, X_height_dev, y_height_trn, y_height_dev, index_cv['height_trn'], index_cv['height_dev'] = train_test_split(X_height, 
+																														  y_height,
+ 		                                                																  df.height[df.trait=='height'].index,
+                                                        																  test_size=0.3,
+                                                        																  random_state=1234)
 
 # Subsetting (dev set + test set) into dev set and test set:
 X_height_dev, X_height_tst, y_height_dev, y_height_tst = train_test_split(X_height_dev,
@@ -131,4 +135,8 @@ X_biomass_tst.shape
 y_biomass_trn.shape
 y_biomass_dev.shape
 y_biomass_tst.shape
+
+#----------------------------Subdivision of the height data into mini-batches--------------------------------#
+
+
 

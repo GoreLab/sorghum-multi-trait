@@ -38,5 +38,3 @@ Just for saving the workspace and project from sublime text editor
 
 **The gdrive repository directory is (data and plots):** */workdir/jp2476/repo/resul_mtrait-proj*
 
-
-
