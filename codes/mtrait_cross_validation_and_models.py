@@ -169,13 +169,22 @@ mbatch_size = 4
 # Splitting the list of names of the inbred lines into 4 sublists for indexing the mini-batches:
 index_mbatch = list(split(index_mbatch, int(np.round(len(index_mbatch)/mbatch_size)) ))
 
-## Indexing the mini-batches:
+# Type of sets:
+tmp = ['trn', 'dev', 'tst']
 
-# Creating an empty list:
-y['height_trn']_mb = []
+# Indexing the mini-batches for the height trait:
+for k in tmp:
+	for i in range(mbatch_size):
+		# Getting the positions on the height training set related to the mini-batch i:
+		index = df.id_gbs.loc[index_cv['height_' + k]].isin(index_mbatch[i])
+		# Indexing height values of the mini-batch i:
+		y['height_'+ k + '_mb_' + str(i)] = y['height_' + k][index]
+		X['height_'+ k + '_mb_' + str(i)] = X['height_' + k][index]
+		index_cv['height_'+ k +'_mb_' + str(i)] = index_cv['height_' + k][index]
+		# Printing shapes:
+		y['height_'+ k + '_mb_' + str(i)].shape
+		X['height_'+ k + '_mb_' + str(i)].shape
 
-index = df.id_gbs.loc[index_cv['height_trn']].isin(index_mbatch[0])
 
 
-y['height_trn']_mb[0] = y['height_trn'][]
 
