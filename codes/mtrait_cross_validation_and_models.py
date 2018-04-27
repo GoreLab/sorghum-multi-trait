@@ -184,3 +184,11 @@ for k in tmp:
 		# Printing shapes:
 		X['height_'+ k + '_mb_' + str(i)].shape
 		y['height_'+ k + '_mb_' + str(i)].shape
+
+
+## To do list:
+# 1. Create the Bayesian network stan code to run the model without pleiotropic effects
+# 2. Code the Random Deep Neural Network
+# 3. Create the code to get the rMSE statistic of the train, dev, and test errors using the posterior mean of the predictions
+# 4. Create a plot of the generated data against the observed data against the predicted data
+# 5. Plot the rMSE statistic for the train, dev and test errors, but using all posterior predictions
