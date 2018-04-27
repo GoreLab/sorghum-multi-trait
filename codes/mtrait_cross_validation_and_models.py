@@ -162,3 +162,4 @@ df.id_gbs[df.trait=='biomass'].drop_duplicates()
 tmp = pd.cut([1,2,3,4,5,6],3,precision=0)
 
 [1,2,3,4,5,6][tmp]
+
