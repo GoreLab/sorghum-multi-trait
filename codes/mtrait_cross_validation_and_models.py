@@ -129,6 +129,15 @@ X_biomass_dev, X_biomass_tst, y_biomass_dev, y_biomass_tst, index_cv['biomass_de
                                                           				  												        test_size=0.50,
                                                           				  												        random_state=1234)
 
+# Reshaping responses:
+y_height_trn = np.reshape(y_height_trn, (y_height_trn.shape[0], 1))
+y_height_dev = np.reshape(y_height_dev, (y_height_dev.shape[0], 1))
+y_height_tst = np.reshape(y_height_tst, (y_height_tst.shape[0], 1))
+y_biomass_trn = np.reshape(y_biomass_trn, (y_biomass_trn.shape[0], 1))
+y_biomass_dev = np.reshape(y_biomass_dev, (y_biomass_dev.shape[0], 1))
+y_biomass_tst = np.reshape(y_biomass_tst, (y_biomass_tst.shape[0], 1))
+
+
 # Checking shapes of the matrices related to height:
 X_height_trn.shape
 y_height_trn.shape
@@ -146,3 +155,10 @@ X_biomass_tst.shape
 y_biomass_tst.shape
 
 #----------------------------Subdivision of the height data into mini-batches--------------------------------#
+
+df.id_gbs[df.trait=='biomass'].drop_duplicates()
+
+
+tmp = pd.cut([1,2,3,4,5,6],3,precision=0)
+
+[1,2,3,4,5,6][tmp]

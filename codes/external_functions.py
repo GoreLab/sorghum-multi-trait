@@ -7,6 +7,11 @@ import numpy
 import os
 import pandas
 
+## Yield successive n-sized chunks from x
+def split(x, n):
+    for i in range(0, len(x), n):
+        yield x[i:i + n]
+
 ## Function to construct bins:
 def get_bin(x, step_size):
 	# Renaming the array column names:
