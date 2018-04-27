@@ -59,35 +59,39 @@ T_bin = pd.read_csv("T_bin.csv", header = 0, index_col=0)
 # Changing the class of the year column:
 df.year = df.year.astype(object)
 
+# Creating an empty dictionary to receive the feature matrices and response vectors:
+X = dict()
+y = dict()
+
 # Building the feature matrix for the height:
 index = ['loc', 'year', 'dap']
-X_height = pd.get_dummies(df.loc[df.trait=='height', index])
+X['height'] = pd.get_dummies(df.loc[df.trait=='height', index])
 
 # Adding the bin matrix to the feature matrix:
 tmp = pd.get_dummies(df.id_gbs[df.trait=='height'])
-X_height = np.hstack((np.dot(tmp, W_bin.loc[tmp.columns.tolist()]), X_height))
+X['height'] = np.hstack((np.dot(tmp, W_bin.loc[tmp.columns.tolist()]), X['height']))
 
 # Removing rows of the missing entries from the feature matrix:
-X_height = X_height[np.invert(df.height[df.trait=='height'].isnull())]
+X['height'] = X['height'][np.invert(df.height[df.trait=='height'].isnull())]
 
 # Creating a variable to receive the response without the missing values:
 index = df.trait=='height'
-y_height = df.height[index][np.invert(df.height[index].isnull())]
+y['height'] = df.height[index][np.invert(df.height[index].isnull())]
 
 # Building the feature matrix for the biomass:
 index = ['loc', 'year', 'adf', 'moisture', 'ndf', 'protein', 'starch']
-X_biomass = pd.get_dummies(df.loc[df.trait=='biomass', index])
+X['biomass'] = pd.get_dummies(df.loc[df.trait=='biomass', index])
 
 # Adding the bin matrix to the feature matrix:
 tmp = pd.get_dummies(df.id_gbs[df.trait=='biomass'])
-X_biomass = np.hstack((np.dot(tmp, W_bin.loc[tmp.columns.tolist()]), X_biomass))
+X['biomass'] = np.hstack((np.dot(tmp, W_bin.loc[tmp.columns.tolist()]), X['biomass']))
 
 # Removing rows of the missing entries from the feature matrix:
-X_biomass = X_biomass[np.invert(df.drymass[df.trait=='biomass'].isnull())]
+X['biomass'] = X['biomass'][np.invert(df.drymass[df.trait=='biomass'].isnull())]
 
 # Creating a variable to receive the response without the missing values:
 index = df.trait=='biomass'
-y_biomass = df.drymass[index][np.invert(df.drymass[index].isnull())]
+y['biomass'] = df.drymass[index][np.invert(df.drymass[index].isnull())]
 
 
 #----------------------------------Preparing data for cross-validation---------------------------------------#
@@ -99,15 +103,15 @@ index = df.trait=='height'
 index_cv = dict()
 
 # Subsetting data into train and (dev set + test set) for height data:
-X_height_trn, X_height_dev, y_height_trn, y_height_dev, index_cv['height_trn'], index_cv['height_dev'] = train_test_split(X_height, 
-																														  y_height,
+X['height_trn'], X['height_dev'], y['height_trn'], y['height_dev'], index_cv['height_trn'], index_cv['height_dev'] = train_test_split(X['height'], 
+																														  y['height'],
  		                                                																  df.height[index][np.invert(df.height[index].isnull())].index,
                                                         																  test_size=0.3,
                                                         																  random_state=1234)
 
 # Subsetting (dev set + test set) into dev set and test set:
-X_height_dev, X_height_tst, y_height_dev, y_height_tst, index_cv['height_dev'], index_cv['height_tst'] = train_test_split(X_height_dev,
-	                                                            		  												  y_height_dev,
+X['height_dev'], X['height_tst'], y['height_dev'], y['height_tst'], index_cv['height_dev'], index_cv['height_tst'] = train_test_split(X['height_dev'],
+	                                                            		  												  y['height_dev'],
 	                                                            		  												  index_cv['height_dev'],
                                                           				  												  test_size=0.50,
                                                           				  												  random_state=1234)
@@ -116,43 +120,43 @@ X_height_dev, X_height_tst, y_height_dev, y_height_tst, index_cv['height_dev'], 
 index = df.trait=='biomass'
 
 # Subsetting data into train and (dev set + test set) for biomass data:
-X_biomass_trn, X_biomass_dev, y_biomass_trn, y_biomass_dev, index_cv['biomass_trn'], index_cv['biomass_dev'] = train_test_split(X_biomass, 
-																														        y_biomass,
+X['biomass_trn'], X['biomass_dev'], y['biomass_trn'], y['biomass_dev'], index_cv['biomass_trn'], index_cv['biomass_dev'] = train_test_split(X['biomass'], 
+																														        y['biomass'],
  		                                                																        df.drymass[index][np.invert(df.drymass[index].isnull())].index,
                                                         																        test_size=0.3,
                                                         																        random_state=1234)
 
 # Subsetting (dev set + test set) into dev set and test set:
-X_biomass_dev, X_biomass_tst, y_biomass_dev, y_biomass_tst, index_cv['biomass_dev'], index_cv['biomass_tst'] = train_test_split(X_biomass_dev,
-	                                                            		  												        y_biomass_dev,
+X['biomass_dev'], X['biomass_tst'], y['biomass_dev'], y['biomass_tst'], index_cv['biomass_dev'], index_cv['biomass_tst'] = train_test_split(X['biomass_dev'],
+	                                                            		  												        y['biomass_dev'],
 	                                                            		  												        index_cv['biomass_dev'],
                                                           				  												        test_size=0.50,
                                                           				  												        random_state=1234)
 
 # Reshaping responses:
-y_height_trn = np.reshape(y_height_trn, (y_height_trn.shape[0], 1))
-y_height_dev = np.reshape(y_height_dev, (y_height_dev.shape[0], 1))
-y_height_tst = np.reshape(y_height_tst, (y_height_tst.shape[0], 1))
-y_biomass_trn = np.reshape(y_biomass_trn, (y_biomass_trn.shape[0], 1))
-y_biomass_dev = np.reshape(y_biomass_dev, (y_biomass_dev.shape[0], 1))
-y_biomass_tst = np.reshape(y_biomass_tst, (y_biomass_tst.shape[0], 1))
+y['height_trn'] = np.reshape(y['height_trn'], (y['height_trn'].shape[0], 1))
+y['height_dev'] = np.reshape(y['height_dev'], (y['height_dev'].shape[0], 1))
+y['height_tst'] = np.reshape(y['height_tst'], (y['height_tst'].shape[0], 1))
+y['biomass_trn'] = np.reshape(y['biomass_trn'], (y['biomass_trn'].shape[0], 1))
+y['biomass_dev'] = np.reshape(y['biomass_dev'], (y['biomass_dev'].shape[0], 1))
+y['biomass_tst'] = np.reshape(y['biomass_tst'], (y['biomass_tst'].shape[0], 1))
 
 
 # Checking shapes of the matrices related to height:
-X_height_trn.shape
-y_height_trn.shape
-X_height_dev.shape
-y_height_dev.shape
-X_height_tst.shape
-y_height_tst.shape
+X['height_trn'].shape
+y['height_trn'].shape
+X['height_dev'].shape
+y['height_dev'].shape
+X['height_tst'].shape
+y['height_tst'].shape
 
 # Checking shapes of the matrices related to biomass:
-X_biomass_trn.shape
-y_biomass_trn.shape
-X_biomass_dev.shape
-y_biomass_dev.shape
-X_biomass_tst.shape
-y_biomass_tst.shape
+X['biomass_trn'].shape
+y['biomass_trn'].shape
+X['biomass_dev'].shape
+y['biomass_dev'].shape
+X['biomass_tst'].shape
+y['biomass_tst'].shape
 
 #----------------------------Subdivision of the height data into mini-batches--------------------------------#
 
@@ -165,8 +169,13 @@ mbatch_size = 4
 # Splitting the list of names of the inbred lines into 4 sublists for indexing the mini-batches:
 index_mbatch = list(split(index_mbatch, int(np.round(len(index_mbatch)/mbatch_size)) ))
 
-# Indexing the mini-batches:
+## Indexing the mini-batches:
 
+# Creating an empty list:
+y['height_trn']_mb = []
 
 index = df.id_gbs.loc[index_cv['height_trn']].isin(index_mbatch[0])
+
+
+y['height_trn']_mb[0] = y['height_trn'][]
 
