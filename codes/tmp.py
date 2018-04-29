@@ -1,1 +1,2 @@
-df[df.trait=='height'].index[np.invert(df.height[df.trait=='height'].isnull())] == X['height'].index
+y['tst'] = y['tst'].transpose()
+X['tst'] = X['tst'].transpose()

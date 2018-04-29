@@ -70,9 +70,8 @@ y['full'] = T_bin['bin_1']
 X['full'] = W_bin.loc[T_bin.index]
 
 # Indexing the genomic data of the real missing transcriptomic dat:
-X['miss'] = W_bin.loc[W_bin.index.isin(T_bin.index)]
+X['miss'] = W_bin.loc[np.invert(W_bin.index.isin(T_bin.index))]
  
-
 # Index to receive the position of the data frame:
 index_cv = dict()
 
@@ -95,6 +94,14 @@ y['trn'] = y['trn'].values.reshape([y['trn'].shape[0], 1])
 y['dev'] = y['dev'].values.reshape([y['dev'].shape[0], 1])
 y['tst'] = y['tst'].values.reshape([y['tst'].shape[0], 1])
 
+# Transposing matrices and vectors:
+y['trn'] = y['trn'].transpose()
+X['trn'] = X['trn'].transpose()
+y['dev'] = y['dev'].transpose()
+X['dev'] = X['dev'].transpose()
+y['tst'] = y['tst'].transpose()
+X['tst'] = X['tst'].transpose()
+X['miss'] = X['miss'].transpose()
 
 # Checking shapes:
 y['trn'].shape
@@ -103,7 +110,7 @@ y['dev'].shape
 X['dev'].shape
 y['tst'].shape
 X['tst'].shape
-
+X['miss'].shape
 
 
 
