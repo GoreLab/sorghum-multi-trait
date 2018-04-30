@@ -48,6 +48,7 @@ from external_functions import *
 #-----------------------------------------Adding flags to the code-------------------------------------------#
 
 #-db DATABSE -u USERNAME -p PASSWORD -size 20
+parser.add_argument("-c", "--core", help="Current core where the analysis is happing")
 parser.add_argument("-nc", "--ncores", help="Number of cores")
 parser.add_argument("-a", "--alt", help="Number of alternative models per bin")
 
@@ -75,27 +76,36 @@ T_bin = pd.read_csv("T_bin.csv", header = 0, index_col=0)
 
 #----------------------------------Preparing data for cross-validation---------------------------------------#
 
-
 ## Temp:
-j=0
+r=0
+core=0
+n_cores=40
+n_alt=2
 
-# Number of cores to do the partition of the bins
-n_cores = parser.ncores
+# # Current core where the analysis is happening:
+# core = parser.core
 
-# Number of alternative runs per bin:
-n_alt = parser.alt
+# # Number of cores to do the partition of the bins
+# n_cores = parser.ncores
+
+# # Number of alternative runs per bin:
+# n_alt = parser.alt
+
+# Seed to recover the analysis:
+seed = int(str(core) + str(n_alt) + str(r))
 
 # Splitting the index of the columns from the binned genomic matrix into subsets:
-index_wbin = list(split(pd.DataFrame(T_bin.columns), int(np.round(T_bin.shape[1]/n_cores)) ))
+index_wbin = np.array_split(T_bin.columns, n_cores)
 
-T_bin[index_wbin[0].values[1]]
+# for j in range(index_wbin[core].size):
+
 
 # Creating an empty dictionary to receive feature matrices, and responses:
 X = dict()
 y = dict()
 
 # Indexing the phenotype (transcription at bin j)
-y['full'] = T_bin[index_wbin[0].values[j]]
+y['full'] = T_bin[index_wbin[core].values[r]]
 
 # Feature matrix considering only individuals with genomic and transcriptomic data:
 X['full'] = W_bin.loc[T_bin.index]
@@ -108,17 +118,17 @@ index_cv = dict()
 
 # Subsetting data into train and (dev set + test set) for height data:
 X['trn'], X['dev'], y['trn'], y['dev'], index_cv['trn'], index_cv['dev'] = train_test_split(X['full'], 
-			  																			    y['full'],
- 		                                                									X['full'].index,
-                                                        									test_size=0.3,
-                                                        									random_state=1234)
+			  																																								    y['full'],
+ 		                                                																				X['full'].index,
+                                                        																		test_size=0.3,
+                                                        																		random_state=seed)
 
 # Subsetting (dev set + test set) into dev set and test set:
 X['dev'], X['tst'], y['dev'], y['tst'], index_cv['dev'], index_cv['tst'] = train_test_split(X['dev'],
-	                                                            		  					y['dev'],
-	                                                            		  					index_cv['dev'],
-                                                          				  					test_size=0.50,
-                                                          				  					random_state=1234)
+	                                                            		  												y['dev'],
+	                                                            		  												index_cv['dev'],
+                                                          				  												test_size=0.50,
+                                                          				  												random_state=seed)
 
 # Reshaping transcriptomic responses:
 y['trn'] = y['trn'].values.reshape([y['trn'].shape[0], 1])
@@ -161,6 +171,7 @@ epsilon = 1e-7
 proc_type = "CPU"
 
 # Number of hidden layers:
+np.random.seed(seed)
 n_layers_lst = sample_n_h_layers(min=1,          # Maximum number of hidden units
                                  max=5,          # Number of hidden layers
                                  n_guess=n_alt,  # Number of guesses
@@ -173,6 +184,7 @@ batch_mode = False
 dropout_mode = False  
 
 # Sampling the hidden units:
+np.random.seed(seed)
 h_units_lst =  sample_h_units(min=1,                    # Minimum number of hidden units
                               max=5,                   # Maximum number of hidden units
                               n_layers=n_layers_lst,    # Number of hidden layers (it should be a list)
@@ -180,23 +192,27 @@ h_units_lst =  sample_h_units(min=1,                    # Minimum number of hidd
                               same_str=False)           # False: Random guess; [Some architecture]: architecture to be replicated across guesses
 
 # Sampling the initial learning rate:
+np.random.seed(seed)
 starter_learning_rate_lst = sample_interval(min = 0.0001,        # Minimum of the quantitative interval
                                             max = 1,             # Maximum of the quantitative interval
                                             n_guess = n_alt,     # Number of guesses
                                             same_str = False)    # False: Random guess; [Value] insert a value to replicate
 
 # Sampling Frobenius regularizer:
+np.random.seed(seed)
 lamb_lst = sample_interval(min = 0.0001,    # Minimum of the quantitative interval
                max = 2,                     # Maximum of the quantitative interval
                n_guess = n_alt,             # Number of guesses
                same_str = False)            # False: Random guess; [Value] insert a value to replicate
 
 # Sampling batch size:
-batch_size_lst = sample_batch(n = X_trn[0].shape[1],      # Number of observations, or examples, or target
+np.random.seed(seed)
+batch_size_lst = sample_batch(n = X['trn'].shape[1],      # Number of observations, or examples, or target
                               n_guess = n_alt,            # Number of guesses
-                              same_str = False)           # False: Random guess; [Value] insert a value to replicate
+                              same_str = X['trn'].shape[1])           # False: Random guess; [Value] insert a value to replicate
 
 # Sampling dropout keep prob hyperparameter:
+np.random.seed(seed)
 keep_prob_lst = sample_interval(min = 0.0001,      # Minimum of the quantitative interval
                                 max = 1,           # Maximum of the quantitative interval
                                 n_guess = n_alt,   # Number of guesses
@@ -209,16 +225,17 @@ keep_prob_lst = sample_interval(min = 0.0001,      # Minimum of the quantitative
 bash_line1 = "cd " + prefix_out + "outputs;"
 
 # Creating folders to store the results:
-bash_line2 = "for i in $(seq 0 " + str(n_alt-1)+ "); do mkdir model"+ str(model) + "_alt${i}" + "; done;"
+bash_line2 = "for i in $(seq 0 " + str(n_alt-1)+ "); do mkdir core"+ str(core) + "_alt${i}_bin" + str(r) + "; done;"
 
 # Running proces on unix shell:
 subprocess.call(bash_line1 + bash_line2, shell=True)
 
-# For choosing either GPU or CPU:
+# For choosing either GPU:
 if proc_type == "GPU":
     proc = '/device:GPU:0'
-else:
-    proc = '/device:CPU:0'
+# or CPU:
+if proc_type == "CPU":
+	proc = '/device:CPU:0'
 
 ## Training optimization step:
 for alt in range(n_alt):
@@ -228,11 +245,11 @@ for alt in range(n_alt):
       n_layers = n_layers_lst[alt]
       h_units = h_units_lst[alt]                                        # Number of hidden units
       batch_size = batch_size_lst[alt]                                  # Batch size
-      total_batch = int(len(X_trn[alt].transpose()) / batch_size)       # Total batch size
+      total_batch = int(len(X['trn'].transpose()) / batch_size)       # Total batch size
       # Creating variables for batch normalization:
       const = tf.constant(0.01)
       # Creating symbolic variables (Tensors Planceholders):
-      A0 = tf.placeholder(tf.float32, shape=(X_trn[alt].shape[0], batch_size))  # Symbolic input training variable
+      A0 = tf.placeholder(tf.float32, shape=(X['trn'].shape[0], batch_size))  # Symbolic input training variable
       Y = tf.placeholder(tf.float32, shape=(1, batch_size))                     # Symbolic response training variable
       Lamb = tf.placeholder(tf.float32)                                         # Symbolic regularization parameter
       keep_prob = tf.placeholder(tf.float32)                                    # Symbolic probability (to remove hidden units) for dropout
@@ -255,7 +272,7 @@ for alt in range(n_alt):
         beta.append(tf.Variable(tf.zeros([h_units[0], 1]), name="beta1"))
         gamma.append(tf.Variable(tf.ones([h_units[0], 1]), name="gamma1"))
       # First hidden layer:
-      W.append(tf.Variable(tf.random_uniform([h_units[0], X_trn[alt].shape[0]])*const,
+      W.append(tf.Variable(tf.random_uniform([h_units[0], X['trn'].shape[0]])*const,
                         dtype=tf.float32, name="W1"))
       B.append(tf.Variable(tf.zeros([h_units[0], 1]),
                         dtype=tf.float32, name="B1"))
@@ -316,7 +333,7 @@ for alt in range(n_alt):
       # Summing values:
       fro_norm = tf.reduce_sum(fro_norm, keepdims=True)
       # Regularization:
-      const2 = tf.multiply(tf.constant(2, dtype=tf.float32), tf.constant(X_trn[alt].shape[0], dtype=tf.float32)) 
+      const2 = tf.multiply(tf.constant(2, dtype=tf.float32), tf.constant(X['trn'].shape[0], dtype=tf.float32)) 
       reg = tf.multiply(tf.divide(Lamb, const2), fro_norm) 
       # Exponential decay:
       global_step = tf.Variable(0, trainable=False)
@@ -338,14 +355,14 @@ for alt in range(n_alt):
       session.run(init)
       # Merge all the summaries and write them out to:
       merged_summary = tf.summary.merge_all()
-      writer = tf.summary.FileWriter(prefix_out + "outputs/model" + str(model) + "_alt" + str(alt) + "/")
+      writer = tf.summary.FileWriter(prefix_out + "outputs/core" + str(core) + "_alt" + str(alt) + "_bin" + str(r) + "/")
       writer.add_graph(session.graph)
       # Optimizing the Deep Neural Network (DNN):
       for epoch in range_epoch:
        if epoch > 0:
             print("\n", "Cost:", "\n", out[0]);
-       X_batch = np.array_split(X_trn[alt].transpose(), total_batch)
-       Y_batch = np.array_split(y_trn[alt].transpose(), total_batch)
+       X_batch = np.array_split(X['trn'].transpose(), total_batch)
+       Y_batch = np.array_split(y['trn'].transpose(), total_batch)
        for j in setIter:
            for i in range(total_batch):
                if X_batch[i].shape[0] > batch_size:
@@ -356,15 +373,10 @@ for alt in range(n_alt):
                writer.add_summary(s, i)
       results[alt] = out
       saver = tf.train.Saver()
-      os.chdir(prefix_out + "outputs/model" + str(model) + "_alt" + str(alt))       
-      save_path = "./model" + str(model) + "_alt" + str(alt)
+      os.chdir(prefix_out + "outputs/core" + str(core) + "_alt" + str(alt) + "_bin" + str(r))       
+      save_path = "./core" + str(core) + "_alt" + str(alt) + "_bin" + str(r)
       saver.save(session, save_path)
       tf.reset_default_graph()
-
-
-
-
-
 
 
 
