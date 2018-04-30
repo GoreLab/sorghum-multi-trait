@@ -8,8 +8,6 @@ library(dplyr)
 library(tidyr)
 library(magrittr)
 library(stringr)
-library(rlist)
-library(Matrix)
 
 # Library for plots:
 library(ggplot2)
