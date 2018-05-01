@@ -81,7 +81,7 @@ T_bin = pd.read_csv("T_bin.csv", header = 0, index_col=0)
 r=0
 core=0
 n_cores=40
-n_alt=2
+n_alt=200
 
 # # Current core where the analysis is happening:
 # core = parser.core
@@ -98,14 +98,14 @@ seed = int(str(core) + str(n_alt) + str(r))
 # Splitting the index of the columns from the binned genomic matrix into subsets:
 index_wbin = np.array_split(T_bin.columns, n_cores)
 
-# for j in range(index_wbin[core].size):
+# for r in range(index_wbin[core].size):
 
 
 # Creating an empty dictionary to receive feature matrices, and responses:
 X = dict()
 y = dict()
 
-# Indexing the phenotype (transcription at bin j)
+# Indexing the phenotype (transcription at bin r)
 y['full'] = T_bin[index_wbin[core].values[r]]
 
 # Feature matrix considering only individuals with genomic and transcriptomic data:
@@ -154,7 +154,7 @@ y['tst'].shape
 X['tst'].shape
 X['miss'].shape
 
-#-----------------------------------------Going deeply: Traning----------------------------------------------#
+#-----------------------------------------Going deeply: Training----------------------------------------------#
 
 # A list to receive the results:
 results = [None] * n_alt
@@ -378,7 +378,7 @@ for alt in range(n_alt):
       os.chdir(prefix_out + "outputs/rnaseq_imp/core" + str(core) + "_alt" + str(alt) + "_bin" + str(r))       
       save_path = "./core" + str(core) + "_alt" + str(alt) + "_bin" + str(r)
       saver.save(session, save_path)
-      tf.reset_default_graph()
+      tf.reset_default_graph()  
 
 
 #----------------------------------------Going deeply: Developing--------------------------------------------#
@@ -388,7 +388,7 @@ for alt in range(n_alt):
 tf.reset_default_graph()
 
 # Number of simulations:
-n_sim=100
+n_sim=1
 
 # Small epsilon value for batch norm
 epsilon = 1e-7
@@ -515,3 +515,27 @@ print(np.round(np.sort(mic_sets[:,2], axis=0)[::-1],4))
 print(np.round(np.argsort(mic_sets[:,0], axis=0)[::-1],4))
 print(np.round(np.argsort(mic_sets[:,1], axis=0)[::-1],4))
 print(np.round(np.argsort(mic_sets[:,2], axis=0)[::-1],4))
+
+#---------------------------------------Storing the best prediction------------------------------------------#
+
+# Setting directory:
+os.chdir(prefix_out + "outputs/rnaseq_imp/predicted_bins")
+
+# Getting the index of the best predictions:
+index = np.argsort(rmse_sets[:,1], axis=0)
+
+# Getting the mean across dropout vectors:
+Y_pred = np.mean(Y_pred_lst_sets[3], axis=2)
+
+# Create empty submission dataframe
+out = pd.DataFrame()
+
+# Adding the predictions to the output file:
+out[index_wbin[core].values[r]] = Y_pred[index[0], :]
+
+# Insert ID and Predictions into dataframe
+out.index = X['miss'].columns.values
+
+# Output submission file
+out.to_csv(index_wbin[core].values[r] + "_predicted.csv")
+
