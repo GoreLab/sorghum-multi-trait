@@ -159,19 +159,16 @@ X['biomass_tst'].shape
 y['biomass_tst'].shape
 
 
-
-
-
 #----------------------------Subdivision of the height data into mini-batches--------------------------------#
 
 # Subsetting the full set of names of the inbred lines phenotyped for biomass:
 index_mbatch = df.id_gbs[df.trait=='height'].drop_duplicates()
 
 # Size of the mini-batch
-mbatch_size = 4
+size_mbatch = 4
 
 # Splitting the list of names of the inbred lines into 4 sublists for indexing the mini-batches:
-index_mbatch = list(split(index_mbatch, int(np.round(len(index_mbatch)/mbatch_size)) ))
+index_mbatch = np.array_split(index_mbatch, size_mbatch)
 
 # Type of sets:
 tmp = ['trn', 'dev', 'tst']
