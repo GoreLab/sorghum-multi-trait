@@ -175,7 +175,7 @@ tmp = ['trn', 'dev', 'tst']
 
 # Indexing the mini-batches for the height trait:
 for k in tmp:
-	for i in range(mbatch_size):
+	for i in range(size_mbatch):
 		# Getting the positions on the height training set related to the mini-batch i:
 		index = df.id_gbs.loc[index_cv['height_' + k]].isin(index_mbatch[i])
 		# Indexing height values of the mini-batch i:
@@ -186,10 +186,20 @@ for k in tmp:
 		X['height_'+ k + '_mb_' + str(i)].shape
 		y['height_'+ k + '_mb_' + str(i)].shape
 
-
 ## To do list:
 # 1. Create the Bayesian network stan code to run the model without pleiotropic effects
 # 2. Code the Random Deep Neural Network
 # 3. Create the code to get the rMSE statistic of the train, dev, and test errors using the posterior mean of the predictions
 # 4. Create a plot of the generated data against the observed data against the predicted data
 # 5. Plot the rMSE statistic for the train, dev and test errors, but using all posterior predictions
+
+# Getting the features names prefix:
+tmp = X['height_trn_mb_1'].columns.str.split('_').str.get(0)
+
+# Building an incidence vector for adding specific priors for each feature class:
+index_x = pd.DataFrame(tmp).replace(tmp.drop_duplicates(), range(1,(tmp.drop_duplicates().size+1))) 
+
+# Building an year matrix just for indexing resuduals standard deviations heterogeneous across time:
+X['year'] = pd.get_dummies(df.year.loc[X['height_trn_mb_1'].index]) 
+
+
