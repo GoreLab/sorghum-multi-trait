@@ -190,13 +190,6 @@ for k in tmp:
 
 #--------------------------------------Preparing data for pystan---------------------------------------------#
 
-## To do list:
-# 1. Create the Bayesian network stan code to run the model without pleiotropic effects
-# 2. Code the Random Deep Neural Network
-# 3. Create the code to get the rMSE statistic of the train, dev, and test errors using the posterior mean of the predictions
-# 4. Create a plot of the generated data against the observed data against the predicted data
-# 5. Plot the rMSE statistic for the train, dev and test errors, but using all posterior predictions
-
 # Getting the features names prefix:
 tmp = X['biomass_trn'].columns.str.split('_').str.get(0)
 
@@ -206,118 +199,11 @@ index_x = pd.DataFrame(tmp).replace(tmp.drop_duplicates(), range(1,(tmp.drop_dup
 # Building an year matrix just for indexing resuduals standard deviations heterogeneous across time:
 X['year'] = pd.get_dummies(df.year.loc[X['biomass_trn'].index]) 
 
-
-# # Storing all the data into a dictionary for pystan:
-# df_stan = dict(n_x = X['biomass_trn'].shape[0],
-# 			   p_x = X['biomass_trn'].shape[1],
-# 			   p_i = np.max(index_x),
-# 			   p_r = X['year'].shape[1],
-# 			   phi = np.max(y['biomass_trn'])*10,
-# 			   index_x = index_x,
-# 			   X = X['biomass_trn'],
-# 			   X_r = X['year'],
-# 			   y = y['biomass_trn'].reshape((y['biomass_trn'].shape[0],)))
-
-# For subsetting for tests:
-subset1 = np.random.choice(range(X['biomass_trn'].shape[0]), size=100)
-subset2 = X['biomass_trn'].index[subset1]
-
-# Storing all the data into a dictionary for pystan:
-df_stan = dict(n_x = X['biomass_trn'].loc[subset2,:].shape[0],
-			   p_x = X['biomass_trn'].shape[1],
-			   p_i = np.max(index_x),
-			   p_r = X['year'].shape[1],
-			   phi = np.max(y['biomass_trn'][subset1])*10,
-			   index_x = index_x,
-			   X = X['biomass_trn'].loc[subset2,:],
-			   X_r = X['year'].loc[subset2,:],
-			   y = y['biomass_trn'][subset1].reshape((y['biomass_trn'][subset1].shape[0],)))
-
 #--------------------------------------To run the code on pystan---------------------------------------------#
 
-# Setting directory:
-os.chdir(prefix_proj + "codes")
-
-# Compiling the C++ code for the model:
-model = ps.StanModel(file='multi_trait.stan')
-
-# Creating an empty dict:
-fit = dict()
-
-# Fitting the model:
-fit['300'] = model.sampling(data=df_stan, chains=1, iter=300)
-fit['400'] = model.sampling(data=df_stan, chains=1, iter=400)
-fit['600'] = model.sampling(data=df_stan, chains=1, iter=600)
-fit['1_2000'] = model.sampling(data=df_stan, chains=1, iter=2000)
-fit['4_2000'] = model.sampling(data=df_stan, chains=4, iter=2000)
-
-# Plots of the
-sns.set_style('whitegrid')
-ax = sns.kdeplot(fit['300'].extract()['y_rep'].mean(axis=0), bw=0.5, label='1_300', shade=True)
-ax = sns.kdeplot(fit['400'].extract()['y_rep'].mean(axis=0), bw=0.5, label='1_400', shade=True)
-ax = sns.kdeplot(fit['600'].extract()['y_rep'].mean(axis=0), bw=0.5, label='1_600', shade=True)
-ax = sns.kdeplot(fit['1_2000'].extract()['y_rep'].mean(axis=0), bw=0.5, label='1_2000', shade=True)
-ax = sns.kdeplot(fit['4_2000'].extract()['y_rep'].mean(axis=0), bw=0.5, label='4_2000', shade=True)
-ax = sns.kdeplot(y['biomass_trn'][subset1].reshape([100,]), bw=0.5, label='obs', shade=True)
-ax.set_title('Observed vs generated data (nchain_niter)')
-ax.set(xlabel='Dry mass values', ylabel='Density')
-plt.show()
-plt.savefig(prefix_out + 'plots/' + 'biomass_iter_tunning_obs_gen' + '.pdf')
-plt.clf()
-
-# Getting posterior means:
-beta_mean = dict()
-mu_mean = dict()
-beta_mean['300'] = fit['300'].extract()['beta'].mean(axis=0)
-mu_mean['300'] = fit['300'].extract()['mu'].mean(axis=0)
-beta_mean['400'] = fit['400'].extract()['beta'].mean(axis=0)
-mu_mean['400'] = fit['400'].extract()['mu'].mean(axis=0)
-beta_mean['600'] = fit['600'].extract()['beta'].mean(axis=0)
-mu_mean['600'] = fit['600'].extract()['mu'].mean(axis=0)
-beta_mean['1_2000'] = fit['1_2000'].extract()['beta'].mean(axis=0)
-mu_mean['1_2000'] = fit['1_2000'].extract()['mu'].mean(axis=0)
-beta_mean['4_2000'] = fit['4_2000'].extract()['beta'].mean(axis=0)
-mu_mean['4_2000'] = fit['4_2000'].extract()['mu'].mean(axis=0)
-
-# Computing predictions for trn:
-y_pred = dict()
-y_pred['300'] = mu_mean['300'] + X['biomass_trn'].loc[subset2,:].dot(beta_mean['300'])
-y_pred['400'] = mu_mean['400'] + X['biomass_trn'].loc[subset2,:].dot(beta_mean['400'])
-y_pred['600'] = mu_mean['600'] + X['biomass_trn'].loc[subset2,:].dot(beta_mean['600'])
-y_pred['1_2000'] = mu_mean['1_2000'] + X['biomass_trn'].loc[subset2,:].dot(beta_mean['1_2000'])
-y_pred['4_2000'] = mu_mean['4_2000'] + X['biomass_trn'].loc[subset2,:].dot(beta_mean['4_2000'])
-
-y_tmp = y['biomass_trn'][subset1]
-rmse(y_tmp.reshape([y_tmp.shape[0],]), y_pred['300'].reshape([y_pred['300'].shape[0],]))
-rmse(y_tmp.reshape([y_tmp.shape[0],]), y_pred['400'].reshape([y_pred['400'].shape[0],]))
-rmse(y_tmp.reshape([y_tmp.shape[0],]), y_pred['600'].reshape([y_pred['600'].shape[0],]))
-rmse(y_tmp.reshape([y_tmp.shape[0],]), y_pred['1_2000'].reshape([y_pred['1_2000'].shape[0],]))
-rmse(y_tmp.reshape([y_tmp.shape[0],]), y_pred['4_2000'].reshape([y_pred['4_2000'].shape[0],]))
-
-# Computing predictions for dev:
-y_pred = dict()
-y_pred['300'] = mu_mean['300'] + X['biomass_dev'].dot(beta_mean['300'])
-y_pred['400'] = mu_mean['400'] + X['biomass_dev'].dot(beta_mean['400'])
-y_pred['600'] = mu_mean['600'] + X['biomass_dev'].dot(beta_mean['600'])
-y_pred['1_2000'] = mu_mean['1_2000'] + X['biomass_dev'].dot(beta_mean['1_2000'])
-y_pred['4_2000'] = mu_mean['4_2000'] + X['biomass_dev'].dot(beta_mean['4_2000'])
-
-rmse(y['biomass_dev'].reshape([y['biomass_dev'].shape[0],]), y_pred['300'].reshape([y_pred['300'].shape[0],]))
-rmse(y['biomass_dev'].reshape([y['biomass_dev'].shape[0],]), y_pred['400'].reshape([y_pred['400'].shape[0],]))
-rmse(y['biomass_dev'].reshape([y['biomass_dev'].shape[0],]), y_pred['600'].reshape([y_pred['600'].shape[0],]))
-rmse(y['biomass_dev'].reshape([y['biomass_dev'].shape[0],]), y_pred['1_2000'].reshape([y_pred['1_2000'].shape[0],]))
-rmse(y['biomass_dev'].reshape([y['biomass_dev'].shape[0],]), y_pred['4_2000'].reshape([y_pred['4_2000'].shape[0],]))
-
-# Computing predictions for test:
-y_pred = dict()
-y_pred['300'] = mu_mean['300'] + X['biomass_tst'].dot(beta_mean['300'])
-y_pred['400'] = mu_mean['400'] + X['biomass_tst'].dot(beta_mean['400'])
-y_pred['600'] = mu_mean['600'] + X['biomass_tst'].dot(beta_mean['600'])
-y_pred['1_2000'] = mu_mean['1_2000'] + X['biomass_tst'].dot(beta_mean['1_2000'])
-y_pred['4_2000'] = mu_mean['4_2000'] + X['biomass_tst'].dot(beta_mean['4_2000'])
-
-rmse(y['biomass_tst'].reshape([y['biomass_tst'].shape[0],]), y_pred['300'].reshape([y_pred['300'].shape[0],]))
-rmse(y['biomass_tst'].reshape([y['biomass_tst'].shape[0],]), y_pred['400'].reshape([y_pred['400'].shape[0],]))
-rmse(y['biomass_tst'].reshape([y['biomass_tst'].shape[0],]), y_pred['600'].reshape([y_pred['600'].shape[0],]))
-rmse(y['biomass_tst'].reshape([y['biomass_tst'].shape[0],]), y_pred['1_2000'].reshape([y_pred['1_2000'].shape[0],]))
-rmse(y['biomass_tst'].reshape([y['biomass_tst'].shape[0],]), y_pred['4_2000'].reshape([y_pred['4_2000'].shape[0],]))
+## To do list:
+# 1. Create the Bayesian network stan code to run the model without pleiotropic effects
+# 2. Code the Random Deep Neural Network
+# 3. Create the code to get the rMSE statistic of the train, dev, and test errors using the posterior mean of the predictions
+# 4. Create a plot of the generated data against the observed data against the predicted data
+# 5. Plot the rMSE statistic for the train, dev and test errors, but using all posterior predictions
