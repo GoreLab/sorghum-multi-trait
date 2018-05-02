@@ -14,17 +14,25 @@ The folder 'codes' contains the codes written during the development of the proj
 
 3. **mtrait_cross_validation_and_models.py**: Piece of the code within the 'mtrait_code.py', but just containing the cross-validation and models evaluated (under development).
 
-2. **external_functions.py**: Set of functions already written that the codes (1, 2, 3) depends on (done).
+4. **mtrait_iter_chain_number_tst.py**: Used for tuning the number of iterations and chains to fit the Bayesian Networks (done).
 
-3. **mtrait_gdrive.sh**: Bash code for transfering data and plots between machines, and also as cloud backup mecanism (done).
+5. **transcriptomic_data_augmentation.py**: Used for imputing RNAseq data by regressing each column of the binned expression matrix into the genomic binned matrix using Random Deep Neural Networks.
 
-4. **gbs_from_rdata_to_csv.R**: Code for transforming the raw ".RData" provided by Sam into ".csv" extension for easy loading into python (done).
+6. **multi_trait.stan**: Code written at the probabilistic programming language stan to fit the Bayesian Network without pleiotropic effects.
 
-5. **useful_bash_code.sh**: Useful unix-based bash code, including for run python processes into terminal, as well as to do some local software installation (under development).
+7. **plots_raw_data.R**: For plotting different types of plots to explore the raw data features.
 
-6. **tmp.py**: Just to write temporary code in python.
+8. **external_functions.py**: Set of functions already written that the codes (1, 2, 3) depends on (done).
 
-7. **tmp.R**: Just to write temporary code in R.
+9. **mtrait_gdrive.sh**: Bash code for transfering data and plots between machines, and also as cloud backup mechanism (done).
+
+10. **gbs_from_rdata_to_csv.R**: Code for transforming the raw ".RData" provided by Sam into ".csv" extension for easy loading into python (done).
+
+11. **useful_bash_code.sh**: Useful unix-based bash code, including for run python processes into terminal, as well as to do some local software installation (under development).
+
+12. **tmp.py**: Just to write temporary code in python.
+
+13. **tmp.R**: Just to write temporary code in R.
 
 # Folder 'notes'
 

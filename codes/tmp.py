@@ -1,3 +1,5 @@
-  s_mu ~ normal(0, pi_s_mu);
-  s_beta ~ normal(0, pi_s_beta);
-  s_sigma ~ normal(0, pi_s_sigma);
+rmse(y_tmp.reshape([y_tmp.shape[0],]), y_pred['300'].reshape([y_pred['300'].shape[0],]))
+rmse(y_tmp.reshape([y_tmp.shape[0],]), y_pred['400'].reshape([y_pred['400'].shape[0],]))
+rmse(y_tmp.reshape([y_tmp.shape[0],]), y_pred['600'].reshape([y_pred['600'].shape[0],]))
+rmse(y_tmp.reshape([y_tmp.shape[0],]), y_pred['1_2000'].reshape([y_pred['1_2000'].shape[0],]))
+rmse(y_tmp.reshape([y_tmp.shape[0],]), y_pred['4_2000'].reshape([y_pred['4_2000'].shape[0],]))
