@@ -55,7 +55,7 @@ transformed parameters {
 
   // Declaring variables to receive input:
   vector<lower=0>[n_x] sigma_vec;
-  vector[n_x] expection;
+  vector[n_x] expectation;
 
   // Computing the vectorized vector of residuals:
   sigma_vec = X_r * sigma;

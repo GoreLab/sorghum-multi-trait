@@ -8,11 +8,11 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import itertools
-import seaborn as sns
 
 import os
 
 import tensorflow as tf
+import pystan as ps
 import subprocess
 import dill
 import time
@@ -219,3 +219,6 @@ df_stan = dict(n_x = X['height_trn_mb_1'].shape[0],
 
 # Setting directory:
 os.chdir(prefix_proj + "codes")
+
+# Compiling the model:
+model = ps.StanModel(file='multi_trait.stan')
