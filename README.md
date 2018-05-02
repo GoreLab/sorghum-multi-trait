@@ -16,11 +16,11 @@ The folder 'codes' contains the codes written during the development of the proj
 
 4. **mtrait_iter_chain_number_tst.py**: Used for tuning the number of iterations and chains to fit the Bayesian Networks (done).
 
-5. **transcriptomic_data_augmentation.py**: Used for imputing RNAseq data by regressing each column of the binned expression matrix into the genomic binned matrix using Random Deep Neural Networks.
+5. **transcriptomic_data_augmentation.py**: Used for imputing RNAseq data by regressing each column of the binned expression matrix into the genomic binned matrix using Random Deep Neural Networks (under development).
 
-6. **multi_trait.stan**: Code written at the probabilistic programming language stan to fit the Bayesian Network without pleiotropic effects.
+6. **multi_trait.stan**: Code written at the probabilistic programming language stan to fit the Bayesian Network without pleiotropic effects (done).
 
-7. **plots_raw_data.R**: For plotting different types of plots to explore the raw data features.
+7. **plots_raw_data.R**: For plotting different types of plots to explore the raw data features (done).
 
 8. **external_functions.py**: Set of functions already written that the codes (1, 2, 3) depends on (done).
 
