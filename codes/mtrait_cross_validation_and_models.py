@@ -221,7 +221,7 @@ df_stan = dict(n_x = X['height_trn_mb_1'].shape[0],
 # Setting directory:
 os.chdir(prefix_proj + "codes")
 
-# Compiling the model:
+# Compiling the C++ code for the model:
 model = ps.StanModel(file='multi_trait.stan')
 
 # Fitting the model:

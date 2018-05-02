@@ -35,7 +35,7 @@ parameters {
 
   real<lower=0> s_mu;
   vector<lower=0>[p_i] s_beta;
-  vector<lower=0>[p_r] s_sigma;
+  real<lower=0> s_sigma;
 
   // Second level hyperparameters:
   real<lower=0> pi_u_mu;
