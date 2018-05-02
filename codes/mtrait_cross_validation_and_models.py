@@ -197,24 +197,40 @@ for k in tmp:
 # 5. Plot the rMSE statistic for the train, dev and test errors, but using all posterior predictions
 
 # Getting the features names prefix:
-tmp = X['height_trn_mb_1'].columns.str.split('_').str.get(0)
+tmp = X['biomass_trn'].columns.str.split('_').str.get(0)
 
 # Building an incidence vector for adding specific priors for each feature class:
 index_x = pd.DataFrame(tmp).replace(tmp.drop_duplicates(), range(1,(tmp.drop_duplicates().size+1)))[0].values 
 
 # Building an year matrix just for indexing resuduals standard deviations heterogeneous across time:
-X['year'] = pd.get_dummies(df.year.loc[X['height_trn_mb_1'].index]) 
+X['year'] = pd.get_dummies(df.year.loc[X['biomass_trn'].index]) 
+
+
+# # Storing all the data into a dictionary for pystan:
+# df_stan = dict(n_x = X['biomass_trn'].shape[0],
+# 			   p_x = X['biomass_trn'].shape[1],
+# 			   p_i = np.max(index_x),
+# 			   p_r = X['year'].shape[1],
+# 			   phi = np.max(y['biomass_trn'])*10,
+# 			   index_x = index_x,
+# 			   X = X['biomass_trn'],
+# 			   X_r = X['year'],
+# 			   y = y['biomass_trn'].reshape((y['biomass_trn'].shape[0],)))
+
+# For subsetting for tests:
+subset1 = np.random.choice(range(X['biomass_trn'].shape[0]), size=100)
+subset2 = X['biomass_trn'].index[subset1]
 
 # Storing all the data into a dictionary for pystan:
-df_stan = dict(n_x = X['height_trn_mb_1'].shape[0],
-			   p_x = X['height_trn_mb_1'].shape[1],
+df_stan = dict(n_x = X['biomass_trn'].loc[subset2,:].shape[0],
+			   p_x = X['biomass_trn'].shape[1],
 			   p_i = np.max(index_x),
 			   p_r = X['year'].shape[1],
-			   phi = np.max(y['height_trn_mb_1'])*10,
+			   phi = np.max(y['biomass_trn'][subset1])*10,
 			   index_x = index_x,
-			   X = X['height_trn_mb_1'],
-			   X_r = X['year'],
-			   y = y['height_trn_mb_1'].reshape((y['height_trn_mb_1'].shape[0],)))
+			   X = X['biomass_trn'].loc[subset2,:],
+			   X_r = X['year'].loc[subset2,:],
+			   y = y['biomass_trn'][subset1].reshape((y['biomass_trn'][subset1].shape[0],)))
 
 #--------------------------------------To run the code on pystan---------------------------------------------#
 
@@ -224,6 +240,43 @@ os.chdir(prefix_proj + "codes")
 # Compiling the C++ code for the model:
 model = ps.StanModel(file='multi_trait.stan')
 
+# Creating an empty dict:
+fit = dict()
+
 # Fitting the model:
-fit = model.sampling(data=df_stan)
+fit['300'] = model.sampling(data=df_stan, chains=1, iter=300)
+fit['600'] = model.sampling(data=df_stan, chains=1, iter=600)
+fit['4_2000'] = model.sampling(data=df_stan, chains=4, iter=2000)
+
+
+
+
+plt.hist(fit['300'].extract()['y_gen'].mean(axis=0), alpha=0.5, color='yellow', label='y_gen_300')
+plt.hist(fit['600'].extract()['y_gen'].mean(axis=0), alpha=0.5, color='blue', label='y_gen_600')
+plt.hist(fit['4_2000'].extract()['y_gen'].mean(axis=0), alpha=0.5, color='green', label='y_gen_4_2000')
+plt.hist(y['biomass_trn'][subset1], alpha=0.5, color='red', label='y_obs')
+plt.legend(loc='upper right')
+plt.show()
+
+
+ps.get_elapsed_time(fit['300'].extract())
+ps.get_elapsed_time(fit['600'])
+ps.get_elapsed_time(fit['4_2000'])
+
+
+
+
+
+y_tmp = 
+y_tmp = y_tmp.reshape([1, y_tmp.shape[0]])
+
+# Ploting figure:
+fig = plt.scatter(y['dev'], y_tmp)
+plt.xlim(2.5, 4)
+plt.ylim(2.5, 4)
+plt.title('Observed vs predicted data')
+plt.xlabel('Observed transcription binned values')
+plt.ylabel("Predicted transcription binned values")
+plt.savefig(prefix_out + 'plots/' + 'bin_0_obs_vs_pred' + '.pdf')
+plt.clf()
 

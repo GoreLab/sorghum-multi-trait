@@ -46,7 +46,7 @@ parameters {
   real<lower=0> pi_s_sigma;
 
   // Defining variable to generate data from the model:
-  real y_rep[n_x];
+  real y_gen[n_x];
 
 }
 
@@ -91,6 +91,6 @@ model {
   y ~ normal(expectation, sigma_vec);
 
   // Generating data from the model:
-  y_rep ~ normal(expectation, sigma_vec);
+  y_gen ~ normal(expectation, sigma_vec);
 
 }
