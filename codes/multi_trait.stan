@@ -92,7 +92,7 @@ model {
 
   // Specifying the likelihood:
   y ~ normal(expectation, sigma_vec);
-  
+
   // Generating data from the model:
   y_rep ~ normal(expectation, sigma_vec);
 
