@@ -88,7 +88,7 @@ model {
 
   // Specifying priors for the parameters:
   mu ~ normal(u_mu, s_mu);
-  beta ~ normal(u_beta[index_x], s_sigma[index_x]);
+  beta ~ normal(u_beta[index_x], s_beta[index_x]);
   sigma ~ cauchy(u_sigma, s_sigma);
 
   // Specifying the likelihood:
