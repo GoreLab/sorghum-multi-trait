@@ -4,6 +4,7 @@ data {
   // Number of row entries of the matrices or vectors:
   int<lower=1> n_x;
   int<lower=1> p_x;
+  int<lower=1> p_i;
   int<lower=1> p_r;
 
   // Global hyperparameter:
@@ -30,11 +31,11 @@ parameters {
 
   // First level hyperparameters:
   real u_mu;
-  vector[p_x] u_beta;
+  vector[p_i] u_beta;
   vector[p_r] u_sigma;
 
   real<lower=0> s_mu;
-  vector<lower=0>[p_x] s_beta;
+  vector<lower=0>[p_i] s_beta;
   vector<lower=0>[p_r] s_sigma;
 
   // Second level hyperparameters:

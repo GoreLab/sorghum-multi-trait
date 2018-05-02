@@ -200,7 +200,7 @@ for k in tmp:
 tmp = X['height_trn_mb_1'].columns.str.split('_').str.get(0)
 
 # Building an incidence vector for adding specific priors for each feature class:
-index_x = pd.DataFrame(tmp).replace(tmp.drop_duplicates(), range(1,(tmp.drop_duplicates().size+1))) 
+index_x = pd.DataFrame(tmp).replace(tmp.drop_duplicates(), range(1,(tmp.drop_duplicates().size+1)))[0].values 
 
 # Building an year matrix just for indexing resuduals standard deviations heterogeneous across time:
 X['year'] = pd.get_dummies(df.year.loc[X['height_trn_mb_1'].index]) 
@@ -208,12 +208,13 @@ X['year'] = pd.get_dummies(df.year.loc[X['height_trn_mb_1'].index])
 # Storing all the data into a dictionary for pystan:
 df_stan = dict(n_x = X['height_trn_mb_1'].shape[0],
 			   p_x = X['height_trn_mb_1'].shape[1],
+			   p_i = np.max(index_x),
 			   p_r = X['year'].shape[1],
 			   phi = np.max(y['height_trn_mb_1'])*10,
 			   index_x = index_x,
 			   X = X['height_trn_mb_1'],
 			   X_r = X['year'],
-			   y = y['height_trn_mb_1'])
+			   y = y['height_trn_mb_1'].reshape((y['height_trn_mb_1'].shape[0],)))
 
 #--------------------------------------To run the code on pystan---------------------------------------------#
 
@@ -222,3 +223,6 @@ os.chdir(prefix_proj + "codes")
 
 # Compiling the model:
 model = ps.StanModel(file='multi_trait.stan')
+
+# Fitting the model:
+fit = model.sampling(data=df_stan)
