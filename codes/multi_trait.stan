@@ -32,7 +32,6 @@ parameters {
   // First level hyperparameters:
   real u_mu;
   vector[p_i] u_beta;
-  vector[p_r] u_sigma;
 
   real<lower=0> s_mu;
   vector<lower=0>[p_i] s_beta;
@@ -41,7 +40,6 @@ parameters {
   // Second level hyperparameters:
   real<lower=0> pi_u_mu;
   real<lower=0> pi_u_beta;
-  real<lower=0> pi_u_sigma;
 
   real<lower=0> pi_s_mu;
   real<lower=0> pi_s_beta;
@@ -71,7 +69,6 @@ model {
   // Specifying hyperpriors for the second level hyperparameters:
   pi_u_mu ~ cauchy(0,  phi);
   pi_u_beta ~ cauchy(0,  phi);
-  pi_u_sigma ~ cauchy(0,  phi);
 
   pi_s_mu ~ cauchy(0,  phi);
   pi_s_beta ~ cauchy(0,  phi);
@@ -80,7 +77,6 @@ model {
   // Specifying hyperpriors for the first level hyperparameters:
   u_mu ~ normal(0, pi_u_mu);
   u_beta ~ normal(0, pi_u_beta);
-  u_sigma ~ normal(0, pi_u_sigma);
 
   s_mu ~ cauchy(0, pi_s_mu);
   s_beta ~ cauchy(0, pi_s_beta);
@@ -89,7 +85,7 @@ model {
   // Specifying priors for the parameters:
   mu ~ normal(u_mu, s_mu);
   beta ~ normal(u_beta[index_x], s_beta[index_x]);
-  sigma ~ cauchy(u_sigma, s_sigma);
+  sigma ~ cauchy(0, s_sigma);
 
   // Specifying the likelihood:
   y ~ normal(expectation, sigma_vec);

@@ -226,3 +226,4 @@ model = ps.StanModel(file='multi_trait.stan')
 
 # Fitting the model:
 fit = model.sampling(data=df_stan)
+
