@@ -25,6 +25,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import normalized_mutual_info_score
 from sklearn.metrics import r2_score
+import statsmodels.api as sm
 
 # For adding flags to the code:
 import argparse
@@ -182,7 +183,7 @@ n_layers_lst = sample_n_h_layers(min=1,          # Maximum number of hidden unit
 batch_mode = False
 
 # Dropout (True or False):
-dropout_mode = False  
+dropout_mode = True  
 
 # Sampling the hidden units:
 np.random.seed(seed)
@@ -217,7 +218,7 @@ np.random.seed(seed)
 keep_prob_lst = sample_interval(min = 0.0001,      # Minimum of the quantitative interval
                                 max = 1,           # Maximum of the quantitative interval
                                 n_guess = n_alt,   # Number of guesses
-                                same_str = 1)      # False: Random guess; [Value] insert a value to replicate
+                                same_str = False)      # False: Random guess; [Value] insert a value to replicate
 
 
 ## Creating folders on the project to store the alternative results:
@@ -515,6 +516,26 @@ print(np.round(np.sort(mic_sets[:,2], axis=0)[::-1],4))
 print(np.round(np.argsort(mic_sets[:,0], axis=0)[::-1],4))
 print(np.round(np.argsort(mic_sets[:,1], axis=0)[::-1],4))
 print(np.round(np.argsort(mic_sets[:,2], axis=0)[::-1],4))
+
+# Plotting a selected alternative:
+
+
+
+
+y_tmp = np.mean(Y_pred_lst_sets[1], axis=2)[110,:]
+y_tmp = y_tmp.reshape([1, y_tmp.shape[0]])
+
+# Ploting figure:
+fig = plt.scatter(y['dev'], y_tmp)
+plt.xlim(2.5, 4)
+plt.ylim(2.5, 4)
+plt.title('Observed vs predicted data')
+plt.xlabel('Observed transcription binned values')
+plt.ylabel("Predicted transcription binned values")
+plt.savefig(prefix_out + 'plots/' + 'bin_0_obs_vs_pred' + '.pdf')
+plt.clf()
+
+
 
 #---------------------------------------Storing the best prediction------------------------------------------#
 

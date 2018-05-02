@@ -186,6 +186,9 @@ for k in tmp:
 		X['height_'+ k + '_mb_' + str(i)].shape
 		y['height_'+ k + '_mb_' + str(i)].shape
 
+
+#--------------------------------------Preparing data for pystan---------------------------------------------#
+
 ## To do list:
 # 1. Create the Bayesian network stan code to run the model without pleiotropic effects
 # 2. Code the Random Deep Neural Network
@@ -202,4 +205,17 @@ index_x = pd.DataFrame(tmp).replace(tmp.drop_duplicates(), range(1,(tmp.drop_dup
 # Building an year matrix just for indexing resuduals standard deviations heterogeneous across time:
 X['year'] = pd.get_dummies(df.year.loc[X['height_trn_mb_1'].index]) 
 
+# Storing all the data into a dictionary for pystan:
+df_stan = dict(n_x = X['height_trn_mb_1'].shape[0],
+			   p_x = X['height_trn_mb_1'].shape[1],
+			   p_r = X['year'].shape[1],
+			   phi = np.max(y['height_trn_mb_1'])*10,
+			   index_x = index_x,
+			   X = X['height_trn_mb_1'],
+			   X_r = X['year'],
+			   y = y['height_trn_mb_1'])
 
+#--------------------------------------To run the code on pystan---------------------------------------------#
+
+# Setting directory:
+os.chdir(prefix_proj + "codes")
