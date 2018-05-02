@@ -60,7 +60,7 @@ transformed parameters {
   sigma_vec = X_r * sigma;
 
   // Computing the expectation of the likelihood function:
-  expectation = X * beta;
+  expectation = mu + X * beta;
 
 }
 
