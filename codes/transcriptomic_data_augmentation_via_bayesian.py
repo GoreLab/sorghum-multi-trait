@@ -237,22 +237,29 @@ y_pred['tst'] = mu_mean['400'] + X['tst'].dot(beta_mean['400'])
 # Printing test pearsonr:
 pearsonr(y['tst'].flatten(), y_pred['tst'])[0]
 
+# Setting directory:
+os.chdir(prefix_out + "plots")
+
 # Plots of the observed against the generated:
 sns.set_style('whitegrid')
 ax = sns.kdeplot(fit['400'].extract()['y_gen'].mean(axis=0), bw=0.5, label='1_400', shade=True)
 ax = sns.kdeplot(y['trn'].flatten(), bw=0.5, label='obs', shade=True)
 ax.set_title('Observed vs generated data (nchain_niter)')
 ax.set(xlabel='Dry mass values', ylabel='Density')
+plt.savefig(prefix_out + 'plots/' + 'transcriptomic_density_obs_gen' + '.pdf')
 plt.show()
 plt.clf()
 
 # Plotting:
-plt.scatter(y['trn'], y_pred['trn'], color='red')
-plt.scatter(y['dev'], y_pred['dev'], color='green')
-plt.scatter(y['tst'], y_pred['tst'], color='blue')
+plt.scatter(y['trn'], y_pred['trn'], color='red', label="trn", alpha=0.3)
+plt.scatter(y['dev'], y_pred['dev'], color='green', label="dev", alpha=0.3)
+plt.scatter(y['tst'], y_pred['tst'], color='blue', label="tst", alpha=0.3)
 # plt.xlim(2.5, 4)
 # plt.ylim(2.5, 4)
+plt.legend()
 plt.title('Observed vs predicted data')
 plt.xlabel('Observed transcription binned values')
 plt.ylabel("Predicted transcription binned values")
+plt.savefig(prefix_out + 'plots/' + 'transcriptomic_scatter_obs_gen' + '.pdf')
 plt.show()
+plt.clf()

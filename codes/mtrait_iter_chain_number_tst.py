@@ -232,20 +232,6 @@ fit['600'] = model.sampling(data=df_stan, chains=1, iter=600)
 fit['1_2000'] = model.sampling(data=df_stan, chains=1, iter=2000)
 fit['4_2000'] = model.sampling(data=df_stan, chains=4, iter=2000)
 
-# Plots of the
-sns.set_style('whitegrid')
-ax = sns.kdeplot(fit['300'].extract()['y_rep'].mean(axis=0), bw=0.5, label='1_300', shade=True)
-ax = sns.kdeplot(fit['400'].extract()['y_rep'].mean(axis=0), bw=0.5, label='1_400', shade=True)
-ax = sns.kdeplot(fit['600'].extract()['y_rep'].mean(axis=0), bw=0.5, label='1_600', shade=True)
-ax = sns.kdeplot(fit['1_2000'].extract()['y_rep'].mean(axis=0), bw=0.5, label='1_2000', shade=True)
-ax = sns.kdeplot(fit['4_2000'].extract()['y_rep'].mean(axis=0), bw=0.5, label='4_2000', shade=True)
-ax = sns.kdeplot(y['biomass_trn'][subset1].reshape([100,]), bw=0.5, label='obs', shade=True)
-ax.set_title('Observed vs generated data (nchain_niter)')
-ax.set(xlabel='Dry mass values', ylabel='Density')
-plt.show()
-plt.savefig(prefix_out + 'plots/' + 'biomass_iter_tunning_obs_gen' + '.pdf')
-plt.clf()
-
 # Getting posterior means:
 beta_mean = dict()
 mu_mean = dict()
@@ -262,46 +248,77 @@ mu_mean['4_2000'] = fit['4_2000'].extract()['mu'].mean(axis=0)
 
 # Computing predictions for trn:
 y_pred = dict()
-y_pred['300'] = mu_mean['300'] + X['biomass_trn'].loc[subset2,:].dot(beta_mean['300'])
-y_pred['400'] = mu_mean['400'] + X['biomass_trn'].loc[subset2,:].dot(beta_mean['400'])
-y_pred['600'] = mu_mean['600'] + X['biomass_trn'].loc[subset2,:].dot(beta_mean['600'])
-y_pred['1_2000'] = mu_mean['1_2000'] + X['biomass_trn'].loc[subset2,:].dot(beta_mean['1_2000'])
-y_pred['4_2000'] = mu_mean['4_2000'] + X['biomass_trn'].loc[subset2,:].dot(beta_mean['4_2000'])
-
-# Printing train rMSE errors:
-y_tmp = y['biomass_trn'][subset1]
-rmse(y_tmp.reshape([y_tmp.shape[0],]), y_pred['300'].reshape([y_pred['300'].shape[0],]))
-rmse(y_tmp.reshape([y_tmp.shape[0],]), y_pred['400'].reshape([y_pred['400'].shape[0],]))
-rmse(y_tmp.reshape([y_tmp.shape[0],]), y_pred['600'].reshape([y_pred['600'].shape[0],]))
-rmse(y_tmp.reshape([y_tmp.shape[0],]), y_pred['1_2000'].reshape([y_pred['1_2000'].shape[0],]))
-rmse(y_tmp.reshape([y_tmp.shape[0],]), y_pred['4_2000'].reshape([y_pred['4_2000'].shape[0],]))
+y_pred['trn_300'] = mu_mean['300'] + X['biomass_trn'].loc[subset2,:].dot(beta_mean['300'])
+y_pred['trn_400'] = mu_mean['400'] + X['biomass_trn'].loc[subset2,:].dot(beta_mean['400'])
+y_pred['trn_600'] = mu_mean['600'] + X['biomass_trn'].loc[subset2,:].dot(beta_mean['600'])
+y_pred['trn_1_2000'] = mu_mean['1_2000'] + X['biomass_trn'].loc[subset2,:].dot(beta_mean['1_2000'])
+y_pred['trn_4_2000'] = mu_mean['4_2000'] + X['biomass_trn'].loc[subset2,:].dot(beta_mean['4_2000'])
 
 # Computing predictions for dev:
-y_pred = dict()
-y_pred['300'] = mu_mean['300'] + X['biomass_dev'].dot(beta_mean['300'])
-y_pred['400'] = mu_mean['400'] + X['biomass_dev'].dot(beta_mean['400'])
-y_pred['600'] = mu_mean['600'] + X['biomass_dev'].dot(beta_mean['600'])
-y_pred['1_2000'] = mu_mean['1_2000'] + X['biomass_dev'].dot(beta_mean['1_2000'])
-y_pred['4_2000'] = mu_mean['4_2000'] + X['biomass_dev'].dot(beta_mean['4_2000'])
-
-# Printing dev rMSE errors:
-rmse(y['biomass_dev'].reshape([y['biomass_dev'].shape[0],]), y_pred['300'].reshape([y_pred['300'].shape[0],]))
-rmse(y['biomass_dev'].reshape([y['biomass_dev'].shape[0],]), y_pred['400'].reshape([y_pred['400'].shape[0],]))
-rmse(y['biomass_dev'].reshape([y['biomass_dev'].shape[0],]), y_pred['600'].reshape([y_pred['600'].shape[0],]))
-rmse(y['biomass_dev'].reshape([y['biomass_dev'].shape[0],]), y_pred['1_2000'].reshape([y_pred['1_2000'].shape[0],]))
-rmse(y['biomass_dev'].reshape([y['biomass_dev'].shape[0],]), y_pred['4_2000'].reshape([y_pred['4_2000'].shape[0],]))
+y_pred['dev_300'] = mu_mean['300'] + X['biomass_dev'].dot(beta_mean['300'])
+y_pred['dev_400'] = mu_mean['400'] + X['biomass_dev'].dot(beta_mean['400'])
+y_pred['dev_600'] = mu_mean['600'] + X['biomass_dev'].dot(beta_mean['600'])
+y_pred['dev_1_2000'] = mu_mean['1_2000'] + X['biomass_dev'].dot(beta_mean['1_2000'])
+y_pred['dev_4_2000'] = mu_mean['4_2000'] + X['biomass_dev'].dot(beta_mean['4_2000'])
 
 # Computing predictions for test:
-y_pred = dict()
-y_pred['300'] = mu_mean['300'] + X['biomass_tst'].dot(beta_mean['300'])
-y_pred['400'] = mu_mean['400'] + X['biomass_tst'].dot(beta_mean['400'])
-y_pred['600'] = mu_mean['600'] + X['biomass_tst'].dot(beta_mean['600'])
-y_pred['1_2000'] = mu_mean['1_2000'] + X['biomass_tst'].dot(beta_mean['1_2000'])
-y_pred['4_2000'] = mu_mean['4_2000'] + X['biomass_tst'].dot(beta_mean['4_2000'])
+y_pred['tst_300'] = mu_mean['300'] + X['biomass_tst'].dot(beta_mean['300'])
+y_pred['tst_400'] = mu_mean['400'] + X['biomass_tst'].dot(beta_mean['400'])
+y_pred['tst_600'] = mu_mean['600'] + X['biomass_tst'].dot(beta_mean['600'])
+y_pred['tst_1_2000'] = mu_mean['1_2000'] + X['biomass_tst'].dot(beta_mean['1_2000'])
+y_pred['tst_4_2000'] = mu_mean['4_2000'] + X['biomass_tst'].dot(beta_mean['4_2000'])
+
+
+# Printing train rMSE errors:
+round(rmse(y['biomass_trn'][subset1].flatten(), y_pred['trn_300']),4)
+round(rmse(y['biomass_trn'][subset1].flatten(), y_pred['trn_400']),4)
+round(rmse(y['biomass_trn'][subset1].flatten(), y_pred['trn_600']),4)
+round(rmse(y['biomass_trn'][subset1].flatten(), y_pred['trn_1_2000']),4)
+round(rmse(y['biomass_trn'][subset1].flatten(), y_pred['trn_4_2000']),4)
+
+# Printing dev rMSE errors:
+round(rmse(y['biomass_dev'].flatten(), y_pred['dev_300']),4)
+round(rmse(y['biomass_dev'].flatten(), y_pred['dev_400']),4)
+round(rmse(y['biomass_dev'].flatten(), y_pred['dev_600']),4)
+round(rmse(y['biomass_dev'].flatten(), y_pred['dev_1_2000']),4)
+round(rmse(y['biomass_dev'].flatten(), y_pred['dev_4_2000']),4)
 
 # Printing test rMSE errors:
-rmse(y['biomass_tst'].reshape([y['biomass_tst'].shape[0],]), y_pred['300'].reshape([y_pred['300'].shape[0],]))
-rmse(y['biomass_tst'].reshape([y['biomass_tst'].shape[0],]), y_pred['400'].reshape([y_pred['400'].shape[0],]))
-rmse(y['biomass_tst'].reshape([y['biomass_tst'].shape[0],]), y_pred['600'].reshape([y_pred['600'].shape[0],]))
-rmse(y['biomass_tst'].reshape([y['biomass_tst'].shape[0],]), y_pred['1_2000'].reshape([y_pred['1_2000'].shape[0],]))
-rmse(y['biomass_tst'].reshape([y['biomass_tst'].shape[0],]), y_pred['4_2000'].reshape([y_pred['4_2000'].shape[0],]))
+round(rmse(y['biomass_tst'].flatten(), y_pred['tst_300']),4)
+round(rmse(y['biomass_tst'].flatten(), y_pred['tst_400']),4)
+round(rmse(y['biomass_tst'].flatten(), y_pred['tst_600']),4)
+round(rmse(y['biomass_tst'].flatten(), y_pred['tst_1_2000']),4)
+round(rmse(y['biomass_tst'].flatten(), y_pred['tst_4_2000']),4)
+
+# Setting directory:
+os.chdir(prefix_out + "plots")
+
+# Plots of the observed against the generated:
+sns.set_style('whitegrid')
+ax = sns.kdeplot(fit['300'].extract()['y_gen'].mean(axis=0), bw=0.5, label='1_300', shade=True)
+ax = sns.kdeplot(fit['400'].extract()['y_gen'].mean(axis=0), bw=0.5, label='1_400', shade=True)
+ax = sns.kdeplot(fit['600'].extract()['y_gen'].mean(axis=0), bw=0.5, label='1_600', shade=True)
+ax = sns.kdeplot(fit['1_2000'].extract()['y_gen'].mean(axis=0), bw=0.5, label='1_2000', shade=True)
+ax = sns.kdeplot(fit['4_2000'].extract()['y_gen'].mean(axis=0), bw=0.5, label='4_2000', shade=True)
+ax = sns.kdeplot(y['biomass_trn'][subset1].flatten(), bw=0.5, label='obs', shade=True)
+ax.set_title('Observed vs generated data (nchain_niter)')
+ax.set(xlabel='Dry mass values', ylabel='Density')
+plt.savefig(prefix_out + 'plots/' + 'benchmark_niter_biomass_density_obs_gen' + '.pdf')
+plt.show()
+plt.clf()
+
+# Plotting:
+plt.scatter(y['biomass_dev'].flatten(), y_pred['dev_300'], label="300", alpha=0.3)
+plt.scatter(y['biomass_dev'].flatten(), y_pred['dev_400'], label="400", alpha=0.3)
+plt.scatter(y['biomass_dev'].flatten(), y_pred['dev_600'], label="600", alpha=0.3)
+plt.scatter(y['biomass_dev'].flatten(), y_pred['dev_1_2000'], label="1_2000", alpha=0.3)
+plt.scatter(y['biomass_dev'].flatten(), y_pred['dev_4_2000'], label="4_2000", alpha=0.3)
+# plt.xlim(2.5, 4)
+# plt.ylim(2.5, 4)
+plt.legend()
+plt.title('Observed vs predicted data from the dev set (nchain_niter)')
+plt.xlabel('Observed data')
+plt.ylabel("Predicted data")
+# plt.savefig(prefix_out + 'plots/' + 'benchmark_niter_biomass_density_obs_pred' + '.pdf')
+plt.show()
+plt.clf()
