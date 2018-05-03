@@ -16,23 +16,25 @@ The folder 'codes' contains the codes written during the development of the proj
 
 4. **mtrait_iter_chain_number_tst.py**: Used for tuning the number of iterations and chains to fit the Bayesian Networks (done).
 
-5. **transcriptomic_data_augmentation.py**: Used for imputing RNAseq data by regressing each column of the binned expression matrix into the genomic binned matrix using Random Deep Neural Networks (under development).
+5. **transcriptomic_data_augmentation.py**: Used for imputing RNAseq data by regressing each column of the binned expression matrix into the genomic binned matrix using Random Deep Neural Networks (done, failed preliminary tests).
 
-6. **multi_trait.stan**: Code written at the probabilistic programming language stan to fit the Bayesian Network without pleiotropic effects (done).
+6. **transcriptomic_data_augmentation_via_bayesian.py**: Used for imputing RNAseq data by regressing each column of the binned expression matrix into the genomic binned matrix using Bayesian network (done, failed preliminary tests).
 
-7. **plots_raw_data.R**: For plotting different types of plots to explore the raw data features (done).
+7. **multi_trait.stan**: Code written at the probabilistic programming language stan to fit the Bayesian Network without pleiotropic effects (done).
 
-8. **external_functions.py**: Set of functions already written that the codes (1, 2, 3) depends on (done).
+8. **plots_raw_data.R**: For plotting different types of plots to explore the raw data features (done).
 
-9. **mtrait_gdrive.sh**: Bash code for transfering data and plots between machines, and also as cloud backup mechanism (done).
+9. **external_functions.py**: Set of functions already written that the codes (1, 2, 3) depends on (done).
 
-10. **gbs_from_rdata_to_csv.R**: Code for transforming the raw ".RData" provided by Sam into ".csv" extension for easy loading into python (done).
+10. **mtrait_gdrive.sh**: Bash code for transfering data and plots between machines, and also as cloud backup mechanism (done).
 
-11. **useful_bash_code.sh**: Useful unix-based bash code, including for run python processes into terminal, as well as to do some local software installation (under development).
+11. **gbs_from_rdata_to_csv.R**: Code for transforming the raw ".RData" provided by Sam into ".csv" extension for easy loading into python (done).
 
-12. **tmp.py**: Just to write temporary code in python.
+12. **useful_bash_code.sh**: Useful unix-based bash code, including for run python processes into terminal, as well as to do some local software installation (under development).
 
-13. **tmp.R**: Just to write temporary code in R.
+13. **tmp.py**: Just to write temporary code in python.
+
+14. **tmp.R**: Just to write temporary code in R.
 
 # Folder 'notes'
 

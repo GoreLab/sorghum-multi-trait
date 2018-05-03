@@ -187,7 +187,6 @@ for k in tmp:
 		X['height_'+ k + '_mb_' + str(i)].shape
 		y['height_'+ k + '_mb_' + str(i)].shape
 
-
 #--------------------------------------Preparing data for pystan---------------------------------------------#
 
 # Getting the features names prefix:
