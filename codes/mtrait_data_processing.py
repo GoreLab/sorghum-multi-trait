@@ -325,8 +325,8 @@ T_bin = get_bin(x=T, step_size=n_loci_per_bin)
 # Transforming the bin matrix into pandas class:
 T_bin = pd.DataFrame(T_bin, index=T.index, columns=map('bin_{}'.format, range(T_bin.shape[1])))
 
-# Removing T from memory:
-T = None
+# # Removing T from memory:
+# T = None
 
 # Averaging over the data structure except the factors evaluated in the multi trait project
 df = df.groupby(['id_gbs', 'loc', 'year', 'trait', 'dap'], as_index=False).mean()
@@ -398,3 +398,6 @@ W_bin.to_csv("W_bin.csv")
 
 # Writing the transcriptomic binned matrix:
 T_bin.to_csv("T_bin.csv")
+
+# Writing the transcriptomic matrix:
+T.to_csv("T.csv")

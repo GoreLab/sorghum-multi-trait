@@ -384,12 +384,15 @@ for alt in range(n_alt):
 
 #----------------------------------------Going deeply: Developing--------------------------------------------#
 
+## Temp:
+n_alt = n_alt - 1
+
 
 # To reset the previous graph:
 tf.reset_default_graph()
 
 # Number of simulations:
-n_sim=1
+n_sim=100
 
 # Small epsilon value for batch norm
 epsilon = 1e-7
@@ -517,24 +520,25 @@ print(np.round(np.argsort(mic_sets[:,0], axis=0)[::-1],4))
 print(np.round(np.argsort(mic_sets[:,1], axis=0)[::-1],4))
 print(np.round(np.argsort(mic_sets[:,2], axis=0)[::-1],4))
 
-# Plotting a selected alternative:
+# Plotting the best selected alternative:
+tmp = np.argsort(rmse_sets[:,1], axis=0)[0]
+print(np.round(rmse_sets[tmp,0],4))
+print(np.round(rmse_sets[tmp,1],4))
+print(np.round(rmse_sets[tmp,2],4))
 
 
-
-
-y_tmp = np.mean(Y_pred_lst_sets[1], axis=2)[110,:]
+# Plotting the best selected alternative:
+y_tmp = np.mean(Y_pred_lst_sets[1], axis=2)[tmp,:]
 y_tmp = y_tmp.reshape([1, y_tmp.shape[0]])
-
-# Ploting figure:
 fig = plt.scatter(y['dev'], y_tmp)
 plt.xlim(2.5, 4)
 plt.ylim(2.5, 4)
 plt.title('Observed vs predicted data')
 plt.xlabel('Observed transcription binned values')
 plt.ylabel("Predicted transcription binned values")
+plt.show()
 plt.savefig(prefix_out + 'plots/' + 'bin_0_obs_vs_pred' + '.pdf')
 plt.clf()
-
 
 
 #---------------------------------------Storing the best prediction------------------------------------------#

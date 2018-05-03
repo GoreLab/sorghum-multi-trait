@@ -1,5 +1,15 @@
-rmse(y_tmp.reshape([y_tmp.shape[0],]), y_pred['300'].reshape([y_pred['300'].shape[0],]))
-rmse(y_tmp.reshape([y_tmp.shape[0],]), y_pred['400'].reshape([y_pred['400'].shape[0],]))
-rmse(y_tmp.reshape([y_tmp.shape[0],]), y_pred['600'].reshape([y_pred['600'].shape[0],]))
-rmse(y_tmp.reshape([y_tmp.shape[0],]), y_pred['1_2000'].reshape([y_pred['1_2000'].shape[0],]))
-rmse(y_tmp.reshape([y_tmp.shape[0],]), y_pred['4_2000'].reshape([y_pred['4_2000'].shape[0],]))
+# Printing train pearsonr:
+pearsonr(y['trn'].flatten(), y_pred['trn'])[0]
+
+# Computing predictions for dev:
+y_pred['dev'] = mu_mean['400'] + X['dev'].dot(beta_mean['400'])
+
+# Printing dev pearsonr:
+pearsonr(y['dev'].flatten(), y_pred['dev'])[0]
+
+# Computing predictions for test:
+y_pred['tst'] = mu_mean['400'] + X['tst'].dot(beta_mean['400'])
+
+# Printing test pearsonr:
+pearsonr(y['tst'].flatten(), y_pred['tst'])[0]
+
