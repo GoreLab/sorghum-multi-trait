@@ -48,15 +48,15 @@ from external_functions import *
 
 #-----------------------------------------Adding flags to the code-------------------------------------------#
 
-#-db DATABSE -u USERNAME -p PASSWORD -size 20
-parser.add_argument("-c", "--core", help="Current core where the analysis is happing")
-parser.add_argument("-a", "--alt", help="Number of alternative models per bin")
+#-c core -a number of alternatives
+parser.add_argument("-c", "--core", dest = "core", default = 0, help="Current core where the analysis is happing", type=int)
+parser.add_argument("-nalt", "--nalternatives", dest = "nalt", default = 1, help="Number of alternative models per bin", type=int)
 
 args = parser.parse_args()
 
-print( "ncores {} alt_bin {}".format(
+print( "cores {} alt {}".format(
         args.core,
-        args.alt,
+        args.nalt,
      ))
 
 #--------------------------Building design/feature matrices for height and biomass---------------------------#
@@ -211,10 +211,10 @@ model = 'DBN'				 # 'DBN' or 'BN' or 'BNP'
 structure = 'biomass_trn'
 
 # Current core where the analysis is happening:
-core = parser.core
+core = args.core
 
 # Number of alternative runs per bin:
-n_alt = parser.alt
+n_alt = args.nalt
 
 # ## Temp:
 # core=0
