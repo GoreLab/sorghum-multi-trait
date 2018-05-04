@@ -368,15 +368,6 @@ df = df.drop('range', axis=1)
 # Traits list:
 tmp = ['adf', 'drymass', 'moisture', 'ndf', 'protein', 'starch', 'height']
 
-# Ploting figure:
-for i in range(len(tmp)):
-	fig = plt.hist(df[tmp[i]].dropna().values, normed=0)
-	plt.title(tmp[i].title())
-	plt.xlabel(tmp[i].title() + ' values')
-	plt.ylabel("Frequency")
-	plt.savefig(prefix_out + 'plots/' + tmp[i] + '.pdf')
-	plt.clf()
-
 # Reordering the columns of the data frame:
 tmp = df.columns.tolist()
 tmp = tmp[0:5] + [tmp[5]] + tmp[7:11] + [tmp[6]] + [tmp[-1]]
