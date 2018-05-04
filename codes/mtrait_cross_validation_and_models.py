@@ -55,7 +55,7 @@ parser.add_argument("-a", "--alt", help="Number of alternative models per bin")
 args = parser.parse_args()
 
 print( "ncores {} alt_bin {}".format(
-        args.ncores,
+        args.core,
         args.alt,
      ))
 
