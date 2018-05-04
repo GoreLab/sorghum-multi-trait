@@ -26,6 +26,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import normalized_mutual_info_score
 
+# For adding flags to the code:
+import argparse
+parser = argparse.ArgumentParser()
+
 # Prefix of the directory of the project is in (choose the directory to the desired machine by removing comment):
 # prefix_proj = "/home/jhonathan/Documentos/mtrait-proj/"
 # prefix_proj = "/data1/aafgarci/jhonathan/sorghum-multi-trait/"

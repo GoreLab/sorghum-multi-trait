@@ -12,6 +12,10 @@ PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
 # Firing the process:
 ${PREFIX_python}/python ${PREFIX_code}/mtrait_data_processing.py & 
 
+# Firing the process:
+${PREFIX_python}/python ${PREFIX_code}/mtrait_cross_validation_and_models.py --core 0 --alt 2 & 
+
+
 
 ############################ Install python locally ####################################
 
