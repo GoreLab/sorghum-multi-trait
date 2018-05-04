@@ -42,6 +42,18 @@ os.chdir(prefix_proj + "codes")
 # Loading external functions:
 from external_functions import * 
 
+#-----------------------------------------Adding flags to the code-------------------------------------------#
+
+#-db DATABSE -u USERNAME -p PASSWORD -size 20
+parser.add_argument("-c", "--core", help="Current core where the analysis is happing")
+parser.add_argument("-a", "--alt", help="Number of alternative models per bin")
+
+args = parser.parse_args()
+
+print( "ncores {} alt_bin {}".format(
+        args.ncores,
+        args.alt,
+     ))
 
 #--------------------------Building design/feature matrices for height and biomass---------------------------#
 
@@ -143,22 +155,6 @@ y['biomass_dev'] = np.reshape(y['biomass_dev'], (y['biomass_dev'].shape[0], 1))
 y['biomass_tst'] = np.reshape(y['biomass_tst'], (y['biomass_tst'].shape[0], 1))
 
 # Checking shapes of the matrices related to height:
-X['height_trn'] = X['height_trn'].transpose()
-y['height_trn'] = y['height_trn'].transpose()
-X['height_dev'] = X['height_dev'].transpose()
-y['height_dev'] = y['height_dev'].transpose()
-X['height_tst'] = X['height_tst'].transpose()
-y['height_tst'] = y['height_tst'].transpose()
-
-# Checking shapes of the matrices related to biomass:
-X['biomass_trn'] = X['biomass_trn'].transpose()
-y['biomass_trn'] = y['biomass_trn'].transpose()
-X['biomass_dev'] = X['biomass_dev'].transpose()
-y['biomass_dev'] = y['biomass_dev'].transpose()
-X['biomass_tst'] = X['biomass_tst'].transpose()
-y['biomass_tst'] = y['biomass_tst'].transpose()
-
-# Checking shapes of the matrices related to height:
 X['height_trn'].shape
 y['height_trn'].shape
 X['height_dev'].shape
@@ -210,33 +206,48 @@ model = 'DBN'				 # 'DBN' or 'BN' or 'BNP'
 # Choosing the data structure to be analysed:
 structure = 'biomass_trn'
 
+# Current core where the analysis is happening:
+core = parser.core
+
+# Number of alternative runs per bin:
+n_alt = parser.alt
+
+# ## Temp:
+# core=0
+# n_alt=2
+
+# Seed to recover the analysis:
+seed = int(str(core) + str(n_alt))
+
 #----------------------------------------Bayesian Network code-----------------------------------------------#
 
-if (model == 'BN') {
-
+if model == 'BN':
 	# Getting the features names prefix:
 	tmp = X[structure].columns.str.split('_').str.get(0)
-
 	# Building an incidence vector for adding specific priors for each feature class:
 	index_x = pd.DataFrame(tmp).replace(tmp.drop_duplicates(), range(1,(tmp.drop_duplicates().size+1)))[0].values 
-
 	# Building an year matrix just for indexing resuduals standard deviations heterogeneous across time:
 	X['year'] = pd.get_dummies(df.year.loc[X[structure].index]) 
-	
-}
 
 
 #-----------------------------------------Deep learning code-------------------------------------------------#
 
+# Checking shapes of the matrices related to height:
+X[structure] = X[structure].transpose()
+y[structure] = y[structure].transpose()
+
+# Checking shapes of the matrices related to height:
+X[structure].shape
+y[structure].shape
 
 # A list to receive the results:
 results = [None] * n_alt
 
 # Generating iterations:
-setIter = range(1000)
+setIter = range(100)
 
 # Generating epochs:
-range_epoch = range(50)
+range_epoch = range(5)
 
 # Small epsilon value for batch norm
 epsilon = 1e-7
@@ -252,10 +263,12 @@ n_layers_lst = sample_n_h_layers(min=1,          # Maximum number of hidden unit
                                  same_str=2)     # False: Random guess; [Some architecture]: architecture to be replicated across guesses
 
 # Batch norm (True or False):
-batch_mode = False
+np.random.seed(seed)
+batch_mode_lst = np.random.choice([True, False], size=n_alt)
 
 # Dropout (True or False):
-dropout_mode = True  
+np.random.seed(seed)
+dropout_mode_lst = np.random.choice([True, False], size=n_alt) 
 
 # Sampling the hidden units:
 np.random.seed(seed)
@@ -281,9 +294,9 @@ lamb_lst = sample_interval(min = 0.0001,    # Minimum of the quantitative interv
 
 # Sampling batch size:
 np.random.seed(seed)
-batch_size_lst = sample_batch(n = X['trn'].shape[1],      # Number of observations, or examples, or target
+batch_size_lst = sample_batch(n = X[structure].shape[1],      # Number of observations, or examples, or target
                               n_guess = n_alt,            # Number of guesses
-                              same_str = X['trn'].shape[1])           # False: Random guess; [Value] insert a value to replicate
+                              same_str = X[structure].shape[1])           # False: Random guess; [Value] insert a value to replicate
 
 # Sampling dropout keep prob hyperparameter:
 np.random.seed(seed)
@@ -296,10 +309,10 @@ keep_prob_lst = sample_interval(min = 0.0001,      # Minimum of the quantitative
 ## Creating folders on the project to store the alternative results:
 
 # Getting in the output directory:
-bash_line1 = "cd " + prefix_out + "outputs/rnaseq_imp;"
+bash_line1 = "cd " + prefix_out + "outputs/" + model + "/" + structure + "/;"
 
 # Creating folders to store the results:
-bash_line2 = "for i in $(seq 0 " + str(n_alt-1)+ "); do mkdir core"+ str(core) + "_alt${i}_bin" + str(r) + "; done;"
+bash_line2 = "for i in $(seq 0 " + str(n_alt-1)+ "); do mkdir core"+ str(core) + "_alt${i}" + "; done;"
 
 # Running proces on unix shell:
 subprocess.call(bash_line1 + bash_line2, shell=True)
@@ -316,15 +329,17 @@ if proc_type == "CPU":
 for alt in range(n_alt):
      with tf.device(proc):
       # Start hyperparameters:
+      batch_mode = batch_mode_lst[alt]
+      dropout_mode = dropout_mode_lst[alt]
       starter_learning_rate = starter_learning_rate_lst[alt]            # Starter learning rate
       n_layers = n_layers_lst[alt]
       h_units = h_units_lst[alt]                                        # Number of hidden units
       batch_size = batch_size_lst[alt]                                  # Batch size
-      total_batch = int(len(X['trn'].transpose()) / batch_size)       # Total batch size
+      total_batch = int(len(X[structure].transpose()) / batch_size)       # Total batch size
       # Creating variables for batch normalization:
       const = tf.constant(0.01)
       # Creating symbolic variables (Tensors Planceholders):
-      A0 = tf.placeholder(tf.float32, shape=(X['trn'].shape[0], batch_size))  # Symbolic input training variable
+      A0 = tf.placeholder(tf.float32, shape=(X[structure].shape[0], batch_size))  # Symbolic input training variable
       Y = tf.placeholder(tf.float32, shape=(1, batch_size))                     # Symbolic response training variable
       Lamb = tf.placeholder(tf.float32)                                         # Symbolic regularization parameter
       keep_prob = tf.placeholder(tf.float32)                                    # Symbolic probability (to remove hidden units) for dropout
@@ -347,7 +362,7 @@ for alt in range(n_alt):
         beta.append(tf.Variable(tf.zeros([h_units[0], 1]), name="beta1"))
         gamma.append(tf.Variable(tf.ones([h_units[0], 1]), name="gamma1"))
       # First hidden layer:
-      W.append(tf.Variable(tf.random_uniform([h_units[0], X['trn'].shape[0]])*const,
+      W.append(tf.Variable(tf.random_uniform([h_units[0], X[structure].shape[0]])*const,
                         dtype=tf.float32, name="W1"))
       B.append(tf.Variable(tf.zeros([h_units[0], 1]),
                         dtype=tf.float32, name="B1"))
@@ -408,7 +423,7 @@ for alt in range(n_alt):
       # Summing values:
       fro_norm = tf.reduce_sum(fro_norm, keepdims=True)
       # Regularization:
-      const2 = tf.multiply(tf.constant(2, dtype=tf.float32), tf.constant(X['trn'].shape[0], dtype=tf.float32)) 
+      const2 = tf.multiply(tf.constant(2, dtype=tf.float32), tf.constant(X[structure].shape[0], dtype=tf.float32)) 
       reg = tf.multiply(tf.divide(Lamb, const2), fro_norm) 
       # Exponential decay:
       global_step = tf.Variable(0, trainable=False)
@@ -430,14 +445,14 @@ for alt in range(n_alt):
       session.run(init)
       # Merge all the summaries and write them out to:
       merged_summary = tf.summary.merge_all()
-      writer = tf.summary.FileWriter(prefix_out + "outputs/rnaseq_imp/core" + str(core) + "_alt" + str(alt) + "_bin" + str(r) + "/")
+      writer = tf.summary.FileWriter(prefix_out + "outputs/" + model + "/" + structure + "/core" + str(core) + "_alt" + str(alt) + "/")
       writer.add_graph(session.graph)
       # Optimizing the Deep Neural Network (DNN):
       for epoch in range_epoch:
        if epoch > 0:
             print("\n", "Cost:", "\n", out[0]);
-       X_batch = np.array_split(X['trn'].transpose(), total_batch)
-       Y_batch = np.array_split(y['trn'].transpose(), total_batch)
+       X_batch = np.array_split(X[structure].transpose(), total_batch)
+       Y_batch = np.array_split(y[structure].transpose(), total_batch)
        for j in setIter:
            for i in range(total_batch):
                if X_batch[i].shape[0] > batch_size:
@@ -448,8 +463,8 @@ for alt in range(n_alt):
                writer.add_summary(s, i)
       results[alt] = out
       saver = tf.train.Saver()
-      os.chdir(prefix_out + "outputs/rnaseq_imp/core" + str(core) + "_alt" + str(alt) + "_bin" + str(r))       
-      save_path = "./core" + str(core) + "_alt" + str(alt) + "_bin" + str(r)
+      os.chdir(prefix_out + "outputs/" + model + "/" + structure + "/core" + str(core) + "_alt" + str(alt))       
+      save_path = "./core" + str(core) + "_alt" + str(alt)
       saver.save(session, save_path)
       tf.reset_default_graph()  
 
