@@ -268,7 +268,6 @@ y_pred['tst_600'] = mu_mean['600'] + X['biomass_tst'].dot(beta_mean['600'])
 y_pred['tst_1_2000'] = mu_mean['1_2000'] + X['biomass_tst'].dot(beta_mean['1_2000'])
 y_pred['tst_4_2000'] = mu_mean['4_2000'] + X['biomass_tst'].dot(beta_mean['4_2000'])
 
-
 # Printing train rMSE errors:
 round(rmse(y['biomass_trn'][subset1].flatten(), y_pred['trn_300']),4)
 round(rmse(y['biomass_trn'][subset1].flatten(), y_pred['trn_400']),4)

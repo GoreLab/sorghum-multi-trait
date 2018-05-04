@@ -159,7 +159,6 @@ y['biomass_dev'].shape
 X['biomass_tst'].shape
 y['biomass_tst'].shape
 
-
 #----------------------------Subdivision of the height data into mini-batches--------------------------------#
 
 # Subsetting the full set of names of the inbred lines phenotyped for biomass:
@@ -199,6 +198,8 @@ index_x = pd.DataFrame(tmp).replace(tmp.drop_duplicates(), range(1,(tmp.drop_dup
 X['year'] = pd.get_dummies(df.year.loc[X['biomass_trn'].index]) 
 
 #--------------------------------------To run the code on pystan---------------------------------------------#
+
+
 
 ## To do list:
 # 1. Create the Bayesian network stan code to run the model without pleiotropic effects

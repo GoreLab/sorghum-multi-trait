@@ -314,7 +314,7 @@ T = T.loc[tmp.name1]
 T.index = tmp.id_gbs
 
 # Number of bins:
-n_bin = 700
+n_bin = 1000
 
 # Number of loci per bin:
 n_loci_per_bin = int(T.shape[1]/n_bin)
