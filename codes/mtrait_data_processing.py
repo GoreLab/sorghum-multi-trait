@@ -233,7 +233,7 @@ M = M.loc[:, line_names]
 W = W_model(x=M.transpose())
 
 # Number of bins:
-n_bin = 700
+n_bin = 1000
 
 # Number of loci per bin:
 n_loci_per_bin = int(W.shape[1]/n_bin)
