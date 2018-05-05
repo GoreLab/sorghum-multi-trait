@@ -30,10 +30,15 @@ n_alt=20
 # Looping over codes:
 for i in $(seq 0 $((n_proc-1))); do  
 	
-	#Firing process:
+	# Firing process:
 	${PREFIX_python}/python ${PREFIX_code}/mtrait_cross_validation_and_models.py -c ${i} -nalt ${n_alt} &
 
+	# Wait some time to fire the next process:
+	sleep 30
+
 done;
+
+
 
 
 
