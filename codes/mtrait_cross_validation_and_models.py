@@ -444,7 +444,7 @@ for alt in range(n_alt):
       else:
            server = tf.train.Server.create_local_server()
            session = tf.Session(server.target, config=tf.ConfigProto(
-    intra_op_parallelism_threads=NUM_THREADS))
+    intra_op_parallelism_threads=1))
       # Initialize session:
       init = tf.global_variables_initializer()
       session.run(init)

@@ -34,7 +34,7 @@ for i in $(seq 0 $((n_proc-1))); do
 	${PREFIX_python}/python ${PREFIX_code}/mtrait_cross_validation_and_models.py -c ${i} -nalt ${n_alt} &
 
 	# Wait some time to fire the next process:
-	sleep 30
+	sleep 1
 
 done;
 
