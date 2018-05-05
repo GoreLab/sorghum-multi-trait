@@ -443,8 +443,7 @@ for alt in range(n_alt):
            session = tf.Session(config=tf.ConfigProto(allow_soft_placement=True, log_device_placement=True))
       else:
            server = tf.train.Server.create_local_server()
-           session = tf.Session(server.target, config=tf.ConfigProto(
-    intra_op_parallelism_threads=1))
+           session = tf.Session(server.target)
       # Initialize session:
       init = tf.global_variables_initializer()
       session.run(init)
