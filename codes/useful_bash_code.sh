@@ -24,8 +24,8 @@ PREFIX_python=/workdir/jp2476/software/python/bin
 PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
 
 # Number of processes:
-n_proc=50
-n_alt=20
+n_proc=15
+n_alt=70
 
 # Looping over codes:
 for i in $(seq 0 $((n_proc-1))); do  
