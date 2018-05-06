@@ -31,8 +31,8 @@ import argparse
 parser = argparse.ArgumentParser()
 
 # Prefix of the directory of the project is in (choose the directory to the desired machine by removing comment):
-prefix_proj = "/home/jhonathan/Documents/mtrait-proj/"
-# prefix_proj = "/home/jhonathan/Documentos/mtrait-proj/"
+prefix_proj = "/home/jhonathan/Documents/sorghum-multi-trait/"
+# prefix_proj = "/home/jhonathan/Documentos/sorghum-multi-trait/"
 # prefix_proj = "/data1/aafgarci/jhonathan/sorghum-multi-trait/"
 # prefix_proj = "/workdir/jp2476/repo/sorghum-multi-trait/"
 
