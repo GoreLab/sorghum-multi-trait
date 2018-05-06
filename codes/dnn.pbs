@@ -16,7 +16,7 @@ n_alt=2
 
 for i in $(seq 0 $((n_proc-1))); do  
 	
-	${PREFIX_python}/python ${PREFIX_code}/mtrait_cross_validation_and_models.py -c ${i} -nalt ${n_alt}  >  ${PREFIX_code}/log_dnn.txt &
+	${PREFIX_python}/python ${PREFIX_code}/mtrait_cross_validation_and_models.py -c ${i} -nalt ${n_alt}  >  ${PREFIX_log}/log_dnn_core${i}.txt &
 
 	sleep 1
 
