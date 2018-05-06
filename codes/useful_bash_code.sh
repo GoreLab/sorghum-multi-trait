@@ -25,7 +25,7 @@ PREFIX_python=/home/jhonathan/Documents/python/bin
 # Prefix code:
 # PREFIX_code=/data1/aafgarci/jhonathan/sorghum-multi-trait/codes
 # PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
-PREFIX_python=/home/jhonathan/Documents/sorghum-multi-trait/codes
+PREFIX_codes=/home/jhonathan/Documents/sorghum-multi-trait/codes
 
 # Number of processes:
 n_proc=7
