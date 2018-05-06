@@ -7,16 +7,15 @@
 #PBS -o /data1/aafgarci/jhonathan/resul_mtrait-proj/outputs/DBN/biomass_trn/log_dnn.out
 
 
-PREFIX_python=/home/aafgarci/anaconda3/bin
 PREFIX_code=/data1/aafgarci/jhonathan/sorghum-multi-trait/codes
 PREFIX_log=/data1/aafgarci/jhonathan/resul_mtrait-proj/outputs/DBN/biomass_trn 
 
 n_proc=2
-n_alt=2
+n_alt=30
 
 for i in $(seq 0 $((n_proc-1))); do  
 	
-	${PREFIX_python}/python ${PREFIX_code}/mtrait_cross_validation_and_models.py -c ${i} -nalt ${n_alt}  >  ${PREFIX_log}/log_dnn_core${i}.txt &
+	python ${PREFIX_code}/mtrait_cross_validation_and_models.py -c ${i} -nalt ${n_alt}  >  ${PREFIX_log}/log_dnn_core${i}.txt &
 
 	sleep 1
 
