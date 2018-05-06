@@ -248,10 +248,10 @@ y[structure].shape
 results = [None] * n_alt
 
 # Generating iterations:
-setIter = range(1000)
+setIter = range(100)
 
 # Generating epochs:
-range_epoch = range(50)
+range_epoch = range(5)
 
 # Small epsilon value for batch norm
 epsilon = 1e-7
