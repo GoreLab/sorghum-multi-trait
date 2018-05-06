@@ -4,7 +4,7 @@
 #PBS -l mem=30gb
 #PBS -q long
 #PBS -j oe
-#PBS -o /data1/aafgarci/jhonathan/resul_syng-proj/outs/job-r_script_syng-proj_mini-batch_model3.out
+#PBS -o /data1/aafgarci/jhonathan/resul_mtrait-proj/outputs/dbn/biomass_trn/log_dnn.out
 
 
 PREFIX_python=/home/aafgarci/anaconda3/bin
