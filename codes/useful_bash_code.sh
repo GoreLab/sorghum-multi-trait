@@ -40,10 +40,6 @@ for i in $(seq 0 $((n_proc-1))); do
 
 done;
 
-
-
-
-
 ############################ Install python locally ####################################
 
 # For install python local:
@@ -65,5 +61,7 @@ bash ./Anaconda3-5.0.1-Linux-x86_64.sh
 
 #########################################################################################
 
+# For kill all process of a user:
+pkill -u aafgarci
 
 
