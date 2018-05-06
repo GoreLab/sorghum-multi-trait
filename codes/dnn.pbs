@@ -1,15 +1,15 @@
 #!/bin/bash
 #PBS -N job1
-#PBS -l nodes=1:ppn=1
+#PBS -l nodes=1:ppn=2
 #PBS -l mem=30gb
 #PBS -q long
 #PBS -j oe
-#PBS -o /data1/aafgarci/jhonathan/resul_mtrait-proj/outputs/dbn/biomass_trn/log_dnn.out
+#PBS -o /data1/aafgarci/jhonathan/resul_mtrait-proj/outputs/DBN/biomass_trn/log_dnn.out
 
 
 PREFIX_python=/home/aafgarci/anaconda3/bin
 PREFIX_code=/data1/aafgarci/jhonathan/sorghum-multi-trait/codes
-PREFIX_log=/data1/aafgarci/jhonathan/resul_mtrait-proj/outputs/dbn/biomass_trn 
+PREFIX_log=/data1/aafgarci/jhonathan/resul_mtrait-proj/outputs/DBN/biomass_trn 
 
 n_proc=2
 n_alt=2
