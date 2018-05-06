@@ -6,7 +6,6 @@
 #PBS -j oe
 #PBS -o /data1/aafgarci/jhonathan/resul_mtrait-proj/outputs/DBN/biomass_trn/log_dnn.out
 
-
 PREFIX_code=/data1/aafgarci/jhonathan/sorghum-multi-trait/codes
 PREFIX_log=/data1/aafgarci/jhonathan/resul_mtrait-proj/outputs/DBN/biomass_trn 
 
