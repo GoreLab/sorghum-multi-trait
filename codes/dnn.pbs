@@ -1,16 +1,16 @@
 #!/bin/bash
 #PBS -N job1
-#PBS -l nodes=1:ppn=2
+#PBS -l nodes=2:ppn=10
 #PBS -l mem=30gb
-#PBS -q long
+#PBS -q short
 #PBS -j oe
 #PBS -o /data1/aafgarci/jhonathan/resul_mtrait-proj/outputs/DBN/biomass_trn/log_dnn.out
 
 PREFIX_code=/data1/aafgarci/jhonathan/sorghum-multi-trait/codes
 PREFIX_log=/data1/aafgarci/jhonathan/resul_mtrait-proj/outputs/DBN/biomass_trn 
 
-n_proc=2
-n_alt=30
+n_proc=20
+n_alt=51
 
 for i in $(seq 0 $((n_proc-1))); do  
 	
