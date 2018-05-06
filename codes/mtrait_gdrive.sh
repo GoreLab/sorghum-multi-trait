@@ -1,4 +1,17 @@
 
+########################################Cuica###########################################
+
+## Uploading the folder content [Whole folder]:
+/home/jhonathan/Documents/sorghum-multi-trait/codes/gdrive sync upload --delete-extraneous --timeout 10000000 /home/jhonathan/Documents/resul_mtrait-proj \
+ 1N45DjnYKcAmQiOpX_4Xg9gESyfihXikN
+
+
+## Downloading the folder content [Kaggle submission]:
+/home/jhonathan/Documents/sorghum-multi-trait/codes/gdrive sync download --delete-extraneous  --timeout 10000000 1N45DjnYKcAmQiOpX_4Xg9gESyfihXikN \
+/home/jhonathan/Documents/resul_mtrait-proj
+
+
+
 ########################################Spalla###########################################
 
 ## Uploading the folder content [Whole folder]:

@@ -18,16 +18,18 @@ ${PREFIX_python}/python ${PREFIX_code}/mtrait_data_processing.py &
 ## For firing python scripts into bash code:
 
 # Prefix python:
-PREFIX_python=/home/aafgarci/anaconda3/bin
+# PREFIX_python=/home/aafgarci/anaconda3/bin
 # PREFIX_python=/workdir/jp2476/software/python/bin
+PREFIX_python=/home/jhonathan/Documents/python/bin
 
 # Prefix code:
-PREFIX_code=/data1/aafgarci/jhonathan/sorghum-multi-trait/codes
+# PREFIX_code=/data1/aafgarci/jhonathan/sorghum-multi-trait/codes
 # PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
+PREFIX_python=/home/jhonathan/Documents/sorghum-multi-trait/codes
 
 # Number of processes:
-n_proc=15
-n_alt=70
+n_proc=7
+n_alt=143
 
 # Looping over codes:
 for i in $(seq 0 $((n_proc-1))); do  
@@ -42,8 +44,11 @@ done;
 
 ############################ Install python locally ####################################
 
+# Download anaconta:
+wget https://repo.anaconda.com/archive/Anaconda3-5.1.0-Linux-x86_64.sh
+
 # For install python local:
-bash ./Anaconda3-5.0.1-Linux-x86_64.sh
+bash Anaconda3-5.1.0-Linux-x86_64.sh
 
 # Folder where the python is installed:
 /workdir/jp2476/software/python
@@ -62,6 +67,9 @@ bash ./Anaconda3-5.0.1-Linux-x86_64.sh
 #########################################################################################
 
 # For kill all process of a user:
+screen -X -S jhonathan quit
+
 pkill -u aafgarci
+
 
 
