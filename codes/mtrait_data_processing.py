@@ -249,7 +249,7 @@ W_bin.index = line_names.astype(str)
 W_bin.columns = map('bin_{}'.format, range(W_bin.shape[1]))
 
 # Removing M from memory:
-M = None
+# M = None
 
 # Subsetting only the inbred lines that were genotyped and phenotyped into the data frame:
 tmp = np.where(df.id_gbs.isin(line_names))
@@ -389,3 +389,6 @@ W_bin.to_csv("W_bin.csv")
 
 # Writing the transcriptomic binned matrix:
 T_bin.to_csv("T_bin.csv")
+
+# Writing the full marker matrix:
+M.to_csv("M.csv")
