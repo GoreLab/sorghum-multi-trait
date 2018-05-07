@@ -169,21 +169,20 @@ os.chdir(prefix_out + 'data/cross_validation/cv1')
 
 # Saving height data:
 X['cv1_height_trn'].to_csv('x_cv1_height_trn')
-y['cv1_height_trn'].to_csv('y_cv1_height_trn')
+pd.DataFrame(y['cv1_height_trn'], index=index_cv['cv1_height_trn']).to_csv('y_cv1_height_trn')
 X['cv1_height_dev'].to_csv('x_cv1_height_dev')
-y['cv1_height_dev'].to_csv('y_cv1_height_dev')
+pd.DataFrame(y['cv1_height_dev'], index=index_cv['cv1_height_dev']).to_csv('y_cv1_height_dev')
 X['cv1_height_tst'].to_csv('x_cv1_height_tst')
-y['cv1_height_tst'].to_csv('y_cv1_height_tst')
+pd.DataFrame(y['cv1_height_tst'], index=index_cv['cv1_height_tst']).to_csv('y_cv1_height_tst')
 
 
-# Saving biomass data:
 # Saving biomass data:
 X['cv1_biomass_trn'].to_csv('x_cv1_biomass_trn')
-y['cv1_biomass_trn'].to_csv('y_cv1_biomass_trn')
+pd.DataFrame(y['cv1_biomass_trn'], index=index_cv['cv1_biomass_trn']).to_csv('y_cv1_biomass_trn')
 X['cv1_biomass_dev'].to_csv('x_cv1_biomass_dev')
-y['cv1_biomass_dev'].to_csv('y_cv1_biomass_dev')
+pd.DataFrame(y['cv1_biomass_dev'], index=index_cv['cv1_biomass_dev']).to_csv('y_cv1_biomass_dev')
 X['cv1_biomass_tst'].to_csv('x_cv1_biomass_tst')
-y['cv1_biomass_tst'].to_csv('y_cv1_biomass_tst')
+pd.DataFrame(y['cv1_biomass_tst'], index=index_cv['cv1_biomass_tst']).to_csv('y_cv1_biomass_tst')
 
 #----------------------------Subdivision of the height data into mini-batches--------------------------------#
 
@@ -213,5 +212,5 @@ for k in tmp:
 		y['cv1_height_'+ k + '_mb_' + str(i)].shape
 		# Saving data:
 		X['cv1_height_'+ k + '_mb_' + str(i)].to_csv('x_cv1_height_'+ k + '_mb_' + str(i))
-		y['cv1_height_'+ k + '_mb_' + str(i)].to_csv('y_cv1_height_'+ k + '_mb_' + str(i))
+		pd.DataFrame(y['cv1_height_'+ k + '_mb_' + str(i)], index=index_cv['cv1_height_'+ k + '_mb_' + str(i)]).to_csv('y_cv1_height_'+ k + '_mb_' + str(i))
 
