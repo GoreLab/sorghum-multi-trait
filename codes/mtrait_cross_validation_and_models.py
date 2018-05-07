@@ -314,14 +314,14 @@ keep_prob_lst = sample_interval(min = 0.0001,      # Minimum of the quantitative
 
 ## Creating folders on the project to store the alternative results:
 
-# Getting in the output directory:
-bash_line1 = "cd " + prefix_out + "outputs/" + model + "/" + structure + "/;"
+# # Getting in the output directory:
+# bash_line1 = "cd " + prefix_out + "outputs/" + model + "/" + structure + "/;"
 
-# Creating folders to store the results:
-bash_line2 = "for i in $(seq 0 " + str(n_alt-1)+ "); do mkdir core"+ str(core) + "_alt${i}" + "; done;"
+# # Creating folders to store the results:
+# bash_line2 = "for i in $(seq 0 " + str(n_alt-1)+ "); do mkdir core"+ str(core) + "_alt${i}" + "; done;"
 
-# Running proces on unix shell:
-subprocess.call(bash_line1 + bash_line2, shell=True)
+# # Running proces on unix shell:
+# subprocess.call(bash_line1 + bash_line2, shell=True)
 
 # For choosing either GPU:
 if proc_type == "GPU":
@@ -332,7 +332,7 @@ if proc_type == "CPU":
 	proc = '/device:CPU:0'
 
 ## Training optimization step:
-for alt in range(n_alt):
+for alt in range(80, n_alt):
      with tf.device(proc):
       # Start hyperparameters:
       batch_mode = batch_mode_lst[alt]

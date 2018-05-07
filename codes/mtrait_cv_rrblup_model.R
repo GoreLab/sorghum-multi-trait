@@ -8,15 +8,11 @@ library(dplyr)
 library(tidyr)
 library(magrittr)
 library(stringr)
-library(rlist)
 library(Matrix)
 
 # Library for plots:
 library(ggplot2)
 library(ggpubr)
-
-# Library for building dummies matrix:
-library(dummies)
 
 # Library for analysis:
 library(rrBLUP)
@@ -37,6 +33,52 @@ prefix_proj = "/workdir/jp2476/repo/sorghum-multi-trait/"
 prefix_out = "/workdir/jp2476/repo/resul_mtrait-proj/"
 
 # Setting directory:
-setwd(paste0(prefix_out, 'data'))
+setwd(paste0(prefix_out, 'data/cross_validation/cv1'))
 
-# Loading data:
+# Initialize lists:
+y = list()
+X = list()
+
+# Loading phenotypic data:
+tmp = c('cv1_biomass_dev', 'cv1_biomass_trn', 'cv1_biomass_tst',
+		'cv1_height_dev', 'cv1_height_dev_mb_0', 'cv1_height_dev_mb_1', 'cv1_height_dev_mb_2', 'cv1_height_dev_mb_3',
+		'cv1_height_trn', 'cv1_height_trn_mb_0', 'cv1_height_trn_mb_1', 'cv1_height_trn_mb_2', 'cv1_height_trn_mb_3',
+		'cv1_height_tst', 'cv1_height_tst_mb_0', 'cv1_height_tst_mb_1', 'cv1_height_tst_mb_2', 'cv1_height_tst_mb_3')
+
+# Loading phenotypic data:
+for (i in 1:length(tmp)) {
+
+	y_tmp = data.matrix(fread(paste0('y_',tmp[i],'.csv'), header=TRUE))
+	rownames(y_tmp) = y_tmp[,1]
+	y[[tmp[i]]] = y_tmp[,-1]
+
+}
+
+# Loading feature matrices:
+for (i in 1:length(tmp)) {
+
+	X_tmp = data.matrix(fread(paste0('x_',tmp[i],'.csv'), header=TRUE))
+	rownames(X_tmp) = X_tmp[,1]
+	X[[tmp[i]]] = X_tmp[,-1]
+
+}
+
+# Loading full marker matrix:
+setwd(paste0(prefix_out, 'data'))
+M = t(fread('M.csv', header=TRUE)[,-1])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -58,10 +58,10 @@ os.chdir(prefix_out + "data")
 df = pd.read_csv("df.csv", header = 0, index_col=0)
 
 # Loading the genomic binned matrix under Cockerham's model:
-W_bin = pd.read_csv("W_bin.csv", header = 0, index_col=0)
+M = pd.read_csv("M.csv", header = 0, index_col=0).transpose()
 
-# Loading the transcriptomic binned matrix:
-T_bin = pd.read_csv("T_bin.csv", header = 0, index_col=0)
+# Loading the genomic binned matrix under Cockerham's model:
+W_bin = pd.read_csv("W_bin.csv", header = 0, index_col=0)
 
 # Changing the class of the year column:
 df.year = df.year.astype(object)
@@ -76,7 +76,8 @@ X['height'] = pd.get_dummies(df.loc[df.trait=='height', index])
 
 # Adding the bin matrix to the feature matrix:
 tmp = pd.get_dummies(df.id_gbs[df.trait=='height'])
-X['height'] = pd.concat([X['height'], tmp.dot(W_bin.loc[tmp.columns.tolist()])], axis=1)
+X['bin_height'] = pd.concat([X['height'], tmp.dot(W_bin.loc[tmp.columns.tolist()])], axis=1)
+X['mrk_height'] = pd.concat([X['height'], tmp.dot(M.loc[tmp.columns.tolist()])], axis=1)
 
 # Removing rows of the missing entries from the feature matrix:
 X['height'] = X['height'][np.invert(df.height[df.trait=='height'].isnull())]
@@ -111,34 +112,34 @@ index_cv = dict()
 
 # Subsetting data into train and (dev set + test set) for height data:
 X['cv1_height_trn'], X['cv1_height_dev'], y['cv1_height_trn'], y['cv1_height_dev'], index_cv['cv1_height_trn'], index_cv['cv1_height_dev'] = train_test_split(X['height'], 
-																														  y['height'],
- 		                                                																  df.height[index][np.invert(df.height[index].isnull())].index,
-                                                        																  test_size=0.3,
-                                                        																  random_state=1234)
+																																							  y['height'],
+									 		                                                																  df.height[index][np.invert(df.height[index].isnull())].index,
+									                                                        																  test_size=0.3,
+									                                                        																  random_state=1234)
 
 # Subsetting (dev set + test set) into dev set and test set:
 X['cv1_height_dev'], X['cv1_height_tst'], y['cv1_height_dev'], y['cv1_height_tst'], index_cv['cv1_height_dev'], index_cv['cv1_height_tst'] = train_test_split(X['cv1_height_dev'],
-	                                                            		  												  y['cv1_height_dev'],
-	                                                            		  												  index_cv['cv1_height_dev'],
-                                                          				  												  test_size=0.50,
-                                                          				  												  random_state=1234)
+										                                                            		  												  y['cv1_height_dev'],
+										                                                            		  												  index_cv['cv1_height_dev'],
+									                                                          				  												  test_size=0.50,
+									                                                          				  												  random_state=1234)
 
 # Index for subsetting height data:
 index = df.trait=='biomass'
 
 # Subsetting data into train and (dev set + test set) for biomass data:
 X['cv1_biomass_trn'], X['cv1_biomass_dev'], y['cv1_biomass_trn'], y['cv1_biomass_dev'], index_cv['cv1_biomass_trn'], index_cv['cv1_biomass_dev'] = train_test_split(X['biomass'], 
-																														        y['biomass'],
- 		                                                																        df.drymass[index][np.invert(df.drymass[index].isnull())].index,
-                                                        																        test_size=0.3,
-                                                        																        random_state=1234)
+																																							        y['biomass'],
+									 		                                                																        df.drymass[index][np.invert(df.drymass[index].isnull())].index,
+									                                                        																        test_size=0.3,
+									                                                        																        random_state=1234)
 
 # Subsetting (dev set + test set) into dev set and test set:
 X['cv1_biomass_dev'], X['cv1_biomass_tst'], y['cv1_biomass_dev'], y['cv1_biomass_tst'], index_cv['cv1_biomass_dev'], index_cv['cv1_biomass_tst'] = train_test_split(X['cv1_biomass_dev'],
-	                                                            		  												        y['cv1_biomass_dev'],
-	                                                            		  												        index_cv['cv1_biomass_dev'],
-                                                          				  												        test_size=0.50,
-                                                          				  												        random_state=1234)
+										                                                            		  												        y['cv1_biomass_dev'],
+										                                                            		  												        index_cv['cv1_biomass_dev'],
+									                                                          				  												        test_size=0.50,
+									                                                          				  												        random_state=1234)
 
 # Reshaping responses:
 y['cv1_height_trn'] = np.reshape(y['cv1_height_trn'], (y['cv1_height_trn'].shape[0], 1))

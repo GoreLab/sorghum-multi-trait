@@ -1,7 +1,11 @@
-# Saving biomass data:
-X['cv1_biomass_trn'].to_csv('x_cv1_biomass_trn')
-y['cv1_biomass_trn'].to_csv('y_cv1_biomass_trn')
-X['cv1_biomass_dev'].to_csv('x_cv1_biomass_dev')
-y['cv1_biomass_dev'].to_csv('y_cv1_biomass_dev')
-X['cv1_biomass_tst'].to_csv('x_cv1_biomass_tst')
-y['cv1_biomass_tst'].to_csv('y_cv1_biomass_tst')
+for (i in 1:length(tmp)) {
+
+	X_tmp = data.matrix(fread(paste0('x_',tmp[i],'.csv'), header=TRUE))
+	rownames(X_tmp) = X_tmp[,1]
+	X[[tmp[i]]] = X_tmp[,-1]
+
+}
+
+
+
+

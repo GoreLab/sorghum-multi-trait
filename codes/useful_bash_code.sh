@@ -77,7 +77,7 @@ bash Anaconda3-5.1.0-Linux-x86_64.sh
 # For kill all process of a user:
 screen -X -S jhonathan quit
 
-pkill -u aafgarci
+sudo pkill -u leticialara
 
 
 #--------------- Temporary bash code written in the project --------------------------#
