@@ -9,6 +9,6 @@ parser.add_argument("-m", "--model", dest = "model", default = "bn", help="Name 
 
 args = parser.parse_args()
 
-print( "Hostname {}".format(
-        args.model,
+print( "Model: {}".format(
+        args.model + ' works!',
         ))

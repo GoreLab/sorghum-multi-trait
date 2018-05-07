@@ -1,5 +1,5 @@
 
-########################## For running python scripts ##################################
+#------------------------ For running python scripts----------------------------------#
 
 ## For firing python scripts into bash code:
 
@@ -13,7 +13,7 @@ PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
 ${PREFIX_python}/python ${PREFIX_code}/mtrait_data_processing.py & 
 
 
-############################ For running dbn script ###################################
+#-------------------------- For running dnn script -----------------------------------#
 
 ## For firing python scripts into bash code:
 
@@ -42,7 +42,8 @@ for i in $(seq 0 $((n_proc-1))); do
 
 done;
 
-############################ Install python locally ####################################
+
+#-------------------------- Install python locally -----------------------------------#
 
 # Download anaconta:
 wget https://repo.anaconda.com/archive/Anaconda3-5.1.0-Linux-x86_64.sh
@@ -59,17 +60,29 @@ bash Anaconda3-5.1.0-Linux-x86_64.sh
 # To fire bash:
 /workdir/jp2476/software/python/bin/python/bash_2layers.py > out.txt
 
-# Bug-solve instruction in tensorflow:
+## Bug-solve instruction in tensorflow:
 # when saving the output from the tensorflow,
 # define the dir first, then do ./ on the dir arg of tf_saver
 
 
-#########################################################################################
+#------------------ For killing all process from the user ----------------------------#
 
 # For kill all process of a user:
 screen -X -S jhonathan quit
 
 pkill -u aafgarci
+
+
+#--------------- Temporary bash code written in the project --------------------------#
+
+# Prefix python:
+PREFIX_python=/workdir/jp2476/software/python/bin
+
+# Prefix code:
+PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
+
+# Firing a flag test:
+${PREFIX_python}/python ${PREFIX_code}/tmp.py --model bn
 
 
 
