@@ -52,7 +52,7 @@ from external_functions import *
 
 #-c core -a number of alternatives
 parser.add_argument("-c", "--core", dest = "core", default = 0, help="Current core where the analysis is happing", type=int)
-parser.add_argument("-nalt", "--nalternatives", dest = "nalt", default = 1, help="Number of alternative models per bin", type=int)
+parser.add_argument("-m", "--model", dest = "model", default = "bn", help="Name of the model")
 
 args = parser.parse_args()
 
