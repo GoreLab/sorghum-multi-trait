@@ -58,9 +58,6 @@ os.chdir(prefix_out + "data")
 df = pd.read_csv("df.csv", header = 0, index_col=0)
 
 # Loading the genomic binned matrix under Cockerham's model:
-M = pd.read_csv("M.csv", header = 0, index_col=0).transpose()
-
-# Loading the genomic binned matrix under Cockerham's model:
 W_bin = pd.read_csv("W_bin.csv", header = 0, index_col=0)
 
 # Changing the class of the year column:
@@ -71,13 +68,12 @@ X = dict()
 y = dict()
 
 # Building the feature matrix for the height:
-index = ['loc', 'year', 'dap']
+index = ['loc', 'year', 'dap', 'id_gbs']
 X['height'] = pd.get_dummies(df.loc[df.trait=='height', index])
 
 # Adding the bin matrix to the feature matrix:
 tmp = pd.get_dummies(df.id_gbs[df.trait=='height'])
-X['bin_height'] = pd.concat([X['height'], tmp.dot(W_bin.loc[tmp.columns.tolist()])], axis=1)
-X['mrk_height'] = pd.concat([X['height'], tmp.dot(M.loc[tmp.columns.tolist()])], axis=1)
+X['height'] = pd.concat([X['height'], tmp.dot(W_bin.loc[tmp.columns.tolist()])], axis=1)
 
 # Removing rows of the missing entries from the feature matrix:
 X['height'] = X['height'][np.invert(df.height[df.trait=='height'].isnull())]
