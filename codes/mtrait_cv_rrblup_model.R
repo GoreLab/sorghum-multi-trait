@@ -40,26 +40,26 @@ y = list()
 X = list()
 
 # Loading phenotypic data:
-tmp = c('cv1_biomass_dev', 'cv1_biomass_trn', 'cv1_biomass_tst',
-		'cv1_height_dev', 'cv1_height_dev_mb_0', 'cv1_height_dev_mb_1', 'cv1_height_dev_mb_2', 'cv1_height_dev_mb_3',
-		'cv1_height_trn', 'cv1_height_trn_mb_0', 'cv1_height_trn_mb_1', 'cv1_height_trn_mb_2', 'cv1_height_trn_mb_3',
-		'cv1_height_tst', 'cv1_height_tst_mb_0', 'cv1_height_tst_mb_1', 'cv1_height_tst_mb_2', 'cv1_height_tst_mb_3')
+cv_types = c('cv1_biomass_dev', 'cv1_biomass_trn', 'cv1_biomass_tst',
+			 'cv1_height_dev', 'cv1_height_dev_mb_0', 'cv1_height_dev_mb_1', 'cv1_height_dev_mb_2', 'cv1_height_dev_mb_3',
+			 'cv1_height_trn', 'cv1_height_trn_mb_0', 'cv1_height_trn_mb_1', 'cv1_height_trn_mb_2', 'cv1_height_trn_mb_3',
+			 'cv1_height_tst', 'cv1_height_tst_mb_0', 'cv1_height_tst_mb_1', 'cv1_height_tst_mb_2', 'cv1_height_tst_mb_3')
 
 # Loading phenotypic data:
-for (i in 1:length(tmp)) {
+for (i in 1:length(cv_types)) {
 
-	y_tmp = data.matrix(fread(paste0('y_',tmp[i],'.csv'), header=TRUE))
+	y_tmp = data.matrix(fread(paste0('y_',cv_types[i],'.csv'), header=TRUE))
 	rownames(y_tmp) = y_tmp[,1]
-	y[[tmp[i]]] = y_tmp[,-1]
+	y[[cv_types[i]]] = y_tmp[,-1]
 
 }
 
 # Loading feature matrices:
-for (i in 1:length(tmp)) {
+for (i in 1:length(cv_types)) {
 
-	X_tmp = data.matrix(fread(paste0('x_',tmp[i],'.csv'), header=TRUE))
+	X_tmp = data.matrix(fread(paste0('x_',cv_types[i],'.csv'), header=TRUE))
 	rownames(X_tmp) = X_tmp[,1]
-	X[[tmp[i]]] = X_tmp[,-1]
+	X[[cv_types[i]]] = X_tmp[,-1]
 
 }
 

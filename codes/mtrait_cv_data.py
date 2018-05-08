@@ -83,7 +83,7 @@ index = df.trait=='height'
 y['height'] = df.height[index][np.invert(df.height[index].isnull())]
 
 # Building the feature matrix for the biomass:
-index = ['loc', 'year']
+index = ['loc', 'year', 'id_gbs']
 X['biomass'] = pd.get_dummies(df.loc[df.trait=='biomass', index])
 
 # Adding the bin matrix to the feature matrix:
