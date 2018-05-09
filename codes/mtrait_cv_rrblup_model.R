@@ -91,11 +91,11 @@ length(index_trn)
 length(index_dev)
 length(index_tst)
 
-# Fitting the GBLUP and rrBLUP model:
+# Fitting the rrBLUP model:
 fit[['2st_cv1_biomass_trn_full']] = mixed.solve(y=blue[index_trn], Z=W_full[index_trn,])
 fit[['2st_cv1_biomass_trn_bin']] = mixed.solve(y=blue[index_trn], Z=W_bin[index_trn,])
 
-# Fitting the rrBLUP model:
+# Computing predictions:
 y_pred = list()
 y_pred[['trn_full']] = W_full[index_trn,] %*% fit[['2st_cv1_biomass_trn_full']]$u
 y_pred[['dev_full']] = W_full[index_dev,] %*% fit[['2st_cv1_biomass_trn_full']]$u
@@ -139,9 +139,9 @@ print(round(rmse_models,4))
 
 # Creating a list to store results:
 metrics = list()
-metrics[['cor_bin_full_biomass']] = cor_bin_full 
-metrics[['cor_biomass']] = cor_models
-metrics[['rmse_biomass']] = rmse_models
+metrics[['twostep_cor_bin_full_biomass']] = cor_bin_full 
+metrics[['twostep_cor_biomass']] = cor_models
+metrics[['twostep_rmse_biomass']] = rmse_models
 
 
 #-----------------------------------------Height two-stage analysis------------------------------------------#
@@ -170,11 +170,11 @@ length(index_trn)
 length(index_dev)
 length(index_tst)
 
-# Fitting the GBLUP and rrBLUP model:
+# Fitting the rrBLUP model:
 fit[['2st_cv1_height_trn_full']] = mixed.solve(y=blue[index_trn], Z=W_full[index_trn,])
 fit[['2st_cv1_height_trn_bin']] = mixed.solve(y=blue[index_trn], Z=W_bin[index_trn,])
 
-# Fitting the rrBLUP model:
+# Computing predictions:
 y_pred = list()
 y_pred[['trn_full']] = W_full[index_trn,] %*% fit[['2st_cv1_height_trn_full']]$u
 y_pred[['dev_full']] = W_full[index_dev,] %*% fit[['2st_cv1_height_trn_full']]$u
@@ -217,12 +217,15 @@ colnames(rmse_models) <- c('all_markers', 'bin')
 print(round(rmse_models,4))
 
 # Creating a list to store results:
-metrics[['cor_bin_full_height']] = cor_bin_full 
-metrics[['cor_height']] = cor_models
-metrics[['rmse_height']] = rmse_models
+metrics[['twostep_cor_bin_full_height']] = cor_bin_full 
+metrics[['twostep_cor_height']] = cor_models
+metrics[['twostep_rmse_height']] = rmse_models
 
+# Printing results:
+print(metrics)
 
-#--------------------------------------------One step approach-----------------------------------------------#
+#----------------------------------------Biomass one step approach-------------------------------------------#
+
 # Setting directory:
 setwd(paste0(prefix_out, 'data/cross_validation/cv1'))
 
@@ -254,34 +257,175 @@ for (i in 1:length(cv_types)) {
 
 }
 
-# Indexing cv1_biomass_trn data:
-y_tmp = y[['cv1_biomass_trn']] 
-X_tmp = X[['cv1_biomass_trn']]
 
-# Splitting the feature matrix into fixed effects incidence matrices:
-index = str_detect(colnames(X_tmp),paste(c('loc','year'),collapse='|'))
-X_fixed_tmp = X_tmp[, index]
+# Sets of data to perform analysis:
+sets = c('cv1_biomass_trn', 'cv1_biomass_dev', 'cv1_biomass_tst')
 
-# Splitting the feature matrix into random effects incidence matrices:
-index = str_detect(colnames(X_tmp),'id_gbs')
-X_random_tmp = X_tmp[, index]
-colnames(X_random_tmp) = str_split(colnames(X_random_tmp), pattern="_gbs_", simplify=TRUE)[,2]
+# Initialize list to receive outputs:
+y_pred = list()
 
-# Checking if the ordering is ok of the design matrix and relationship matrix:
-all(colnames(X_random_tmp) == colnames(A))
+# Subsetting the desired factors:
+y_tmp = y[[sets[1]]] 
+X_tmp = X[[sets[1]]]
+index = str_detect(colnames(X_tmp),paste(c('loc','year', 'bin'),collapse='|'))
+X_tmp = X_tmp[, index]
 
-# Checking if the ordering is ok of the design matrices and response vector:
-all(names(y_tmp) == rownames(X_fixed_tmp))
-all(names(y_tmp) == rownames(X_random_tmp))
+# Fitting the rrBLUP model for the bin matrix:
+fit = list()
+fit[[paste0('onestep_', sets[1])]] = mixed.solve(y=y_tmp, Z=X_tmp)
+
+for (i in sets) {
+
+	# Subsetting the desired factors:
+	y_tmp = y[[i]] 
+	X_tmp = X[[i]]
+	index = str_detect(colnames(X_tmp),paste(c('loc','year', 'bin'),collapse='|'))
+	X_tmp = X_tmp[, index]
+
+	# Computing predictions:
+	y_pred[[i]] = X_tmp %*% fit[[paste0('onestep_', sets[1])]]$u
+
+}
+
+# Creating matrix to store accuracy and rmse's:
+cor_models <- matrix(NA,3,1)
+rmse_models <- matrix(NA,3,1)
+
+# Iteration counter:
+counter = 1
+
+# Computing accuracy and rMSE's:
+for (i in sets) {
+
+	cor_models[counter,1] = cor(y_pred[[i]], y[[i]])
+	rmse_models[counter,1] =  rmse(y_pred[[i]], y[[i]])
+
+	counter = counter +1
+
+}
+
+# Naming vectors:
+rownames(cor_models) <- c('trn', 'dev', 'tst')
+colnames(cor_models) <- c('bin')
+rownames(rmse_models) <- c('trn', 'dev', 'tst')
+colnames(rmse_models) <- c('bin')
+
+# Printing results:
+print(round(cor_models,4))
+print(round(rmse_models,4))
+
+# Storing results:
+metrics[['onestep_cor_biomass']] = cor_models
+metrics[['onestep_rmse_biomass']] = rmse_models
+
+# Saving results:
+print(metrics)
+
+#-----------------------------------------Height one step approach-------------------------------------------#
+
+# Sets of data to perform analysis:
+sets = c('cv1_height_trn', 'cv1_height_dev', 'cv1_height_tst')
+
+# Initialize list to receive outputs:
+y_pred = list()
+
+# Subsetting the desired factors:
+y_tmp = y[[sets[1]]] 
+X_tmp = X[[sets[1]]]
+index = str_detect(colnames(X_tmp),paste(c('loc','year', 'bin'),collapse='|'))
+X_tmp = X_tmp[, index]
+
+# Fitting the rrBLUP model for the bin matrix:
+fit = list()
+fit[[paste0('onestep_', sets[1])]] = mixed.solve(y=y_tmp, Z=X_tmp)
+
+for (i in sets) {
+
+	# Subsetting the desired factors:
+	y_tmp = y[[i]] 
+	X_tmp = X[[i]]
+	index = str_detect(colnames(X_tmp),paste(c('loc','year', 'bin'),collapse='|'))
+	X_tmp = X_tmp[, index]
+
+	# Computing predictions:
+	y_pred[[i]] = X_tmp %*% fit[[paste0('onestep_', sets[1])]]$u
+
+}
+
+# Creating matrix to store accuracy and rmse's:
+cor_models <- matrix(NA,3,1)
+rmse_models <- matrix(NA,3,1)
+
+# Iteration counter:
+counter = 1
+
+# Computing accuracy and rMSE's:
+for (i in sets) {
+
+	cor_models[counter,1] = cor(y_pred[[i]], y[[i]])
+	rmse_models[counter,1] =  rmse(y_pred[[i]], y[[i]])
+
+	counter = counter +1
+
+}
+
+# Naming vectors:
+rownames(cor_models) <- c('trn', 'dev', 'tst')
+colnames(cor_models) <- c('bin')
+rownames(rmse_models) <- c('trn', 'dev', 'tst')
+colnames(rmse_models) <- c('bin')
+
+# Printing results:
+print(round(cor_models,4))
+print(round(rmse_models,4))
+
+# Storing results:
+metrics[['onestep_cor_height']] = cor_models
+metrics[['onestep_rmse_height']] = rmse_models
+
+# Saving results:
+print(metrics)
 
 
-fit[['2st_cv1_biomass_trn']] = mixed.solve(y=y_tmp, X=X_fixed_tmp, Z=X_random_tmp, K=A)
+#-----------------------------------------Saving final .RData file-------------------------------------------#
+
+# Setting directory:
+setwd(paste0(prefix_out, "outputs/two_stage_tests_rrblup"))
 
 
+# Saving results:
+for (i in ls(metrics)) {
+
+	write.csv(metrics[i], file=paste0(i, ".csv"))
+
+}
+
+# Saving RData:
+save.image("mtrait_cv_rrblup_model.RData")
 
 
 #---------------------------------------------------Junk-----------------------------------------------------#
 
+# # Splitting the feature matrix into fixed effects incidence matrices:
+# index = str_detect(colnames(X_tmp),paste(c('loc','year'),collapse='|'))
+# X_fixed_tmp = X_tmp[, index]
+
+# # Splitting the feature matrix into random effects incidence matrices:
+# index = str_detect(colnames(X_tmp),'id_gbs')
+# X_random_tmp = X_tmp[, index]
+# colnames(X_random_tmp) = str_split(colnames(X_random_tmp), pattern="_gbs_", simplify=TRUE)[,2]
+
+# # Checking if the ordering is ok of the design matrix and relationship matrix:
+# all(colnames(X_random_tmp) == colnames(A))
+
+# # Checking if the ordering is ok of the design matrices and response vector:
+# all(names(y_tmp) == rownames(X_fixed_tmp))
+# all(names(y_tmp) == rownames(X_random_tmp))
+
+# fit[['2st_cv1_biomass_trn']] = mixed.solve(y=y_tmp, X=X_fixed_tmp, Z=X_random_tmp, K=A)
+
+
+#-----------------------------------------------#
 
 # # Summary of the relationship coefficients:
 # tmp = A
