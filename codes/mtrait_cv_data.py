@@ -201,13 +201,13 @@ for k in tmp:
 		# Getting the positions on the height training set related to the mini-batch i:
 		index = df.id_gbs.loc[index_cv['cv1_height_' + k]].isin(index_mbatch[i])
 		# Indexing height values of the mini-batch i:
-		X['cv1_height_' + 'mb_' + str(i)+ '_' + k ] = X['cv1_height_' + k][index]
-		y['cv1_height_' + 'mb_' + str(i)+ '_' + k ] = y['cv1_height_' + k][index]
-		index_cv['cv1_height_' +'mb_' + str(i)]+ '_' + k  = index_cv['cv1_height_' + k][index]
+		X['cv1_height_' + 'mb_' + str(i) + '_' + k ] = X['cv1_height_' + k][index]
+		y['cv1_height_' + 'mb_' + str(i) + '_' + k ] = y['cv1_height_' + k][index]
+		index_cv['cv1_height_' + 'mb_' + str(i) + '_' + k]  = index_cv['cv1_height_' + k][index]
 		# Printing shapes:
-		X['cv1_height_' + 'mb_' + str(i)+ '_' + k ].shape
-		y['cv1_height_' + 'mb_' + str(i)+ '_' + k ].shape
+		X['cv1_height_' + 'mb_' + str(i) + '_' + k ].shape
+		y['cv1_height_' + 'mb_' + str(i) + '_' + k ].shape
 		# Saving data:
-		X['cv1_height_' + 'mb_' + str(i)+ '_' + k ].to_csv('x_cv1_height_' + 'mb_' + str(i)+ '_' + k  + '.csv')
-		pd.DataFrame(y['cv1_height_' + 'mb_' + str(i)+ '_' + k ], index=index_cv['cv1_height_' + 'mb_' + str(i)+ '_' + k ]).to_csv('y_cv1_height_' + 'mb_' + str(i)+ '_' + k  + '.csv')
+		X['cv1_height_' + 'mb_' + str(i) + '_' + k ].to_csv('x_cv1_height_' + 'mb_' + str(i) + '_' + k  + '.csv')
+		pd.DataFrame(y['cv1_height_' + 'mb_' + str(i) + '_' + k ], index=index_cv['cv1_height_' + 'mb_' + str(i) + '_' + k ]).to_csv('y_cv1_height_' + 'mb_' + str(i) + '_' + k  + '.csv')
 
