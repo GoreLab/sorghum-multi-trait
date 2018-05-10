@@ -62,26 +62,26 @@ args = parser.parse_args()
 
 #------------------------------------------Code parameters---------------------------------------------------#
 
-# # Current core where the analysis is happening:
-# core = args.core
+# Current core where the analysis is happening:
+core = args.core
 
-# # Specifying the model
-# model = args.model         # 'DBN' or 'BN' or 'BNP'
+# Specifying the model
+model = args.model         # 'DBN' or 'BN' or 'BNP'
 
-# # Type of cross-validation scheme:
-# cv = args.cv
+# Type of cross-validation scheme:
+cv = args.cv
 
-# # Choosing the data structure to be analysed:
-# structure = args.data
+# Choosing the data structure to be analysed:
+structure = args.data
 
-## Temp:
-core = 0
-model = "BN"
-cv = "CV1"
-structure = "cv1_biomass"
+# ## Temp:
+# core = 0
+# model = "BN"
+# cv = "CV1"
+# structure = "cv1_biomass"
 
-# Seed to recover the analysis:
-seed = core
+# # Seed to recover the analysis:
+# seed = core
 
 #--------------------------------------------Reading data----------------------------------------------------#
 

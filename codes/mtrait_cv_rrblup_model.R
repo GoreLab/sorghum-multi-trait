@@ -403,6 +403,8 @@ for (i in ls(metrics)) {
 # Saving RData:
 save.image("mtrait_cv_rrblup_model.RData")
 
+# # Loading data in future runs:
+# load("mtrait_cv_rrblup_model.RData")
 
 #---------------------------------------------------Junk-----------------------------------------------------#
 
