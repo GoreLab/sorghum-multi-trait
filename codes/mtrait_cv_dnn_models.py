@@ -112,7 +112,6 @@ X['tst'] = X['tst'].loc[:,index]
 
 #-----------------------------------------Deep learning code-------------------------------------------------#
 
-
 # Checking shapes of the matrices related to height:
 X['trn'] = X['trn'].transpose()
 y['trn'] = y['trn'].transpose()
@@ -154,7 +153,7 @@ dropout_mode_lst = np.random.choice([True, False], size=n_alt)
 # Sampling the hidden units:
 np.random.seed(seed)
 h_units_lst =  sample_h_units(min=1,                    # Minimum number of hidden units
-                              max=5,                   # Maximum number of hidden units
+                              max=5,                    # Maximum number of hidden units
                               n_layers=n_layers_lst,    # Number of hidden layers (it should be a list)
                               n_guess=n_alt,            # Number of alternatives or guesses:
                               same_str=False)           # False: Random guess; [Some architecture]: architecture to be replicated across guesses
@@ -190,7 +189,7 @@ keep_prob_lst = sample_interval(min = 0.0001,      # Minimum of the quantitative
 # Creating folders on the project to store the alternative results:
 
 # Getting in the output directory:
-bash_line1 = "cd " + prefix_out + "outputs/" + model + "/" + 'trn' + "/;"
+bash_line1 = "cd " + prefix_out + "outputs/cross_validation/" + model.lower() + "/" + structure + "/;"
 
 # Creating folders to store the results:
 bash_line2 = "for i in $(seq 0 " + str(n_alt-1)+ "); do mkdir core"+ str(core) + "_alt${i}" + "; done;"
@@ -297,7 +296,7 @@ for alt in range(80, n_alt):
       # Linear activation:
       Z.append(tf.matmul(W[n_layers], A[n_layers-1]) + B[n_layers])
       # Output ReLu activation:
-      Y_out = tf.nn.relu(Z[n_layers])
+      Y_out = Z[n_layers]
       # Frobenius norm:
       for i in range(0, n_layers+1):
         fro_norm.append(tf.norm(tensor=W[i], ord='fro', axis=[-2, -1]))
@@ -328,7 +327,7 @@ for alt in range(80, n_alt):
       session.run(init)
       # Merge all the summaries and write them out to:
       merged_summary = tf.summary.merge_all()
-      writer = tf.summary.FileWriter(prefix_out + "outputs/" + model + "/" + 'trn' + "/core" + str(core) + "_alt" + str(alt) + "/")
+      writer = tf.summary.FileWriter(prefix_out + "outputs/cross_validation/" + model.lower() + "/" + structure + "/core" + str(core) + "_alt" + str(alt) + "/")
       writer.add_graph(session.graph)
       # Optimizing the Deep Neural Network (DNN):
       for epoch in range_epoch:
@@ -346,39 +345,7 @@ for alt in range(80, n_alt):
                writer.add_summary(s, i)
       results[alt] = out
       saver = tf.train.Saver()
-      os.chdir(prefix_out + "outputs/" + model + "/" + 'trn' + "/core" + str(core) + "_alt" + str(alt))       
+      os.chdir(prefix_out + "outputs/cross_validation/" + model.lower() + "/" + structure + "/core" + str(core) + "_alt" + str(alt))       
       save_path = "./core" + str(core) + "_alt" + str(alt)
       saver.save(session, save_path)
       tf.reset_default_graph()  
-
-
-
-
-
-
-
-
-
--
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
