@@ -22,6 +22,30 @@ PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
 ${PREFIX_python}/python ${PREFIX_code}/mtrait_cv_data.py & 
 
 
+#---------------------------- To run bayesian models--------------------------------------#
+
+# Parameters (height run):
+core=1 
+data="cv1_height"
+model="BN"
+cv="CV1"
+
+# Parameters (biomass run):
+core=2 
+data="cv1_biomass"
+model="BN"
+cv="CV1"
+
+# Prefix python:
+PREFIX_python=/workdir/jp2476/software/python/bin
+
+# Prefix code:
+PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
+
+# Firing the process:
+${PREFIX_python}/python ${PREFIX_code}/mtrait_cv_bayesian_models.py -c ${core} -d ${data} -m ${model} -cv ${cv} & 
+
+
 #-------------------------- For running dnn script -----------------------------------#
 
 # Prefix python:
@@ -36,13 +60,15 @@ PREFIX_code=/home/jhonathan/Documents/sorghum-multi-trait/codes
 
 # Number of processes:
 n_proc=7
+
+# Number of alternatives:
 n_alt=143
 
 # Looping over codes:
 for i in $(seq 0 $((n_proc-1))); do  
 	
 	# Firing process:
-	${PREFIX_python}/python ${PREFIX_code}/mtrait_cross_validation_and_models.py -c ${i} -nalt ${n_alt} &
+	${PREFIX_python}/python ${PREFIX_code}/mtrait_dnn_models.py -c ${i} -nalt ${n_alt} &
 
 	# Wait some time to fire the next process:
 	sleep 1

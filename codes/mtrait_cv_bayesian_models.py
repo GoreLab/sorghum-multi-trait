@@ -81,7 +81,7 @@ structure = args.data
 # structure = "cv1_biomass"
 
 # # Seed to recover the analysis:
-# seed = core
+seed = core
 
 #--------------------------------------------Reading data----------------------------------------------------#
 
@@ -141,7 +141,7 @@ model = ps.StanModel(file='multi_trait.stan')
 fit = dict()
 
 # Fitting the model:
-fit['trn'] = model.sampling(data=df_stan, chains=1, iter=400)
+fit['trn'] = model.sampling(data=df_stan, chains=1, iter=400, seed=seed)
 
 #-----------------------------------------Saving stan outputs------------------------------------------------#
 
