@@ -235,9 +235,9 @@ X = list()
 
 # Loading phenotypic data:
 cv_types = c('cv1_biomass_dev', 'cv1_biomass_trn', 'cv1_biomass_tst',
-			 'cv1_height_dev', 'cv1_height_dev_mb_0', 'cv1_height_dev_mb_1', 'cv1_height_dev_mb_2', 'cv1_height_dev_mb_3',
-			 'cv1_height_trn', 'cv1_height_trn_mb_0', 'cv1_height_trn_mb_1', 'cv1_height_trn_mb_2', 'cv1_height_trn_mb_3',
-			 'cv1_height_tst', 'cv1_height_tst_mb_0', 'cv1_height_tst_mb_1', 'cv1_height_tst_mb_2', 'cv1_height_tst_mb_3')
+			 'cv1_height_dev', 'cv1_height_mb_0_dev', 'cv1_height_mb_1_dev', 'cv1_height_mb_2_dev', 'cv1_height_mb_3_dev',
+			 'cv1_height_trn', 'cv1_height_mb_0_trn', 'cv1_height_mb_1_trn', 'cv1_height_mb_2_trn', 'cv1_height_mb_3_trn',
+			 'cv1_height_tst', 'cv1_height_mb_0_tst', 'cv1_height_mb_1_tst', 'cv1_height_mb_2_tst', 'cv1_height_mb_3_tst')
 
 # Loading phenotypic data:
 for (i in 1:length(cv_types)) {
