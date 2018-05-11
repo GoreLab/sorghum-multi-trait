@@ -135,13 +135,13 @@ df_stan = dict(n_x = X['trn'].shape[0],
 os.chdir(prefix_proj + "codes")
 
 # Compiling the C++ code for the model:
-model = ps.StanModel(file='multi_trait.stan')
+model_stan = ps.StanModel(file='multi_trait.stan')
 
 # Creating an empty dict:
 fit = dict()
 
 # Fitting the model:
-fit['trn'] = model.sampling(data=df_stan, chains=1, iter=400, seed=seed)
+fit['trn'] = model_stan.sampling(data=df_stan, chains=1, iter=400, seed=seed)
 
 #-----------------------------------------Saving stan outputs------------------------------------------------#
 
@@ -150,4 +150,4 @@ os.chdir(prefix_out + 'outputs/cross_validation/' + model.lower() + "/" + struct
 
 # Saving stan fit object and model:
 with open("model_fit.pkl", "wb") as f:
-    pickle.dump({'model' : model, 'fit' : fit}, f, protocol=-1)
+    pickle.dump({'model' : model_stan, 'fit' : fit}, f, protocol=-1)
