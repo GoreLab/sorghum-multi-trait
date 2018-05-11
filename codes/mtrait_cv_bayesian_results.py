@@ -111,6 +111,9 @@ X['tst'] = X['tst'].loc[:,index]
 
 #---------------------------------------------Development----------------------------------------------------#
 
+# Setting directory:
+os.chdir(prefix_out + 'outputs/cross_validation/' + model.lower() + "/" + structure)
+
 # Loading stan fit object and model:
 with open("model_fit.pkl", "rb") as f:
     data_dict = pickle.load(f)
