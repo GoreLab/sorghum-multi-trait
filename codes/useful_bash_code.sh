@@ -50,25 +50,25 @@ ${PREFIX_python}/python ${PREFIX_code}/mtrait_cv_bayesian_models.py -c ${core} -
 
 # Prefix python:
 # PREFIX_python=/home/aafgarci/anaconda3/bin
-# PREFIX_python=/workdir/jp2476/software/python/bin
-PREFIX_python=/home/jhonathan/Documents/python/bin
+PREFIX_python=/workdir/jp2476/software/python/bin
+# PREFIX_python=/home/jhonathan/Documents/python/bin
 
 # Prefix code:
 # PREFIX_code=/data1/aafgarci/jhonathan/sorghum-multi-trait/codes
-# PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
-PREFIX_code=/home/jhonathan/Documents/sorghum-multi-trait/codes
+PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
+# PREFIX_code=/home/jhonathan/Documents/sorghum-multi-trait/codes
 
 # Number of processes:
-n_proc=7
+n_proc=40
 
 # Number of alternatives:
-n_alt=143
+n_alt=10
 
 # Looping over codes:
 for i in $(seq 0 $((n_proc-1))); do  
 	
 	# Firing process:
-	${PREFIX_python}/python ${PREFIX_code}/mtrait_dnn_models.py -c ${i} -nalt ${n_alt} &
+	${PREFIX_python}/python ${PREFIX_code}/mtrait_cv_dnn_models.py -c ${i} -nalt ${n_alt} &
 
 	# Wait some time to fire the next process:
 	sleep 1
@@ -101,9 +101,9 @@ bash Anaconda3-5.1.0-Linux-x86_64.sh
 #------------------ For killing all process from the user ----------------------------#
 
 # For kill all process of a user:
-screen -X -S jhonathan quit
+screen -X -S dnn quit
 
-pkill -u aafgarci
+pkill -u jp2476
 
 
 #--------------- Temporary bash code written in the project --------------------------#
