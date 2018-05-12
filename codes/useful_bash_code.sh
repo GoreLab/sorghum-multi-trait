@@ -69,11 +69,10 @@ cv="CV1"
 for i in $(seq 0 $((n_proc-1))); do  
 	
 	# Firing process:
-	${PREFIX_python}/python ${PREFIX_code}/mtrait_cv_dnn_models.py -c ${i} -nalt ${n_alt} &
+	${PREFIX_python}/python ${PREFIX_code}/mtrait_cv_dnn_models.py -c ${i} -nalt ${n_alt} -d ${data} -m ${model} -cv ${cv} &
 
 	# Wait some time to fire the next process:
-	sleep 0.2
-
+	sle
 done;
 
 
