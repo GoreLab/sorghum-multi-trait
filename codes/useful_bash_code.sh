@@ -62,7 +62,7 @@ PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
 n_proc=40
 n_alt=10
 data="cv1_biomass"
-model="BN"
+model="DNN"
 cv="CV1"
 
 # Looping over codes:
@@ -72,7 +72,7 @@ for i in $(seq 0 $((n_proc-1))); do
 	${PREFIX_python}/python ${PREFIX_code}/mtrait_cv_dnn_models.py -c ${i} -nalt ${n_alt} -d ${data} -m ${model} -cv ${cv} &
 
 	# Wait some time to fire the next process:
-	sle
+	sleep 10
 done;
 
 

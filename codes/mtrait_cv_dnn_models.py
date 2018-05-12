@@ -81,6 +81,9 @@ cv = args.cv
 # ## Temp:
 # core=0
 # n_alt=2
+# structure="cv1_biomass"
+# model="DNN"
+# cv = "CV1"
 
 # Seed to recover the analysis:
 seed = int(str(core) + str(n_alt))
@@ -206,7 +209,7 @@ if proc_type == "CPU":
   proc = '/device:CPU:0'
 
 ## Training optimization step:
-for alt in range(80, n_alt):
+for alt in range(n_alt):
      with tf.device(proc):
       # Start hyperparameters:
       batch_mode = batch_mode_lst[alt]
