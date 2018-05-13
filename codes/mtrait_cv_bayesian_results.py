@@ -78,7 +78,7 @@ args = parser.parse_args()
 core = 0
 model = "BN"
 cv = "CV1"
-structure = "cv1_biomass"
+structure = "cv1_height"
 
 # Seed to recover the analysis:
 seed = core
@@ -100,14 +100,23 @@ y['dev'] = pd.read_csv('y_' + structure + '_dev.csv', header = 0, index_col=0)
 X['tst'] = pd.read_csv('x_' + structure + '_tst.csv', header = 0, index_col=0)
 y['tst'] = pd.read_csv('y_' + structure + '_tst.csv', header = 0, index_col=0)
 
-# Subsetting just the desired factors:
-index = X['trn'].columns.str.contains('|'.join(['loc','year', 'bin']))
-X['trn'] = X['trn'].loc[:,index]
-index = X['dev'].columns.str.contains('|'.join(['loc','year', 'bin']))
-X['dev'] = X['dev'].loc[:,index]
-index = X['tst'].columns.str.contains('|'.join(['loc','year', 'bin']))
-X['tst'] = X['tst'].loc[:,index]
+if structure=="cv1_biomass":
+  # Subsetting just the desired factors:
+  index = X['trn'].columns.str.contains('|'.join(['loc','year', 'bin']))
+  X['trn'] = X['trn'].loc[:,index]
+  index = X['dev'].columns.str.contains('|'.join(['loc','year', 'bin']))
+  X['dev'] = X['dev'].loc[:,index]
+  index = X['tst'].columns.str.contains('|'.join(['loc','year', 'bin']))
+  X['tst'] = X['tst'].loc[:,index]
 
+if structure=="cv1_height":
+  # Subsetting just the desired factors:
+  index = X['trn'].columns.str.contains('|'.join(['loc','year', 'dap', 'bin']))
+  X['trn'] = X['trn'].loc[:,index]
+  index = X['dev'].columns.str.contains('|'.join(['loc','year', 'dap', 'bin']))
+  X['dev'] = X['dev'].loc[:,index]
+  index = X['tst'].columns.str.contains('|'.join(['loc','year', 'dap', 'bin']))
+  X['tst'] = X['tst'].loc[:,index]
 
 #---------------------------------------------Development----------------------------------------------------#
 
@@ -157,24 +166,25 @@ plt.legend()
 plt.title('Scatter pattern of different data types')
 plt.xlabel('Observed data')
 plt.ylabel("Predicted data")
-plt.xlim(0, 26)
-plt.ylim(0, 26)
+upper_bound = np.max([y['trn'].max(), y['dev'].max() ,y['tst'].max()])
+plt.xlim(0, upper_bound + upper_bound * 0.1)
+plt.ylim(0, upper_bound + upper_bound * 0.1)
 plt.show()
 plt.clf()
 
 # Printing rMSE:
-rmse(y['trn'].values.flatten(), y_pred['trn'])
-rmse(y['dev'].values.flatten(), y_pred['dev'])
-rmse(y['tst'].values.flatten(), y_pred['tst'])
+round(rmse(y['trn'].values.flatten(), y_pred['trn']), 4)
+round(rmse(y['dev'].values.flatten(), y_pred['dev']), 4)
+round(rmse(y['tst'].values.flatten(), y_pred['tst']), 4)
 
 # Printing pearsonr:
-pearsonr(y['trn'].values.flatten(), y_pred['trn'])[0]
-pearsonr(y['dev'].values.flatten(), y_pred['dev'])[0]
-pearsonr(y['tst'].values.flatten(), y_pred['tst'])[0]
+round(pearsonr(y['trn'].values.flatten(), y_pred['trn'])[0], 4)
+round(pearsonr(y['dev'].values.flatten(), y_pred['dev'])[0], 4)
+round(pearsonr(y['tst'].values.flatten(), y_pred['tst'])[0], 4)
 
 # Printing r2:
-r2_score(y['trn'].values.flatten(), y_pred['trn'])
-r2_score(y['dev'].values.flatten(), y_pred['dev'])
-r2_score(y['tst'].values.flatten(), y_pred['tst'])
+round(r2_score(y['trn'].values.flatten(), y_pred['trn']), 4)
+round(r2_score(y['dev'].values.flatten(), y_pred['dev']), 4)
+round(r2_score(y['tst'].values.flatten(), y_pred['tst']), 4)
 
 
