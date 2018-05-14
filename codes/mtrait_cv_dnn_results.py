@@ -295,34 +295,24 @@ for c in range(n_sets):
     else:
         y_tmp = y['tst'].values.flatten()
     for alt in range(n_alt):
-        rmse_sets[alt, m, c] = rmse(y_tmp, Y_pred[alt,:,m])
-        cor_sets[alt, m, c] = pearsonr(y_tmp, Y_pred[alt,:,m])[0]
-        r2_sets[alt, m, c] = r2_score(y_tmp, Y_pred[alt,:,m])
+    	# If it is lacking result:
+    	if (np.any(np.isnan(Y_pred[alt,:,m]))):
+    		print("Core {} and alternative {} failed to run on {}".format(m, alt, ['trn', 'dev', 'tst'][c]))
+    	# If it is not lacking result:
+    	if (np.invert(np.any(np.isnan(Y_pred[alt,:,m])))):
+    		rmse_sets[alt, m, c] = rmse(y_tmp, Y_pred[alt,:,m])
+    		cor_sets[alt, m, c] = pearsonr(y_tmp, Y_pred[alt,:,m])[0]
+    		r2_sets[alt, m, c] = r2_score(y_tmp, Y_pred[alt,:,m])
 
 
-# Index of the best dev ordering:
-index_rmse = np.argsort(rmse_sets[:,:,1], axis=0)
-index_cor = np.argsort(cor_sets[:,:,1], axis=0)[::-1]
-index_r2 = np.argsort(mic_sets[:,:,1], axis=0)[::-1]
+# Getting the index of the best predictions:
+index = get_index(array=rmse_sets[:,:,1], n=1)
 
 # Printing RMSE:
-print(np.round(rmse_sets[index_rmse,:,0][0:2,:],4))
-print(np.round(rmse_sets[index_rmse,:,1][0:2,:],4))
-print(np.round(rmse_sets[index_rmse,:,2][0:2,:],4))
+print(np.round(rmse_sets[index[0], index[1],:], 4))
 
 # Printing Pearson correlation:
-print(np.round(cor_sets[index_rmse,:,0][0:2,:],4))
-print(np.round(cor_sets[index_rmse,:,1][0:2,:],4))
-print(np.round(cor_sets[index_rmse,:,2][0:2,:],4))
+print(np.round(cor_sets[index[0], index[1],:], 4))
 
-# Printing Mutual Information Criteria:
-print(np.round(r2_sets[index_rmse,:,0][0:2,:],4))
-print(np.round(r2_sets[index_rmse,:,1][0:2,:],4))
-print(np.round(r2_sets[index_rmse,:,2][0:2,:],4))
-
-
-# Printing just one alternative:
-m = 2; alt = 12;
-print(np.round(rmse_sets[alt, m , 0],4))
-print(np.round(rmse_sets[alt, m , 1],4))
-print(np.round(rmse_sets[alt, m ,2],4))
+# Printing r2:
+print(np.round(r2_sets[index[0], index[1],:], 4))

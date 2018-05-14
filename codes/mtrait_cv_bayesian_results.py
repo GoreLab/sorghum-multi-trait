@@ -78,7 +78,7 @@ args = parser.parse_args()
 core = 0
 model = "BN"
 cv = "CV1"
-structure = "cv1_height"
+structure = "cv1_biomass"
 
 # Seed to recover the analysis:
 seed = core

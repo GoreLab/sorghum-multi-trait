@@ -71,6 +71,12 @@ index = df$trait == 'biomass' & (!is.na(df[,'drymass']))
 df_trn = data.frame(df)[index,]
 rownames(df_trn) <- rownames(df)[index]
 
+# Changing data classes:
+df_trn$id_gbs = as.factor(df_trn$id_gbs)
+df_trn$loc = as.factor(df_trn$loc)
+df_trn$year = as.factor(df_trn$year)
+df_trn$trait = as.factor(df_trn$trait)
+
 # First step analysis:
 fit = list()
 fit[['1st_biomass']] = lmer(drymass ~ 1 + id_gbs + (1|loc) + (1|year) + (1|id_gbs:loc) + (1|id_gbs:year), data=df_trn)
@@ -97,13 +103,13 @@ fit[['2st_cv1_biomass_trn_bin']] = mixed.solve(y=blue[index_trn], Z=W_bin[index_
 
 # Computing predictions:
 y_pred = list()
-y_pred[['trn_full']] = W_full[index_trn,] %*% fit[['2st_cv1_biomass_trn_full']]$u
-y_pred[['dev_full']] = W_full[index_dev,] %*% fit[['2st_cv1_biomass_trn_full']]$u
-y_pred[['tst_full']] = W_full[index_tst,] %*% fit[['2st_cv1_biomass_trn_full']]$u
+y_pred[['trn_full']] = as.numeric(fit[['2st_cv1_biomass_trn_full']]$beta) + W_full[index_trn,] %*% fit[['2st_cv1_biomass_trn_full']]$u
+y_pred[['dev_full']] = as.numeric(fit[['2st_cv1_biomass_trn_full']]$beta) + W_full[index_dev,] %*% fit[['2st_cv1_biomass_trn_full']]$u
+y_pred[['tst_full']] = as.numeric(fit[['2st_cv1_biomass_trn_full']]$beta) + W_full[index_tst,] %*% fit[['2st_cv1_biomass_trn_full']]$u
 
-y_pred[['trn_bin']] = W_bin[index_trn,] %*% fit[['2st_cv1_biomass_trn_bin']]$u
-y_pred[['dev_bin']] = W_bin[index_dev,] %*% fit[['2st_cv1_biomass_trn_bin']]$u
-y_pred[['tst_bin']] = W_bin[index_tst,] %*% fit[['2st_cv1_biomass_trn_bin']]$u
+y_pred[['trn_bin']] = as.numeric(fit[['2st_cv1_biomass_trn_bin']]$beta) + W_bin[index_trn,] %*% fit[['2st_cv1_biomass_trn_bin']]$u
+y_pred[['dev_bin']] = as.numeric(fit[['2st_cv1_biomass_trn_bin']]$beta) + W_bin[index_dev,] %*% fit[['2st_cv1_biomass_trn_bin']]$u
+y_pred[['tst_bin']] = as.numeric(fit[['2st_cv1_biomass_trn_bin']]$beta) + W_bin[index_tst,] %*% fit[['2st_cv1_biomass_trn_bin']]$u
 
 # Correlation:
 cor_bin_full = matrix(NA,3,1)
@@ -151,11 +157,17 @@ index = df$trait == 'height' & (!is.na(df$height))
 df_trn = data.frame(df)[index,]
 rownames(df_trn) <- rownames(df)[index]
 
+# Changing data classes:
+df_trn$id_gbs = as.factor(df_trn$id_gbs)
+df_trn$loc = as.factor(df_trn$loc)
+df_trn$year = as.factor(df_trn$year)
+df_trn$trait = as.factor(df_trn$trait)
+
 # First step analysis:
-fit[['1st_height']] = lmer(height ~ 1 + id_gbs + (1|loc) + (1|year) + (1|id_gbs:loc) + (1|id_gbs:year), data=df_trn)
+fit[['1st_height']] = lmer(height ~ 1 + dap + id_gbs + (1|loc) + (1|year) + (1|id_gbs:loc) + (1|id_gbs:year), data=df_trn)
 
 # Preparing output from the first stage to perform the second stage analysis:
-blue = fixef(fit[['1st_height']])[-1]
+blue = fixef(fit[['1st_height']])[c(-1, -2)]
 index = str_split(names(blue), pattern='d_gbs',simplify=TRUE)[,2]
 names(blue) <- index
 
@@ -176,13 +188,13 @@ fit[['2st_cv1_height_trn_bin']] = mixed.solve(y=blue[index_trn], Z=W_bin[index_t
 
 # Computing predictions:
 y_pred = list()
-y_pred[['trn_full']] = W_full[index_trn,] %*% fit[['2st_cv1_height_trn_full']]$u
-y_pred[['dev_full']] = W_full[index_dev,] %*% fit[['2st_cv1_height_trn_full']]$u
-y_pred[['tst_full']] = W_full[index_tst,] %*% fit[['2st_cv1_height_trn_full']]$u
+y_pred[['trn_full']] = as.numeric(fit[['2st_cv1_height_trn_full']]$beta) + W_full[index_trn,] %*% fit[['2st_cv1_height_trn_full']]$u
+y_pred[['dev_full']] = as.numeric(fit[['2st_cv1_height_trn_full']]$beta) + W_full[index_dev,] %*% fit[['2st_cv1_height_trn_full']]$u
+y_pred[['tst_full']] = as.numeric(fit[['2st_cv1_height_trn_full']]$beta) + W_full[index_tst,] %*% fit[['2st_cv1_height_trn_full']]$u
 
-y_pred[['trn_bin']] = W_bin[index_trn,] %*% fit[['2st_cv1_height_trn_bin']]$u
-y_pred[['dev_bin']] = W_bin[index_dev,] %*% fit[['2st_cv1_height_trn_bin']]$u
-y_pred[['tst_bin']] = W_bin[index_tst,] %*% fit[['2st_cv1_height_trn_bin']]$u
+y_pred[['trn_bin']] = as.numeric(fit[['2st_cv1_height_trn_bin']]$beta) + W_bin[index_trn,] %*% fit[['2st_cv1_height_trn_bin']]$u
+y_pred[['dev_bin']] = as.numeric(fit[['2st_cv1_height_trn_bin']]$beta) + W_bin[index_dev,] %*% fit[['2st_cv1_height_trn_bin']]$u
+y_pred[['tst_bin']] = as.numeric(fit[['2st_cv1_height_trn_bin']]$beta) + W_bin[index_tst,] %*% fit[['2st_cv1_height_trn_bin']]$u
 
 # Correlation:
 cor_bin_full = matrix(NA,3,1)
@@ -271,7 +283,6 @@ index = str_detect(colnames(X_tmp),paste(c('loc','year', 'bin'),collapse='|'))
 X_tmp = X_tmp[, index]
 
 # Fitting the rrBLUP model for the bin matrix:
-fit = list()
 fit[[paste0('onestep_', sets[1])]] = mixed.solve(y=y_tmp, Z=X_tmp)
 
 for (i in sets) {
@@ -283,7 +294,7 @@ for (i in sets) {
 	X_tmp = X_tmp[, index]
 
 	# Computing predictions:
-	y_pred[[i]] = X_tmp %*% fit[[paste0('onestep_', sets[1])]]$u
+	y_pred[[i]] = as.numeric(fit[[paste0('onestep_', sets[1])]]$beta) + X_tmp %*% fit[[paste0('onestep_', sets[1])]]$u
 
 }
 
@@ -332,11 +343,10 @@ y_pred = list()
 # Subsetting the desired factors:
 y_tmp = y[[sets[1]]] 
 X_tmp = X[[sets[1]]]
-index = str_detect(colnames(X_tmp),paste(c('loc','year', 'bin'),collapse='|'))
+index = str_detect(colnames(X_tmp),paste(c('loc','year', 'dap', 'bin'),collapse='|'))
 X_tmp = X_tmp[, index]
 
 # Fitting the rrBLUP model for the bin matrix:
-fit = list()
 fit[[paste0('onestep_', sets[1])]] = mixed.solve(y=y_tmp, Z=X_tmp)
 
 for (i in sets) {
@@ -344,11 +354,11 @@ for (i in sets) {
 	# Subsetting the desired factors:
 	y_tmp = y[[i]] 
 	X_tmp = X[[i]]
-	index = str_detect(colnames(X_tmp),paste(c('loc','year', 'bin'),collapse='|'))
+	index = str_detect(colnames(X_tmp),paste(c('loc','year', 'dap', 'bin'),collapse='|'))
 	X_tmp = X_tmp[, index]
 
 	# Computing predictions:
-	y_pred[[i]] = X_tmp %*% fit[[paste0('onestep_', sets[1])]]$u
+	y_pred[[i]] = as.numeric(fit[[paste0('onestep_', sets[1])]]$beta) + X_tmp %*% fit[[paste0('onestep_', sets[1])]]$u
 
 }
 
@@ -392,7 +402,6 @@ print(metrics)
 # Setting directory:
 setwd(paste0(prefix_out, "outputs/two_stage_tests_rrblup"))
 
-
 # Saving results:
 for (i in ls(metrics)) {
 
@@ -403,8 +412,12 @@ for (i in ls(metrics)) {
 # Saving RData:
 save.image("mtrait_cv_rrblup_model.RData")
 
-# # Loading data in future runs:
-# load("mtrait_cv_rrblup_model.RData")
+
+# Setting directory:
+setwd(paste0(prefix_out, "outputs/two_stage_tests_rrblup"))
+
+# Loading data in future runs:
+load("mtrait_cv_rrblup_model.RData")
 
 #---------------------------------------------------Junk-----------------------------------------------------#
 

@@ -61,7 +61,7 @@ PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
 # Parameters:
 n_proc=40
 n_alt=10
-data="cv1_biomass"
+data="cv1_height"
 model="DNN"
 cv="CV1"
 
@@ -75,6 +75,14 @@ for i in $(seq 0 $((n_proc-1))); do
 	sleep 10
 done;
 
+
+#---------------------------- To run rrblup models--------------------------------------#
+
+# Prefix code:
+PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
+
+# Firing the process:
+Rscript ${PREFIX_code}/mtrait_cv_rrblup_model.R & 
 
 #-------------------------- Install python locally -----------------------------------#
 
