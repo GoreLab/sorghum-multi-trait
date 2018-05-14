@@ -80,7 +80,7 @@ cv = args.cv
 # cv = "CV1"
 # structure = "cv1_biomass"
 
-# # Seed to recover the analysis:
+# Seed to recover the analysis:
 seed = core
 
 #--------------------------------------------Reading data----------------------------------------------------#

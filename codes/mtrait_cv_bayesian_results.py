@@ -75,10 +75,10 @@ args = parser.parse_args()
 # structure = args.data
 
 ## Temp:
-core = 0
-model = "BN"
-cv = "CV1"
-structure = "cv1_biomass"
+# core = 0
+# model = "BN"
+# cv = "CV1"
+# structure = "cv1_height"
 
 # Seed to recover the analysis:
 seed = core
