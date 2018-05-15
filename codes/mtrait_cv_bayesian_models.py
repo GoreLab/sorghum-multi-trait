@@ -69,19 +69,23 @@ core = args.core
 structure = args.data
 
 # Specifying the model
-model = args.model         # 'DBN' or 'BN' or 'BNP'
+model = args.model         # 'DBN' or 'BN' or 'PBN'
 
 # Type of cross-validation scheme:
 cv = args.cv
 
-# ## Temp:
-# core = 0
-# model = "BN"
-# cv = "CV1"
-# structure = "cv1_biomass"
+## Temp:
+core = 0
+model = "PBN"  
+cv = "CV1"
+structure = "cv1_biomass-cv1_height"
 
 # Seed to recover the analysis:
 seed = core
+
+
+#***************** For future load of the data with pleiotropic model:
+bool(re.search('-', structure))
 
 #--------------------------------------------Reading data----------------------------------------------------#
 
@@ -130,6 +134,20 @@ index_x = pd.DataFrame(tmp).replace(tmp.drop_duplicates(), range(1,(tmp.drop_dup
 index = X['trn'].columns.str.contains('year')
 X['year'] = X['trn'].loc[:,index]
 
+if model=="BN":
+  # Storing all the data into a dictionary for pystan:
+  df_stan = dict(n_x = X['trn'].shape[0],
+                 p_x = X['trn'].shape[1],
+                 p_i = np.max(index_x),
+                 p_r = X['year'].shape[1],
+                 phi = np.max(y['trn'].values.flatten())*10,
+                 index_x = index_x,
+                 X = X['trn'],
+                 X_r = X['year'],
+                 y = y['trn'].values.flatten())
+
+if model=="PBN":
+
 # Storing all the data into a dictionary for pystan:
 df_stan = dict(n_x = X['trn'].shape[0],
                p_x = X['trn'].shape[1],
@@ -140,6 +158,8 @@ df_stan = dict(n_x = X['trn'].shape[0],
                X = X['trn'],
                X_r = X['year'],
                y = y['trn'].values.flatten())
+
+
 
 # Setting directory:
 os.chdir(prefix_proj + "codes")
