@@ -207,22 +207,25 @@ for i in range(len(struc)):
 
 
 # Storing all the data into a dictionary for pystan:
-df_stan = dict(n_x_0 = X[struc[0]]['trn'].shape[0],
-               p_x_0 = X[struc[0]]['trn'].shape[1],
+df_stan = dict(n_0 = X[struc[0]]['nobin_trn'].shape[0],
+               p_x_0 = X[struc[0]]['nobin_trn'].shape[1],
+               p_z = X[struc[0]]['bin_trn'].shape[1],               
                p_i_0 = np.max(index_x[struc[0]]),
                p_r_0 = X[struc[0]]['year'].shape[1],
                phi_0 = np.max(y[struc[0]]['trn'].values.flatten())*10,
                index_x_0 = index_x[struc[0]],
-               X_0 = X[struc[0]]['trn'],
+               X_0 = X[struc[0]]['nobin_trn'],
+               Z_0 = X[struc[0]]['bin_trn'],
                X_r_0 = X[struc[0]]['year'],
                y_0 = y[struc[0]]['trn'].values.flatten(),
-               n_x_1 = X[struc[1]]['trn'].shape[0],
-               p_x_1 = X[struc[1]]['trn'].shape[1],
+               n_1 = X[struc[1]]['nobin_trn'].shape[0],
+               p_x_1 = X[struc[1]]['nobin_trn'].shape[1],
                p_i_1 = np.max(index_x[struc[1]]),
                p_r_1 = X[struc[1]]['year'].shape[1],
                phi_1 = np.max(y[struc[1]]['trn'].values.flatten())*10,
                index_x_1 = index_x[struc[1]],
-               X_1 = X[struc[1]]['trn'],
+               X_1 = X[struc[1]]['nobin_trn'],
+               Z_1 = X[struc[1]]['bin_trn'],
                X_r_1 = X[struc[1]]['year'],
                y_1 = y[struc[1]]['trn'].values.flatten())
 
@@ -231,6 +234,9 @@ os.chdir(prefix_proj + "codes")
 
 # Compiling the C++ code for the model:
 model_stan = ps.StanModel(file='multi_trait.stan')
+
+# Compiling the C++ code for the model:
+model_stan = ps.StanModel(file='pleiotropic_multi_trait.stan')
 
 # Creating an empty dict:
 fit = dict()
