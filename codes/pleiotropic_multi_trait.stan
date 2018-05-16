@@ -116,8 +116,8 @@ parameters {
 transformed parameters {
 
   // Declaring variables to receive input:
-  vector<lower=0>[n_x_0] sigma_vec_0;
-  vector[n_x_0] expectation_0;
+  vector<lower=0>[n_0] sigma_vec_0;
+  vector[n_0] expectation_0;
   vector<lower=0>[n_1] sigma_vec_1;
   vector[n_1] expectation_1;
 
