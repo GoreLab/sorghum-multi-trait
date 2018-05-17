@@ -188,55 +188,52 @@ if model=="BN":
                  X_r = X['year'],
                  y = y['trn'].values.flatten())
 
-
-
 if model=="PBN":
-
-# Initializing object to receive index for specific priors:
-index_x = dict()
-for i in range(len(struc)):
-  # Index for specific priors:
-  index_x[struc[i]] = dict()
-  # Getting the features names prefix:
-  tmp = X[struc[i]]['nobin_trn'].columns.str.split('_').str.get(0)
-  # Building an incidence vector for adding specific priors for each feature class:
-  index_x[struc[i]] = pd.DataFrame(tmp).replace(tmp.drop_duplicates(), range(1,(tmp.drop_duplicates().size+1)))[0].values 
-  # Building an year matrix just for indexing resuduals standard deviations heterogeneous across time:
-  index = X[struc[i]]['nobin_trn'].columns.str.contains('year')
-  X[struc[i]]['year'] = X[struc[i]]['nobin_trn'].loc[:,index]
-
-
-# Storing all the data into a dictionary for pystan:
-df_stan = dict(n_0 = X[struc[0]]['nobin_trn'].shape[0],
-               p_x_0 = X[struc[0]]['nobin_trn'].shape[1],
-               p_z = X[struc[0]]['bin_trn'].shape[1],               
-               p_i_0 = np.max(index_x[struc[0]]),
-               p_r_0 = X[struc[0]]['year'].shape[1],
-               phi_0 = np.max(y[struc[0]]['trn'].values.flatten())*10,
-               index_x_0 = index_x[struc[0]],
-               X_0 = X[struc[0]]['nobin_trn'],
-               Z_0 = X[struc[0]]['bin_trn'],
-               X_r_0 = X[struc[0]]['year'],
-               y_0 = y[struc[0]]['trn'].values.flatten(),
-               n_1 = X[struc[1]]['nobin_trn'].shape[0],
-               p_x_1 = X[struc[1]]['nobin_trn'].shape[1],
-               p_i_1 = np.max(index_x[struc[1]]),
-               p_r_1 = X[struc[1]]['year'].shape[1],
-               phi_1 = np.max(y[struc[1]]['trn'].values.flatten())*10,
-               index_x_1 = index_x[struc[1]],
-               X_1 = X[struc[1]]['nobin_trn'],
-               Z_1 = X[struc[1]]['bin_trn'],
-               X_r_1 = X[struc[1]]['year'],
-               y_1 = y[struc[1]]['trn'].values.flatten())
+  # Initializing object to receive index for specific priors:
+  index_x = dict()
+  for i in range(len(struc)):
+    # Index for specific priors:
+    index_x[struc[i]] = dict()
+    # Getting the features names prefix:
+    tmp = X[struc[i]]['nobin_trn'].columns.str.split('_').str.get(0)
+    # Building an incidence vector for adding specific priors for each feature class:
+    index_x[struc[i]] = pd.DataFrame(tmp).replace(tmp.drop_duplicates(), range(1,(tmp.drop_duplicates().size+1)))[0].values 
+    # Building an year matrix just for indexing resuduals standard deviations heterogeneous across time:
+    index = X[struc[i]]['nobin_trn'].columns.str.contains('year')
+    X[struc[i]]['year'] = X[struc[i]]['nobin_trn'].loc[:,index]
+  # Storing all the data into a dictionary for pystan:
+  df_stan = dict(n_0 = X[struc[0]]['nobin_trn'].shape[0],
+                 p_x_0 = X[struc[0]]['nobin_trn'].shape[1],
+                 p_z = X[struc[0]]['bin_trn'].shape[1],               
+                 p_i_0 = np.max(index_x[struc[0]]),
+                 p_r_0 = X[struc[0]]['year'].shape[1],
+                 phi_0 = np.max(y[struc[0]]['trn'].values.flatten())*10,
+                 index_x_0 = index_x[struc[0]],
+                 X_0 = X[struc[0]]['nobin_trn'],
+                 Z_0 = X[struc[0]]['bin_trn'],
+                 X_r_0 = X[struc[0]]['year'],
+                 y_0 = y[struc[0]]['trn'].values.flatten(),
+                 n_1 = X[struc[1]]['nobin_trn'].shape[0],
+                 p_x_1 = X[struc[1]]['nobin_trn'].shape[1],
+                 p_i_1 = np.max(index_x[struc[1]]),
+                 p_r_1 = X[struc[1]]['year'].shape[1],
+                 phi_1 = np.max(y[struc[1]]['trn'].values.flatten())*10,
+                 index_x_1 = index_x[struc[1]],
+                 X_1 = X[struc[1]]['nobin_trn'],
+                 Z_1 = X[struc[1]]['bin_trn'],
+                 X_r_1 = X[struc[1]]['year'],
+                 y_1 = y[struc[1]]['trn'].values.flatten())
 
 # Setting directory:
 os.chdir(prefix_proj + "codes")
 
-# Compiling the C++ code for the model:
-model_stan = ps.StanModel(file='multi_trait.stan')
+if model=="BN":
+  # Compiling the C++ code for the model:
+  model_stan = ps.StanModel(file='multi_trait.stan')
 
-# Compiling the C++ code for the model:
-model_stan = ps.StanModel(file='pleiotropic_multi_trait.stan')
+if model=="PBN":
+  # Compiling the C++ code for the model:
+  model_stan = ps.StanModel(file='pleiotropic_multi_trait.stan')
 
 # Creating an empty dict:
 fit = dict()
@@ -252,3 +249,4 @@ os.chdir(prefix_out + 'outputs/cross_validation/' + model.lower() + "/" + struct
 # Saving stan fit object and model:
 with open("model_fit.pkl", "wb") as f:
     pickle.dump({'model' : model_stan, 'fit' : fit}, f, protocol=-1)
+
