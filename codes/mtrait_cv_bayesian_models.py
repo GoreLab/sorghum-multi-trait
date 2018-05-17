@@ -250,3 +250,4 @@ os.chdir(prefix_out + 'outputs/cross_validation/' + model.lower() + "/" + struct
 with open("model_fit.pkl", "wb") as f:
     pickle.dump({'model' : model_stan, 'fit' : fit}, f, protocol=-1)
 
+

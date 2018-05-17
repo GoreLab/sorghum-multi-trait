@@ -1,24 +1,29 @@
 
-  // Parameters:
-  real mu_0;
-  vector[p_x] beta_0;
-  vector<lower=0>[p_r] sigma_0;
+  // Specifying hyperpriors for the second level hyperparameters:
+  pi_u_mu_1 ~ cauchy(0,  phi_1);
+  pi_u_beta_1 ~ cauchy(0,  phi_1);
 
-  // First level hyperparameters:
-  real u_mu_0;
-  vector[p_i] u_beta_0;
+  pi_s_mu_1 ~ cauchy(0,  phi_1);
+  pi_s_beta_1 ~ cauchy(0,  phi_1);
+  pi_s_sigma_1 ~ cauchy(0,  phi_1);
 
-  real<lower=0> s_mu_0;
-  vector<lower=0>[p_i] s_beta_0;
-  real<lower=0> s_sigma_0;
+  // Specifying hyperpriors for the first level hyperparameters:
+  u_mu_1 ~ normal(0, pi_u_mu_1);
+  u_beta_1 ~ normal(0, pi_u_beta_1);
 
-  // Second level hyperparameters:
-  real<lower=0> pi_u_mu_0;
-  real<lower=0> pi_u_beta_0;
+  s_mu_1 ~ cauchy(0, pi_s_mu_1);
+  s_beta_1 ~ cauchy(0, pi_s_beta_1);
+  s_sigma_1 ~ cauchy(0, pi_s_sigma_1);
 
-  real<lower=0> pi_s_mu_0;
-  real<lower=0> pi_s_beta_0;
-  real<lower=0> pi_s_sigma_0;
+  // Specifying priors for the parameters:
+  mu_1 ~ normal(u_mu_1, s_mu_1);
+  beta_1 ~ normal(u_beta_1[index_x_1], s_beta_1[index_x_1]);
+  sigma_1 ~ cauchy(0, s_sigma_1);
 
-  // Defining variable to generate data from the model:
-  real y_gen_0[n_x];
+  // Specifying the likelihood:
+  y_1 ~ normal(expectation_1, sigma_vec_1);
+
+  // Generating data from the model:
+  y_gen_1 ~ normal(expectation_1, sigma_vec_1);
+
+

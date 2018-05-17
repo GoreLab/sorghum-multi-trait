@@ -17,7 +17,8 @@ import pystan as ps
 import subprocess
 import dill
 import time
-import sys 
+import sys
+import re 
 
 from scipy.stats import skew
 from scipy.stats import moment
@@ -48,6 +49,20 @@ os.chdir(prefix_proj + "codes")
 # Loading external functions:
 from external_functions import * 
 
+#-----------------------------------------Adding flags to the code-------------------------------------------#
+
+# Getting flags:
+parser.add_argument("-cv", "--cv", dest = "cv", default = "CV1", help="Cross-validation type")
+
+args = parser.parse_args()
+
+#------------------------------------------Code parameters---------------------------------------------------#
+
+# Type of cross-validation scheme:
+cv = args.cv
+
+# ## Temp:
+# cv = "CV2.30~90"
 
 #--------------------------Building design/feature matrices for height and biomass---------------------------#
 
@@ -97,117 +112,135 @@ X['biomass'] = X['biomass'][np.invert(df.drymass[df.trait=='biomass'].isnull())]
 index = df.trait=='biomass'
 y['biomass'] = df.drymass[index][np.invert(df.drymass[index].isnull())]
 
-
 #----------------------------------Preparing data for cross-validation---------------------------------------#
 
-# Index for subsetting height data:
-index = df.trait=='height'
+if cv=="CV1":
+	# Index for subsetting height data:
+	index = df.trait=='height'
+	# Index to receive the position of the data frame:
+	index_cv = dict()
+	# Subsetting data into train and (dev set + test set) for height data:
+	X['cv1_height_trn'], X['cv1_height_dev'], y['cv1_height_trn'], y['cv1_height_dev'], index_cv['cv1_height_trn'], index_cv['cv1_height_dev'] = train_test_split(X['height'], 
+																																								  y['height'],
+										 		                                                																  df.height[index][np.invert(df.height[index].isnull())].index,
+										                                                        																  test_size=0.3,
+										                                                        																  random_state=1234)
+	# Subsetting (dev set + test set) into dev set and test set:
+	X['cv1_height_dev'], X['cv1_height_tst'], y['cv1_height_dev'], y['cv1_height_tst'], index_cv['cv1_height_dev'], index_cv['cv1_height_tst'] = train_test_split(X['cv1_height_dev'],
+											                                                            		  												  y['cv1_height_dev'],
+											                                                            		  												  index_cv['cv1_height_dev'],
+										                                                          				  												  test_size=0.50,
+										                                                          				  												  random_state=1234)
+	# Index for subsetting height data:
+	index = df.trait=='biomass'
+	# Subsetting data into train and (dev set + test set) for biomass data:
+	X['cv1_biomass_trn'], X['cv1_biomass_dev'], y['cv1_biomass_trn'], y['cv1_biomass_dev'], index_cv['cv1_biomass_trn'], index_cv['cv1_biomass_dev'] = train_test_split(X['biomass'], 
+																																								        y['biomass'],
+										 		                                                																        df.drymass[index][np.invert(df.drymass[index].isnull())].index,
+										                                                        																        test_size=0.3,
+										                                                        																        random_state=1234)
+	# Subsetting (dev set + test set) into dev set and test set:
+	X['cv1_biomass_dev'], X['cv1_biomass_tst'], y['cv1_biomass_dev'], y['cv1_biomass_tst'], index_cv['cv1_biomass_dev'], index_cv['cv1_biomass_tst'] = train_test_split(X['cv1_biomass_dev'],
+											                                                            		  												        y['cv1_biomass_dev'],
+											                                                            		  												        index_cv['cv1_biomass_dev'],
+										                                                          				  												        test_size=0.50,
+										                                                          				  												        random_state=1234)
+	# Reshaping responses:
+	y['cv1_height_trn'] = np.reshape(y['cv1_height_trn'], (y['cv1_height_trn'].shape[0], 1))
+	y['cv1_height_dev'] = np.reshape(y['cv1_height_dev'], (y['cv1_height_dev'].shape[0], 1))
+	y['cv1_height_tst'] = np.reshape(y['cv1_height_tst'], (y['cv1_height_tst'].shape[0], 1))
+	y['cv1_biomass_trn'] = np.reshape(y['cv1_biomass_trn'], (y['cv1_biomass_trn'].shape[0], 1))
+	y['cv1_biomass_dev'] = np.reshape(y['cv1_biomass_dev'], (y['cv1_biomass_dev'].shape[0], 1))
+	y['cv1_biomass_tst'] = np.reshape(y['cv1_biomass_tst'], (y['cv1_biomass_tst'].shape[0], 1))
+	# Checking shapes of the matrices related to height:
+	X['cv1_height_trn'].shape
+	y['cv1_height_trn'].shape
+	X['cv1_height_dev'].shape
+	y['cv1_height_dev'].shape
+	X['cv1_height_tst'].shape
+	y['cv1_height_tst'].shape
+	# Checking shapes of the matrices related to biomass:
+	X['cv1_biomass_trn'].shape
+	y['cv1_biomass_trn'].shape
+	X['cv1_biomass_dev'].shape
+	y['cv1_biomass_dev'].shape
+	X['cv1_biomass_tst'].shape
+	y['cv1_biomass_tst'].shape
+	# Setting directory to save cv data:
+	os.chdir(prefix_out + 'data/cross_validation/cv1')
+	# Saving height data:
+	X['cv1_height_trn'].to_csv('x_cv1_height_trn.csv')
+	pd.DataFrame(y['cv1_height_trn'], index=index_cv['cv1_height_trn']).to_csv('y_cv1_height_trn.csv')
+	X['cv1_height_dev'].to_csv('x_cv1_height_dev.csv')
+	pd.DataFrame(y['cv1_height_dev'], index=index_cv['cv1_height_dev']).to_csv('y_cv1_height_dev.csv')
+	X['cv1_height_tst'].to_csv('x_cv1_height_tst.csv')
+	pd.DataFrame(y['cv1_height_tst'], index=index_cv['cv1_height_tst']).to_csv('y_cv1_height_tst.csv')
+	# Saving biomass data:
+	X['cv1_biomass_trn'].to_csv('x_cv1_biomass_trn.csv')
+	pd.DataFrame(y['cv1_biomass_trn'], index=index_cv['cv1_biomass_trn']).to_csv('y_cv1_biomass_trn.csv')
+	X['cv1_biomass_dev'].to_csv('x_cv1_biomass_dev.csv')
+	pd.DataFrame(y['cv1_biomass_dev'], index=index_cv['cv1_biomass_dev']).to_csv('y_cv1_biomass_dev.csv')
+	X['cv1_biomass_tst'].to_csv('x_cv1_biomass_tst.csv')
+	pd.DataFrame(y['cv1_biomass_tst'], index=index_cv['cv1_biomass_tst']).to_csv('y_cv1_biomass_tst.csv')
 
-# Index to receive the position of the data frame:
-index_cv = dict()
 
-# Subsetting data into train and (dev set + test set) for height data:
-X['cv1_height_trn'], X['cv1_height_dev'], y['cv1_height_trn'], y['cv1_height_dev'], index_cv['cv1_height_trn'], index_cv['cv1_height_dev'] = train_test_split(X['height'], 
-																																							  y['height'],
-									 		                                                																  df.height[index][np.invert(df.height[index].isnull())].index,
-									                                                        																  test_size=0.3,
-									                                                        																  random_state=1234)
 
-# Subsetting (dev set + test set) into dev set and test set:
-X['cv1_height_dev'], X['cv1_height_tst'], y['cv1_height_dev'], y['cv1_height_tst'], index_cv['cv1_height_dev'], index_cv['cv1_height_tst'] = train_test_split(X['cv1_height_dev'],
-										                                                            		  												  y['cv1_height_dev'],
-										                                                            		  												  index_cv['cv1_height_dev'],
-									                                                          				  												  test_size=0.50,
-									                                                          				  												  random_state=1234)
-
-# Index for subsetting height data:
-index = df.trait=='biomass'
-
-# Subsetting data into train and (dev set + test set) for biomass data:
-X['cv1_biomass_trn'], X['cv1_biomass_dev'], y['cv1_biomass_trn'], y['cv1_biomass_dev'], index_cv['cv1_biomass_trn'], index_cv['cv1_biomass_dev'] = train_test_split(X['biomass'], 
-																																							        y['biomass'],
-									 		                                                																        df.drymass[index][np.invert(df.drymass[index].isnull())].index,
-									                                                        																        test_size=0.3,
-									                                                        																        random_state=1234)
-
-# Subsetting (dev set + test set) into dev set and test set:
-X['cv1_biomass_dev'], X['cv1_biomass_tst'], y['cv1_biomass_dev'], y['cv1_biomass_tst'], index_cv['cv1_biomass_dev'], index_cv['cv1_biomass_tst'] = train_test_split(X['cv1_biomass_dev'],
-										                                                            		  												        y['cv1_biomass_dev'],
-										                                                            		  												        index_cv['cv1_biomass_dev'],
-									                                                          				  												        test_size=0.50,
-									                                                          				  												        random_state=1234)
-
-# Reshaping responses:
-y['cv1_height_trn'] = np.reshape(y['cv1_height_trn'], (y['cv1_height_trn'].shape[0], 1))
-y['cv1_height_dev'] = np.reshape(y['cv1_height_dev'], (y['cv1_height_dev'].shape[0], 1))
-y['cv1_height_tst'] = np.reshape(y['cv1_height_tst'], (y['cv1_height_tst'].shape[0], 1))
-y['cv1_biomass_trn'] = np.reshape(y['cv1_biomass_trn'], (y['cv1_biomass_trn'].shape[0], 1))
-y['cv1_biomass_dev'] = np.reshape(y['cv1_biomass_dev'], (y['cv1_biomass_dev'].shape[0], 1))
-y['cv1_biomass_tst'] = np.reshape(y['cv1_biomass_tst'], (y['cv1_biomass_tst'].shape[0], 1))
-
-# Checking shapes of the matrices related to height:
-X['cv1_height_trn'].shape
-y['cv1_height_trn'].shape
-X['cv1_height_dev'].shape
-y['cv1_height_dev'].shape
-X['cv1_height_tst'].shape
-y['cv1_height_tst'].shape
-
-# Checking shapes of the matrices related to biomass:
-X['cv1_biomass_trn'].shape
-y['cv1_biomass_trn'].shape
-X['cv1_biomass_dev'].shape
-y['cv1_biomass_dev'].shape
-X['cv1_biomass_tst'].shape
-y['cv1_biomass_tst'].shape
-
-# Setting directory to save cv data:
-os.chdir(prefix_out + 'data/cross_validation/cv1')
-
-# Saving height data:
-X['cv1_height_trn'].to_csv('x_cv1_height_trn.csv')
-pd.DataFrame(y['cv1_height_trn'], index=index_cv['cv1_height_trn']).to_csv('y_cv1_height_trn.csv')
-X['cv1_height_dev'].to_csv('x_cv1_height_dev.csv')
-pd.DataFrame(y['cv1_height_dev'], index=index_cv['cv1_height_dev']).to_csv('y_cv1_height_dev.csv')
-X['cv1_height_tst'].to_csv('x_cv1_height_tst.csv')
-pd.DataFrame(y['cv1_height_tst'], index=index_cv['cv1_height_tst']).to_csv('y_cv1_height_tst.csv')
-
-# Saving biomass data:
-X['cv1_biomass_trn'].to_csv('x_cv1_biomass_trn.csv')
-pd.DataFrame(y['cv1_biomass_trn'], index=index_cv['cv1_biomass_trn']).to_csv('y_cv1_biomass_trn.csv')
-X['cv1_biomass_dev'].to_csv('x_cv1_biomass_dev.csv')
-pd.DataFrame(y['cv1_biomass_dev'], index=index_cv['cv1_biomass_dev']).to_csv('y_cv1_biomass_dev.csv')
-X['cv1_biomass_tst'].to_csv('x_cv1_biomass_tst.csv')
-pd.DataFrame(y['cv1_biomass_tst'], index=index_cv['cv1_biomass_tst']).to_csv('y_cv1_biomass_tst.csv')
-
+if bool(re.search('CV2', cv)):
+	# Varible to define trait:
+	trait = 'height'
+	# Getting the upper interval limit of the days after planting (dap) that will compose the training set:
+	upper = float(cv.split('~')[1])
+	# Name of the current training set:
+	tmp= 'cv2.' + str(int(df.dap.min())) + '~' + str(int(upper)) + '_' + trait + '_'
+	cv_type = [tmp + s for s in ['trn', 'dev', 'tst']]
+	# Subsetting the training set:
+	index = np.invert(df.height[df.trait==trait].isnull()) & (df.dap <= upper)
+	X[cv_type[0]] = X[trait].loc[df.height[index].index]
+	y[cv_type[0]] = y[trait][df.height[index].index]
+	# Subsetting the non training set:
+	index = np.invert(df.height[df.trait==trait].isnull()) & (df.dap > upper)
+	X[cv_type[1]] = X[trait].loc[df.height[index].index]
+	y[cv_type[1]] =  y[trait][df.height[index].index]
+	# Splitting non training set into dev and test sets:
+	X[cv_type[1]], X[cv_type[2]], y[cv_type[1]], y[cv_type[2]] = train_test_split(X[cv_type[1]],
+											                                      y[cv_type[1]],
+										                                          test_size=0.50,
+										                                          random_state=1234)
+	# Setting directory to save cv data:
+	os.chdir(prefix_out + 'data/cross_validation/' + cv.lower())
+	X[cv_type[0]].to_csv('x_' + cv.lower() + '_' + trait + '_trn.csv')
+	pd.DataFrame(y[cv_type[0]]).to_csv('y_' + cv.lower() + '_' + trait + '_trn.csv')
+	X[cv_type[1]].to_csv('x_' + cv.lower() + '_' + trait + '_dev.csv')
+	pd.DataFrame(y[cv_type[1]]).to_csv('y_' + cv.lower() + '_' + trait + '_dev.csv')
+	X[cv_type[2]].to_csv('x_' + cv.lower() + '_' + trait + '_tst.csv')
+	pd.DataFrame(y[cv_type[2]]).to_csv('y_' + cv.lower() + '_' + trait + '_tst.csv')
 
 #----------------------------Subdivision of the height data into mini-batches--------------------------------#
 
-# Subsetting the full set of names of the inbred lines phenotyped for biomass:
-index_mbatch = df.id_gbs[df.trait=='height'].drop_duplicates()
+if cv=="CV1":
+	# Subsetting the full set of names of the inbred lines phenotyped for biomass:
+	index_mbatch = df.id_gbs[df.trait=='height'].drop_duplicates()
+	# Size of the mini-batch
+	size_mbatch = 4
+	# Splitting the list of names of the inbred lines into 4 sublists for indexing the mini-batches:
+	index_mbatch = np.array_split(index_mbatch, size_mbatch)
+	# Type of sets:
+	tmp = ['trn', 'dev', 'tst']
+	# Indexing the mini-batches for the height trait:
+	for k in tmp:
+		for i in range(size_mbatch):
+			# Getting the positions on the height training set related to the mini-batch i:
+			index = df.id_gbs.loc[index_cv['cv1_height_' + k]].isin(index_mbatch[i])
+			# Indexing height values of the mini-batch i:
+			X['cv1_height_' + 'mb_' + str(i) + '_' + k ] = X['cv1_height_' + k][index]
+			y['cv1_height_' + 'mb_' + str(i) + '_' + k ] = y['cv1_height_' + k][index]
+			index_cv['cv1_height_' + 'mb_' + str(i) + '_' + k]  = index_cv['cv1_height_' + k][index]
+			# Printing shapes:
+			X['cv1_height_' + 'mb_' + str(i) + '_' + k ].shape
+			y['cv1_height_' + 'mb_' + str(i) + '_' + k ].shape
+			# Saving data:
+			X['cv1_height_' + 'mb_' + str(i) + '_' + k ].to_csv('x_cv1_height_' + 'mb_' + str(i) + '_' + k  + '.csv')
+			pd.DataFrame(y['cv1_height_' + 'mb_' + str(i) + '_' + k ], index=index_cv['cv1_height_' + 'mb_' + str(i) + '_' + k ]).to_csv('y_cv1_height_' + 'mb_' + str(i) + '_' + k  + '.csv')
 
-# Size of the mini-batch
-size_mbatch = 4
 
-# Splitting the list of names of the inbred lines into 4 sublists for indexing the mini-batches:
-index_mbatch = np.array_split(index_mbatch, size_mbatch)
-
-# Type of sets:
-tmp = ['trn', 'dev', 'tst']
-
-# Indexing the mini-batches for the height trait:
-for k in tmp:
-	for i in range(size_mbatch):
-		# Getting the positions on the height training set related to the mini-batch i:
-		index = df.id_gbs.loc[index_cv['cv1_height_' + k]].isin(index_mbatch[i])
-		# Indexing height values of the mini-batch i:
-		X['cv1_height_' + 'mb_' + str(i) + '_' + k ] = X['cv1_height_' + k][index]
-		y['cv1_height_' + 'mb_' + str(i) + '_' + k ] = y['cv1_height_' + k][index]
-		index_cv['cv1_height_' + 'mb_' + str(i) + '_' + k]  = index_cv['cv1_height_' + k][index]
-		# Printing shapes:
-		X['cv1_height_' + 'mb_' + str(i) + '_' + k ].shape
-		y['cv1_height_' + 'mb_' + str(i) + '_' + k ].shape
-		# Saving data:
-		X['cv1_height_' + 'mb_' + str(i) + '_' + k ].to_csv('x_cv1_height_' + 'mb_' + str(i) + '_' + k  + '.csv')
-		pd.DataFrame(y['cv1_height_' + 'mb_' + str(i) + '_' + k ], index=index_cv['cv1_height_' + 'mb_' + str(i) + '_' + k ]).to_csv('y_cv1_height_' + 'mb_' + str(i) + '_' + k  + '.csv')
 

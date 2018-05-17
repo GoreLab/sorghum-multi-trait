@@ -80,7 +80,7 @@ args = parser.parse_args()
 ## Temp:
 n_core = 40
 n_alt = 10
-structure = "cv1_biomass"
+structure = "cv1_height"
 model = "DNN"
 cv = "CV1"
 
@@ -316,3 +316,33 @@ print(np.round(cor_sets[index[0], index[1],:], 4))
 
 # Printing r2:
 print(np.round(r2_sets[index[0], index[1],:], 4))
+
+# Type of sets:
+y_pred = dict()
+tmp = ['trn', 'dev', 'tst']
+
+# Storing the best prediction:
+for c in range(n_sets):
+  # Getting final predictions:
+  y_pred[tmp[c]] = np.mean(Y_pred_lst_sets[c], axis=2)[index[0],:,index[1]]
+
+# Scatter plots of different data types:
+tmp = dict()
+tmp['trn'] = np.polyfit(y['trn'].values.flatten(), y_pred['trn'], 1)
+tmp['dev'] = np.polyfit(y['dev'].values.flatten(), y_pred['dev'], 1)
+tmp['tst'] = np.polyfit(y['tst'].values.flatten(), y_pred['tst'], 1)
+plt.scatter(y['trn'].values.flatten(), y_pred['trn'], label="trn", alpha=0.3)
+plt.plot(y['trn'].values.flatten(), tmp['trn'][0] * y['trn'].values.flatten() + tmp['trn'][1])
+plt.scatter(y['dev'].values.flatten(), y_pred['dev'], label="dev", alpha=0.3)
+plt.plot(y['dev'].values.flatten(), tmp['dev'][0] * y['dev'].values.flatten() + tmp['dev'][1])
+plt.scatter(y['tst'].values.flatten(), y_pred['tst'], label="tst", alpha=0.3)
+plt.plot(y['tst'].values.flatten(), tmp['tst'][0] * y['tst'].values.flatten() + tmp['tst'][1])
+plt.legend()
+plt.title('Scatter pattern of different data types')
+plt.xlabel('Observed data')
+plt.ylabel("Predicted data")
+upper_bound = np.max([y['trn'].max(), y['dev'].max() ,y['tst'].max()])
+plt.xlim(0, upper_bound + upper_bound * 0.1)
+plt.ylim(0, upper_bound + upper_bound * 0.1)
+plt.show()
+plt.clf()

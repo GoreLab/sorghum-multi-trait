@@ -36,6 +36,12 @@ data="cv1_biomass"
 model="BN"
 cv="CV1"
 
+# Parameters (biomass run):
+core=1 
+data="cv1_biomass-cv1_height"
+model="PBN"
+cv="CV1"
+
 # Prefix python:
 PREFIX_python=/workdir/jp2476/software/python/bin
 
