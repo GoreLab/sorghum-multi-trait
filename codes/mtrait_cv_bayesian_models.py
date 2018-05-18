@@ -239,7 +239,7 @@ if model=="PBN":
 fit = dict()
 
 # Fitting the model:
-fit['trn'] = model_stan.sampling(data=df_stan, chains=1, iter=400, seed=seed)
+fit['trn'] = model_stan.sampling(data=df_stan, chains=4, iter=400, seed=seed)
 
 #-----------------------------------------Saving stan outputs------------------------------------------------#
 
