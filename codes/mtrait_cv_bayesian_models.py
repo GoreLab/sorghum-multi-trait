@@ -77,11 +77,11 @@ model = args.model         # 'DBN' or 'BN' or 'PBN'
 # Type of cross-validation scheme:
 cv = args.cv
 
-## Temp:
-core = 0
-model = "PBN"  
-cv = "CV1"
-structure = "cv1_biomass-cv1_height"
+# ## Temp:
+# core = 0
+# model = "PBN1"  
+# cv = "CV1"
+# structure = "cv1_biomass-cv1_height"
 
 # Seed to recover the analysis:
 seed = core
@@ -188,7 +188,7 @@ if model=="BN":
                  X_r = X['year'],
                  y = y['trn'].values.flatten())
 
-if model=="PBN":
+if bool(re.search('PBN', model)):
   # Initializing object to receive index for specific priors:
   index_x = dict()
   for i in range(len(struc)):
@@ -231,9 +231,13 @@ if model=="BN":
   # Compiling the C++ code for the model:
   model_stan = ps.StanModel(file='multi_trait.stan')
 
-if model=="PBN":
+if model=="PBN0":
   # Compiling the C++ code for the model:
-  model_stan = ps.StanModel(file='pleiotropic_multi_trait_2.stan')
+  model_stan = ps.StanModel(file='pleiotropic_multi_trait_0.stan')
+
+if model=="PBN1":
+  # Compiling the C++ code for the model:
+  model_stan = ps.StanModel(file='pleiotropic_multi_trait_1.stan')
 
 # Creating an empty dict:
 fit = dict()

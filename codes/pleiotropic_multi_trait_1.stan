@@ -155,7 +155,7 @@ model {
 
   //// Conditional probabilities distributions that creates dependecy between the responses:
 
-  // Pleiotropy modularity hyperparameters 
+  // Pleiotropy modularity hyperparameters:
   pi_u_z_0 ~ cauchy(0, phi_0);
   pi_s_z_0 ~ cauchy(0, phi_0);
   s_z_0 ~ cauchy(0, pi_s_z_0);
