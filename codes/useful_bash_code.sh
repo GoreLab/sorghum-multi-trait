@@ -29,24 +29,6 @@ ${PREFIX_python}/python ${PREFIX_code}/mtrait_cv_data.py -cv "CV2.30~105" &
 
 #---------------------------- To run bayesian models--------------------------------------#
 
-# Parameters (height run):
-core=1 
-data="cv1_height"
-model="BN"
-cv="CV1"
-
-# Parameters (biomass run):
-core=2 
-data="cv1_biomass"
-model="BN"
-cv="CV1"
-
-# Parameters (biomass run):
-core=1 
-data="cv1_biomass-cv1_height"
-model="PBN"
-cv="CV1"
-
 # Prefix python:
 PREFIX_python=/workdir/jp2476/software/python/bin
 
@@ -54,33 +36,55 @@ PREFIX_python=/workdir/jp2476/software/python/bin
 PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
 
 # Firing the process:
-${PREFIX_python}/python ${PREFIX_code}/mtrait_cv_bayesian_models.py -c ${core} -d ${data} -m ${model} -cv ${cv} & 
+${PREFIX_python}/python ${PREFIX_code}/mtrait_cv_bayesian_models.py -c 1 -d "cv1_height" -m "BN" -cv "CV1" & 
+
+${PREFIX_python}/python ${PREFIX_code}/mtrait_cv_bayesian_models.py -c 2 -d "cv1_biomass" -m "BN" -cv "CV1" & 
+
+${PREFIX_python}/python ${PREFIX_code}/mtrait_cv_bayesian_models.py -c 1 -d "cv1_biomass-cv1_height" -m "PBN0" -cv "CV1" & 
+
+${PREFIX_python}/python ${PREFIX_code}/mtrait_cv_bayesian_models.py -c 1 -d "cv1_biomass-cv1_height" -m "PBN1" -cv "CV1" & 
 
 
 #-------------------------- For running dnn script -----------------------------------#
 
+## Biomass analysis:
+
 # Prefix python:
-# PREFIX_python=/home/aafgarci/anaconda3/bin
 PREFIX_python=/workdir/jp2476/software/python/bin
-# PREFIX_python=/home/jhonathan/Documents/python/bin
 
 # Prefix code:
-# PREFIX_code=/data1/aafgarci/jhonathan/sorghum-multi-trait/codes
 PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
-# PREFIX_code=/home/jhonathan/Documents/sorghum-multi-trait/codes
 
-# Parameters:
+# Number of processors:
 n_proc=40
-n_alt=10
-data="cv1_height"
-model="DNN"
-cv="CV1"
 
 # Looping over codes:
 for i in $(seq 0 $((n_proc-1))); do  
 	
 	# Firing process:
-	${PREFIX_python}/python ${PREFIX_code}/mtrait_cv_dnn_models.py -c ${i} -nalt ${n_alt} -d ${data} -m ${model} -cv ${cv} &
+	${PREFIX_python}/python ${PREFIX_code}/mtrait_cv_dnn_models.py -c ${i} -nalt 10 -d "cv1_biomass" -m "DNN" -cv "CV1" &
+
+	# Wait some time to fire the next process:
+	sleep 10
+done;
+
+
+## Height analysis:
+
+# Prefix python:
+PREFIX_python=/workdir/jp2476/software/python/bin
+
+# Prefix code:
+PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
+
+# Number of processors:
+n_proc=40
+
+# Looping over codes:
+for i in $(seq 0 $((n_proc-1))); do  
+	
+	# Firing process:
+	${PREFIX_python}/python ${PREFIX_code}/mtrait_cv_dnn_models.py -c ${i} -nalt 10 -d "cv1_height" -m "DNN" -cv "CV1" &
 
 	# Wait some time to fire the next process:
 	sleep 10
