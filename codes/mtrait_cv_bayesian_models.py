@@ -233,7 +233,7 @@ if model=="BN":
 
 if model=="PBN":
   # Compiling the C++ code for the model:
-  model_stan = ps.StanModel(file='pleiotropic_multi_trait.stan')
+  model_stan = ps.StanModel(file='pleiotropic_multi_trait_2.stan')
 
 # Creating an empty dict:
 fit = dict()

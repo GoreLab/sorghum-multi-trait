@@ -138,7 +138,7 @@ transformed parameters {
   sigma_vec_0 = X_r_0 * sigma_0;
 
   // Computing the expectation of the likelihood function:
-  expectation_0 = mu_0 + X_0 * beta_0 + Z_0 * (alpha_0 + eta);
+  expectation_0 = mu_0 + X_0 * beta_0 + Z_0 * (alpha_0 + eta_0);
 
   // Computing pleotropic effect:
   eta_1 = u_z_1 + s_z_1 * z;
@@ -147,7 +147,7 @@ transformed parameters {
   sigma_vec_1 = X_r_1 * sigma_1;
 
   // Computing the expectation of the likelihood function:
-  expectation_1 = mu_1 + X_1 * beta_1 + Z_1 * (alpha_1 + eta);
+  expectation_1 = mu_1 + X_1 * beta_1 + Z_1 * (alpha_1 + eta_1);
 
 }
 
