@@ -68,18 +68,6 @@ for i in $(seq 0 $((n_proc-1))); do
 	sleep 10
 done;
 
-
-## Height analysis:
-
-# Prefix python:
-PREFIX_python=/workdir/jp2476/software/python/bin
-
-# Prefix code:
-PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
-
-# Number of processors:
-n_proc=40
-
 # Looping over codes:
 for i in $(seq 0 $((n_proc-1))); do  
 	
