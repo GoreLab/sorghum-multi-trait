@@ -154,20 +154,20 @@ transformed parameters {
 model {
 
   //// Conditional probabilities distributions that creates dependecy between the responses:
-  pi_u_eta ~ cauchy(0, phi_1);
-  pi_s_eta ~ cauchy(0, phi_1);
-  s_eta ~ cauchy(0, pi_s_eta);
-  u_eta ~ normal(0, pi_u_eta);
-  eta ~ normal(u_eta, s_eta);
 
-  //****************** Stoped here:
+  // Pleiotropy modularity hyperparameters 
+  pi_u_z_0 ~ cauchy(0, phi_0);
+  pi_s_z_0 ~ cauchy(0, phi_0);
+  s_z_0 ~ cauchy(0, pi_s_z_0);
+  u_z_0 ~ normal(0, pi_u_z_0);
+
   pi_u_z_1 ~ cauchy(0, phi_1);
   pi_s_z_1 ~ cauchy(0, phi_1);
   s_z_1 ~ cauchy(0, pi_s_z_1);
   u_z_1 ~ normal(0, pi_u_z_1);
+
+  // Pleiotropic tying parameter:
   z ~ normal(0, 1);
-
-
 
   //// First response variable conditionals probability distributions:
 
