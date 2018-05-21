@@ -20,6 +20,7 @@ import time
 import sys
 import pickle
 import re
+import pprint
 
 from scipy.stats import skew
 from scipy.stats import moment
@@ -77,7 +78,7 @@ args = parser.parse_args()
 
 ## Temp:
 core = 0
-model = "PBN"
+model = "PBN1"
 cv = "CV1"
 structure = "cv1_biomass-cv1_height"
 
@@ -172,7 +173,6 @@ with open("model_fit.pkl", "rb") as f:
     data_dict = pickle.load(f)
 
 # Indexing the fit object and model
-model = data_dict['model']
 fit = data_dict['fit']
 
 # Extracting the outputs:
@@ -186,10 +186,14 @@ if bool(re.search('-', structure)):
 		mu_tmp = outs['mu_' + str(i)].mean(axis=0)
 		beta_tmp = outs['beta_' + str(i)].mean(axis=0)
 		alpha_tmp = outs['alpha_' + str(i)].mean(axis=0)
-		# Computing predicitons for train, dev, and test sets:
-		y_pred[struc[i] + '_trn'] = mu_tmp + X[struc[i]]['nobin_trn'].dot(beta_tmp) + X[struc[i]]['bin_trn'].dot(alpha_tmp)
-		y_pred[struc[i] + '_dev'] = mu_tmp + X[struc[i]]['nobin_dev'].dot(beta_tmp) + X[struc[i]]['bin_dev'].dot(alpha_tmp)
-		y_pred[struc[i] + '_tst'] = mu_tmp + X[struc[i]]['nobin_tst'].dot(beta_tmp) + X[struc[i]]['bin_tst'].dot(alpha_tmp)
+		if model == "PBN0":
+			eta_tmp = outs['eta'].mean(axis=0)
+		if model == "PBN1":
+			eta_tmp = outs['eta_' + str(i)].mean(axis=0)
+		# Computing predictions for train, dev, and test sets:
+		y_pred[struc[i] + '_trn'] = mu_tmp + X[struc[i]]['nobin_trn'].dot(beta_tmp) + X[struc[i]]['bin_trn'].dot(alpha_tmp + eta_tmp)
+		y_pred[struc[i] + '_dev'] = mu_tmp + X[struc[i]]['nobin_dev'].dot(beta_tmp) + X[struc[i]]['bin_dev'].dot(alpha_tmp + eta_tmp)
+		y_pred[struc[i] + '_tst'] = mu_tmp + X[struc[i]]['nobin_tst'].dot(beta_tmp) + X[struc[i]]['bin_tst'].dot(alpha_tmp + eta_tmp)
 else:
 	# Getting the predictions:
 	y_pred = dict()
@@ -198,64 +202,37 @@ else:
 	y_pred['tst'] = outs['mu'].mean(axis=0) + X['tst'].dot(outs['beta'].mean(axis=0))
 
 
+# Computing metrics:
+if bool(re.search('-', structure)):
+	rmse_dict = dict()
+	acc_dict = dict()
+	r2_dict = dict()
+	for i in list(y_pred.keys()):
+		tmp = i.split('_')
+		# Computing root mean squared error:
+		rmse_dict[i] = round(rmse(y[tmp[0] + '_' + tmp[1]][tmp[2]].values.flatten(), y_pred[i]), 4)
+		# Computing accuracy:
+		acc_dict[i] = round(pearsonr(y[tmp[0] + '_' + tmp[1]][tmp[2]].values.flatten(), y_pred[i])[0], 4)
+		# Computing r2 score:
+		r2_dict[i] = round(r2_score(y[tmp[0] + '_' + tmp[1]][tmp[2]].values.flatten(), y_pred[i]), 4)
+	# Printing results:
+	pprint.pprint(rmse_dict)
+	pprint.pprint(acc_dict)
+	pprint.pprint(r2_dict)
 
-
-
-# Printing rMSE:
-round(rmse(y['trn'].values.flatten(), y_pred['trn']), 4)
-round(rmse(y['dev'].values.flatten(), y_pred['dev']), 4)
-round(rmse(y['tst'].values.flatten(), y_pred['tst']), 4)
-
-# Printing pearsonr:
-round(pearsonr(y['trn'].values.flatten(), y_pred['trn'])[0], 4)
-round(pearsonr(y['dev'].values.flatten(), y_pred['dev'])[0], 4)
-round(pearsonr(y['tst'].values.flatten(), y_pred['tst'])[0], 4)
-
-# Printing r2:
-round(r2_score(y['trn'].values.flatten(), y_pred['trn']), 4)
-round(r2_score(y['dev'].values.flatten(), y_pred['dev']), 4)
-round(r2_score(y['tst'].values.flatten(), y_pred['tst']), 4)
-
-
-
-rmse_dict = dict()
-acc_dict = dict()
-r2_dict = dict()
-
-# i = list(y_pred.keys())[0]
-
-# tmp = i.split('_')
-
-
-for i in list(y_pred.keys()):
-	tmp = i.split('_')
-	rmse_dict[i] = round(rmse(y[tmp[0] + '_' + tmp[1]][tmp[2]].values.flatten(), y_pred[i]), 4)
-	acc_dict[i] = round(pearsonr(y[tmp[0] + '_' + tmp[1]][tmp[2]].values.flatten(), y_pred[i])[0], 4)
-	r2_dict[i] = round(r2_score(y[tmp[0] + '_' + tmp[1]][tmp[2]].values.flatten(), y_pred[i]), 4)
-
-
-
-
-
-
-
-
-# Printing rMSE:
-round(rmse(y['trn'].values.flatten(), y_pred['trn']), 4)
-round(rmse(y['dev'].values.flatten(), y_pred['dev']), 4)
-round(rmse(y['tst'].values.flatten(), y_pred['tst']), 4)
-
-# Printing pearsonr:
-round(pearsonr(y['trn'].values.flatten(), y_pred['trn'])[0], 4)
-round(pearsonr(y['dev'].values.flatten(), y_pred['dev'])[0], 4)
-round(pearsonr(y['tst'].values.flatten(), y_pred['tst'])[0], 4)
-
-# Printing r2:
-round(r2_score(y['trn'].values.flatten(), y_pred['trn']), 4)
-round(r2_score(y['dev'].values.flatten(), y_pred['dev']), 4)
-round(r2_score(y['tst'].values.flatten(), y_pred['tst']), 4)
-
-
+else:
+	# Printing rMSE:
+	round(rmse(y['trn'].values.flatten(), y_pred['trn']), 4)
+	round(rmse(y['dev'].values.flatten(), y_pred['dev']), 4)
+	round(rmse(y['tst'].values.flatten(), y_pred['tst']), 4)
+	# Printing pearsonr:
+	round(pearsonr(y['trn'].values.flatten(), y_pred['trn'])[0], 4)
+	round(pearsonr(y['dev'].values.flatten(), y_pred['dev'])[0], 4)
+	round(pearsonr(y['tst'].values.flatten(), y_pred['tst'])[0], 4)
+	# Printing r2:
+	round(r2_score(y['trn'].values.flatten(), y_pred['trn']), 4)
+	round(r2_score(y['dev'].values.flatten(), y_pred['dev']), 4)
+	round(r2_score(y['tst'].values.flatten(), y_pred['tst']), 4)
 
 
 # Density plots of different data types:
@@ -291,3 +268,40 @@ plt.show()
 plt.clf()
 
 
+# Bar plot of the biomass bin effects:
+pd.DataFrame(outs['alpha_0'].mean(axis=0), columns=['biomass']) \
+    .plot.bar()
+plt.show()
+plt.clf()
+
+# Bar plot of the height bin effects:
+pd.DataFrame(outs['alpha_1'].mean(axis=0), columns=['height']) \
+    .plot.bar()
+plt.show()
+plt.clf()
+
+# Bar plot of the pleiotropyic bin effects:
+pd.DataFrame(outs['eta_0'].mean(axis=0), columns=['eta']) \
+    .plot.bar()
+plt.show()
+plt.clf()
+
+# Bar plot of the pleiotropyic bin effects:
+pd.DataFrame(np.abs(outs['z'].mean(axis=0)), columns=['eta']) \
+    .plot.bar()
+plt.show()
+plt.clf()
+
+
+# Bar plot of the pleiotropyic bin effects:
+plt.bar(range(outs['z'].mean(axis=0).size), np.abs(outs['z'].mean(axis=0)))
+plt.show()
+plt.clf()
+
+plt.bar(range(outs['eta_0'].mean(axis=0).size), np.abs(outs['eta_0'].mean(axis=0)))
+plt.show()
+plt.clf()
+
+plt.bar(range(outs['eta_1'].mean(axis=0).size), np.abs(outs['eta_1'].mean(axis=0)))
+plt.show()
+plt.clf()

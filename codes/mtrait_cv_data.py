@@ -82,6 +82,9 @@ df.year = df.year.astype(object)
 X = dict()
 y = dict()
 
+# Biomass trait type:
+biomass_type = "protein"
+
 # Building the feature matrix for the height:
 index = ['loc', 'year', 'dap', 'id_gbs']
 X['height'] = pd.get_dummies(df.loc[df.trait=='height', index])
@@ -106,11 +109,21 @@ tmp = pd.get_dummies(df.id_gbs[df.trait=='biomass'])
 X['biomass'] = pd.concat([X['biomass'], tmp.dot(W_bin.loc[tmp.columns.tolist()])], axis=1)
 
 # Removing rows of the missing entries from the feature matrix:
-X['biomass'] = X['biomass'][np.invert(df.drymass[df.trait=='biomass'].isnull())]
+X['biomass'] = X['biomass'][np.invert(df[biomass_type][df.trait=='biomass'].isnull())]
 
 # Creating a variable to receive the response without the missing values:
 index = df.trait=='biomass'
-y['biomass'] = df.drymass[index][np.invert(df.drymass[index].isnull())]
+y['biomass'] = df[biomass_type][index][np.invert(df[biomass_type][index].isnull())]
+
+
+tmp=[]
+tmp.append(df[df.dap==120.0][['id_gbs','height']].groupby(['id_gbs']).mean())
+tmp.append(df[['id_gbs','starch']].groupby(['id_gbs']).mean())
+
+mask = ~np.isnan(np.array(tmp[0])) & ~np.isnan(np.array(tmp[1]))
+
+np.corrcoef(np.array(tmp[0])[mask],np.array(tmp[1])[mask])
+
 
 #----------------------------------Preparing data for cross-validation---------------------------------------#
 

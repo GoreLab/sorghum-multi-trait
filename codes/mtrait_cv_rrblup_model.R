@@ -413,11 +413,14 @@ for (i in ls(metrics)) {
 save.image("mtrait_cv_rrblup_model.RData")
 
 
-# # Setting directory:
-# setwd(paste0(prefix_out, "outputs/two_stage_tests_rrblup"))
+# Prefix:
+prefix_out = "/workdir/jp2476/repo/resul_mtrait-proj/"
 
-# # Loading data in future runs:
-# load("mtrait_cv_rrblup_model.RData")
+# Setting directory:
+setwd(paste0(prefix_out, "outputs/two_stage_tests_rrblup"))
+
+# Loading data in future runs:
+load("mtrait_cv_rrblup_model.RData")
 
 #---------------------------------------------------Junk-----------------------------------------------------#
 
