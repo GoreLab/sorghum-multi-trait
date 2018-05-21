@@ -184,11 +184,11 @@ if cv=="CV1":
 	X['cv1_height_tst'].to_csv('x_cv1_height_tst.csv')
 	pd.DataFrame(y['cv1_height_tst'], index=index_cv['cv1_height_tst']).to_csv('y_cv1_height_tst.csv')
 	# Saving biomass data:
-	X['cv1_biomass_trn'].to_csv('x_cv1_biomass_trn.csv')
+	X['cv1_biomass_trn'].to_csv('x_cv1_biomass_' + biomass_type + '_trn.csv')
 	pd.DataFrame(y['cv1_biomass_trn'], index=index_cv['cv1_biomass_trn']).to_csv('y_cv1_biomass_' + biomass_type + '_trn.csv')
-	X['cv1_biomass_dev'].to_csv('x_cv1_biomass_dev.csv')
+	X['cv1_biomass_dev'].to_csv('x_cv1_biomass_' + biomass_type + '_dev.csv')
 	pd.DataFrame(y['cv1_biomass_dev'], index=index_cv['cv1_biomass_dev']).to_csv('y_cv1_biomass_' + biomass_type + '_dev.csv')
-	X['cv1_biomass_tst'].to_csv('x_cv1_biomass_tst.csv')
+	X['cv1_biomass_tst'].to_csv('x_cv1_biomass_' + biomass_type + '_tst.csv')
 	pd.DataFrame(y['cv1_biomass_tst'], index=index_cv['cv1_biomass_tst']).to_csv('y_cv1_biomass_' + biomass_type + '_tst.csv')
 
 if bool(re.search('CV2', cv)):
