@@ -53,7 +53,7 @@ from external_functions import *
 
 # Getting flags:
 parser.add_argument("-cv", "--cv", dest = "cv", default = "CV1", help="Cross-validation type")
-parser.add_argument("-bt", "--bt", dest = "bt", default = "CV1", help="Biomass type")
+parser.add_argument("-bt", "--bt", dest = "bt", default = "drymass", help="Biomass type")
 
 args = parser.parse_args()
 
