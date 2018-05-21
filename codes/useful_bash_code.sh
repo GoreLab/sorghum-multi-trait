@@ -19,7 +19,8 @@ PREFIX_python=/workdir/jp2476/software/python/bin
 PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
 
 # Firing the process:
-${PREFIX_python}/python ${PREFIX_code}/mtrait_cv_data.py -cv "CV1" & 
+${PREFIX_python}/python ${PREFIX_code}/mtrait_cv_data.py -cv "CV1" -bt "starch" &
+${PREFIX_python}/python ${PREFIX_code}/mtrait_cv_data.py -cv "CV1" -bt "drymass" &
 ${PREFIX_python}/python ${PREFIX_code}/mtrait_cv_data.py -cv "CV2.30~45" & 
 ${PREFIX_python}/python ${PREFIX_code}/mtrait_cv_data.py -cv "CV2.30~60" & 
 ${PREFIX_python}/python ${PREFIX_code}/mtrait_cv_data.py -cv "CV2.30~75" & 

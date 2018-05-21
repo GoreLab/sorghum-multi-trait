@@ -66,7 +66,10 @@ cv = args.cv
 biomass_type = args.bt
 
 # ## Temp:
+cv = "CV1"
+biomass_type = "starch"
 # cv = "CV2.30~90"
+
 
 #--------------------------Building design/feature matrices for height and biomass---------------------------#
 
@@ -141,7 +144,7 @@ if cv=="CV1":
 	# Subsetting data into train and (dev set + test set) for biomass data:
 	X['cv1_biomass_trn'], X['cv1_biomass_dev'], y['cv1_biomass_trn'], y['cv1_biomass_dev'], index_cv['cv1_biomass_trn'], index_cv['cv1_biomass_dev'] = train_test_split(X['biomass'], 
 																																								        y['biomass'],
-										 		                                                																        df.drymass[index][np.invert(df.drymass[index].isnull())].index,
+										 		                                                																        df[biomass_type][index][np.invert(df.drymass[index].isnull())].index,
 										                                                        																        test_size=0.3,
 										                                                        																        random_state=1234)
 	# Subsetting (dev set + test set) into dev set and test set:
