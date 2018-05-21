@@ -1,5 +1,31 @@
 
 
+#----------------------------Subdivision of the height data into mini-batches--------------------------------#
+
+if cv=="CV1":
+	# Subsetting the full set of names of the inbred lines phenotyped for biomass:
+	index_mbatch = df.id_gbs[df.trait=='height'].drop_duplicates()
+	# Size of the mini-batch
+	size_mbatch = 4
+	# Splitting the list of names of the inbred lines into 4 sublists for indexing the mini-batches:
+	index_mbatch = np.array_split(index_mbatch, size_mbatch)
+	# Type of sets:
+	tmp = ['trn', 'dev', 'tst']
+	# Indexing the mini-batches for the height trait:
+	for k in tmp:
+		for i in range(size_mbatch):
+			# Getting the positions on the height training set related to the mini-batch i:
+			index = df.id_gbs.loc[index_cv['cv1_height_' + k]].isin(index_mbatch[i])
+			# Indexing height values of the mini-batch i:
+			X['cv1_height_' + 'mb_' + str(i) + '_' + k ] = X['cv1_height_' + k][index]
+			y['cv1_height_' + 'mb_' + str(i) + '_' + k ] = y['cv1_height_' + k][index]
+			index_cv['cv1_height_' + 'mb_' + str(i) + '_' + k]  = index_cv['cv1_height_' + k][index]
+			# Printing shapes:
+			X['cv1_height_' + 'mb_' + str(i) + '_' + k ].shape
+			y['cv1_height_' + 'mb_' + str(i) + '_' + k ].shape
+			# Saving data:
+			X['cv1_height_' + 'mb_' + str(i) + '_' + k ].to_csv('x_cv1_height_' + 'mb_' + str(i) + '_' + k  + '.csv')
+			pd.DataFrame(y['cv1_height_' + 'mb_' + str(i) + '_' + k ], index=index_cv['cv1_height_' + 'mb_' + str(i) + '_' + k ]).to_csv('y_cv1_height_' + 'mb_' + str(i) + '_' + k  + '.csv')
 
 
 #----------------------------------------Example of a python class-------------------------------------------#
