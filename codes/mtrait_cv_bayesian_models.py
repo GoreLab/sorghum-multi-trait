@@ -81,11 +81,11 @@ cv = args.cv
 # core = 0
 # model = "PBN1"  
 # cv = "CV1"
-# structure = "cv1_biomass-cv1_height"
+# structure = "cv1_biomass_drymass-cv1_height"
+# structure = "cv1_biomass_starch-cv1_height"
 
 # Seed to recover the analysis:
 seed = core
-
 
 #--------------------------------------------Reading data----------------------------------------------------#
 
@@ -111,7 +111,7 @@ if bool(re.search('-', structure)):
     X[struc[i]]['tst'] = pd.read_csv('x_' + struc[i] + '_tst.csv', header = 0, index_col=0)
     y[struc[i]]['tst'] = pd.read_csv('y_' + struc[i] + '_tst.csv', header = 0, index_col=0)
     # Biomass:
-    if struc[i]=="cv1_biomass":
+    if bool(re.search('biomass', struc[i])):
       # Subsetting just the desired factors:
       index = X[struc[i]]['trn'].columns.str.contains('|'.join(['loc','year']))
       X[struc[i]]['nobin_trn'] = X[struc[i]]['trn'].loc[:,index]
