@@ -66,8 +66,8 @@ cv = args.cv
 biomass_type = args.bt
 
 # ## Temp:
-cv = "CV1"
-biomass_type = "starch"
+# cv = "CV1"
+# biomass_type = "starch"
 # cv = "CV2.30~90"
 
 

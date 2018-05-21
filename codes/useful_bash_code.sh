@@ -39,7 +39,9 @@ PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
 # Firing the process:
 ${PREFIX_python}/python ${PREFIX_code}/mtrait_cv_bayesian_models.py -c 1 -d "cv1_height" -m "BN" -cv "CV1" & 
 
-${PREFIX_python}/python ${PREFIX_code}/mtrait_cv_bayesian_models.py -c 2 -d "cv1_biomass" -m "BN" -cv "CV1" & 
+${PREFIX_python}/python ${PREFIX_code}/mtrait_cv_bayesian_models.py -c 2 -d "cv1_biomass_drymass" -m "BN" -cv "CV1" & 
+
+${PREFIX_python}/python ${PREFIX_code}/mtrait_cv_bayesian_models.py -c 2 -d "cv1_biomass_starch" -m "BN" -cv "CV1" & 
 
 ${PREFIX_python}/python ${PREFIX_code}/mtrait_cv_bayesian_models.py -c 1 -d "cv1_biomass-cv1_height" -m "PBN0" -cv "CV1" & 
 
@@ -63,7 +65,17 @@ n_proc=40
 for i in $(seq 0 $((n_proc-1))); do  
 	
 	# Firing process:
-	${PREFIX_python}/python ${PREFIX_code}/mtrait_cv_dnn_models.py -c ${i} -nalt 10 -d "cv1_biomass" -m "DNN" -cv "CV1" &
+	${PREFIX_python}/python ${PREFIX_code}/mtrait_cv_dnn_models.py -c ${i} -nalt 10 -d "cv1_biomass_drymass" -m "DNN" -cv "CV1" &
+
+	# Wait some time to fire the next process:
+	sleep 10
+done;
+
+# Looping over codes:
+for i in $(seq 0 $((n_proc-1))); do  
+	
+	# Firing process:
+	${PREFIX_python}/python ${PREFIX_code}/mtrait_cv_dnn_models.py -c ${i} -nalt 10 -d "cv1_biomass_starch" -m "DNN" -cv "CV1" &
 
 	# Wait some time to fire the next process:
 	sleep 10
