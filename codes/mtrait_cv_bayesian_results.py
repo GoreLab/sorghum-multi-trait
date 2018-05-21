@@ -219,7 +219,6 @@ if bool(re.search('-', structure)):
 	pprint.pprint(rmse_dict)
 	pprint.pprint(acc_dict)
 	pprint.pprint(r2_dict)
-
 else:
 	# Printing rMSE:
 	round(rmse(y['trn'].values.flatten(), y_pred['trn']), 4)
@@ -305,3 +304,17 @@ plt.clf()
 plt.bar(range(outs['eta_1'].mean(axis=0).size), np.abs(outs['eta_1'].mean(axis=0)))
 plt.show()
 plt.clf()
+
+# Setting the directory:
+os.chdir(prefix_out + "data")
+
+# Loading the genomic binned matrix under Cockerham's model:
+W_bin = pd.read_csv("W_bin.csv", header = 0, index_col=0)
+
+# Genetic correlation:
+g0 = (outs['alpha_0'].mean(axis=0) + outs['eta_0'].mean(axis=0))
+g1 = (outs['alpha_1'].mean(axis=0) + outs['eta_1'].mean(axis=0))
+pearsonr(W_bin.dot(g0), W_bin.dot(g1))
+plt.scatter(g0,g1)
+plt.show()
+

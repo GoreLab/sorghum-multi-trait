@@ -70,7 +70,7 @@ core = args.core
 n_alt = args.nalt
 
 # Choosing the data structure to be analysed:
-structure = args.data
+struc = args.data
 
 # Specifying the model
 model = args.model         # 'DBN' or 'BN' or 'BNP'
@@ -81,7 +81,7 @@ cv = args.cv
 # ## Temp:
 # core=0
 # n_alt=2
-# structure="cv1_biomass"
+# struc="cv1_biomass"
 # model="DNN"
 # cv = "CV1"
 
@@ -98,14 +98,14 @@ y = dict()
 X = dict()
 
 # Loading the data:
-X['trn'] = pd.read_csv('x_' + structure + '_trn.csv', header = 0, index_col=0)
-y['trn'] = pd.read_csv('y_' + structure + '_trn.csv', header = 0, index_col=0)
-X['dev'] = pd.read_csv('x_' + structure + '_dev.csv', header = 0, index_col=0)
-y['dev'] = pd.read_csv('y_' + structure + '_dev.csv', header = 0, index_col=0)
-X['tst'] = pd.read_csv('x_' + structure + '_tst.csv', header = 0, index_col=0)
-y['tst'] = pd.read_csv('y_' + structure + '_tst.csv', header = 0, index_col=0)
+X['trn'] = pd.read_csv('x_' + struc + '_trn.csv', header = 0, index_col=0)
+y['trn'] = pd.read_csv('y_' + struc + '_trn.csv', header = 0, index_col=0)
+X['dev'] = pd.read_csv('x_' + struc + '_dev.csv', header = 0, index_col=0)
+y['dev'] = pd.read_csv('y_' + struc + '_dev.csv', header = 0, index_col=0)
+X['tst'] = pd.read_csv('x_' + struc + '_tst.csv', header = 0, index_col=0)
+y['tst'] = pd.read_csv('y_' + struc + '_tst.csv', header = 0, index_col=0)
 
-if structure=="cv1_biomass":
+if struc=="cv1_biomass":
   # Subsetting just the desired factors:
   index = X['trn'].columns.str.contains('|'.join(['loc','year', 'bin']))
   X['trn'] = X['trn'].loc[:,index]
@@ -114,7 +114,7 @@ if structure=="cv1_biomass":
   index = X['tst'].columns.str.contains('|'.join(['loc','year', 'bin']))
   X['tst'] = X['tst'].loc[:,index]
 
-if structure=="cv1_height":
+if struc=="cv1_height":
   # Subsetting just the desired factors:
   index = X['trn'].columns.str.contains('|'.join(['loc','year', 'dap', 'bin']))
   X['trn'] = X['trn'].loc[:,index]
@@ -202,7 +202,7 @@ keep_prob_lst = sample_interval(min = 0.0001,      # Minimum of the quantitative
 # Creating folders on the project to store the alternative results:
 
 # Getting in the output directory:
-bash_line1 = "cd " + prefix_out + "outputs/cross_validation/" + model.lower() + "/" + structure + "/;"
+bash_line1 = "cd " + prefix_out + "outputs/cross_validation/" + model.lower() + "/" + struc + "/;"
 
 # Creating folders to store the results:
 bash_line2 = "for i in $(seq 0 " + str(n_alt-1)+ "); do mkdir core"+ str(core) + "_alt${i}" + "; done;"
@@ -337,7 +337,7 @@ for alt in range(n_alt):
       session.run(init)
       # Merge all the summaries and write them out to:
       merged_summary = tf.summary.merge_all()
-      writer = tf.summary.FileWriter(prefix_out + "outputs/cross_validation/" + model.lower() + "/" + structure + "/core" + str(core) + "_alt" + str(alt) + "/")
+      writer = tf.summary.FileWriter(prefix_out + "outputs/cross_validation/" + model.lower() + "/" + struc + "/core" + str(core) + "_alt" + str(alt) + "/")
       writer.add_graph(session.graph)
       # Optimizing the Deep Neural Network (DNN):
       for epoch in range_epoch:
@@ -355,7 +355,7 @@ for alt in range(n_alt):
                writer.add_summary(s, i)
       results[alt] = out
       saver = tf.train.Saver()
-      os.chdir(prefix_out + "outputs/cross_validation/" + model.lower() + "/" + structure + "/core" + str(core) + "_alt" + str(alt))       
+      os.chdir(prefix_out + "outputs/cross_validation/" + model.lower() + "/" + struc + "/core" + str(core) + "_alt" + str(alt))       
       save_path = "./core" + str(core) + "_alt" + str(alt)
       saver.save(session, save_path)
       tf.reset_default_graph()  

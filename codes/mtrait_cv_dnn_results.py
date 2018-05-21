@@ -69,7 +69,7 @@ args = parser.parse_args()
 # n_alt = args.nalt
 
 # # Choosing the data structure to be analysed:
-# structure = args.data
+# struc = args.data
 
 # # Specifying the model
 # model = args.model         # 'DBN' or 'BN' or 'BNP'
@@ -80,7 +80,7 @@ args = parser.parse_args()
 ## Temp:
 n_core = 40
 n_alt = 10
-structure = "cv1_height"
+struc = "cv1_height"
 model = "DNN"
 cv = "CV1"
 
@@ -94,14 +94,14 @@ y = dict()
 X = dict()
 
 # Loading the data:
-X['trn'] = pd.read_csv('x_' + structure + '_trn.csv', header = 0, index_col=0)
-y['trn'] = pd.read_csv('y_' + structure + '_trn.csv', header = 0, index_col=0)
-X['dev'] = pd.read_csv('x_' + structure + '_dev.csv', header = 0, index_col=0)
-y['dev'] = pd.read_csv('y_' + structure + '_dev.csv', header = 0, index_col=0)
-X['tst'] = pd.read_csv('x_' + structure + '_tst.csv', header = 0, index_col=0)
-y['tst'] = pd.read_csv('y_' + structure + '_tst.csv', header = 0, index_col=0)
+X['trn'] = pd.read_csv('x_' + struc + '_trn.csv', header = 0, index_col=0)
+y['trn'] = pd.read_csv('y_' + struc + '_trn.csv', header = 0, index_col=0)
+X['dev'] = pd.read_csv('x_' + struc + '_dev.csv', header = 0, index_col=0)
+y['dev'] = pd.read_csv('y_' + struc + '_dev.csv', header = 0, index_col=0)
+X['tst'] = pd.read_csv('x_' + struc + '_tst.csv', header = 0, index_col=0)
+y['tst'] = pd.read_csv('y_' + struc + '_tst.csv', header = 0, index_col=0)
 
-if structure=="cv1_biomass":
+if struc=="cv1_biomass":
   # Subsetting just the desired factors:
   index = X['trn'].columns.str.contains('|'.join(['loc','year', 'bin']))
   X['trn'] = X['trn'].loc[:,index]
@@ -110,7 +110,7 @@ if structure=="cv1_biomass":
   index = X['tst'].columns.str.contains('|'.join(['loc','year', 'bin']))
   X['tst'] = X['tst'].loc[:,index]
 
-if structure=="cv1_height":
+if struc=="cv1_height":
   # Subsetting just the desired factors:
   index = X['trn'].columns.str.contains('|'.join(['loc','year', 'dap', 'bin']))
   X['trn'] = X['trn'].loc[:,index]
@@ -223,9 +223,9 @@ for c in range(n_sets):
 		  batch_mode = batch_mode_lst[alt]
 		  dropout_mode = dropout_mode_lst[alt]
 		  session = tf.Session(config=tf.ConfigProto(intra_op_parallelism_threads=1, inter_op_parallelism_threads=1)) 
-		  save_path = prefix_out + "outputs/cross_validation/" + model.lower() + "/" + structure + "/core" + str(m) + "_alt" + str(alt) + "/core" + str(m) + "_alt" + str(alt) + ".meta"
+		  save_path = prefix_out + "outputs/cross_validation/" + model.lower() + "/" + struc + "/core" + str(m) + "_alt" + str(alt) + "/core" + str(m) + "_alt" + str(alt) + ".meta"
 		  saver = tf.train.import_meta_graph(save_path, clear_devices=True)
-		  save_path = prefix_out + "outputs/cross_validation/" + model.lower() + "/" + structure + "/core" + str(m) + "_alt" + str(alt)
+		  save_path = prefix_out + "outputs/cross_validation/" + model.lower() + "/" + struc + "/core" + str(m) + "_alt" + str(alt)
 		  saver.restore(session,tf.train.latest_checkpoint(save_path))
 		  for sim in range(n_sim):
 		    for l in range(n_layers):

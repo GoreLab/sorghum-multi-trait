@@ -50,7 +50,6 @@ from external_functions import *
 
 #---------------------------------------Computing correlations-----------------------------------------------#
 
-
 # Setting the directory:
 os.chdir(prefix_out + "data")
 
@@ -80,16 +79,18 @@ for k in traits:
 # Computing correlations:
 corr = tmp.corr()
 
-
 # Setting directory:
 os.chdir(prefix_proj + "plots")
 
 # Plotting correlations:
-heat = sns.heatmap(round(corr,2), annot=True)
+fig, ax = plt.subplots()
+sns.heatmap(round(corr,2), linewidths=0.5, annot=True, annot_kws={"size": 6})
+ax.tick_params(labelsize=6)
 plt.xticks(rotation=25)
 
 # Saving Figure:
-plt.savefig("correlation_traits_heatmap_plot.png")
+plt.savefig("correlation_traits_heatmap_plot.pdf", dpi=150)
+plt.savefig("correlation_traits_heatmap_plot.png", dpi=150)
 
 # Cleaning memory:
 plt.clf()

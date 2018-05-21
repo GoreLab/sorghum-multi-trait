@@ -53,6 +53,7 @@ from external_functions import *
 
 # Getting flags:
 parser.add_argument("-cv", "--cv", dest = "cv", default = "CV1", help="Cross-validation type")
+parser.add_argument("-bt", "--bt", dest = "bt", default = "CV1", help="Biomass type")
 
 args = parser.parse_args()
 
@@ -83,7 +84,7 @@ X = dict()
 y = dict()
 
 # Biomass trait type:
-biomass_type = "protein"
+biomass_type = args.bt
 
 # Building the feature matrix for the height:
 index = ['loc', 'year', 'dap', 'id_gbs']
@@ -114,15 +115,6 @@ X['biomass'] = X['biomass'][np.invert(df[biomass_type][df.trait=='biomass'].isnu
 # Creating a variable to receive the response without the missing values:
 index = df.trait=='biomass'
 y['biomass'] = df[biomass_type][index][np.invert(df[biomass_type][index].isnull())]
-
-
-tmp=[]
-tmp.append(df[df.dap==120.0][['id_gbs','height']].groupby(['id_gbs']).mean())
-tmp.append(df[['id_gbs','starch']].groupby(['id_gbs']).mean())
-
-mask = ~np.isnan(np.array(tmp[0])) & ~np.isnan(np.array(tmp[1]))
-
-np.corrcoef(np.array(tmp[0])[mask],np.array(tmp[1])[mask])
 
 
 #----------------------------------Preparing data for cross-validation---------------------------------------#
@@ -190,13 +182,11 @@ if cv=="CV1":
 	pd.DataFrame(y['cv1_height_tst'], index=index_cv['cv1_height_tst']).to_csv('y_cv1_height_tst.csv')
 	# Saving biomass data:
 	X['cv1_biomass_trn'].to_csv('x_cv1_biomass_trn.csv')
-	pd.DataFrame(y['cv1_biomass_trn'], index=index_cv['cv1_biomass_trn']).to_csv('y_cv1_biomass_trn.csv')
+	pd.DataFrame(y['cv1_biomass_trn'], index=index_cv['cv1_biomass_trn']).to_csv('y_cv1_biomass_' + biomass_type + '_trn.csv')
 	X['cv1_biomass_dev'].to_csv('x_cv1_biomass_dev.csv')
-	pd.DataFrame(y['cv1_biomass_dev'], index=index_cv['cv1_biomass_dev']).to_csv('y_cv1_biomass_dev.csv')
+	pd.DataFrame(y['cv1_biomass_dev'], index=index_cv['cv1_biomass_dev']).to_csv('y_cv1_biomass_' + biomass_type + '_dev.csv')
 	X['cv1_biomass_tst'].to_csv('x_cv1_biomass_tst.csv')
-	pd.DataFrame(y['cv1_biomass_tst'], index=index_cv['cv1_biomass_tst']).to_csv('y_cv1_biomass_tst.csv')
-
-
+	pd.DataFrame(y['cv1_biomass_tst'], index=index_cv['cv1_biomass_tst']).to_csv('y_cv1_biomass_' + biomass_type + '_tst.csv')
 
 if bool(re.search('CV2', cv)):
 	# Varible to define trait:
@@ -230,30 +220,30 @@ if bool(re.search('CV2', cv)):
 
 #----------------------------Subdivision of the height data into mini-batches--------------------------------#
 
-if cv=="CV1":
-	# Subsetting the full set of names of the inbred lines phenotyped for biomass:
-	index_mbatch = df.id_gbs[df.trait=='height'].drop_duplicates()
-	# Size of the mini-batch
-	size_mbatch = 4
-	# Splitting the list of names of the inbred lines into 4 sublists for indexing the mini-batches:
-	index_mbatch = np.array_split(index_mbatch, size_mbatch)
-	# Type of sets:
-	tmp = ['trn', 'dev', 'tst']
-	# Indexing the mini-batches for the height trait:
-	for k in tmp:
-		for i in range(size_mbatch):
-			# Getting the positions on the height training set related to the mini-batch i:
-			index = df.id_gbs.loc[index_cv['cv1_height_' + k]].isin(index_mbatch[i])
-			# Indexing height values of the mini-batch i:
-			X['cv1_height_' + 'mb_' + str(i) + '_' + k ] = X['cv1_height_' + k][index]
-			y['cv1_height_' + 'mb_' + str(i) + '_' + k ] = y['cv1_height_' + k][index]
-			index_cv['cv1_height_' + 'mb_' + str(i) + '_' + k]  = index_cv['cv1_height_' + k][index]
-			# Printing shapes:
-			X['cv1_height_' + 'mb_' + str(i) + '_' + k ].shape
-			y['cv1_height_' + 'mb_' + str(i) + '_' + k ].shape
-			# Saving data:
-			X['cv1_height_' + 'mb_' + str(i) + '_' + k ].to_csv('x_cv1_height_' + 'mb_' + str(i) + '_' + k  + '.csv')
-			pd.DataFrame(y['cv1_height_' + 'mb_' + str(i) + '_' + k ], index=index_cv['cv1_height_' + 'mb_' + str(i) + '_' + k ]).to_csv('y_cv1_height_' + 'mb_' + str(i) + '_' + k  + '.csv')
+# if cv=="CV1":
+# 	# Subsetting the full set of names of the inbred lines phenotyped for biomass:
+# 	index_mbatch = df.id_gbs[df.trait=='height'].drop_duplicates()
+# 	# Size of the mini-batch
+# 	size_mbatch = 4
+# 	# Splitting the list of names of the inbred lines into 4 sublists for indexing the mini-batches:
+# 	index_mbatch = np.array_split(index_mbatch, size_mbatch)
+# 	# Type of sets:
+# 	tmp = ['trn', 'dev', 'tst']
+# 	# Indexing the mini-batches for the height trait:
+# 	for k in tmp:
+# 		for i in range(size_mbatch):
+# 			# Getting the positions on the height training set related to the mini-batch i:
+# 			index = df.id_gbs.loc[index_cv['cv1_height_' + k]].isin(index_mbatch[i])
+# 			# Indexing height values of the mini-batch i:
+# 			X['cv1_height_' + 'mb_' + str(i) + '_' + k ] = X['cv1_height_' + k][index]
+# 			y['cv1_height_' + 'mb_' + str(i) + '_' + k ] = y['cv1_height_' + k][index]
+# 			index_cv['cv1_height_' + 'mb_' + str(i) + '_' + k]  = index_cv['cv1_height_' + k][index]
+# 			# Printing shapes:
+# 			X['cv1_height_' + 'mb_' + str(i) + '_' + k ].shape
+# 			y['cv1_height_' + 'mb_' + str(i) + '_' + k ].shape
+# 			# Saving data:
+# 			X['cv1_height_' + 'mb_' + str(i) + '_' + k ].to_csv('x_cv1_height_' + 'mb_' + str(i) + '_' + k  + '.csv')
+# 			pd.DataFrame(y['cv1_height_' + 'mb_' + str(i) + '_' + k ], index=index_cv['cv1_height_' + 'mb_' + str(i) + '_' + k ]).to_csv('y_cv1_height_' + 'mb_' + str(i) + '_' + k  + '.csv')
 
 
 
