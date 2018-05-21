@@ -62,6 +62,9 @@ args = parser.parse_args()
 # Type of cross-validation scheme:
 cv = args.cv
 
+# Biomass trait type:
+biomass_type = args.bt
+
 # ## Temp:
 # cv = "CV2.30~90"
 
@@ -82,9 +85,6 @@ df.year = df.year.astype(object)
 # Creating an empty dictionary to receive the feature matrices and response vectors:
 X = dict()
 y = dict()
-
-# Biomass trait type:
-biomass_type = args.bt
 
 # Building the feature matrix for the height:
 index = ['loc', 'year', 'dap', 'id_gbs']
