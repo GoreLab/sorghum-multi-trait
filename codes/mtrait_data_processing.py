@@ -232,21 +232,12 @@ M = M.loc[:, line_names]
 # Function to build the Cockerham's model:
 W = W_model(x=M.transpose())
 
-# Number of bins:
-n_bin = 1000
-
-# Number of loci per bin:
-n_loci_per_bin = int(W.shape[1]/n_bin)
-
 # Building the bin matrix:
-W_bin = get_bin(x=W, step_size=n_loci_per_bin)
+tmp = get_bin(x=W, n_bin=1000, method='pca')
+W_bin = tmp[0]
 
-# Transforming bin matrix into data frame and adding column index:
-W_bin = pd.DataFrame(W_bin)
-
-# Adding indexes:
-W_bin.index = line_names.astype(str)
-W_bin.columns = map('bin_{}'.format, range(W_bin.shape[1]))
+# Storing the variação explained by the pca:
+w_e_bin = tmp[1]
 
 # Removing M from memory:
 # M = None
@@ -313,17 +304,12 @@ T = T.loc[tmp.name1]
 # Replacing by the name1 index to the id_gbs index:
 T.index = tmp.id_gbs
 
-# Number of bins:
-n_bin = 1000
+# Building the bin matrix:
+tmp = get_bin(x=T, n_bin=1000, method='pca')
+T_bin = tmp[0]
 
-# Number of loci per bin:
-n_loci_per_bin = int(T.shape[1]/n_bin)
-
-# Transforming the transcriptomic matrix into a binned one:
-T_bin = get_bin(x=T, step_size=n_loci_per_bin)
-
-# Transforming the bin matrix into pandas class:
-T_bin = pd.DataFrame(T_bin, index=T.index, columns=map('bin_{}'.format, range(T_bin.shape[1])))
+# Storing the variação explained by the pca:
+t_e_bin = tmp[1]
 
 # Removing T from memory:
 T = None
@@ -387,8 +373,14 @@ df.to_csv("df.csv")
 # Writing the genomic binned matrix under Cockerham's model:						
 W_bin.to_csv("W_bin.csv")
 
+# Writing proportion explained by the bin:
+pd.DataFrame(w_e_bin, index=W_bin.columns).to_csv("w_e_bin.csv")
+
 # Writing the transcriptomic binned matrix:
 T_bin.to_csv("T_bin.csv")
+
+# Writing proportion explained by the bin:
+pd.DataFrame(t_e_bin, index=T_bin.columns).to_csv("t_e_bin.csv")
 
 # Writing the full marker matrix:
 M.to_csv("M.csv")
