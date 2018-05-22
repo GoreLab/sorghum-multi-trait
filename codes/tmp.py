@@ -65,6 +65,6 @@ x = M.transpose()
 
 #------------------------------------------Building bin function---------------------------------------------#
 
-n_bin = 1000
 
-tmp = get_bin(x, n_bin=1000, method='average')
+
+tmp = get_bin(x=x, n_bin=1000, method='average')
