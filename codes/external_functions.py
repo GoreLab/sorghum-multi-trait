@@ -12,33 +12,23 @@ def split(x, n):
     for i in range(0, len(x), n):
         yield x[i:i + n]
 
-## Function to construct bins:
-def get_bin(x, step_size):
-	# Renaming the array column names:
-	x.columns = range(0,x.shape[1])
-	# First step begin index:
-	step_index = 0
-	# Genome index:
-	my_seq = numpy.arange(x.shape[1])
-	# Infinity loop:
-	var=1
-	while var==1:
-		# Index for averaging over the desired columns:
-		index = numpy.intersect1d(my_seq, numpy.arange(start=step_index, stop=(step_index+step_size)))
-		if my_seq[index].shape != (0,):
-			# Averaging over columns:
-			bin_tmp = numpy.mean(x.loc[:,my_seq[index]], axis=1).values.reshape([x.shape[0],1])
-			# Stacking horizontally the bins:
-			if step_index == 0:
-				M_bin = bin_tmp
-			else: 
-				M_bin = numpy.hstack([M_bin, bin_tmp])
-		# Updating the current step size:
-		step_index = step_index + step_size
-		if my_seq[index].shape == (0,):
-		  break
-	return(M_bin)
-
+# Function to construct the bins:
+def get_bin(x, n_bin, method):
+	# Generating batches
+	batches = numpy.array_split(numpy.arange(x.shape[1]), n_bin)
+	# Initializing the binned matrix:
+	W_bin = pandas.DataFrame(index=x.index, columns=map('bin_{}'.format, range(n_bin)))
+	if method=='pca':
+		for i in range(n_bin):
+			# Computing SVD of the matrix bin:
+			u,s,v = numpy.linalg.svd(x.iloc[:,batches[i]], full_matrices=False)
+			# Computing the first principal component and adding to the binned matrix:
+			W_bin['bin_' + str(i)] = numpy.dot(u[:,:1], numpy.diag(s[:1]))
+	if method=='average':
+		for i in range(n_bin):
+			# Computing the mean across the columns and adding to the binned matrix:
+			W_bin['bin_' + str(i)] = x.iloc[:,batches[i]].mean(axis=1)
+	return(W_bin)
 
 ## Function to build the Cockerham's model:
 def W_model(x):

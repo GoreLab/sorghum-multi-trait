@@ -1,5 +1,35 @@
 
 
+#------------------------------------------Construction of bins----------------------------------------------#
+
+## Function to construct bins:
+def get_bin(x, step_size):
+	# Renaming the array column names:
+	x.columns = range(0,x.shape[1])
+	# First step begin index:
+	step_index = 0
+	# Genome index:
+	my_seq = numpy.arange(x.shape[1])
+	# Infinity loop:
+	var=1
+	while var==1:
+		# Index for averaging over the desired columns:
+		index = numpy.intersect1d(my_seq, numpy.arange(start=step_index, stop=(step_index+step_size)))
+		if my_seq[index].shape != (0,):
+			# Averaging over columns:
+			bin_tmp = numpy.mean(x.loc[:,my_seq[index]], axis=1).values.reshape([x.shape[0],1])
+			# Stacking horizontally the bins:
+			if step_index == 0:
+				M_bin = bin_tmp
+			else: 
+				M_bin = numpy.hstack([M_bin, bin_tmp])
+		# Updating the current step size:
+		step_index = step_index + step_size
+		if my_seq[index].shape == (0,):
+		  break
+	return(M_bin)
+
+
 #----------------------------Subdivision of the height data into mini-batches--------------------------------#
 
 if cv=="CV1":

@@ -1,29 +1,70 @@
 
-  // Specifying hyperpriors for the second level hyperparameters:
-  pi_u_mu_1 ~ cauchy(0,  phi_1);
-  pi_u_beta_1 ~ cauchy(0,  phi_1);
+#------------------------------------------------Modules-----------------------------------------------------#
 
-  pi_s_mu_1 ~ cauchy(0,  phi_1);
-  pi_s_beta_1 ~ cauchy(0,  phi_1);
-  pi_s_sigma_1 ~ cauchy(0,  phi_1);
+## Loading libraries:
+import matplotlib
+# matplotlib.use('GTK') 
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+import itertools
+import seaborn as sns
 
-  // Specifying hyperpriors for the first level hyperparameters:
-  u_mu_1 ~ normal(0, pi_u_mu_1);
-  u_beta_1 ~ normal(0, pi_u_beta_1);
+import os
 
-  s_mu_1 ~ cauchy(0, pi_s_mu_1);
-  s_beta_1 ~ cauchy(0, pi_s_beta_1);
-  s_sigma_1 ~ cauchy(0, pi_s_sigma_1);
+import tensorflow as tf
+import pystan as ps
+import subprocess
+import dill
+import time
+import sys
+import pickle
+import re
+import pprint
 
-  // Specifying priors for the parameters:
-  mu_1 ~ normal(u_mu_1, s_mu_1);
-  beta_1 ~ normal(u_beta_1[index_x_1], s_beta_1[index_x_1]);
-  sigma_1 ~ cauchy(0, s_sigma_1);
+from scipy.stats import skew
+from scipy.stats import moment
+from scipy.stats.stats import pearsonr
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import normalized_mutual_info_score
+from sklearn.metrics import r2_score
 
-  // Specifying the likelihood:
-  y_1 ~ normal(expectation_1, sigma_vec_1);
+# For adding flags to the code:
+import argparse
+parser = argparse.ArgumentParser()
 
-  // Generating data from the model:
-  y_gen_1 ~ normal(expectation_1, sigma_vec_1);
+# Prefix of the directory of the project is in (choose the directory to the desired machine by removing comment):
+# prefix_proj = "/home/jhonathan/Documents/sorghum-multi-trait/"
+# prefix_proj = "/home/jhonathan/Documentos/sorghum-multi-trait/"
+# prefix_proj = "/data1/aafgarci/jhonathan/sorghum-multi-trait/"
+prefix_proj = "/workdir/jp2476/repo/sorghum-multi-trait/"
 
+# Prefix where the outputs will be saved:
+# prefix_out = "/home/jhonathan/Documents/resul_mtrait-proj/"
+# prefix_out = "/home/jhonathan/Documentos/resul_mtrait-proj/"
+# prefix_out = "/data1/aafgarci/jhonathan/resul_mtrait-proj/"
+prefix_out = "/workdir/jp2476/repo/resul_mtrait-proj/"
 
+# Setting directory:
+os.chdir(prefix_proj + "codes")
+
+# Loading external functions:
+from external_functions import * 
+
+# Loading inbred lines ID:
+os.chdir(prefix_out + "data")
+
+# Loading marker matrix:
+M = pd.read_csv("gbs.csv", index_col=0)
+
+# Changing index:
+M.index = range(M.shape[0])
+
+x = M.transpose()
+
+#------------------------------------------Building bin function---------------------------------------------#
+
+n_bin = 1000
+
+tmp = get_bin(x, n_bin=1000, method='average')
