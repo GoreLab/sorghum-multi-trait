@@ -207,7 +207,6 @@ if bool(re.search('PBN', model)):
                  p_z = X[struc[0]]['bin_trn'].shape[1],               
                  p_i_0 = np.max(index_x[struc[0]]),
                  p_r_0 = X[struc[0]]['year'].shape[1],
-                 phi_0 = np.max(y[struc[0]]['trn'].values.flatten())*10,
                  index_x_0 = index_x[struc[0]],
                  X_0 = X[struc[0]]['nobin_trn'],
                  Z_0 = X[struc[0]]['bin_trn'],
@@ -217,12 +216,12 @@ if bool(re.search('PBN', model)):
                  p_x_1 = X[struc[1]]['nobin_trn'].shape[1],
                  p_i_1 = np.max(index_x[struc[1]]),
                  p_r_1 = X[struc[1]]['year'].shape[1],
-                 phi_1 = np.max(y[struc[1]]['trn'].values.flatten())*10,
                  index_x_1 = index_x[struc[1]],
                  X_1 = X[struc[1]]['nobin_trn'],
                  Z_1 = X[struc[1]]['bin_trn'],
                  X_r_1 = X[struc[1]]['year'],
-                 y_1 = y[struc[1]]['trn'].values.flatten())
+                 y_1 = y[struc[1]]['trn'].values.flatten(),
+                 phi = np.max(y[struc[1]]['trn'].values.flatten())*10)
 
 # Setting directory:
 os.chdir(prefix_proj + "codes")

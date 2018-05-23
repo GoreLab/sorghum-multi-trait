@@ -80,7 +80,7 @@ args = parser.parse_args()
 core = 0
 model = "PBN1"
 cv = "CV1"
-structure = "cv1_biomass-cv1_height"
+structure = "cv1_biomass_starch-cv1_height"
 
 # Seed to recover the analysis:
 seed = core
@@ -109,7 +109,7 @@ if bool(re.search('-', structure)):
     X[struc[i]]['tst'] = pd.read_csv('x_' + struc[i] + '_tst.csv', header = 0, index_col=0)
     y[struc[i]]['tst'] = pd.read_csv('y_' + struc[i] + '_tst.csv', header = 0, index_col=0)
     # Biomass:
-    if struc[i]=="cv1_biomass":
+    if bool(re.search('-', structure)):
       # Subsetting just the desired factors:
       index = X[struc[i]]['trn'].columns.str.contains('|'.join(['loc','year']))
       X[struc[i]]['nobin_trn'] = X[struc[i]]['trn'].loc[:,index]
@@ -233,7 +233,6 @@ else:
 	round(r2_score(y['dev'].values.flatten(), y_pred['dev']), 4)
 	round(r2_score(y['tst'].values.flatten(), y_pred['tst']), 4)
 
-
 # Density plots of different data types:
 sns.set_style('whitegrid')
 ax = sns.kdeplot(y['trn'].values.flatten(), bw=0.5, label='train set', shade=True)
@@ -293,15 +292,15 @@ plt.clf()
 
 
 # Bar plot of the pleiotropyic bin effects:
-plt.bar(range(outs['z'].mean(axis=0).size), np.abs(outs['z'].mean(axis=0)))
+plt.bar(range(outs['z'].mean(axis=0).size), outs['z'].mean(axis=0))
 plt.show()
 plt.clf()
 
-plt.bar(range(outs['eta_0'].mean(axis=0).size), np.abs(outs['eta_0'].mean(axis=0)))
+plt.bar(range(outs['eta_0'].mean(axis=0).size), outs['eta_0'].mean(axis=0))
 plt.show()
 plt.clf()
 
-plt.bar(range(outs['eta_1'].mean(axis=0).size), np.abs(outs['eta_1'].mean(axis=0)))
+plt.bar(range(outs['eta_1'].mean(axis=0).size), outs['eta_1'].mean(axis=0))
 plt.show()
 plt.clf()
 

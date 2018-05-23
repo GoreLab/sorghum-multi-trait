@@ -8,9 +8,6 @@ data {
   int<lower=1> p_i_0;
   int<lower=1> p_r_0;
 
-  // Global hyperparameter:
-  real phi_0;
-
   // Vector for specific priors on each feature:
   int index_x_0[p_x_0];
 
@@ -28,9 +25,6 @@ data {
   int<lower=1> p_i_1;
   int<lower=1> p_r_1;
 
-  // Global hyperparameter:
-  real phi_1;
-
   // Vector for specific priors on each feature:
   int index_x_1[p_x_1];
 
@@ -41,6 +35,9 @@ data {
   
   // Phenotypic vector:
   real y_1[n_1];
+
+  // Global known hyperparameter:
+  real phi;
 
 }
 
@@ -156,13 +153,13 @@ model {
   //// Conditional probabilities distributions that creates dependecy between the responses:
 
   // Pleiotropy modularity hyperparameters:
-  pi_u_z_0 ~ cauchy(0, phi_0);
-  pi_s_z_0 ~ cauchy(0, phi_0);
+  pi_u_z_0 ~ cauchy(0, phi);
+  pi_s_z_0 ~ cauchy(0, phi);
   s_z_0 ~ cauchy(0, pi_s_z_0);
   u_z_0 ~ normal(0, pi_u_z_0);
 
-  pi_u_z_1 ~ cauchy(0, phi_1);
-  pi_s_z_1 ~ cauchy(0, phi_1);
+  pi_u_z_1 ~ cauchy(0, phi);
+  pi_s_z_1 ~ cauchy(0, phi);
   s_z_1 ~ cauchy(0, pi_s_z_1);
   u_z_1 ~ normal(0, pi_u_z_1);
 
@@ -172,14 +169,14 @@ model {
   //// First response variable conditionals probability distributions:
 
   // Specifying hyperpriors for the second level hyperparameters:
-  pi_u_mu_0 ~ cauchy(0,  phi_0);
-  pi_u_beta_0 ~ cauchy(0,  phi_0);
-  pi_u_alpha_0 ~ cauchy(0,  phi_0);
+  pi_u_mu_0 ~ cauchy(0,  phi);
+  pi_u_beta_0 ~ cauchy(0,  phi);
+  pi_u_alpha_0 ~ cauchy(0,  phi);
 
-  pi_s_mu_0 ~ cauchy(0,  phi_0);
-  pi_s_beta_0 ~ cauchy(0,  phi_0);
-  pi_s_alpha_0 ~ cauchy(0,  phi_0);
-  pi_s_sigma_0 ~ cauchy(0,  phi_0);
+  pi_s_mu_0 ~ cauchy(0,  phi);
+  pi_s_beta_0 ~ cauchy(0,  phi);
+  pi_s_alpha_0 ~ cauchy(0,  phi);
+  pi_s_sigma_0 ~ cauchy(0,  phi);
 
   // Specifying hyperpriors for the first level hyperparameters:
   u_mu_0 ~ normal(0, pi_u_mu_0);
@@ -206,14 +203,14 @@ model {
   //// Second response variable conditionals probability distributions:
 
   // Specifying hyperpriors for the second level hyperparameters:
-  pi_u_mu_1 ~ cauchy(0,  phi_1);
-  pi_u_beta_1 ~ cauchy(0,  phi_1);
-  pi_u_alpha_1 ~ cauchy(0,  phi_1);
+  pi_u_mu_1 ~ cauchy(0,  phi);
+  pi_u_beta_1 ~ cauchy(0,  phi);
+  pi_u_alpha_1 ~ cauchy(0,  phi);
 
-  pi_s_mu_1 ~ cauchy(0,  phi_1);
-  pi_s_beta_1 ~ cauchy(0,  phi_1);
-  pi_s_alpha_1 ~ cauchy(0,  phi_1);
-  pi_s_sigma_1 ~ cauchy(0,  phi_1);
+  pi_s_mu_1 ~ cauchy(0,  phi);
+  pi_s_beta_1 ~ cauchy(0,  phi);
+  pi_s_alpha_1 ~ cauchy(0,  phi);
+  pi_s_sigma_1 ~ cauchy(0,  phi);
 
   // Specifying hyperpriors for the first level hyperparameters:
   u_mu_1 ~ normal(0, pi_u_mu_1);

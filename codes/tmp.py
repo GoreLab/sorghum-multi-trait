@@ -68,6 +68,8 @@ x = M.transpose()
 
 
 tmp = get_bin(x=x.iloc[:,:1000], n_bin=100, method='pca')
+W_bin = tmp[0]
+w_e_bin = tmp[1]
 
 # Function to construct the bins:
 def get_bin(x, n_bin, method):
