@@ -405,22 +405,21 @@ setwd(paste0(prefix_out, "outputs/two_stage_tests_rrblup"))
 # Saving results:
 for (i in ls(metrics)) {
 
-	write.csv(metrics[i], file=paste0(i, ".csv"))
+	write.csv(metrics[i], file=paste0(i, "_pca.csv"))
 
 }
 
 # Saving RData:
-save.image("mtrait_cv_rrblup_model.RData")
+save.image("mtrait_cv_rrblup_model_pca.RData")
 
+# # Prefix:
+# prefix_out = "/workdir/jp2476/repo/resul_mtrait-proj/"
 
-# Prefix:
-prefix_out = "/workdir/jp2476/repo/resul_mtrait-proj/"
+# # Setting directory:
+# setwd(paste0(prefix_out, "outputs/two_stage_tests_rrblup"))
 
-# Setting directory:
-setwd(paste0(prefix_out, "outputs/two_stage_tests_rrblup"))
-
-# Loading data in future runs:
-load("mtrait_cv_rrblup_model.RData")
+# # Loading data in future runs:
+# load("mtrait_cv_rrblup_model.RData")
 
 #---------------------------------------------------Junk-----------------------------------------------------#
 
