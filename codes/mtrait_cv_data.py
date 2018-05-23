@@ -70,7 +70,6 @@ biomass_type = args.bt
 # biomass_type = "starch"
 # cv = "CV2.30~90"
 
-
 #--------------------------Building design/feature matrices for height and biomass---------------------------#
 
 # Setting the directory:
