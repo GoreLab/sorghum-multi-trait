@@ -209,12 +209,20 @@ if bool(re.search('-', structure)):
 	r2_dict = dict()
 	for i in list(y_pred.keys()):
 		tmp = i.split('_')
-		# Computing root mean squared error:
-		rmse_dict[i] = round(rmse(y[tmp[0] + '_' + tmp[1]][tmp[2]].values.flatten(), y_pred[i]), 4)
-		# Computing accuracy:
-		acc_dict[i] = round(pearsonr(y[tmp[0] + '_' + tmp[1]][tmp[2]].values.flatten(), y_pred[i])[0], 4)
-		# Computing r2 score:
-		r2_dict[i] = round(r2_score(y[tmp[0] + '_' + tmp[1]][tmp[2]].values.flatten(), y_pred[i]), 4)
+		if bool(re.search('biomass', i)):
+			# Computing root mean squared error:
+			rmse_dict[i] = round(rmse(y[tmp[0] + '_' + tmp[1] + '_' + tmp[2]][tmp[3]].values.flatten(), y_pred[i]), 4)
+			# Computing accuracy:
+			acc_dict[i] = round(pearsonr(y[tmp[0] + '_' + tmp[1] + '_' + tmp[2]][tmp[3]].values.flatten(), y_pred[i])[0], 4)
+			# Computing r2 score:
+			r2_dict[i] = round(r2_score(y[tmp[0] + '_' + tmp[1] + '_' + tmp[2]][tmp[3]].values.flatten(), y_pred[i]), 4)
+		else:
+			# Computing root mean squared error:
+			rmse_dict[i] = round(rmse(y[tmp[0] + '_' + tmp[1]][tmp[2]].values.flatten(), y_pred[i]), 4)
+			# Computing accuracy:
+			acc_dict[i] = round(pearsonr(y[tmp[0] + '_' + tmp[1]][tmp[2]].values.flatten(), y_pred[i])[0], 4)
+			# Computing r2 score:
+			r2_dict[i] = round(r2_score(y[tmp[0] + '_' + tmp[1]][tmp[2]].values.flatten(), y_pred[i]), 4)
 	# Printing results:
 	pprint.pprint(rmse_dict)
 	pprint.pprint(acc_dict)

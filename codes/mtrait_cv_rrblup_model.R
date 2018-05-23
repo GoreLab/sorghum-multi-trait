@@ -98,18 +98,18 @@ length(index_dev)
 length(index_tst)
 
 # Fitting the rrBLUP model:
-fit[['2st_cv1_biomass_trn_full']] = mixed.solve(y=blue[index_trn], Z=W_full[index_trn,])
-fit[['2st_cv1_biomass_trn_bin']] = mixed.solve(y=blue[index_trn], Z=W_bin[index_trn,])
+fit[['2st_cv1_biomass_drymass_trn_full']] = mixed.solve(y=blue[index_trn], Z=W_full[index_trn,])
+fit[['2st_cv1_biomass_drymass_trn_bin']] = mixed.solve(y=blue[index_trn], Z=W_bin[index_trn,])
 
 # Computing predictions:
 y_pred = list()
-y_pred[['trn_full']] = as.numeric(fit[['2st_cv1_biomass_trn_full']]$beta) + W_full[index_trn,] %*% fit[['2st_cv1_biomass_trn_full']]$u
-y_pred[['dev_full']] = as.numeric(fit[['2st_cv1_biomass_trn_full']]$beta) + W_full[index_dev,] %*% fit[['2st_cv1_biomass_trn_full']]$u
-y_pred[['tst_full']] = as.numeric(fit[['2st_cv1_biomass_trn_full']]$beta) + W_full[index_tst,] %*% fit[['2st_cv1_biomass_trn_full']]$u
+y_pred[['trn_full']] = as.numeric(fit[['2st_cv1_biomass_drymass_trn_full']]$beta) + W_full[index_trn,] %*% fit[['2st_cv1_biomass_drymass_trn_full']]$u
+y_pred[['dev_full']] = as.numeric(fit[['2st_cv1_biomass_drymass_trn_full']]$beta) + W_full[index_dev,] %*% fit[['2st_cv1_biomass_drymass_trn_full']]$u
+y_pred[['tst_full']] = as.numeric(fit[['2st_cv1_biomass_drymass_trn_full']]$beta) + W_full[index_tst,] %*% fit[['2st_cv1_biomass_drymass_trn_full']]$u
 
-y_pred[['trn_bin']] = as.numeric(fit[['2st_cv1_biomass_trn_bin']]$beta) + W_bin[index_trn,] %*% fit[['2st_cv1_biomass_trn_bin']]$u
-y_pred[['dev_bin']] = as.numeric(fit[['2st_cv1_biomass_trn_bin']]$beta) + W_bin[index_dev,] %*% fit[['2st_cv1_biomass_trn_bin']]$u
-y_pred[['tst_bin']] = as.numeric(fit[['2st_cv1_biomass_trn_bin']]$beta) + W_bin[index_tst,] %*% fit[['2st_cv1_biomass_trn_bin']]$u
+y_pred[['trn_bin']] = as.numeric(fit[['2st_cv1_biomass_drymass_trn_bin']]$beta) + W_bin[index_trn,] %*% fit[['2st_cv1_biomass_drymass_trn_bin']]$u
+y_pred[['dev_bin']] = as.numeric(fit[['2st_cv1_biomass_drymass_trn_bin']]$beta) + W_bin[index_dev,] %*% fit[['2st_cv1_biomass_drymass_trn_bin']]$u
+y_pred[['tst_bin']] = as.numeric(fit[['2st_cv1_biomass_drymass_trn_bin']]$beta) + W_bin[index_tst,] %*% fit[['2st_cv1_biomass_drymass_trn_bin']]$u
 
 # Correlation:
 cor_bin_full = matrix(NA,3,1)
@@ -246,10 +246,7 @@ y = list()
 X = list()
 
 # Loading phenotypic data:
-cv_types = c('cv1_biomass_dev', 'cv1_biomass_trn', 'cv1_biomass_tst',
-			 'cv1_height_dev', 'cv1_height_mb_0_dev', 'cv1_height_mb_1_dev', 'cv1_height_mb_2_dev', 'cv1_height_mb_3_dev',
-			 'cv1_height_trn', 'cv1_height_mb_0_trn', 'cv1_height_mb_1_trn', 'cv1_height_mb_2_trn', 'cv1_height_mb_3_trn',
-			 'cv1_height_tst', 'cv1_height_mb_0_tst', 'cv1_height_mb_1_tst', 'cv1_height_mb_2_tst', 'cv1_height_mb_3_tst')
+cv_types = c('cv1_biomass_drymass_dev', 'cv1_biomass_drymass_trn', 'cv1_biomass_drymass_tst', 'cv1_height_dev', 'cv1_height_trn', 'cv1_height_tst')
 
 # Loading phenotypic data:
 for (i in 1:length(cv_types)) {
@@ -271,7 +268,7 @@ for (i in 1:length(cv_types)) {
 
 
 # Sets of data to perform analysis:
-sets = c('cv1_biomass_trn', 'cv1_biomass_dev', 'cv1_biomass_tst')
+sets = c('cv1_biomass_drymass_trn', 'cv1_biomass_drymass_dev', 'cv1_biomass_drymass_tst')
 
 # Initialize list to receive outputs:
 y_pred = list()
@@ -439,7 +436,7 @@ save.image("mtrait_cv_rrblup_model_pca.RData")
 # all(names(y_tmp) == rownames(X_fixed_tmp))
 # all(names(y_tmp) == rownames(X_random_tmp))
 
-# fit[['2st_cv1_biomass_trn']] = mixed.solve(y=y_tmp, X=X_fixed_tmp, Z=X_random_tmp, K=A)
+# fit[['2st_cv1_biomass_drymass_trn']] = mixed.solve(y=y_tmp, X=X_fixed_tmp, Z=X_random_tmp, K=A)
 
 
 #-----------------------------------------------#
