@@ -1,4 +1,29 @@
 
+#--------------------------------Splitting feature matrices by time points-----------------------------------#
+
+# Creating an empty dictionary to receive the feature matrices and response vectors:
+X = dict()
+y = dict()
+
+# Building the feature matrix for the height under different DAP's:
+index = ['loc', 'year', 'dap', 'id_gbs']
+tmp = df.dap.drop_duplicates()[1::].tolist()
+for i in tmp:
+	# Index for subsetting the data:
+	subset = (df.trait=='height') & (df.dap==i)
+	# Creating the matrix with the design and covariates structure:
+	X['height_' + str(int(i))] = pd.get_dummies(df.loc[subset, index])
+	# Adding the bin matrix to the feature matrix:
+	geno = pd.get_dummies(df.id_gbs[subset])
+	X['height_' + str(int(i))] = pd.concat([X['height_' + str(int(i))], geno.dot(W_bin.loc[geno.columns.tolist()])], axis=1)
+	# Removing rows of the missing entries from the feature matrix:
+	X['height_' + str(int(i))] = X['height_' + str(int(i))][~(df.height[subset].isnull())]
+	# Creating a variable to receive the response without the missing values:
+	y['height_' + str(int(i))] = df.height[subset][~(df.height[subset].isnull())]
+	# Printing shapes:
+	print((X['height_' + str(int(i))]).shape)
+	print(y['height_' + str(int(i))].shape)
+
 
 #------------------------------------------Construction of bins----------------------------------------------#
 
