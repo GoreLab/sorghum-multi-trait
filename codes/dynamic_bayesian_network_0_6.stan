@@ -135,6 +135,13 @@ data {
 
 parameters {
 
+  // Global dap effect hyperparameter:
+  real<lower=0> pi_u_d;
+  real<lower=0> pi_s_d;
+  real<lower=0> s_d;
+  real u_d;
+  real d;
+
   // Parameters:
   real mu_0;
   vector[p_x_0] beta_0;
@@ -380,9 +387,6 @@ parameters {
   // Defining variable to generate data from the model:
   real y_gen_6[n_6];
 
-  // Global dap effect hyperparameter:
-  real d;
-
 }
 
 transformed parameters {
@@ -449,14 +453,14 @@ transformed parameters {
 
 model {
 
-  //// Conditional probabilities distributions that creates dependecy between the responses:
-  pi_u_eta ~ cauchy(0, phi_1);
-  pi_s_eta ~ cauchy(0, phi_1);
-  s_eta ~ cauchy(0, pi_s_eta);
-  u_eta ~ normal(0, pi_u_eta);
-  eta ~ normal(u_eta, s_eta);
-
   //// First response variable conditionals probability distributions:
+
+  //// Conditional probabilities distributions that creates dependecy between the responses across time:
+  pi_u_d ~ cauchy(0, phi);
+  pi_s_d ~ cauchy(0, phi);
+  s_d ~ cauchy(0, pi_s_d);
+  u_d ~ normal(0, pi_u_d);
+  d ~ normal(u_d, s_d);
 
   // Specifying hyperpriors for the second level hyperparameters:
   pi_u_mu_0 ~ cauchy(0,  phi_0);
@@ -490,8 +494,12 @@ model {
   // Generating data from the model:
   y_gen_0 ~ normal(expectation_0, sigma_vec_0);
 
-
-
+  //// Conditional probabilities distributions that creates dependecy between the responses:
+  pi_u_eta_0_1 ~ cauchy(0, phi);
+  pi_s_eta_0_1 ~ cauchy(0, phi);
+  s_eta_0_1 ~ cauchy(0, pi_s_eta_0_1);
+  u_eta_0_1 ~ normal(0, pi_u_eta_0_1);
+  eta_0_1 ~ normal(u_eta_0_1, s_eta_0_1);
 
   //// Second response variable conditionals probability distributions:
 
@@ -527,5 +535,209 @@ model {
   // Generating data from the model:
   y_gen_1 ~ normal(expectation_1, sigma_vec_1);
 
+  //// Conditional probabilities distributions that creates dependecy between the responses:
+  pi_u_eta_1_2 ~ cauchy(0, phi);
+  pi_s_eta_1_2 ~ cauchy(0, phi);
+  s_eta_1_2 ~ cauchy(0, pi_s_eta_1_2);
+  u_eta_1_2 ~ normal(0, pi_u_eta_1_2);
+  eta_1_2 ~ normal(u_eta_1_2, s_eta_1_2);
+
+  //// Third response variable conditionals probability distributions:
+
+  // Specifying hyperpriors for the second level hyperparameters:
+  pi_u_mu_2 ~ cauchy(0,  phi_2);
+  pi_u_beta_2 ~ cauchy(0,  phi_2);
+  pi_u_alpha_2 ~ cauchy(0,  phi_2);
+
+  pi_s_mu_2 ~ cauchy(0,  phi_2);
+  pi_s_beta_2 ~ cauchy(0,  phi_2);
+  pi_s_alpha_2 ~ cauchy(0,  phi_2);
+  pi_s_sigma_2 ~ cauchy(0,  phi_2);
+
+  // Specifying hyperpriors for the first level hyperparameters:
+  u_mu_2 ~ normal(0, pi_u_mu_2);
+  u_beta_2 ~ normal(0, pi_u_beta_2);
+  u_alpha_2 ~ normal(0, pi_u_alpha_2);
+
+  s_mu_2 ~ cauchy(0, pi_s_mu_2);
+  s_beta_2 ~ cauchy(0, pi_s_beta_2);
+  s_alpha_2 ~ cauchy(0, pi_s_alpha_2);
+  s_sigma_2 ~ cauchy(0, pi_s_sigma_2);
+
+  // Specifying priors for the parameters:
+  mu_2 ~ normal(u_mu_2, s_mu_2);
+  beta_2 ~ normal(u_beta_2[index_x_2], s_beta_2[index_x_2]);
+  alpha_2 ~ normal(u_alpha_2, s_alpha_2);
+  sigma_2 ~ cauchy(0, s_sigma_2);
+
+  // Specifying the likelihood:
+  y_2 ~ normal(expectation_2, sigma_vec_2);
+
+  // Generating data from the model:
+  y_gen_2 ~ normal(expectation_2, sigma_vec_2);
+
+  //// Conditional probabilities distributions that creates dependecy between the responses:
+  pi_u_eta_2_3 ~ cauchy(0, phi);
+  pi_s_eta_2_3 ~ cauchy(0, phi);
+  s_eta_2_3 ~ cauchy(0, pi_s_eta_2_3);
+  u_eta_2_3 ~ normal(0, pi_u_eta_2_3);
+  eta_2_3 ~ normal(u_eta_2_3, s_eta_2_3);
+
+  //// Third response variable conditionals probability distributions:
+
+  // Specifying hyperpriors for the second level hyperparameters:
+  pi_u_mu_3 ~ cauchy(0,  phi_3);
+  pi_u_beta_3 ~ cauchy(0,  phi_3);
+  pi_u_alpha_3 ~ cauchy(0,  phi_3);
+
+  pi_s_mu_3 ~ cauchy(0,  phi_3);
+  pi_s_beta_3 ~ cauchy(0,  phi_3);
+  pi_s_alpha_3 ~ cauchy(0,  phi_3);
+  pi_s_sigma_3 ~ cauchy(0,  phi_3);
+
+  // Specifying hyperpriors for the first level hyperparameters:
+  u_mu_3 ~ normal(0, pi_u_mu_3);
+  u_beta_3 ~ normal(0, pi_u_beta_3);
+  u_alpha_3 ~ normal(0, pi_u_alpha_3);
+
+  s_mu_3 ~ cauchy(0, pi_s_mu_3);
+  s_beta_3 ~ cauchy(0, pi_s_beta_3);
+  s_alpha_3 ~ cauchy(0, pi_s_alpha_3);
+  s_sigma_3 ~ cauchy(0, pi_s_sigma_3);
+
+  // Specifying priors for the parameters:
+  mu_3 ~ normal(u_mu_3, s_mu_3);
+  beta_3 ~ normal(u_beta_3[index_x_3], s_beta_3[index_x_3]);
+  alpha_3 ~ normal(u_alpha_3, s_alpha_3);
+  sigma_3 ~ cauchy(0, s_sigma_3);
+
+  // Specifying the likelihood:
+  y_3 ~ normal(expectation_3, sigma_vec_3);
+
+  // Generating data from the model:
+  y_gen_3 ~ normal(expectation_3, sigma_vec_3);
+
+  //// Conditional probabilities distributions that creates dependecy between the responses:
+  pi_u_eta_3_4 ~ cauchy(0, phi);
+  pi_s_eta_3_4 ~ cauchy(0, phi);
+  s_eta_3_4 ~ cauchy(0, pi_s_eta_3_4);
+  u_eta_3_4 ~ normal(0, pi_u_eta_3_4);
+  eta_3_4 ~ normal(u_eta_3_4, s_eta_3_4);
+
+  //// Fourth response variable conditionals probability distributions:
+
+  // Specifying hyperpriors for the second level hyperparameters:
+  pi_u_mu_4 ~ cauchy(0,  phi_4);
+  pi_u_beta_4 ~ cauchy(0,  phi_4);
+  pi_u_alpha_4 ~ cauchy(0,  phi_4);
+
+  pi_s_mu_4 ~ cauchy(0,  phi_4);
+  pi_s_beta_4 ~ cauchy(0,  phi_4);
+  pi_s_alpha_4 ~ cauchy(0,  phi_4);
+  pi_s_sigma_4 ~ cauchy(0,  phi_4);
+
+  // Specifying hyperpriors for the first level hyperparameters:
+  u_mu_4 ~ normal(0, pi_u_mu_4);
+  u_beta_4 ~ normal(0, pi_u_beta_4);
+  u_alpha_4 ~ normal(0, pi_u_alpha_4);
+
+  s_mu_4 ~ cauchy(0, pi_s_mu_4);
+  s_beta_4 ~ cauchy(0, pi_s_beta_4);
+  s_alpha_4 ~ cauchy(0, pi_s_alpha_4);
+  s_sigma_4 ~ cauchy(0, pi_s_sigma_4);
+
+  // Specifying priors for the parameters:
+  mu_4 ~ normal(u_mu_4, s_mu_4);
+  beta_4 ~ normal(u_beta_4[index_x_4], s_beta_4[index_x_4]);
+  alpha_4 ~ normal(u_alpha_4, s_alpha_4);
+  sigma_4 ~ cauchy(0, s_sigma_4);
+
+  // Specifying the likelihood:
+  y_4 ~ normal(expectation_4, sigma_vec_4);
+
+  // Generating data from the model:
+  y_gen_4 ~ normal(expectation_4, sigma_vec_4);
+
+  //// Conditional probabilities distributions that creates dependecy between the responses:
+  pi_u_eta_4_5 ~ cauchy(0, phi);
+  pi_s_eta_4_5 ~ cauchy(0, phi);
+  s_eta_4_5 ~ cauchy(0, pi_s_eta_4_5);
+  u_eta_4_5 ~ normal(0, pi_u_eta_4_5);
+  eta_4_5 ~ normal(u_eta_4_5, s_eta_4_5);
+
+  //// Fifth response variable conditionals probability distributions:
+
+  // Specifying hyperpriors for the second level hyperparameters:
+  pi_u_mu_5 ~ cauchy(0,  phi_5);
+  pi_u_beta_5 ~ cauchy(0,  phi_5);
+  pi_u_alpha_5 ~ cauchy(0,  phi_5);
+
+  pi_s_mu_5 ~ cauchy(0,  phi_5);
+  pi_s_beta_5 ~ cauchy(0,  phi_5);
+  pi_s_alpha_5 ~ cauchy(0,  phi_5);
+  pi_s_sigma_5 ~ cauchy(0,  phi_5);
+
+  // Specifying hyperpriors for the first level hyperparameters:
+  u_mu_5 ~ normal(0, pi_u_mu_5);
+  u_beta_5 ~ normal(0, pi_u_beta_5);
+  u_alpha_5 ~ normal(0, pi_u_alpha_5);
+
+  s_mu_5 ~ cauchy(0, pi_s_mu_5);
+  s_beta_5 ~ cauchy(0, pi_s_beta_5);
+  s_alpha_5 ~ cauchy(0, pi_s_alpha_5);
+  s_sigma_5 ~ cauchy(0, pi_s_sigma_5);
+
+  // Specifying priors for the parameters:
+  mu_5 ~ normal(u_mu_5, s_mu_5);
+  beta_5 ~ normal(u_beta_5[index_x_5], s_beta_5[index_x_5]);
+  alpha_5 ~ normal(u_alpha_5, s_alpha_5);
+  sigma_5 ~ cauchy(0, s_sigma_5);
+
+  // Specifying the likelihood:
+  y_5 ~ normal(expectation_5, sigma_vec_5);
+
+  // Generating data from the model:
+  y_gen_5 ~ normal(expectation_5, sigma_vec_5);
+
+  //// Conditional probabilities distributions that creates dependecy between the responses:
+  pi_u_eta_5_6 ~ cauchy(0, phi);
+  pi_s_eta_5_6 ~ cauchy(0, phi);
+  s_eta_5_6 ~ cauchy(0, pi_s_eta_5_6);
+  u_eta_5_6 ~ normal(0, pi_u_eta_5_6);
+  eta_5_6 ~ normal(u_eta_5_6, s_eta_5_6);
+
+  //// Sixth response variable conditionals probability distributions:
+
+  // Specifying hyperpriors for the second level hyperparameters:
+  pi_u_mu_6 ~ cauchy(0,  phi_6);
+  pi_u_beta_6 ~ cauchy(0,  phi_6);
+  pi_u_alpha_6 ~ cauchy(0,  phi_6);
+
+  pi_s_mu_6 ~ cauchy(0,  phi_6);
+  pi_s_beta_6 ~ cauchy(0,  phi_6);
+  pi_s_alpha_6 ~ cauchy(0,  phi_6);
+  pi_s_sigma_6 ~ cauchy(0,  phi_6);
+
+  // Specifying hyperpriors for the first level hyperparameters:
+  u_mu_6 ~ normal(0, pi_u_mu_6);
+  u_beta_6 ~ normal(0, pi_u_beta_6);
+  u_alpha_6 ~ normal(0, pi_u_alpha_6);
+
+  s_mu_6 ~ cauchy(0, pi_s_mu_6);
+  s_beta_6 ~ cauchy(0, pi_s_beta_6);
+  s_alpha_6 ~ cauchy(0, pi_s_alpha_6);
+  s_sigma_6 ~ cauchy(0, pi_s_sigma_6);
+
+  // Specifying priors for the parameters:
+  mu_6 ~ normal(u_mu_6, s_mu_6);
+  beta_6 ~ normal(u_beta_6[index_x_6], s_beta_6[index_x_6]);
+  alpha_6 ~ normal(u_alpha_6, s_alpha_6);
+  sigma_6 ~ cauchy(0, s_sigma_6);
+
+  // Specifying the likelihood:
+  y_6 ~ normal(expectation_6, sigma_vec_6);
+
+  // Generating data from the model:
+  y_gen_6 ~ normal(expectation_6, sigma_vec_6);
 
 }
