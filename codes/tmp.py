@@ -1,10 +1,5 @@
-n_1 = y['45_trn'].size,
-p_x_1 = X['45_nobin_trn'].shape[1],
-p_z_1 = X['45_bin_trn'].shape[1],
-p_i_1 = np.max(index_x['45']),
-p_r_1 = X['45_year'].shape[1],
-index_x_1 = index_x['45'],
-X_1 = X['45_nobin_trn'],
-Z_1 = X['45_bin_trn'],
-X_r_1 = X['45_year'],
-y_1 = y['45_trn'].values.flatten(),
+  // Computing the vectorized vector of residuals:
+  sigma_vec_6 = X_r_6 * sigma_6;
+
+  // Computing the expectation of the likelihood function:
+  expectation_6 = mu_6 + x_d_6 * d + X_6 * beta_6 + Z_6 * (alpha_6 + eta_6_6);
