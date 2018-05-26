@@ -211,7 +211,7 @@ if model=='DBN':
   index_x = dict()
   for t in tmp:
     # Getting the features names prefix:
-    subset = X[t + '_nobin_trn'].columns.str.split('_').str.get(0)
+    subset = X[t + '_nobin_trn'].drop('dap',axis=1).columns.str.split('_').str.get(0)
     # Building an incidence vector for adding specific priors for each feature class:
     index_x[t] = pd.DataFrame(subset).replace(subset.drop_duplicates(), range(1,(subset.drop_duplicates().size+1)))[0].values 
     # Building an year matrix just for indexing resuduals standard deviations heterogeneous across years:
