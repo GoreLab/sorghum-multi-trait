@@ -181,27 +181,22 @@ parameters {
   // Parameters:
   real mu_1;
   vector[p_x_1] beta_1;
-  vector[p_z] alpha_1;
   vector<lower=0>[p_r_1] sigma_1;
 
   // First level hyperparameters:
   real u_mu_1;
   vector[p_i_1] u_beta_1;
-  real u_alpha_1;
 
   real<lower=0> s_mu_1;
   vector<lower=0>[p_i_1] s_beta_1;
-  real<lower=0> s_alpha_1;
   real<lower=0> s_sigma_1;
 
   // Second level hyperparameters:
   real<lower=0> pi_u_mu_1;
   real<lower=0> pi_u_beta_1;
-  real<lower=0> pi_u_alpha_1;
 
   real<lower=0> pi_s_mu_1;
   real<lower=0> pi_s_beta_1;
-  real<lower=0> pi_s_alpha_1;
   real<lower=0> pi_s_sigma_1;
 
   // Defining variable to generate data from the model:
@@ -217,27 +212,22 @@ parameters {
   // Parameters:
   real mu_2;
   vector[p_x_2] beta_2;
-  vector[p_z] alpha_2;
   vector<lower=0>[p_r_2] sigma_2;
 
   // First level hyperparameters:
   real u_mu_2;
   vector[p_i_2] u_beta_2;
-  real u_alpha_2;
 
   real<lower=0> s_mu_2;
   vector<lower=0>[p_i_2] s_beta_2;
-  real<lower=0> s_alpha_2;
   real<lower=0> s_sigma_2;
 
   // Second level hyperparameters:
   real<lower=0> pi_u_mu_2;
   real<lower=0> pi_u_beta_2;
-  real<lower=0> pi_u_alpha_2;
 
   real<lower=0> pi_s_mu_2;
   real<lower=0> pi_s_beta_2;
-  real<lower=0> pi_s_alpha_2;
   real<lower=0> pi_s_sigma_2;
 
   // Defining variable to generate data from the model:
@@ -253,27 +243,22 @@ parameters {
   // Parameters:
   real mu_3;
   vector[p_x_3] beta_3;
-  vector[p_z] alpha_3;
   vector<lower=0>[p_r_3] sigma_3;
 
   // First level hyperparameters:
   real u_mu_3;
   vector[p_i_3] u_beta_3;
-  real u_alpha_3;
 
   real<lower=0> s_mu_3;
   vector<lower=0>[p_i_3] s_beta_3;
-  real<lower=0> s_alpha_3;
   real<lower=0> s_sigma_3;
 
   // Second level hyperparameters:
   real<lower=0> pi_u_mu_3;
   real<lower=0> pi_u_beta_3;
-  real<lower=0> pi_u_alpha_3;
 
   real<lower=0> pi_s_mu_3;
   real<lower=0> pi_s_beta_3;
-  real<lower=0> pi_s_alpha_3;
   real<lower=0> pi_s_sigma_3;
 
   // Defining variable to generate data from the model:
@@ -289,27 +274,22 @@ parameters {
   // Parameters:
   real mu_4;
   vector[p_x_4] beta_4;
-  vector[p_z] alpha_4;
   vector<lower=0>[p_r_4] sigma_4;
 
   // First level hyperparameters:
   real u_mu_4;
   vector[p_i_4] u_beta_4;
-  real u_alpha_4;
 
   real<lower=0> s_mu_4;
   vector<lower=0>[p_i_4] s_beta_4;
-  real<lower=0> s_alpha_4;
   real<lower=0> s_sigma_4;
 
   // Second level hyperparameters:
   real<lower=0> pi_u_mu_4;
   real<lower=0> pi_u_beta_4;
-  real<lower=0> pi_u_alpha_4;
 
   real<lower=0> pi_s_mu_4;
   real<lower=0> pi_s_beta_4;
-  real<lower=0> pi_s_alpha_4;
   real<lower=0> pi_s_sigma_4;
 
   // Defining variable to generate data from the model:
@@ -325,27 +305,22 @@ parameters {
   // Parameters:
   real mu_5;
   vector[p_x_5] beta_5;
-  vector[p_z] alpha_5;
   vector<lower=0>[p_r_5] sigma_5;
 
   // First level hyperparameters:
   real u_mu_5;
   vector[p_i_5] u_beta_5;
-  real u_alpha_5;
 
   real<lower=0> s_mu_5;
   vector<lower=0>[p_i_5] s_beta_5;
-  real<lower=0> s_alpha_5;
   real<lower=0> s_sigma_5;
 
   // Second level hyperparameters:
   real<lower=0> pi_u_mu_5;
   real<lower=0> pi_u_beta_5;
-  real<lower=0> pi_u_alpha_5;
 
   real<lower=0> pi_s_mu_5;
   real<lower=0> pi_s_beta_5;
-  real<lower=0> pi_s_alpha_5;
   real<lower=0> pi_s_sigma_5;
 
   // Defining variable to generate data from the model:
@@ -361,27 +336,22 @@ parameters {
   // Parameters:
   real mu_6;
   vector[p_x_6] beta_6;
-  vector[p_z] alpha_6;
   vector<lower=0>[p_r_6] sigma_6;
 
   // First level hyperparameters:
   real u_mu_6;
   vector[p_i_6] u_beta_6;
-  real u_alpha_6;
 
   real<lower=0> s_mu_6;
   vector<lower=0>[p_i_6] s_beta_6;
-  real<lower=0> s_alpha_6;
   real<lower=0> s_sigma_6;
 
   // Second level hyperparameters:
   real<lower=0> pi_u_mu_6;
   real<lower=0> pi_u_beta_6;
-  real<lower=0> pi_u_alpha_6;
 
   real<lower=0> pi_s_mu_6;
   real<lower=0> pi_s_beta_6;
-  real<lower=0> pi_s_alpha_6;
   real<lower=0> pi_s_sigma_6;
 
   // Defining variable to generate data from the model:
@@ -392,6 +362,12 @@ parameters {
 transformed parameters {
 
   // Declaring variables to receive input:
+  vector[p_z] alpha_1;
+  vector[p_z] alpha_2;
+  vector[p_z] alpha_3;
+  vector[p_z] alpha_4;
+  vector[p_z] alpha_5;
+  vector[p_z] alpha_6;
   vector<lower=0>[n_0] sigma_vec_0;
   vector[n_0] expectation_0;
   vector<lower=0>[n_1] sigma_vec_1;
@@ -411,43 +387,61 @@ transformed parameters {
   sigma_vec_0 = X_r_0 * sigma_0;
 
   // Computing the expectation of the likelihood function:
-  expectation_0 = mu_0 + x_d_0 * d + X_0 * beta_0 + Z_0 * (alpha_0 + eta_0_1);
+  expectation_0 = mu_0 + x_d_0 * d + X_0 * beta_0 + Z_0 * alpha_0;
 
   // Computing the vectorized vector of residuals:
   sigma_vec_1 = X_r_1 * sigma_1;
 
+  // Computing the global genetic effect:
+  alpha_1 = (alpha_0 + eta_0_1)
+
   // Computing the expectation of the likelihood function:
-  expectation_1 = mu_1 + x_d_1 * d + X_1 * beta_1 + Z_1 * (alpha_1 + eta_1_2);
+  expectation_1 = mu_1 + x_d_1 * d + X_1 * beta_1 + Z_1 * alpha_1;
 
   // Computing the vectorized vector of residuals:
   sigma_vec_2 = X_r_2 * sigma_2;
 
+  // Computing the global genetic effect:
+  alpha_2 = (alpha_1 + eta_1_2)
+
   // Computing the expectation of the likelihood function:
-  expectation_2 = mu_2 + x_d_2 * d + X_2 * beta_2 + Z_2 * (alpha_2 + eta_2_3);
+  expectation_2 = mu_2 + x_d_2 * d + X_2 * beta_2 + Z_2 * alpha_2;
 
   // Computing the vectorized vector of residuals:
   sigma_vec_3 = X_r_3 * sigma_3;
 
+  // Computing the global genetic effect:
+  alpha_3 = (alpha_2 + eta_2_3)
+
   // Computing the expectation of the likelihood function:
-  expectation_3 = mu_3 + x_d_3 * d + X_3 * beta_3 + Z_3 * (alpha_3 + eta_3_4);
+  expectation_3 = mu_3 + x_d_3 * d + X_3 * beta_3 + Z_3 * alpha_3;
 
   // Computing the vectorized vector of residuals:
   sigma_vec_4 = X_r_4 * sigma_4;
 
+  // Computing the global genetic effect:
+  alpha_4 = (alpha_3 + eta_3_4)
+
   // Computing the expectation of the likelihood function:
-  expectation_4 = mu_4 + x_d_4 * d + X_4 * beta_4 + Z_4 * (alpha_4 + eta_4_5);
+  expectation_4 = mu_4 + x_d_4 * d + X_4 * beta_4 + Z_4 * alpha_4;
 
   // Computing the vectorized vector of residuals:
   sigma_vec_5 = X_r_5 * sigma_5;
 
+  // Computing the global genetic effect:
+  alpha_5 = (alpha_4 + eta_4_5)
+
   // Computing the expectation of the likelihood function:
-  expectation_5 = mu_5 + x_d_5 * d + X_5 * beta_5 + Z_5 * (alpha_5 + eta_5_6);
+  expectation_5 = mu_5 + x_d_5 * d + X_5 * beta_5 + Z_5 * alpha_5;
 
   // Computing the vectorized vector of residuals:
   sigma_vec_6 = X_r_6 * sigma_6;
 
+  // Computing the global genetic effect:
+  alpha_6 = (alpha_5 + eta_5_6)
+
   // Computing the expectation of the likelihood function:
-  expectation_6 = mu_6 + x_d_6 * d + X_6 * beta_6 + Z_6 * (alpha_6);
+  expectation_6 = mu_6 + x_d_6 * d + X_6 * beta_6 + Z_6 * alpha_6;
 
 }
 
@@ -506,27 +500,22 @@ model {
   // Specifying hyperpriors for the second level hyperparameters:
   pi_u_mu_1 ~ cauchy(0,  phi);
   pi_u_beta_1 ~ cauchy(0,  phi);
-  pi_u_alpha_1 ~ cauchy(0,  phi);
 
   pi_s_mu_1 ~ cauchy(0,  phi);
   pi_s_beta_1 ~ cauchy(0,  phi);
-  pi_s_alpha_1 ~ cauchy(0,  phi);
   pi_s_sigma_1 ~ cauchy(0,  phi);
 
   // Specifying hyperpriors for the first level hyperparameters:
   u_mu_1 ~ normal(0, pi_u_mu_1);
   u_beta_1 ~ normal(0, pi_u_beta_1);
-  u_alpha_1 ~ normal(0, pi_u_alpha_1);
 
   s_mu_1 ~ cauchy(0, pi_s_mu_1);
   s_beta_1 ~ cauchy(0, pi_s_beta_1);
-  s_alpha_1 ~ cauchy(0, pi_s_alpha_1);
   s_sigma_1 ~ cauchy(0, pi_s_sigma_1);
 
   // Specifying priors for the parameters:
   mu_1 ~ normal(u_mu_1, s_mu_1);
   beta_1 ~ normal(u_beta_1[index_x_1], s_beta_1[index_x_1]);
-  alpha_1 ~ normal(u_alpha_1, s_alpha_1);
   sigma_1 ~ cauchy(0, s_sigma_1);
 
   // Specifying the likelihood:
@@ -547,27 +536,22 @@ model {
   // Specifying hyperpriors for the second level hyperparameters:
   pi_u_mu_2 ~ cauchy(0,  phi);
   pi_u_beta_2 ~ cauchy(0,  phi);
-  pi_u_alpha_2 ~ cauchy(0,  phi);
 
   pi_s_mu_2 ~ cauchy(0,  phi);
   pi_s_beta_2 ~ cauchy(0,  phi);
-  pi_s_alpha_2 ~ cauchy(0,  phi);
   pi_s_sigma_2 ~ cauchy(0,  phi);
 
   // Specifying hyperpriors for the first level hyperparameters:
   u_mu_2 ~ normal(0, pi_u_mu_2);
   u_beta_2 ~ normal(0, pi_u_beta_2);
-  u_alpha_2 ~ normal(0, pi_u_alpha_2);
 
   s_mu_2 ~ cauchy(0, pi_s_mu_2);
   s_beta_2 ~ cauchy(0, pi_s_beta_2);
-  s_alpha_2 ~ cauchy(0, pi_s_alpha_2);
   s_sigma_2 ~ cauchy(0, pi_s_sigma_2);
 
   // Specifying priors for the parameters:
   mu_2 ~ normal(u_mu_2, s_mu_2);
   beta_2 ~ normal(u_beta_2[index_x_2], s_beta_2[index_x_2]);
-  alpha_2 ~ normal(u_alpha_2, s_alpha_2);
   sigma_2 ~ cauchy(0, s_sigma_2);
 
   // Specifying the likelihood:
@@ -588,27 +572,22 @@ model {
   // Specifying hyperpriors for the second level hyperparameters:
   pi_u_mu_3 ~ cauchy(0,  phi);
   pi_u_beta_3 ~ cauchy(0,  phi);
-  pi_u_alpha_3 ~ cauchy(0,  phi);
 
   pi_s_mu_3 ~ cauchy(0,  phi);
   pi_s_beta_3 ~ cauchy(0,  phi);
-  pi_s_alpha_3 ~ cauchy(0,  phi);
   pi_s_sigma_3 ~ cauchy(0,  phi);
 
   // Specifying hyperpriors for the first level hyperparameters:
   u_mu_3 ~ normal(0, pi_u_mu_3);
   u_beta_3 ~ normal(0, pi_u_beta_3);
-  u_alpha_3 ~ normal(0, pi_u_alpha_3);
 
   s_mu_3 ~ cauchy(0, pi_s_mu_3);
   s_beta_3 ~ cauchy(0, pi_s_beta_3);
-  s_alpha_3 ~ cauchy(0, pi_s_alpha_3);
   s_sigma_3 ~ cauchy(0, pi_s_sigma_3);
 
   // Specifying priors for the parameters:
   mu_3 ~ normal(u_mu_3, s_mu_3);
   beta_3 ~ normal(u_beta_3[index_x_3], s_beta_3[index_x_3]);
-  alpha_3 ~ normal(u_alpha_3, s_alpha_3);
   sigma_3 ~ cauchy(0, s_sigma_3);
 
   // Specifying the likelihood:
@@ -629,27 +608,22 @@ model {
   // Specifying hyperpriors for the second level hyperparameters:
   pi_u_mu_4 ~ cauchy(0,  phi);
   pi_u_beta_4 ~ cauchy(0,  phi);
-  pi_u_alpha_4 ~ cauchy(0,  phi);
 
   pi_s_mu_4 ~ cauchy(0,  phi);
   pi_s_beta_4 ~ cauchy(0,  phi);
-  pi_s_alpha_4 ~ cauchy(0,  phi);
   pi_s_sigma_4 ~ cauchy(0,  phi);
 
   // Specifying hyperpriors for the first level hyperparameters:
   u_mu_4 ~ normal(0, pi_u_mu_4);
   u_beta_4 ~ normal(0, pi_u_beta_4);
-  u_alpha_4 ~ normal(0, pi_u_alpha_4);
 
   s_mu_4 ~ cauchy(0, pi_s_mu_4);
   s_beta_4 ~ cauchy(0, pi_s_beta_4);
-  s_alpha_4 ~ cauchy(0, pi_s_alpha_4);
   s_sigma_4 ~ cauchy(0, pi_s_sigma_4);
 
   // Specifying priors for the parameters:
   mu_4 ~ normal(u_mu_4, s_mu_4);
   beta_4 ~ normal(u_beta_4[index_x_4], s_beta_4[index_x_4]);
-  alpha_4 ~ normal(u_alpha_4, s_alpha_4);
   sigma_4 ~ cauchy(0, s_sigma_4);
 
   // Specifying the likelihood:
@@ -670,27 +644,22 @@ model {
   // Specifying hyperpriors for the second level hyperparameters:
   pi_u_mu_5 ~ cauchy(0,  phi);
   pi_u_beta_5 ~ cauchy(0,  phi);
-  pi_u_alpha_5 ~ cauchy(0,  phi);
 
   pi_s_mu_5 ~ cauchy(0,  phi);
   pi_s_beta_5 ~ cauchy(0,  phi);
-  pi_s_alpha_5 ~ cauchy(0,  phi);
   pi_s_sigma_5 ~ cauchy(0,  phi);
 
   // Specifying hyperpriors for the first level hyperparameters:
   u_mu_5 ~ normal(0, pi_u_mu_5);
   u_beta_5 ~ normal(0, pi_u_beta_5);
-  u_alpha_5 ~ normal(0, pi_u_alpha_5);
 
   s_mu_5 ~ cauchy(0, pi_s_mu_5);
   s_beta_5 ~ cauchy(0, pi_s_beta_5);
-  s_alpha_5 ~ cauchy(0, pi_s_alpha_5);
   s_sigma_5 ~ cauchy(0, pi_s_sigma_5);
 
   // Specifying priors for the parameters:
   mu_5 ~ normal(u_mu_5, s_mu_5);
   beta_5 ~ normal(u_beta_5[index_x_5], s_beta_5[index_x_5]);
-  alpha_5 ~ normal(u_alpha_5, s_alpha_5);
   sigma_5 ~ cauchy(0, s_sigma_5);
 
   // Specifying the likelihood:
@@ -711,27 +680,22 @@ model {
   // Specifying hyperpriors for the second level hyperparameters:
   pi_u_mu_6 ~ cauchy(0,  phi);
   pi_u_beta_6 ~ cauchy(0,  phi);
-  pi_u_alpha_6 ~ cauchy(0,  phi);
 
   pi_s_mu_6 ~ cauchy(0,  phi);
   pi_s_beta_6 ~ cauchy(0,  phi);
-  pi_s_alpha_6 ~ cauchy(0,  phi);
   pi_s_sigma_6 ~ cauchy(0,  phi);
 
   // Specifying hyperpriors for the first level hyperparameters:
   u_mu_6 ~ normal(0, pi_u_mu_6);
   u_beta_6 ~ normal(0, pi_u_beta_6);
-  u_alpha_6 ~ normal(0, pi_u_alpha_6);
 
   s_mu_6 ~ cauchy(0, pi_s_mu_6);
   s_beta_6 ~ cauchy(0, pi_s_beta_6);
-  s_alpha_6 ~ cauchy(0, pi_s_alpha_6);
   s_sigma_6 ~ cauchy(0, pi_s_sigma_6);
 
   // Specifying priors for the parameters:
   mu_6 ~ normal(u_mu_6, s_mu_6);
   beta_6 ~ normal(u_beta_6[index_x_6], s_beta_6[index_x_6]);
-  alpha_6 ~ normal(u_alpha_6, s_alpha_6);
   sigma_6 ~ cauchy(0, s_sigma_6);
 
   // Specifying the likelihood:
