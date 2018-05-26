@@ -75,6 +75,7 @@ structure = "cv1_height"
 # Seed to recover the analysis:
 seed = core
 
+
 #--------------------------------------------Reading data----------------------------------------------------#
 
 # Setting the directory:
@@ -200,10 +201,6 @@ if bool(re.search('PBN', model)):
                  y_1 = y[struc[1]]['trn'].values.flatten(),
                  phi = np.max(y[struc[1]]['trn'].values.flatten())*10)
 
-
-###############################
-
-
 if model=='DBN':
   # DAP indexes:
   tmp = df.dap.drop_duplicates()[1::] \
@@ -300,14 +297,6 @@ if model=='DBN':
                    y_6 = y['120_trn'].values.flatten(),
                    phi = np.max(y['120_trn'].values.flatten())*10)
 
-
-
-
-
-
-###############################
-
-
 # Setting directory:
 os.chdir(prefix_proj + "codes")
 
@@ -333,6 +322,7 @@ fit = dict()
 # Fitting the model:
 fit['trn'] = model_stan.sampling(data=df_stan, chains=4, iter=400, seed=seed)
 
+
 #-----------------------------------------Saving stan outputs------------------------------------------------#
 
 # Setting directory:
@@ -341,5 +331,3 @@ os.chdir(prefix_out + 'outputs/cross_validation/' + model.lower() + "/" + struct
 # Saving stan fit object and model:
 with open("model_fit.pkl", "wb") as f:
     pickle.dump({'model' : model_stan, 'fit' : fit}, f, protocol=-1)
-
-
