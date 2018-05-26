@@ -51,6 +51,8 @@ ${PREFIX_python}/python ${PREFIX_code}/mtrait_cv_bayesian_models.py -c 1 -d "cv1
 
 ${PREFIX_python}/python ${PREFIX_code}/mtrait_cv_bayesian_models.py -c 1 -d "cv1_biomass_starch-cv1_height" -m "PBN1" -cv "CV1" & 
 
+${PREFIX_python}/python ${PREFIX_code}/mtrait_cv_bayesian_models.py -c 0 -d "cv1_height" -m "DBN" -cv "CV1" & 
+
 #-------------------------- For running dnn script -----------------------------------#
 
 ## Biomass analysis:

@@ -65,10 +65,10 @@ model = args.model         # 'DBN' or 'BN' or 'PBN'
 cv = args.cv
 
 # ## Temp:
-core = 0
-model = "DBN"  
-cv = "CV1"
-structure = "cv1_height"
+# core = 0
+# model = "DBN"  
+# cv = "CV1"
+# structure = "cv1_height"
 # structure = "cv1_biomass_drymass-cv1_height"
 # structure = "cv1_biomass_starch-cv1_height"
 
