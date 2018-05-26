@@ -393,7 +393,7 @@ transformed parameters {
   sigma_vec_1 = X_r_1 * sigma_1;
 
   // Computing the global genetic effect:
-  alpha_1 = (alpha_0 + eta_0_1)
+  alpha_1 = (alpha_0 + eta_0_1);
 
   // Computing the expectation of the likelihood function:
   expectation_1 = mu_1 + x_d_1 * d + X_1 * beta_1 + Z_1 * alpha_1;
@@ -402,7 +402,7 @@ transformed parameters {
   sigma_vec_2 = X_r_2 * sigma_2;
 
   // Computing the global genetic effect:
-  alpha_2 = (alpha_1 + eta_1_2)
+  alpha_2 = (alpha_1 + eta_1_2);
 
   // Computing the expectation of the likelihood function:
   expectation_2 = mu_2 + x_d_2 * d + X_2 * beta_2 + Z_2 * alpha_2;
@@ -411,7 +411,7 @@ transformed parameters {
   sigma_vec_3 = X_r_3 * sigma_3;
 
   // Computing the global genetic effect:
-  alpha_3 = (alpha_2 + eta_2_3)
+  alpha_3 = (alpha_2 + eta_2_3);
 
   // Computing the expectation of the likelihood function:
   expectation_3 = mu_3 + x_d_3 * d + X_3 * beta_3 + Z_3 * alpha_3;
@@ -420,7 +420,7 @@ transformed parameters {
   sigma_vec_4 = X_r_4 * sigma_4;
 
   // Computing the global genetic effect:
-  alpha_4 = (alpha_3 + eta_3_4)
+  alpha_4 = (alpha_3 + eta_3_4);
 
   // Computing the expectation of the likelihood function:
   expectation_4 = mu_4 + x_d_4 * d + X_4 * beta_4 + Z_4 * alpha_4;
@@ -429,7 +429,7 @@ transformed parameters {
   sigma_vec_5 = X_r_5 * sigma_5;
 
   // Computing the global genetic effect:
-  alpha_5 = (alpha_4 + eta_4_5)
+  alpha_5 = (alpha_4 + eta_4_5);
 
   // Computing the expectation of the likelihood function:
   expectation_5 = mu_5 + x_d_5 * d + X_5 * beta_5 + Z_5 * alpha_5;
@@ -438,7 +438,7 @@ transformed parameters {
   sigma_vec_6 = X_r_6 * sigma_6;
 
   // Computing the global genetic effect:
-  alpha_6 = (alpha_5 + eta_5_6)
+  alpha_6 = (alpha_5 + eta_5_6);
 
   // Computing the expectation of the likelihood function:
   expectation_6 = mu_6 + x_d_6 * d + X_6 * beta_6 + Z_6 * alpha_6;
