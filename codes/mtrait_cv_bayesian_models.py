@@ -299,7 +299,7 @@ if model=="BN":
   if bool(re.search('biomass', structure)):
     model_stan = ps.StanModel(file='bayesian_network.stan')
   if bool(re.search('height', structure)):
-    model_stan = ps.StanModel(file='bayesian_network.stan')
+    model_stan = ps.StanModel(file='bayesian_network_without_mu.stan')
 
 if model=="PBN0":
   # Compiling the C++ code for the model:
