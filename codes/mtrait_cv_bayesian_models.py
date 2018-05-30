@@ -296,7 +296,10 @@ os.chdir(prefix_proj + "codes")
 
 if model=="BN":
   # Compiling the C++ code for the model:
-  model_stan = ps.StanModel(file='multi_trait.stan')
+  if bool(re.search('biomass', structure)):
+    model_stan = ps.StanModel(file='bayesian_network.stan')
+  if bool(re.search('height', structure)):
+    model_stan = ps.StanModel(file='bayesian_network.stan')
 
 if model=="PBN0":
   # Compiling the C++ code for the model:

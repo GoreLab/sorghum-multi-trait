@@ -7,13 +7,11 @@ import matplotlib
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
-import itertools
 import seaborn as sns
 
 import os
 
 import tensorflow as tf
-import pystan as ps
 import subprocess
 import dill
 import time

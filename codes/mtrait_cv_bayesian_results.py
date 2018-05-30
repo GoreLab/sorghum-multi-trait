@@ -71,7 +71,7 @@ args = parser.parse_args()
 
 ## Temp:
 core = 0
-model = "DBN"
+model = "BN"
 cv = "CV1"
 structure = "cv1_height"
 # structure = "cv1_biomass_drymass-cv1_height"
@@ -176,6 +176,12 @@ if model=='BN':
 	y_pred['trn'] = outs['mu'].mean(axis=0) + X['trn'].dot(outs['beta'].mean(axis=0))
 	y_pred['dev'] = outs['mu'].mean(axis=0) + X['dev'].dot(outs['beta'].mean(axis=0))
 	y_pred['tst'] = outs['mu'].mean(axis=0) + X['tst'].dot(outs['beta'].mean(axis=0))
+	# index = X['trn'].columns.str.contains('bin')
+	# y_pred['trn'] = outs['mu'].mean(axis=0) + X['trn'].loc[:, index].dot(outs['beta'].mean(axis=0)[index])
+	# index = X['dev'].columns.str.contains('bin')
+	# y_pred['dev'] = outs['mu'].mean(axis=0) + X['dev'].loc[:, index].dot(outs['beta'].mean(axis=0)[index])
+	# index = X['tst'].columns.str.contains('bin')
+	# y_pred['tst'] = outs['mu'].mean(axis=0) + X['tst'].loc[:, index].dot(outs['beta'].mean(axis=0)[index])
 
 if bool(re.search('PBN', model)):
 	y_pred = dict()
@@ -203,14 +209,17 @@ if model=='DBN':
 	      .tolist()
 	for t in range(len(tmp)):
 		# Getting posterior mean of the parameters:
-		mu_tmp = outs['mu_' + str(t)].mean(axis=0)
 		beta_tmp = outs['beta_' + str(t)].mean(axis=0)
 		alpha_tmp = outs['alpha_' + str(t)].mean(axis=0)
 		d_tmp = outs['d'].mean(axis=0)
 		# Computing predictions for train, dev, and test sets:
-		y_pred[tmp[t] + '_trn'] = mu_tmp + X[tmp[t] + '_nobin_trn']['dap'] * d_tmp + X[tmp[t] + '_nobin_trn'].drop('dap',axis=1).dot(beta_tmp) + X[tmp[t] + '_bin_trn'].dot(alpha_tmp)
-		y_pred[tmp[t] + '_dev'] = mu_tmp + X[tmp[t] + '_nobin_dev']['dap'] * d_tmp + X[tmp[t] + '_nobin_dev'].drop('dap',axis=1).dot(beta_tmp) + X[tmp[t] + '_bin_dev'].dot(alpha_tmp)
-		y_pred[tmp[t] + '_tst'] = mu_tmp + X[tmp[t] + '_nobin_tst']['dap'] * d_tmp + X[tmp[t] + '_nobin_tst'].drop('dap',axis=1).dot(beta_tmp) + X[tmp[t] + '_bin_tst'].dot(alpha_tmp)
+		y_pred[tmp[t] + '_trn'] = X[tmp[t] + '_nobin_trn']['dap'] * d_tmp + X[tmp[t] + '_nobin_trn'].drop('dap',axis=1).dot(beta_tmp) + X[tmp[t] + '_bin_trn'].dot(alpha_tmp)
+		y_pred[tmp[t] + '_dev'] = X[tmp[t] + '_nobin_dev']['dap'] * d_tmp + X[tmp[t] + '_nobin_dev'].drop('dap',axis=1).dot(beta_tmp) + X[tmp[t] + '_bin_dev'].dot(alpha_tmp)
+		y_pred[tmp[t] + '_tst'] = X[tmp[t] + '_nobin_tst']['dap'] * d_tmp + X[tmp[t] + '_nobin_tst'].drop('dap',axis=1).dot(beta_tmp) + X[tmp[t] + '_bin_tst'].dot(alpha_tmp)
+		# # Computing predictions for train, dev, and test sets:
+		# y_pred[tmp[t] + '_trn'] = X[tmp[t] + '_nobin_trn']['dap'] * d_tmp + X[tmp[t] + '_bin_trn'].dot(alpha_tmp)
+		# y_pred[tmp[t] + '_dev'] = X[tmp[t] + '_nobin_dev']['dap'] * d_tmp + X[tmp[t] + '_bin_dev'].dot(alpha_tmp)
+		# y_pred[tmp[t] + '_tst'] = X[tmp[t] + '_nobin_tst']['dap'] * d_tmp + X[tmp[t] + '_bin_tst'].dot(alpha_tmp)
 
 # Computing metrics:
 if model=='BN':
@@ -263,11 +272,11 @@ if model=='DBN':
 		tmp = project(y_pred, index)
 		y_pred_tmp = np.concatenate([tmp[x] for x in tmp], 0)
 		# Printing rMSE:
-		round(rmse(y_obs_tmp, y_pred_tmp), 4)
-		# # Printing pearsonr:
-		# round(pearsonr(y_obs_tmp, y_pred_tmp)[0], 4)
-		# # Printing r2:
-		# round(r2_score(y_obs_tmp, y_pred_tmp), 4)
+		round(rmse(y_obs_tmp.flatten(), y_pred_tmp), 4)
+		# Printing pearsonr:
+		round(pearsonr(y_obs_tmp.flatten(), y_pred_tmp)[0], 4)
+		# Printing r2:
+		round(r2_score(y_obs_tmp.flatten(), y_pred_tmp), 4)
 
 # Density plots of different data types:
 sns.set_style('whitegrid')
@@ -356,7 +365,7 @@ plt.show()
 
 
 
-lamb=2.5
+lamb=4
 
 indicator = np.empty(outs['z'].shape)
 indicator[:] = np.nan
