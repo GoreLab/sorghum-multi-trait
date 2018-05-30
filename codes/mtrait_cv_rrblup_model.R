@@ -344,7 +344,7 @@ index = str_detect(colnames(X_tmp),paste(c('loc','year', 'dap', 'bin'),collapse=
 X_tmp = X_tmp[, index]
 
 # Fitting the rrBLUP model for the bin matrix:
-fit[[paste0('onestep_', sets[1])]] = mixed.solve(y=y_tmp, Z=X_tmp)
+fit[[paste0('onestep_', sets[1])]] = mixed.solve(y=y_tmp, X=as.matrix(X_tmp[,1]), Z=X_tmp[,-1])
 
 for (i in sets) {
 
@@ -355,7 +355,7 @@ for (i in sets) {
 	X_tmp = X_tmp[, index]
 
 	# Computing predictions:
-	y_pred[[i]] = as.numeric(fit[[paste0('onestep_', sets[1])]]$beta) + X_tmp %*% fit[[paste0('onestep_', sets[1])]]$u
+	y_pred[[i]] = as.matrix(X_tmp[,1]) * as.numeric(fit[[paste0('onestep_', sets[1])]]$beta) + X_tmp[,-1] %*% fit[[paste0('onestep_', sets[1])]]$u
 
 }
 
