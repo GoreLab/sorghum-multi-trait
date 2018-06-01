@@ -73,7 +73,7 @@ args = parser.parse_args()
 core = 0
 model = "BN"
 cv = "CV1"
-structure = "cv1_height"
+structure = "cv1_biomass_drymass"
 # structure = "cv1_biomass_drymass-cv1_height"
 
 # Seed to recover the analysis:
@@ -172,32 +172,39 @@ outs = fit['trn'].extract()
 # Getting the predictions:
 if model=='BN':
 	# Getting the predictions:
-	y_pred = dict()
-	y_pred['trn'] = outs['mu'].mean(axis=0) + X['trn'].dot(outs['beta'].mean(axis=0))
-	y_pred['dev'] = outs['mu'].mean(axis=0) + X['dev'].dot(outs['beta'].mean(axis=0))
-	y_pred['tst'] = outs['mu'].mean(axis=0) + X['tst'].dot(outs['beta'].mean(axis=0))
-	# index = X['trn'].columns.str.contains('bin')
-	# y_pred['trn'] = outs['mu'].mean(axis=0) + X['trn'].loc[:, index].dot(outs['beta'].mean(axis=0)[index])
-	# index = X['dev'].columns.str.contains('bin')
-	# y_pred['dev'] = outs['mu'].mean(axis=0) + X['dev'].loc[:, index].dot(outs['beta'].mean(axis=0)[index])
-	# index = X['tst'].columns.str.contains('bin')
-	# y_pred['tst'] = outs['mu'].mean(axis=0) + X['tst'].loc[:, index].dot(outs['beta'].mean(axis=0)[index])
+	if bool(re.search('height', structure)):
+		y_pred = dict()
+		y_pred['trn'] = X['trn'].dot(outs['beta'].mean(axis=0))
+		y_pred['dev'] = X['dev'].dot(outs['beta'].mean(axis=0))
+		y_pred['tst'] = X['tst'].dot(outs['beta'].mean(axis=0))
+	else:
+		y_pred = dict()
+		y_pred['trn'] = outs['mu'].mean(axis=0) + X['trn'].dot(outs['beta'].mean(axis=0))
+		y_pred['dev'] = outs['mu'].mean(axis=0) + X['dev'].dot(outs['beta'].mean(axis=0))
+		y_pred['tst'] = outs['mu'].mean(axis=0) + X['tst'].dot(outs['beta'].mean(axis=0))
 
 if bool(re.search('PBN', model)):
 	y_pred = dict()
 	for i in range(len(struc)):
 		# Getting posterior mean of the parameters:
-		mu_tmp = outs['mu_' + str(i)].mean(axis=0)
+		if i == 0:
+			mu_tmp = outs['mu_' + str(i)].mean(axis=0)
 		beta_tmp = outs['beta_' + str(i)].mean(axis=0)
 		alpha_tmp = outs['alpha_' + str(i)].mean(axis=0)
 		if model == "PBN0":
 			eta_tmp = outs['eta'].mean(axis=0)
 		if model == "PBN1":
 			eta_tmp = outs['eta_' + str(i)].mean(axis=0)
-		# Computing predictions for train, dev, and test sets:
-		y_pred[struc[i] + '_trn'] = mu_tmp + X[struc[i]]['nobin_trn'].dot(beta_tmp) + X[struc[i]]['bin_trn'].dot(alpha_tmp + eta_tmp)
-		y_pred[struc[i] + '_dev'] = mu_tmp + X[struc[i]]['nobin_dev'].dot(beta_tmp) + X[struc[i]]['bin_dev'].dot(alpha_tmp + eta_tmp)
-		y_pred[struc[i] + '_tst'] = mu_tmp + X[struc[i]]['nobin_tst'].dot(beta_tmp) + X[struc[i]]['bin_tst'].dot(alpha_tmp + eta_tmp)
+		if i == 0:
+			# Computing predictions for train, dev, and test sets:
+			y_pred[struc[i] + '_trn'] = mu_tmp + X[struc[i]]['nobin_trn'].dot(beta_tmp) + X[struc[i]]['bin_trn'].dot(alpha_tmp + eta_tmp)
+			y_pred[struc[i] + '_dev'] = mu_tmp + X[struc[i]]['nobin_dev'].dot(beta_tmp) + X[struc[i]]['bin_dev'].dot(alpha_tmp + eta_tmp)
+			y_pred[struc[i] + '_tst'] = mu_tmp + X[struc[i]]['nobin_tst'].dot(beta_tmp) + X[struc[i]]['bin_tst'].dot(alpha_tmp + eta_tmp)
+		if i == 1:
+			# Computing predictions for train, dev, and test sets:
+			y_pred[struc[i] + '_trn'] = X[struc[i]]['nobin_trn'].dot(beta_tmp) + X[struc[i]]['bin_trn'].dot(alpha_tmp + eta_tmp)
+			y_pred[struc[i] + '_dev'] = X[struc[i]]['nobin_dev'].dot(beta_tmp) + X[struc[i]]['bin_dev'].dot(alpha_tmp + eta_tmp)
+			y_pred[struc[i] + '_tst'] = X[struc[i]]['nobin_tst'].dot(beta_tmp) + X[struc[i]]['bin_tst'].dot(alpha_tmp + eta_tmp)
 
 if model=='DBN':
 	# Getting the predictions:
@@ -216,10 +223,6 @@ if model=='DBN':
 		y_pred[tmp[t] + '_trn'] = X[tmp[t] + '_nobin_trn']['dap'] * d_tmp + X[tmp[t] + '_nobin_trn'].drop('dap',axis=1).dot(beta_tmp) + X[tmp[t] + '_bin_trn'].dot(alpha_tmp)
 		y_pred[tmp[t] + '_dev'] = X[tmp[t] + '_nobin_dev']['dap'] * d_tmp + X[tmp[t] + '_nobin_dev'].drop('dap',axis=1).dot(beta_tmp) + X[tmp[t] + '_bin_dev'].dot(alpha_tmp)
 		y_pred[tmp[t] + '_tst'] = X[tmp[t] + '_nobin_tst']['dap'] * d_tmp + X[tmp[t] + '_nobin_tst'].drop('dap',axis=1).dot(beta_tmp) + X[tmp[t] + '_bin_tst'].dot(alpha_tmp)
-		# # Computing predictions for train, dev, and test sets:
-		# y_pred[tmp[t] + '_trn'] = X[tmp[t] + '_nobin_trn']['dap'] * d_tmp + X[tmp[t] + '_bin_trn'].dot(alpha_tmp)
-		# y_pred[tmp[t] + '_dev'] = X[tmp[t] + '_nobin_dev']['dap'] * d_tmp + X[tmp[t] + '_bin_dev'].dot(alpha_tmp)
-		# y_pred[tmp[t] + '_tst'] = X[tmp[t] + '_nobin_tst']['dap'] * d_tmp + X[tmp[t] + '_bin_tst'].dot(alpha_tmp)
 
 # Computing metrics:
 if model=='BN':
@@ -365,7 +368,7 @@ plt.show()
 
 
 
-lamb=4
+lamb=3
 
 indicator = np.empty(outs['z'].shape)
 indicator[:] = np.nan

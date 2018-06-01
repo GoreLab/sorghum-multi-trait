@@ -315,7 +315,7 @@ t_e_bin = tmp[1]
 T = None
 
 # Averaging over the data structure except the factors evaluated in the multi trait project
-df = df.groupby(['id_gbs', 'loc', 'year', 'trait', 'dap'], as_index=False).mean()
+df = df.groupby(['id_gbs', 'block', 'loc', 'year', 'trait', 'dap'], as_index=False).mean()
 
 # Removing the DAP values from biomass, DAP values were taken only for plant height:
 index = ((df.trait == 'biomass') & (df.dap == 120)) | (df.trait == 'height')
