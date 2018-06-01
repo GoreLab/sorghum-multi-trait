@@ -325,39 +325,46 @@ df = df[index]
 index = (df.trait == 'biomass') & (df.dap == 120)
 df.dap[index] = np.nan
 
-# Computing the mean of the numeric features:
-tmp = df[df.trait == 'biomass'].mean()
+# # Computing the mean of the numeric features:
+# tmp = df[df.trait == 'biomass'].mean()
 
-# Imputing adp:
-index = (df.trait == 'biomass') & df.adf.isnull()
-df.adf[index] = np.repeat(tmp['adf'], np.sum(index))
+# # Imputing adp:
+# index = (df.trait == 'biomass') & df.adf.isnull()
+# df.adf[index] = np.repeat(tmp['adf'], np.sum(index))
 
-# Imputing moisture:
-index = (df.trait == 'biomass') & df.moisture.isnull()
-df.moisture[index] = np.repeat(tmp['moisture'], np.sum(index))
+# # Imputing moisture:
+# index = (df.trait == 'biomass') & df.moisture.isnull()
+# df.moisture[index] = np.repeat(tmp['moisture'], np.sum(index))
 
-# Imputing ndf:
-index = (df.trait == 'biomass') & df.ndf.isnull()
-df.ndf[index] = np.repeat(tmp['ndf'], np.sum(index))
+# # Imputing ndf:
+# index = (df.trait == 'biomass') & df.ndf.isnull()
+# df.ndf[index] = np.repeat(tmp['ndf'], np.sum(index))
 
-# Imputing protein:
-index = (df.trait == 'biomass') & df.protein.isnull()
-df.protein[index] = np.repeat(tmp['protein'], np.sum(index))
+# # Imputing protein:
+# index = (df.trait == 'biomass') & df.protein.isnull()
+# df.protein[index] = np.repeat(tmp['protein'], np.sum(index))
 
-# Imputing starch:
-index = (df.trait == 'biomass') & df.starch.isnull()
-df.starch[index] = np.repeat(tmp['starch'], np.sum(index))
+# # Imputing starch:
+# index = (df.trait == 'biomass') & df.starch.isnull()
+# df.starch[index] = np.repeat(tmp['starch'], np.sum(index))
 
 # Removing the range column, it will not be used into the analysis:
 df = df.drop('range', axis=1)
 
-# Traits list:
-tmp = ['adf', 'drymass', 'moisture', 'ndf', 'protein', 'starch', 'height']
+# # Traits list:
+# tmp = ['adf', 'drymass', 'moisture', 'ndf', 'protein', 'starch', 'height']
 
-# Reordering the columns of the data frame:
-tmp = df.columns.tolist()
-tmp = tmp[0:5] + [tmp[5]] + tmp[7:11] + [tmp[6]] + [tmp[-1]]
-df = df[tmp]
+# # Reordering the columns of the data frame:
+# tmp = df.columns.tolist()
+# tmp = tmp[0:5] + [tmp[5]] + tmp[7:11] + [tmp[6]] + [tmp[-1]]
+# df = df[tmp]
+
+# Getting just the features used in the paper:
+df = df[['id_gbs', 'block', 'loc', 'year', 'trait', 'dap', 'drymass', 'height']]
+
+# Changing traits codification:
+df.trait[df.trait == 'biomass'] = 'DM'
+df.trait[df.trait == 'height'] = 'PH'
 
 # Changing the indexes of the data frame:
 df.index = range(df.shape[0]) 
