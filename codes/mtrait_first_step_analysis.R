@@ -8,6 +8,7 @@ library(tidyr)
 library(magrittr)
 library(stringr)
 library(Matrix)
+library(qdapTools)
 
 # Library for data analysis:
 library(lme4)
@@ -110,6 +111,29 @@ for (i in dap_groups) {
 
 }
 
+# Transform list to data frame:
+g = qdapTools::list_vect2df(g, col1 = "trait", col2 = "id_gbs", col3 = "y_hat")
+
+# Split the trait columns into trait and DAP:
+trait_groups = g$trait %>% str_split(., pattern="_", simplify = TRUE)
+
+# Adding the new columns of trait and DAP to the data frame:
+g = g %>% select(-trait) %>% cbind(.,trait_groups)
+colnames(g) = c('id_gbs', 'y_hat', 'trait', 'dap')
+
+# Adding NA to the missing entries of dry mass:
+g$dap = g$dap %>% as.character()
+g$dap[g$dap == ""] = "NA"
+g$dap = g$dap %>% as.factor()
+	
+# Getting just the name of the lines:
+id_gbs_groups = g$id_gbs %>% as.character %>% str_split(., pattern="gbs", simplify=TRUE)
+
+# Adding to the data frame only the name of the lines and changing classes:
+g$id_gbs = id_gbs_groups[,2] %>% as.factor
+g$trait = g$trait %>% as.factor
+g$dap = g$dap %>% as.factor
+g = g[,c("id_gbs", "trait", "dap", "y_hat")]
 
 #---------------------------------------------Saving outputs-------------------------------------------------#
 
@@ -118,8 +142,11 @@ setwd(paste0(prefix_out, "outputs/first_step_analysis"))
 
 # Saving results:
 for (i in ls(metrics)) write.csv(metrics[i], file=paste0("metrics~", i, ".csv"))
-for (i in ls(g)) write.csv(g[i], file=paste0("g~", i, ".csv"))
+write.csv(g, file=paste0("adjusted_means.csv"))
 
 # Saving RData:
 save.image("mtrait_first_step_analysis.RData")
 
+# # # Loading data:
+# setwd(paste0(prefix_out, "outputs/first_step_analysis"))
+# load("mtrait_first_step_analysis.RData")
