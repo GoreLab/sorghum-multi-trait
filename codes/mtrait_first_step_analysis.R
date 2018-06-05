@@ -45,6 +45,10 @@ df$height = df$height %>% as.numeric
 # Getting the group levels of the day after plantting (DAP) measures:
 dap_groups = df$dap %>% unique %>% na.omit %>% as.integer
 
+# Creating a new column combing location and years:
+df$env <- paste0(as.character(df$loc), "_",as.character(df$year))
+df$env <- df$env %>% as.factor()
+
 # Creating a list to receive the first stage results:
 fit = list()
 metrics = list()
@@ -62,12 +66,10 @@ df_tmp = df[df$trait == "DM"]
 # Dropping levels not present in the data subset:
 df_tmp$id_gbs = df_tmp$id_gbs %>% droplevels
 df_tmp$block = df_tmp$block %>% droplevels
-df_tmp$loc = df_tmp$loc %>% droplevels
-df_tmp$year = df_tmp$year %>% droplevels
-df_tmp$trait = df_tmp$trait %>% droplevels
+df_tmp$env = df_tmp$env %>% droplevels
 
 # Fitting the model:
-fit[[index]] = lmer(drymass ~ 1 + id_gbs + (1|block:loc) + (1|loc) + (1|year) + (1|id_gbs:loc) + (1|id_gbs:year), data=df_tmp)
+fit[[index]] = lmer(drymass ~ 1 + id_gbs + (1|block:env) + (1|env) + (1|id_gbs:env), data=df_tmp)
 
 # Getting the metrics to evaluate model performance:
 metrics[["drymass-var"]] = re_var(fit[[index]]) %>% data.matrix
@@ -91,12 +93,10 @@ for (i in dap_groups) {
 	# Dropping levels not present in the data subset:
 	df_tmp$id_gbs = df_tmp$id_gbs %>% droplevels
 	df_tmp$block = df_tmp$block %>% droplevels
-	df_tmp$loc = df_tmp$loc %>% droplevels
-	df_tmp$year = df_tmp$year %>% droplevels
-	df_tmp$trait = df_tmp$trait %>% droplevels
+	df_tmp$env = df_tmp$env %>% droplevels
 
 	# Fitting the model:
-	fit[[index]] = lmer(height ~ 1 + id_gbs + (1|block:loc) + (1|loc) + (1|year) + (1|id_gbs:loc) + (1|id_gbs:year), data=df_tmp)
+	fit[[index]] = lmer(height ~ 1 + id_gbs + (1|block:env) + (1|env) + (1|id_gbs:env), data=df_tmp)
 
 	# Getting the metrics to evaluate model performance:
 	metrics[[paste0(index, "-var")]] = re_var(fit[[index]]) %>% data.matrix
@@ -135,6 +135,7 @@ g$trait = g$trait %>% as.factor
 g$dap = g$dap %>% as.factor
 g = g[,c("id_gbs", "trait", "dap", "y_hat")]
 
+
 #---------------------------------------------Saving outputs-------------------------------------------------#
 
 # Setting directory:
@@ -150,3 +151,4 @@ save.image("mtrait_first_step_analysis.RData")
 # # # Loading data:
 # setwd(paste0(prefix_out, "outputs/first_step_analysis"))
 # load("mtrait_first_step_analysis.RData")
+
