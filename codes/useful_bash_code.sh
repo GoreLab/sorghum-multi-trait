@@ -1,3 +1,48 @@
+###----------------------------- New Scripts -----------------------------------------#
+
+
+#--------------------------- To process raw data--------------------------------------#
+
+# Prefix python:
+PREFIX_python=/workdir/jp2476/software/python/bin
+
+# Prefix code:
+PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
+
+# Firing the process:
+${PREFIX_python}/python ${PREFIX_code}/mtrait_data_processing.py & 
+
+#--------------------- To perform first stage analysis--------------------------------#
+
+# Prefix code:
+PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
+
+# Firing the process:
+Rscript ${PREFIX_code}/mtrait_first_step_analysis.R & 
+
+#----------------- To plot results from first stage analysis--------------------------------#
+
+# Prefix python:
+PREFIX_python=/workdir/jp2476/software/python/bin
+
+# Prefix code:
+PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
+
+# Firing the process:
+${PREFIX_python}/python ${PREFIX_code}/mtrait_first_step_analysis_plots.py & 
+
+
+
+
+
+
+
+
+
+
+
+
+###----------------------------- Old Scripts -----------------------------------------#
 
 #--------------------------- To process raw data--------------------------------------#
 
@@ -26,7 +71,6 @@ ${PREFIX_python}/python ${PREFIX_code}/mtrait_cv_data.py -cv "CV2.30~60" &
 ${PREFIX_python}/python ${PREFIX_code}/mtrait_cv_data.py -cv "CV2.30~75" & 
 ${PREFIX_python}/python ${PREFIX_code}/mtrait_cv_data.py -cv "CV2.30~90" & 
 ${PREFIX_python}/python ${PREFIX_code}/mtrait_cv_data.py -cv "CV2.30~105" & 
-
 
 #---------------------------- To run bayesian models--------------------------------------#
 

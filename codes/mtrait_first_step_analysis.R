@@ -72,9 +72,7 @@ df_tmp$env = df_tmp$env %>% droplevels
 fit[[index]] = lmer(drymass ~ 1 + id_gbs + (1|block:env) + (1|env) + (1|id_gbs:env), data=df_tmp)
 
 # Getting the metrics to evaluate model performance:
-metrics[["drymass-var"]] = re_var(fit[[index]]) %>% data.matrix
 metrics[["drymass-cv"]] = cv(fit[[index]]) %>% data.matrix
-metrics[["drymass-icc"]] = icc(fit[[index]]) %>% data.matrix
 
 # Storing the corrected mean:
 g[[index]] = fixef(fit[[index]])[1] + fixef(fit[[index]])[-1]
@@ -99,9 +97,7 @@ for (i in dap_groups) {
 	fit[[index]] = lmer(height ~ 1 + id_gbs + (1|block:env) + (1|env) + (1|id_gbs:env), data=df_tmp)
 
 	# Getting the metrics to evaluate model performance:
-	metrics[[paste0(index, "-var")]] = re_var(fit[[index]]) %>% data.matrix
 	metrics[[paste0(index, "-cv")]] = cv(fit[[index]]) %>% data.matrix
-	metrics[[paste0(index, "-icc")]] = icc(fit[[index]]) %>% data.matrix
 
 	# Storing the corrected mean:
 	g[[index]] = fixef(fit[[index]])[1] + fixef(fit[[index]])[-1]
