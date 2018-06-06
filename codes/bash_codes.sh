@@ -9,8 +9,7 @@ PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
 # Firing the process:
 ${PREFIX_python}/python ${PREFIX_code}/mtrait_data_processing.py & 
 
-
-#------------------------To execute first step analysis-------------------------------#
+#--------------------- To perform first stage analysis--------------------------------#
 
 # Prefix code:
 PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
@@ -18,6 +17,16 @@ PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
 # Firing the process:
 Rscript ${PREFIX_code}/mtrait_first_step_analysis.R & 
 
+#----------------- To plot results from first stage analysis--------------------------------#
+
+# Prefix python:
+PREFIX_python=/workdir/jp2476/software/python/bin
+
+# Prefix code:
+PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
+
+# Firing the process:
+${PREFIX_python}/python ${PREFIX_code}/mtrait_first_step_analysis_plots.py & 
 
 #-------------------------- Install python locally -----------------------------------#
 
