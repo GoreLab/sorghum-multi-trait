@@ -66,14 +66,29 @@ for trn, tst in index:
 # Creating dictionary with the data from the first cross-validation scheme:
 y = dict()
 X = dict()
+
+# Creating different sets:
+
+
+# Building the sets of the data:
 for t in df.trait.unique():
 	for i in range(n_fold):
-		y[t + '_k' + i] = df.y_hat[df.id_gbs==trn_index[i]]
+		# Logical vector for indexation:
+		index = df.id_gbs.isin(trn_index[i]) & (df.trait==t)
+		if t == 'drymass':
+			# Building the response vector:
+			y[t + '_k' + str(i)] = df.y_hat[index]
+			X[t + '_k' + str(i)] = W_bin.loc[trn_index[i]]
+		if t == 'height':
+			# Building the response vector:
+			y[t + '_k' + str(i)] = df.y_hat[index]
+			# Building marker binned feature matrix:
+			X[t + '_k' + str(i)] = pd.get_dummies(df['id_gbs'][index]) \
+				  .dot(W_bin.loc[trn_index[i]])
+			# Adding DAP measures to the feature matrix:
+			X[t + '_k' + str(i)] = pd.concat([df.dap[index], X[t + '_k' + str(i)]],axis=1)
 
 
-####3
-
-
-tmp = pd.get_dummies(df.id_gbs[df.trait=='height'])
-
-X['height'] = pd.concat([X['height'], tmp.dot(W_bin.loc[tmp.columns.tolist()])], axis=1)
+## To do list:
+# - Fix index of the feature matrix
+# - Add test set to the above code too
