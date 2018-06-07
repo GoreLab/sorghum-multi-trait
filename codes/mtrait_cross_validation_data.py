@@ -43,6 +43,9 @@ os.chdir(prefix_out + "data")
 # Reading marker binned matrix:
 W_bin = pd.read_csv("W_bin.csv", header = 0, index_col=0)
 
+# Filtering just rows of the marker matrix which we have phenotypes:
+W_bin = W_bin.loc[df.id_gbs.unique()]
+
 #--------------------------Splitting data into groups for 5th-fold cross-validation--------------------------#
 
 # Number of folds:
@@ -67,28 +70,31 @@ for trn, tst in index:
 y = dict()
 X = dict()
 
+# Building the feature matrix using all data set entries:
+X_all = pd.get_dummies(df['id_gbs']) 
+X_all = X_all.dot(W_bin.loc[X_all.columns])
+X_all = pd.concat([df.dap, X_all], axis=1)
+
 # Creating different sets:
+sets = ['trn', 'tst']
+
+# Building the sets of the data for the CV1 scheme:
+for s in sets:
+	for t in df.trait.unique():
+		for i in range(n_fold):
+			if s == 'trn':
+				# Logical vector for indexation:
+				index = df.id_gbs.isin(trn_index[i]) & (df.trait==t)
+			if s == 'tst':
+				# Logical vector for indexation:
+				index = df.id_gbs.isin(tst_index[i]) & (df.trait==t)
+			# Building the response vector for the subset of data:
+			y[t + '_k' + str(i) + '_' + s] = df.y_hat[index]
+			# Building feature matrix for the subset of data:
+			X[t + '_k' + str(i) + '_' + s] = X_all[index]
+			if t == 'drymass':
+				X[t + '_k' + str(i) + '_' + s] = X[t + '_k' + str(i) + '_' + s].drop('dap', axis=1)
 
 
-# Building the sets of the data:
-for t in df.trait.unique():
-	for i in range(n_fold):
-		# Logical vector for indexation:
-		index = df.id_gbs.isin(trn_index[i]) & (df.trait==t)
-		if t == 'drymass':
-			# Building the response vector:
-			y[t + '_k' + str(i)] = df.y_hat[index]
-			X[t + '_k' + str(i)] = W_bin.loc[trn_index[i]]
-		if t == 'height':
-			# Building the response vector:
-			y[t + '_k' + str(i)] = df.y_hat[index]
-			# Building marker binned feature matrix:
-			X[t + '_k' + str(i)] = pd.get_dummies(df['id_gbs'][index]) \
-				  .dot(W_bin.loc[trn_index[i]])
-			# Adding DAP measures to the feature matrix:
-			X[t + '_k' + str(i)] = pd.concat([df.dap[index], X[t + '_k' + str(i)]],axis=1)
 
 
-## To do list:
-# - Fix index of the feature matrix
-# - Add test set to the above code too
