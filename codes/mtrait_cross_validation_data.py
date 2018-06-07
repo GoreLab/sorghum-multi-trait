@@ -93,7 +93,8 @@ for s in sets:
 			# Building feature matrix for the subset of data:
 			X[t + '_k' + str(i) + '_' + s] = X_all[index]
 			if t == 'drymass':
-				X[t + '_k' + str(i) + '_' + s] = X[t + '_k' + str(i) + '_' + s].drop('dap', axis=1)
+				X[t + '_k' + str(i) + '_' + s] = X[t + '_k' + str(i) + '_' + s].replace(to_replace=0, value=1) \
+																			   .rename(columns={'dap': 'mu_index'})
 
 
 
