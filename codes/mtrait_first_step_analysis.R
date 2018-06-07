@@ -147,4 +147,3 @@ save.image("mtrait_first_step_analysis.RData")
 # # Loading data:
 # setwd(paste0(prefix_out, "outputs/first_step_analysis"))
 # load("mtrait_first_step_analysis.RData")
-

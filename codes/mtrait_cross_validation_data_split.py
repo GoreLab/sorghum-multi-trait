@@ -94,7 +94,7 @@ for s in sets:
 										   .rename(columns={'dap': 'mu_index'})
 
 # Name of the CV2 schemes:
-cv2_types = ['cv2.30-45', 'cv2.30-60', 'cv2.30-75', 'cv2.30-90', 'cv2.30-105']
+cv2_types = ['cv2-30~45', 'cv2-30~60', 'cv2-30~75', 'cv2-30~90', 'cv2-30~105']
 
 # Building the sets of the data for the CV2 schemes:
 for c in cv2_types:
@@ -104,7 +104,7 @@ for c in cv2_types:
 				# Key index for building the dictionary:
 				key_index = c + '_height_k' + str(i) + '_' + s
 				# Getting the upper index of the dap:
-				upper_index = int(c.split('-')[1])
+				upper_index = int(c.split('~')[1])
 				if s == 'trn':
 					# Logical vector for indexation:
 					index = df.id_gbs.isin(trn_index[i]) & (df.trait=='height') & (df.dap<=upper_index)
