@@ -1,16 +1,10 @@
 
 #------------------------------------------------Modules-----------------------------------------------------#
 
-## Loading libraries:
-import matplotlib
-import matplotlib.pyplot as plt
+# Loading libraries:
 import pandas as pd
 import numpy as np
-import itertools
-import seaborn as sns
-
 import os
-
 from sklearn.model_selection import KFold
 
 # Prefix of the directory of the project is in:
@@ -43,8 +37,9 @@ os.chdir(prefix_out + "data")
 # Reading marker binned matrix:
 W_bin = pd.read_csv("W_bin.csv", header = 0, index_col=0)
 
-# Filtering just rows of the marker matrix which we have phenotypes:
+# Filtering just rows of the marker matrix that we have phenotypes:
 W_bin = W_bin.loc[df.id_gbs.unique()]
+
 
 #--------------------------Splitting data into groups for 5th-fold cross-validation--------------------------#
 
@@ -121,6 +116,13 @@ for c in cv2_types:
 				# Building feature matrix for the subset of data:
 				X[key_index] = X_all[index]
 
-# To do list:
-# - Save all dictionary entries into separate files
 
+#-----------------------------------Saving different subsets of the data-------------------------------------#
+
+# Setting directory:
+os.chdir(prefix_out + 'data/cross_validation')
+
+# Saving cross-validation data:
+for i in y.keys():
+	y[i].to_csv('y_' + i + '.csv')
+	X[i].to_csv('x_' + i + '.csv')

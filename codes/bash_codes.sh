@@ -1,4 +1,5 @@
-#--------------------------- To process raw data--------------------------------------#
+
+#------------------------------------------To process raw data-----------------------------------------------#
 
 # Prefix python:
 PREFIX_python=/workdir/jp2476/software/python/bin
@@ -9,7 +10,8 @@ PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
 # Firing the process:
 ${PREFIX_python}/python ${PREFIX_code}/mtrait_data_processing.py & 
 
-#--------------------- To perform first stage analysis--------------------------------#
+
+#------------------------------------To perform first stage analysis-----------------------------------------#
 
 # Prefix code:
 PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
@@ -17,7 +19,8 @@ PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
 # Firing the process:
 Rscript ${PREFIX_code}/mtrait_first_step_analysis.R & 
 
-#----------------- To plot results from first stage analysis--------------------------------#
+
+#--------------------------------To plot results from first stage analysis-----------------------------------#
 
 # Prefix python:
 PREFIX_python=/workdir/jp2476/software/python/bin
@@ -28,7 +31,20 @@ PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
 # Firing the process:
 ${PREFIX_python}/python ${PREFIX_code}/mtrait_first_step_analysis_plots.py & 
 
-#-------------------------- Install python locally -----------------------------------#
+
+#----------------------To split the data into different subsets for cross-validation-------------------------#
+
+# Prefix python:
+PREFIX_python=/workdir/jp2476/software/python/bin
+
+# Prefix code:
+PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
+
+# Firing the process:
+${PREFIX_python}/python ${PREFIX_code}/mtrait_cross_validation_data_split.py & 
+
+
+#----------------------------------------Install python locally----------------------------------------------#
 
 # Download anaconta:
 wget https://repo.anaconda.com/archive/Anaconda3-5.1.0-Linux-x86_64.sh
@@ -50,7 +66,7 @@ bash Anaconda3-5.1.0-Linux-x86_64.sh
 # define the dir first, then do ./ on the dir arg of tf_saver
 
 
-#------------------ For killing all process from the user ----------------------------#
+#---------------------------------For killing all process from the user--------------------------------------#
 
 # For kill all process of a user:
 screen -X -S dnn quit
@@ -58,7 +74,7 @@ screen -X -S dnn quit
 pkill -u jp2476
 
 
-#--------------- Temporary bash code written in the project --------------------------#
+#------------------------------Temporary bash code written in the project------------------------------------#
 
 # Prefix python:
 PREFIX_python=/workdir/jp2476/software/python/bin
@@ -68,5 +84,3 @@ PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
 
 # Firing a flag test:
 ${PREFIX_python}/python ${PREFIX_code}/tmp.py --model bn
-
-
