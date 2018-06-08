@@ -27,7 +27,7 @@ data {
 parameters {
 
   // Parameters:
-  real beta;
+  vector[p_x] beta;
   vector[p_z] alpha;  
   vector<lower=0>[p_r] sigma;
 
