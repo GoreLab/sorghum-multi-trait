@@ -65,6 +65,9 @@ for trn, tst in index:
 y = dict()
 X = dict()
 
+# Building the response vector with all entries:
+y_all = df.y_hat
+
 # Building the feature matrix using all data set entries:
 X_all = pd.get_dummies(df['id_gbs']) 
 X_all = X_all.dot(W_bin.loc[X_all.columns])
@@ -124,5 +127,5 @@ os.chdir(prefix_out + 'data/cross_validation')
 
 # Saving cross-validation data:
 for i in y.keys():
-	y[i].to_csv('y_' + i + '.csv')
+	y[i].to_csv('y_' + i + '.csv', header='y_hat')
 	X[i].to_csv('x_' + i + '.csv')
