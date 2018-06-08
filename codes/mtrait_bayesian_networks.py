@@ -30,18 +30,26 @@ from external_functions import *
 os.chdir(prefix_out + "data/cross_validation")
 
 # Reading adjusted means:
-y = pd.read_csv("y_cv1_drymass_k0_trn.csv", index_col=0)
+y = pd.read_csv("y_cv1_height_k0_trn.csv", index_col=0)
 
 # Reading feature matrix:
-X = pd.read_csv("x_cv1_drymass_k0_trn.csv", index_col=0)
+X = pd.read_csv("x_cv1_height_k0_trn.csv", index_col=0)
 
 
 #------------------------------------------Data input for stan-----------------------------------------------#
 
 
 
+dict_stan = dict(n = X.shape[0],
+				 p_x = 1,
+				 p_z = (X.shape[0] - 1),
 
 
+				) 
+
+# To do list:
+# - Add heterogeneity of variance across models over DAPs
+# - Prepare data input for stan for all models
 
 #--------------------------------------Running the Bayesian Network------------------------------------------#
 
