@@ -44,27 +44,22 @@ data {
 parameters {
 
   // Parameters:
-  real mu_0;
   vector[p_x_0] beta_0;
   vector[p_z] alpha_0;  
   vector<lower=0>[p_r_0] sigma_0;
 
   // First level hyperparameters:
-  real u_mu_0;
   vector[p_i_0] u_beta_0;
   real u_alpha_0;
 
-  real<lower=0> s_mu_0;
   vector<lower=0>[p_i_0] s_beta_0;
   real<lower=0> s_alpha_0;
   real<lower=0> s_sigma_0;
 
   // Second level hyperparameters:
-  real<lower=0> pi_u_mu_0;
   real<lower=0> pi_u_beta_0;
   real<lower=0> pi_u_alpha_0;
 
-  real<lower=0> pi_s_mu_0;
   real<lower=0> pi_s_beta_0;
   real<lower=0> pi_s_alpha_0;
   real<lower=0> pi_s_sigma_0;
@@ -130,7 +125,7 @@ transformed parameters {
   sigma_vec_0 = X_r_0 * sigma_0;
 
   // Computing the expectation of the likelihood function:
-  expectation_0 = mu_0 + X_0 * beta_0 + Z_0 * (alpha_0 + eta_0);
+  expectation_0 = X_0 * beta_0 + Z_0 * (alpha_0 + eta_0);
 
   // Computing pleotropic effect:
   eta_1 = u_z_1 + s_z_1 * z;
@@ -164,27 +159,22 @@ model {
   //// First response variable conditionals probability distributions:
 
   // Specifying hyperpriors for the second level hyperparameters:
-  pi_u_mu_0 ~ cauchy(0,  phi);
   pi_u_beta_0 ~ cauchy(0,  phi);
   pi_u_alpha_0 ~ cauchy(0,  phi);
 
-  pi_s_mu_0 ~ cauchy(0,  phi);
   pi_s_beta_0 ~ cauchy(0,  phi);
   pi_s_alpha_0 ~ cauchy(0,  phi);
   pi_s_sigma_0 ~ cauchy(0,  phi);
 
   // Specifying hyperpriors for the first level hyperparameters:
-  u_mu_0 ~ normal(0, pi_u_mu_0);
   u_beta_0 ~ normal(0, pi_u_beta_0);
   u_alpha_0 ~ normal(0, pi_u_alpha_0);
 
-  s_mu_0 ~ cauchy(0, pi_s_mu_0);
   s_beta_0 ~ cauchy(0, pi_s_beta_0);
   s_alpha_0 ~ cauchy(0, pi_s_alpha_0);
   s_sigma_0 ~ cauchy(0, pi_s_sigma_0);
 
   // Specifying priors for the parameters:
-  mu_0 ~ normal(u_mu_0, s_mu_0);
   beta_0 ~ normal(u_beta_0[index_x_0], s_beta_0[index_x_0]);
   alpha_0 ~ normal(u_alpha_0, s_alpha_0);
   sigma_0 ~ cauchy(0, s_sigma_0);
