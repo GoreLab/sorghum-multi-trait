@@ -55,18 +55,14 @@ parameters {
 transformed parameters {
 
   // Declaring variables to receive input:
-  vector[p_z] eta;
   vector<lower=0>[n] sigma_vec;
   vector[n] expectation;
-
-  // Computing pleotropic effect:
-  eta = u_z + s_z * z;
 
   // Computing the vectorized vector of residuals:
   sigma_vec = X_r * sigma;
 
   // Computing the expectation of the likelihood function:
-  expectation = X * beta + Z * (alpha + eta);
+  expectation = X * beta + Z * alpha;
 
 }
 

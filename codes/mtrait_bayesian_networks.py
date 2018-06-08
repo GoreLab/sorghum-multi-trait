@@ -9,7 +9,7 @@ import seaborn as sns
 import pandas as pd
 import numpy as np
 import os
-from sklearn.model_selection import KFold
+import pystan as ps
 
 # Prefix of the directory of the project is in:
 prefix_proj = "/workdir/jp2476/repo/sorghum-multi-trait/"
