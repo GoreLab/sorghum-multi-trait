@@ -4,11 +4,7 @@ data {
   // Number of row entries of the matrices or vectors:
   int<lower=1> n_0;
   int<lower=1> p_z;
-  int<lower=1> p_i_0;
   int<lower=1> p_r_0;
-
-  // Vector for specific priors on each feature:
-  int index_x_0[p_x_0];
 
   // Feature matrices:
   vector[n_0] X_0;
@@ -20,11 +16,7 @@ data {
 
   // Number of row entries of the matrices or vectors:
   int<lower=1> n_1;
-  int<lower=1> p_i_1;
   int<lower=1> p_r_1;
-
-  // Vector for specific priors on each feature:
-  int index_x_1[p_x_1];
 
   // Feature matrices:
   vector[n_1] X_1;
@@ -36,11 +28,7 @@ data {
 
   // Number of row entries of the matrices or vectors:
   int<lower=1> n_2;
-  int<lower=1> p_i_2;
   int<lower=1> p_r_2;
-
-  // Vector for specific priors on each feature:
-  int index_x_2[p_x_2];
 
   // Feature matrices:
   vector[n_2] X_2;
@@ -52,11 +40,7 @@ data {
 
   // Number of row entries of the matrices or vectors:
   int<lower=1> n_3;
-  int<lower=1> p_i_3;
   int<lower=1> p_r_3;
-
-  // Vector for specific priors on each feature:
-  int index_x_3[p_x_3];
 
   // Feature matrices:
   vector[n_3] X_3;
@@ -68,11 +52,7 @@ data {
 
   // Number of row entries of the matrices or vectors:
   int<lower=1> n_4;
-  int<lower=1> p_i_4;
   int<lower=1> p_r_4;
-
-  // Vector for specific priors on each feature:
-  int index_x_4[p_x_4];
 
   // Feature matrices:
   vector[n_4] X_4;
@@ -85,11 +65,7 @@ data {
   // Number of row entries of the matrices or vectors:
   int<lower=1> n_5;
   int<lower=1> p_x_5;
-  int<lower=1> p_i_5;
   int<lower=1> p_r_5;
-
-  // Vector for specific priors on each feature:
-  int index_x_5[p_x_5];
 
   // Feature matrices:
   vector[n_5] X_5;
@@ -102,11 +78,7 @@ data {
   // Number of row entries of the matrices or vectors:
   int<lower=1> n_6;
   int<lower=1> p_x_6;
-  int<lower=1> p_i_6;
   int<lower=1> p_r_6;
-
-  // Vector for specific priors on each feature:
-  int index_x_6[p_x_6];
 
   // Feature matrices:
   vector[n_6] X_6;

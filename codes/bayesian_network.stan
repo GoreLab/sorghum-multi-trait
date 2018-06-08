@@ -5,11 +5,7 @@ data {
   int<lower=1> n;
   int<lower=1> p_x;
   int<lower=1> p_z;
-  int<lower=1> p_i;
   int<lower=1> p_r;
-
-  // Vector for specific priors on each feature:
-  int index_x[p_x];
 
   // Feature matrices:
   matrix[n, p_x] X;
@@ -32,10 +28,10 @@ parameters {
   vector<lower=0>[p_r] sigma;
 
   // First level hyperparameters:
-  vector[p_i] u_beta;
+  real u_beta;
   real u_alpha;
 
-  vector<lower=0>[p_i] s_beta;
+  real<lower=0> s_beta;
   real<lower=0> s_alpha;
   real<lower=0> s_sigma;
 
@@ -85,7 +81,7 @@ model {
   s_sigma ~ cauchy(0, pi_s_sigma);
 
   // Specifying priors for the parameters:
-  beta ~ normal(u_beta[index_x], s_beta[index_x]);
+  beta ~ normal(u_beta, s_beta);
   alpha ~ normal(u_alpha, s_alpha);
   sigma ~ cauchy(0, s_sigma);
 
