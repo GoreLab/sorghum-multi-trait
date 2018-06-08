@@ -3,7 +3,6 @@ data {
 
   // Number of row entries of the matrices or vectors:
   int<lower=1> n_0;
-  int<lower=1> p_x_0;
   int<lower=1> p_z;
   int<lower=1> p_i_0;
   int<lower=1> p_r_0;
@@ -12,7 +11,7 @@ data {
   int index_x_0[p_x_0];
 
   // Feature matrices:
-  matrix[n_0, p_x_0] X_0;
+  vector[n_0] X_0;
   matrix[n_0, p_z] Z_0;
   matrix[n_0, p_r_0] X_r_0;
   
@@ -21,7 +20,6 @@ data {
 
   // Number of row entries of the matrices or vectors:
   int<lower=1> n_1;
-  int<lower=1> p_x_1;
   int<lower=1> p_i_1;
   int<lower=1> p_r_1;
 
@@ -29,7 +27,7 @@ data {
   int index_x_1[p_x_1];
 
   // Feature matrices:
-  matrix[n_1, p_x_1] X_1;
+  vector[n_1] X_1;
   matrix[n_1, p_z] Z_1;
   matrix[n_1, p_r_1] X_r_1;
 
@@ -38,7 +36,6 @@ data {
 
   // Number of row entries of the matrices or vectors:
   int<lower=1> n_2;
-  int<lower=1> p_x_2;
   int<lower=1> p_i_2;
   int<lower=1> p_r_2;
 
@@ -46,7 +43,7 @@ data {
   int index_x_2[p_x_2];
 
   // Feature matrices:
-  matrix[n_2, p_x_2] X_2;
+  vector[n_2] X_2;
   matrix[n_2, p_z] Z_2;
   matrix[n_2, p_r_2] X_r_2;
 
@@ -55,7 +52,6 @@ data {
 
   // Number of row entries of the matrices or vectors:
   int<lower=1> n_3;
-  int<lower=1> p_x_3;
   int<lower=1> p_i_3;
   int<lower=1> p_r_3;
 
@@ -63,7 +59,7 @@ data {
   int index_x_3[p_x_3];
 
   // Feature matrices:
-  matrix[n_3, p_x_3] X_3;
+  vector[n_3] X_3;
   matrix[n_3, p_z] Z_3;
   matrix[n_3, p_r_3] X_r_3;
 
@@ -72,7 +68,6 @@ data {
 
   // Number of row entries of the matrices or vectors:
   int<lower=1> n_4;
-  int<lower=1> p_x_4;
   int<lower=1> p_i_4;
   int<lower=1> p_r_4;
 
@@ -80,7 +75,7 @@ data {
   int index_x_4[p_x_4];
 
   // Feature matrices:
-  matrix[n_4, p_x_4] X_4;
+  vector[n_4] X_4;
   matrix[n_4, p_z] Z_4;
   matrix[n_4, p_r_4] X_r_4;
 
@@ -97,7 +92,7 @@ data {
   int index_x_5[p_x_5];
 
   // Feature matrices:
-  matrix[n_5, p_x_5] X_5;
+  vector[n_5] X_5;
   matrix[n_5, p_z] Z_5;
   matrix[n_5, p_r_5] X_r_5;
 
@@ -114,7 +109,7 @@ data {
   int index_x_6[p_x_6];
 
   // Feature matrices:
-  matrix[n_6, p_x_6] X_6;
+  vector[n_6] X_6;
   matrix[n_6, p_z] Z_6;
   matrix[n_6, p_r_6] X_r_6;
 

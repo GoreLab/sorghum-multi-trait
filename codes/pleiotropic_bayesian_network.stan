@@ -159,12 +159,12 @@ model {
   //// First response variable conditionals probability distributions:
 
   // Specifying hyperpriors for the second level hyperparameters:
-  pi_u_beta_0 ~ cauchy(0,  phi);
-  pi_u_alpha_0 ~ cauchy(0,  phi);
+  pi_u_beta_0 ~ cauchy(0, phi);
+  pi_u_alpha_0 ~ cauchy(0, phi);
 
-  pi_s_beta_0 ~ cauchy(0,  phi);
-  pi_s_alpha_0 ~ cauchy(0,  phi);
-  pi_s_sigma_0 ~ cauchy(0,  phi);
+  pi_s_beta_0 ~ cauchy(0, phi);
+  pi_s_alpha_0 ~ cauchy(0, phi);
+  pi_s_sigma_0 ~ cauchy(0, phi);
 
   // Specifying hyperpriors for the first level hyperparameters:
   u_beta_0 ~ normal(0, pi_u_beta_0);
@@ -188,12 +188,12 @@ model {
   //// Second response variable conditionals probability distributions:
 
   // Specifying hyperpriors for the second level hyperparameters:
-  pi_u_beta_1 ~ cauchy(0,  phi);
-  pi_u_alpha_1 ~ cauchy(0,  phi);
+  pi_u_beta_1 ~ cauchy(0, phi);
+  pi_u_alpha_1 ~ cauchy(0, phi);
 
-  pi_s_beta_1 ~ cauchy(0,  phi);
-  pi_s_alpha_1 ~ cauchy(0,  phi);
-  pi_s_sigma_1 ~ cauchy(0,  phi);
+  pi_s_beta_1 ~ cauchy(0, phi);
+  pi_s_alpha_1 ~ cauchy(0, phi);
+  pi_s_sigma_1 ~ cauchy(0, phi);
 
   // Specifying hyperpriors for the first level hyperparameters:
   u_beta_1 ~ normal(0, pi_u_beta_1);

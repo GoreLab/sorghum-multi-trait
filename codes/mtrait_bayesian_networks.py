@@ -53,4 +53,4 @@ model_stan = ps.StanModel(file='bayesian_network.stan')
 
 model_stan = ps.StanModel(file='pleiotropic_bayesian_network.stan')
 
-model_stan = ps.StanModel(file='dynamic_bayesian_network.stan')
+model_stan = ps.StanModel(file='dynamic_bayesian_network_0_6.stan')
