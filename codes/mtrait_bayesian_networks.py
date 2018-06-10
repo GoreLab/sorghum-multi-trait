@@ -38,7 +38,7 @@ X = pd.read_csv("x_cv1_height_k0_trn.csv", index_col=0)
 
 #------------------------------------------Data input for stan-----------------------------------------------#
 
-
+groups = 
 
 dict_stan = dict(n = X.shape[0],
 				 p_x = 1,
@@ -48,7 +48,9 @@ dict_stan = dict(n = X.shape[0],
 				) 
 
 # To do list:
-# - Add heterogeneity of variance across models over DAPs
+# - Remove heterogeneity of variance into the BN and PBN
+# - Add heterogeneity of variance into the DBN
+# - Change the code to run serial analysis for each DAP measure for BN and PBN
 # - Prepare data input for stan for all models
 
 #--------------------------------------Running the Bayesian Network------------------------------------------#
