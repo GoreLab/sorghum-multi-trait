@@ -102,23 +102,20 @@ cv2_types = ['cv2-30~45', 'cv2-30~60', 'cv2-30~75', 'cv2-30~90', 'cv2-30~105']
 # Building the sets of the data for the CV2 schemes:
 for c in cv2_types:
 	for s in sets:
-		for t in df.dap.unique()[1::]:
-			for i in range(n_fold):
-				# Key index for building the dictionary:
-				key_index = c + '_height_k' + str(i) + '_' + s
-				# Getting the upper index of the dap:
-				upper_index = int(c.split('~')[1])
-				if s == 'trn':
-					# Logical vector for indexation:
-					index = df.id_gbs.isin(trn_index[i]) & (df.trait=='height') & (df.dap<=upper_index)
-				if s == 'tst':
-					# Logical vector for indexation:
-					index = df.id_gbs.isin(tst_index[i]) & (df.trait=='height') & (df.dap<=upper_index)
-				# Building the response vector for the subset of data:
-				y[key_index] = df.y_hat[index]
-				# Building feature matrix for the subset of data:
-				X[key_index] = X_all[index]
-
+		# Key index for building the dictionary:
+		key_index = c + '_height_' + s
+		# Getting the upper index of the dap:
+		upper_index = int(c.split('~')[1])
+		if s == 'trn':
+			# Logical vector for indexation:
+			index = (df.trait=='height') & (df.dap<=upper_index)
+		if s == 'tst':
+			# Logical vector for indexation:
+			index = (df.trait=='height') & (df.dap>upper_index)
+		# Building the response vector for the subset of data:
+		y[key_index] = df.y_hat[index]
+		# Building feature matrix for the subset of data:
+		X[key_index] = X_all[index]
 
 #-----------------------------------Saving different subsets of the data-------------------------------------#
 
