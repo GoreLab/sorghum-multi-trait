@@ -43,7 +43,7 @@ parameters {
   real<lower=0> sigma_0;
 
   // Defining variable to generate data from the model:
-  real y_gen_0[n];
+  real y_gen_0[n_0];
 
   // Population mean parameter/hyperparameters:
   real<lower=0> pi_s_mu_1;
@@ -61,7 +61,7 @@ parameters {
   real<lower=0> sigma_1;
 
   // Defining variable to generate data from the model:
-  real y_gen_1[n];
+  real y_gen_1[n_1];
 
   // Defining variables to create dependency (1st variable):
   real<lower=0> pi_s_sigma_z_0;
