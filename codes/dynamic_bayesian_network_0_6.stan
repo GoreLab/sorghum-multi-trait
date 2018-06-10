@@ -7,6 +7,9 @@ data {
   // Number of row entries of the matrices or vectors:
   int<lower=1> n_0;
 
+  // Number of features:
+  int<lower=1> p_0;
+
   // Feature vector/matrix:
   vector[n_0] X_0;
   matrix[n_0, p_z] Z_0;
