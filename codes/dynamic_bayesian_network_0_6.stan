@@ -8,7 +8,7 @@ data {
   int<lower=1> n_0;
 
   // Number of features:
-  int<lower=1> p_0;
+  int<lower=1> p_z;
 
   // Feature vector/matrix:
   vector[n_0] X_0;
