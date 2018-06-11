@@ -19,10 +19,10 @@ import pystan as ps
 # Getting flags:
 parser.add_argument("-y", "--y", dest = "y", default = "error", help="Name of the file with the phenotypes")
 parser.add_argument("-x", "--x", dest = "x", default = 'error', help="Name of the file with the features")
+parser.add_argument("-m", "--model", dest = "model", default = "BN", help="Name of the model that can be: 'BN' or 'PBN', or 'DBN'")
 parser.add_argument("-di", "--dir_in", dest = "dir_in", default = "error", help="Directory of the folder where y and x are stored")
 parser.add_argument("-dp", "--dir_proj", dest = "dir_proj", default = "error", help="Directory of the project folder")
 parser.add_argument("-do", "--dir_out", dest = "dir_out", default = "error", help="Directory of the folder that will receive the outputs")
-parser.add_argument("-m", "--model", dest = "model", default = "BN", help="Name of the model that can be: 'BN' or 'PBN', or 'DBN'")
 
 args = parser.parse_args()
 
