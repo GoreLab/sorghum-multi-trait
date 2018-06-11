@@ -43,6 +43,20 @@ PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
 # Firing the process:
 ${PREFIX_python}/python ${PREFIX_code}/mtrait_cross_validation_data_split.py & 
 
+#--------------------------To create the output from the cross-validation analysis---------------------------#
+
+# Prefix code:
+PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
+
+# Prefix of the output directory is:
+PREFIX_out=/workdir/jp2476/repo/resul_mtrait-proj
+
+# Transforming the .sh file into executable:
+chmod +755 ${PREFIX_code}/mtrait_cross_validation_output_directories.sh 
+
+# Creating directories:
+${PREFIX_code}/mtrait_cross_validation_output_directories.sh -d ${PREFIX_out}
+
 
 #----------------------------------------Install python locally----------------------------------------------#
 
@@ -84,3 +98,9 @@ PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
 
 # Firing a flag test:
 ${PREFIX_python}/python ${PREFIX_code}/tmp.py --model bn
+
+
+
+s=y_cv1_drymass_k1_trn.csv
+
+echo "$(cut -d'_' -f3 <<<"$s")"

@@ -31,6 +31,9 @@ from external_functions import *
 # Setting the model:
 model = 'BN'
 
+# Name of the output file:
+name_out = 'bn'
+
 # Setting directory:
 os.chdir(prefix_out + "data/cross_validation")
 
@@ -54,13 +57,13 @@ if model == 'BN':
 		dict_stan.append(dict(n = X[index==t].shape[0],
 						 	  p_z = X[index==t].shape[1],
 						 	  Z = X[index==t],
-						 	  y = y[index==t],
-						 	  phi = np.max(y[index==t]).values*10)) 
+						 	  y = y[index==t].values.flatten(),
+						 	  phi = np.max(y[index==t]).values[0]*10)) 
 
 # To do list:
 # - Change the code to run serial analysis for each DAP measure for PBN
 # - Prepare data input for stan for all models
-
+# - Prepare the outputs directories
 
 #--------------------------------------Running the Bayesian Network------------------------------------------#
 
@@ -95,5 +98,3 @@ if model == 'BN':
 	for t in range(len(group)):
 		with open('output_' + model.lower() + '_fit_' + str(t) + '.pkl', 'wb') as f:
 		    pickle.dump({'model' : model_stan, 'fit' : fit[t]}, f, protocol=-1)
-
-
