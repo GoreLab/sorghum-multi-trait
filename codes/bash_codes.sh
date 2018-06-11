@@ -44,7 +44,7 @@ PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
 ${PREFIX_python}/python ${PREFIX_code}/mtrait_cross_validation_data_split.py & 
 
 
-#--------------------------To create the output from the cross-validation analysis---------------------------#
+#------------------To create directories for the ouputs from the cross-validation analysis-------------------#
 
 # Prefix code:
 PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
@@ -82,6 +82,16 @@ PREFIX=/workdir/jp2476/repo/resul_mtrait-proj/outputs/cross_validation/${model}
 # Directory of the folder that will receive the outputs:
 dir_out=${PREFIX}/"$(cut -d'_' -f2 <<<"$y")"/"$(cut -d'_' -f3 <<<"$y")"
 
+# Prefix for running the script:
+PREFIX_python=/workdir/jp2476/software/python/bin
+
+# Running the code:
+${PREFIX_python}/python ${dir_proj}/codes/mtrait_bayesian_networks.py -y ${y} \
+ 																	  -x ${x} \
+ 																	  -m ${model} \
+ 																	  -di ${dir_in} \
+ 																	  -dp ${dir_proj} \
+ 																	  -do ${dir_out}  & 
 
 
 #----------------------------------------Install python locally----------------------------------------------#
