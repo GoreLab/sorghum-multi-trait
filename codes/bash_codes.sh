@@ -43,6 +43,7 @@ PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
 # Firing the process:
 ${PREFIX_python}/python ${PREFIX_code}/mtrait_cross_validation_data_split.py & 
 
+
 #--------------------------To create the output from the cross-validation analysis---------------------------#
 
 # Prefix code:
@@ -58,9 +59,19 @@ chmod +755 ${PREFIX_code}/mtrait_cross_validation_output_directories.sh
 ${PREFIX_code}/mtrait_cross_validation_output_directories.sh -d ${PREFIX_out}
 
 
+#-------------------To perform cross-validation analysis using the Bayesian Network models-------------------#
+
+
+
+
+
+
+
+
+
 #----------------------------------------Install python locally----------------------------------------------#
 
-# Download anaconta:
+# Download anaconda:
 wget https://repo.anaconda.com/archive/Anaconda3-5.1.0-Linux-x86_64.sh
 
 # For install python local:
