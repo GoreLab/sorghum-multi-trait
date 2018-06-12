@@ -84,7 +84,7 @@ if [ $model == 'BN' -o  $model == 'DBN' ]; then
 	dir_out=${PREFIX}/"$(cut -d'_' -f2 <<<"$y")"/"$(cut -d'_' -f3 <<<"$y")"
 fi
 
-# Defning the output directory for the PBN model output:
+# Defining the output directory for the PBN model output:
 if [ $model == 'PBN' ]; then
 	
 	# Getting the name of the cross-validation scheme and traits:

@@ -132,10 +132,12 @@ if model=='PBN':
 
 if model == 'BN':
 	# Creating an empty list to receive the dictionaries:
-	dict_stan = [] 
+	dict_stan = []
 	# Subsetting time indexes and groups:
 	index = X.iloc[:,0].values
 	group = X.iloc[:,0].unique()
+	# Droping the first column used just for mapping:
+	X = X.drop(X.columns[0], axis=1)
 	# Building dictionaries:
 	for t in group:
 		dict_stan.append(dict(p_z = X[index==t].shape[1],
@@ -152,6 +154,9 @@ if model == 'PBN':
 	index0 = X_0.iloc[:,0].values
 	group1 = X_1.iloc[:,0].unique()
 	group0 = X_0.iloc[:,0].unique()
+	# Droping the first column used just for mapping:
+	X_0 = X_0.drop(X_0.columns[0], axis=1)
+	X_1 = X_1.drop(X_1.columns[0], axis=1)
 	# Case where the first input file have measures over time:
 	if len(group1)==1:
 		# Building dictionaries:
@@ -188,8 +193,6 @@ if model == 'PBN':
 							 	  Z_1 = X_1[index1==t1],
 							 	  y_1 = y_1[index1==t1].values.flatten(),
 							 	  phi = pd.concat([y_0[index0==t0], y_1[index1==t1]], axis=0).max().values[0]*10))
-
-
 
 # To do list:
 # - Prepare data input for stan for all models
