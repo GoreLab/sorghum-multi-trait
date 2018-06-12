@@ -54,7 +54,7 @@ if model=='PBN':
 	x_1 = x.split("-")[1]
 
 # Loading data:
-if (model=='BN') | (model=='DBN'):
+if (model=='BN') or (model=='DBN'):
 	# Reading adjusted means:
 	y = pd.read_csv(args.y, index_col=0)
 	# Reading feature matrix:
@@ -112,7 +112,7 @@ if model=='PBN':
 # os.chdir(dir_in)
 
 # # Loading data:
-# if (model=='BN') | (model=='DBN'):
+# if (model=='BN') or (model=='DBN'):
 # 	# Reading adjusted means:
 # 	y = pd.read_csv(args.y, index_col=0)
 # 	# Reading feature matrix:
@@ -201,7 +201,7 @@ if model == 'PBN':
 os.chdir(dir_proj + "codes")
 
 # For running the models:
-if (model == 'BN' | model == 'PBN'):
+if (model == 'BN' or model == 'PBN'):
 	# Compiling the Bayesian Network:
 	if model == 'BN':
 		model_stan = ps.StanModel(file='bayesian_network.stan')
@@ -225,7 +225,7 @@ if bool(re.search('DBN', model)):
 os.chdir(dir_out)
 
 # Saving stan fit object and model:
-if (model == 'BN' | model == 'PBN'):
+if (model == 'BN' or model == 'PBN'):
 	for t in range(len(group)):
 		with open('output_' + model.lower() + '_fit_' + str(t) + '.pkl', 'wb') as f:
 		    pickle.dump({'model' : model_stan, 'fit' : fit[t]}, f, protocol=-1)
