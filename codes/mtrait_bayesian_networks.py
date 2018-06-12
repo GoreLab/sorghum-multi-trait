@@ -44,26 +44,54 @@ dir_out = args.dir_out
 # Setting directory:
 os.chdir(dir_in)
 
-# Reading adjusted means:
-y = pd.read_csv(args.y, index_col=0)
+# Getting each trait file names:
+if model=='PBN':
+	y = args.y
+	x = args.x
+	y_0 = y.split("-")[0]
+	y_1 = y.split("-")[1]
+	x_0 = x.split("-")[0]
+	x_1 = x.split("-")[1]
 
-# Reading feature matrix:
-X = pd.read_csv(args.x, index_col=0)
+# Loading data:
+if (model=='BN') | (model=='DBN'):
+	# Reading adjusted means:
+	y = pd.read_csv(args.y, index_col=0)
+	# Reading feature matrix:
+	X = pd.read_csv(args.x, index_col=0)
 
-# Setting directory:
-os.chdir(dir_proj + "codes")
+# Loading data:
+if model=='PBN':
+	# Reading adjusted means for both traits:
+	y_0 = pd.read_csv(y_0, index_col=0)
+	y_1 = pd.read_csv(y_1, index_col=0)
+	# Reading feature matrix for both traits:
+	X_0 = pd.read_csv(x_0, index_col=0)
+	X_1 = pd.read_csv(x_1, index_col=0)
 
-# Loading external functions:
-from external_functions import * 
 
+###***** Temp chunck of code:
 
-# ### Temporal chunck of code:
+# # Data:
+
+# y = "y_cv1_drymass_k0_trn.csv-y_cv1_height_k0_trn.csv"
+# x = "x_cv1_drymass_k0_trn.csv-x_cv1_height_k0_trn.csv"
+
+# # y = "y_cv1_height_k0_trn.csv"
+# # x = "x_cv1_height_k0_trn.csv"
 
 # # Name of the model that can be: 'BN' or 'PBN', or 'DBN':
 # model ='PBN'
 
+# # Getting each trait file names:
+# if model=='PBN':
+# 	y_0 = y.split("-")[0]
+# 	y_1 = y.split("-")[1]
+# 	x_0 = x.split("-")[0]
+# 	x_1 = x.split("-")[1]
+
 # # Choose the trait:
-# trait = 'height'
+# trait = 'drymass-height'
 
 # # Choose the cv scheme:
 # cv = 'cv1'
@@ -81,19 +109,23 @@ from external_functions import *
 # dir_out= PREFIX + '/' + cv + '/' + trait 
 
 # # Setting directory:
-# os.chdir(dir_proj + "codes")
-
-# # Loading external functions:
-# from external_functions import * 
-
-# # Setting directory:
 # os.chdir(dir_in)
 
-# # Reading adjusted means:
-# y = pd.read_csv("y_cv1_height_k0_trn.csv", index_col=0)
+# # Loading data:
+# if (model=='BN') | (model=='DBN'):
+# 	# Reading adjusted means:
+# 	y = pd.read_csv(args.y, index_col=0)
+# 	# Reading feature matrix:
+# 	X = pd.read_csv(args.x, index_col=0)
 
-# # Reading feature matrix:
-# X = pd.read_csv("x_cv1_height_k0_trn.csv", index_col=0)
+# # Loading data:
+# if model=='PBN':
+# 	# Reading adjusted means for both traits:
+# 	y_0 = pd.read_csv(y_0, index_col=0)
+# 	y_1 = pd.read_csv(y_1, index_col=0)
+# 	# Reading feature matrix for both traits:
+# 	X_0 = pd.read_csv(x_0, index_col=0)
+# 	X_1 = pd.read_csv(x_1, index_col=0)
 
 
 #------------------------------------------Data input for stan-----------------------------------------------#
@@ -106,16 +138,61 @@ if model == 'BN':
 	group = X.iloc[:,0].unique()
 	# Building dictionaries:
 	for t in group:
-		dict_stan.append(dict(n = X[index==t].shape[0],
-						 	  p_z = X[index==t].shape[1],
+		dict_stan.append(dict(p_z = X[index==t].shape[1],
+							  n = X[index==t].shape[0],
 						 	  Z = X[index==t],
 						 	  y = y[index==t].values.flatten(),
-						 	  phi = np.max(y[index==t]).values[0]*10)) 
+						 	  phi = y[index==t].max().values[0]*10)) 
+
+if model == 'PBN':
+	# Creating an empty list to receive the dictionaries:
+	dict_stan = [] 
+	# Subsetting time indexes and groups:
+	index1 = X_1.iloc[:,0].values
+	index0 = X_0.iloc[:,0].values
+	group1 = X_1.iloc[:,0].unique()
+	group0 = X_0.iloc[:,0].unique()
+	# Case where the first input file have measures over time:
+	if len(group1)==1:
+		# Building dictionaries:
+		for t in group0:
+			dict_stan.append(dict(p_z = X_0.shape[1],
+								  n_0 = X_0[index0==t].shape[0],
+							 	  Z_0 = X_0[index0==t],
+							 	  y_0 = y_0[index0==t].values.flatten(),
+							 	  n_1 = X_1.shape[0],
+							 	  Z_1 = X_1,
+							 	  y_1 = y_1.values.flatten(),
+							 	  phi = pd.concat([y_0[index0==t], y_1], axis=0).max().values[0]*10))
+	# Case where the second input file have measures over time:
+	if len(group0)==1:
+		# Building dictionaries:
+		for t in group1:
+			dict_stan.append(dict(p_z = X_0.shape[1],
+								  n_0 = X_0.shape[0],
+							 	  Z_0 = X_0,
+							 	  y_0 = y_0.values.flatten(),
+							 	  n_1 = X_1[index1==t].shape[0],
+							 	  Z_1 = X_1[index1==t],
+							 	  y_1 = y_1[index1==t].values.flatten(),
+							 	  phi = pd.concat([y_0, y_1[index1==t]], axis=0).max().values[0]*10))
+	# Case where all input files have measures over time:
+	if (len(group0)!=1) & (len(group1)!=1):
+		# Building dictionaries:
+		for t0, t1 in zip(group0, group1):
+			dict_stan.append(dict(p_z = X_0.shape[1],
+								  n_0 = X_0[index0==t0].shape[0],
+							 	  Z_0 = X_0[index0==t0],
+							 	  y_0 = y_0[index0==t0].values.flatten(),
+							 	  n_1 = X_1[index1==t1].shape[0],
+							 	  Z_1 = X_1[index1==t1],
+							 	  y_1 = y_1[index1==t1].values.flatten(),
+							 	  phi = pd.concat([y_0[index0==t0], y_1[index1==t1]], axis=0).max().values[0]*10))
+
+
 
 # To do list:
-# - Change the code to run serial analysis for each DAP measure for PBN
 # - Prepare data input for stan for all models
-# - Prepare the outputs directories
 
 
 #--------------------------------------Running the Bayesian Network------------------------------------------#
@@ -123,18 +200,19 @@ if model == 'BN':
 # Setting directory:
 os.chdir(dir_proj + "codes")
 
-# Compiling the BN model:
-if model == 'BN':
-	model_stan = ps.StanModel(file='bayesian_network.stan')
+# For running the models:
+if (model == 'BN' | model == 'PBN'):
+	# Compiling the Bayesian Network:
+	if model == 'BN':
+		model_stan = ps.StanModel(file='bayesian_network.stan')
+	# Compiling the Pleiotropic Bayesian Network:
+	if model == 'PBN':
+		model_stan = ps.StanModel(file='pleiotropic_bayesian_network.stan')
 	# Creating an empty list:
 	fit = []
 	# Fitting the model:
 	for t in range(len(group)):
 		fit.append(model_stan.sampling(data=dict_stan[t], chains=4, iter=400))
-
-# Compiling the PBN model:
-if model == 'PBN':
-	model_stan = ps.StanModel(file='pleiotropic_bayesian_network.stan')
 
 # Compiling the DBN model:
 if bool(re.search('DBN', model)):
@@ -147,7 +225,7 @@ if bool(re.search('DBN', model)):
 os.chdir(dir_out)
 
 # Saving stan fit object and model:
-if model == 'BN':
+if (model == 'BN' | model == 'PBN'):
 	for t in range(len(group)):
 		with open('output_' + model.lower() + '_fit_' + str(t) + '.pkl', 'wb') as f:
 		    pickle.dump({'model' : model_stan, 'fit' : fit[t]}, f, protocol=-1)
