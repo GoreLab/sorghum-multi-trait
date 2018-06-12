@@ -195,8 +195,8 @@ if model == 'PBN':
 							 	  phi = pd.concat([y_0[index0==t0], y_1[index1==t1]], axis=0).max().values[0]*10))
 
 # To do list:
+# - Test the run for the pleiotropic model in bash
 # - Prepare data input for stan for all models
-
 
 #--------------------------------------Running the Bayesian Network------------------------------------------#
 
