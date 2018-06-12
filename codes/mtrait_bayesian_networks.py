@@ -29,56 +29,26 @@ args = parser.parse_args()
 
 #---------------------------------------------Loading data---------------------------------------------------#
 
-# # Setting the model:
-# model = args.model
+# Setting the model:
+model = args.model
 
-# # Directory of the data:
-# dir_in = args.dir_in
+# Directory of the data:
+dir_in = args.dir_in
 
-# # Directory of the project:
-# dir_proj = args.dir_proj
+# Directory of the project:
+dir_proj = args.dir_proj
 
-# # Directory where outputs will be saved:
-# dir_out = args.dir_out
+# Directory where outputs will be saved:
+dir_out = args.dir_out
 
-# # Setting directory:
-# os.chdir(dir_in)
+# Setting directory:
+os.chdir(dir_in)
 
-# # Reading adjusted means:
-# y = pd.read_csv(args.y, index_col=0)
+# Reading adjusted means:
+y = pd.read_csv(args.y, index_col=0)
 
-# # Reading feature matrix:
-# X = pd.read_csv(args.x, index_col=0)
-
-# # Setting directory:
-# os.chdir(dir_proj + "codes")
-
-# # Loading external functions:
-# from external_functions import * 
-
-
-### Temporal chunck of code:
-
-# Name of the model that can be: 'BN' or 'PBN', or 'DBN':
-model ='PBN'
-
-# Choose the trait:
-trait = 'height'
-
-# Choose the cv scheme:
-cv = 'cv1'
-
-# Directory of the folder where y and x are stored:
-dir_in='/workdir/jp2476/repo/resul_mtrait-proj/data/cross_validation/'
-
-# Directory of the project folder:
-dir_proj='/workdir/jp2476/repo/sorghum-multi-trait/'
-
-# Prefix of the output directory:
-PREFIX='/workdir/jp2476/repo/resul_mtrait-proj/outputs/cross_validation/' + model
-
-# Directory of the folder that will receive the outputs:
-dir_out= PREFIX + '/' + cv + '/' + trait 
+# Reading feature matrix:
+X = pd.read_csv(args.x, index_col=0)
 
 # Setting directory:
 os.chdir(dir_proj + "codes")
@@ -86,14 +56,44 @@ os.chdir(dir_proj + "codes")
 # Loading external functions:
 from external_functions import * 
 
-# Setting directory:
-os.chdir(dir_in)
 
-# Reading adjusted means:
-y = pd.read_csv("y_cv1_height_k0_trn.csv", index_col=0)
+# ### Temporal chunck of code:
 
-# Reading feature matrix:
-X = pd.read_csv("x_cv1_height_k0_trn.csv", index_col=0)
+# # Name of the model that can be: 'BN' or 'PBN', or 'DBN':
+# model ='PBN'
+
+# # Choose the trait:
+# trait = 'height'
+
+# # Choose the cv scheme:
+# cv = 'cv1'
+
+# # Directory of the folder where y and x are stored:
+# dir_in='/workdir/jp2476/repo/resul_mtrait-proj/data/cross_validation/'
+
+# # Directory of the project folder:
+# dir_proj='/workdir/jp2476/repo/sorghum-multi-trait/'
+
+# # Prefix of the output directory:
+# PREFIX='/workdir/jp2476/repo/resul_mtrait-proj/outputs/cross_validation/' + model
+
+# # Directory of the folder that will receive the outputs:
+# dir_out= PREFIX + '/' + cv + '/' + trait 
+
+# # Setting directory:
+# os.chdir(dir_proj + "codes")
+
+# # Loading external functions:
+# from external_functions import * 
+
+# # Setting directory:
+# os.chdir(dir_in)
+
+# # Reading adjusted means:
+# y = pd.read_csv("y_cv1_height_k0_trn.csv", index_col=0)
+
+# # Reading feature matrix:
+# X = pd.read_csv("x_cv1_height_k0_trn.csv", index_col=0)
 
 
 #------------------------------------------Data input for stan-----------------------------------------------#
