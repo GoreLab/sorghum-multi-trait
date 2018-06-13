@@ -204,7 +204,7 @@ if model == 'PBN':
 os.chdir(dir_proj + "codes")
 
 # For running the models:
-if (model == 'BN' or model == 'PBN'):
+if model == 'BN':
 	# Compiling the Bayesian Network:
 	model_stan = ps.StanModel(file='bayesian_network.stan')
 	# Creating an empty list:
@@ -259,5 +259,3 @@ if model == 'PBN':
 		for t in range(len(group0)):
 			with open('output_' + model.lower() + '_fit_' + str(t) + '.pkl', 'wb') as f:
 			    pickle.dump({'model' : model_stan, 'fit' : fit[t]}, f, protocol=-1)
-
-
