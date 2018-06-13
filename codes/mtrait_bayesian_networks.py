@@ -194,6 +194,110 @@ if model == 'PBN':
 							 	  y_1 = y_1[index1==t1].values.flatten(),
 							 	  phi = pd.concat([y_0[index0==t0], y_1[index1==t1]], axis=0).max().values[0]*10))
 
+if model == 'DBN-0~1':
+	# Subsetting time indexes and groups:
+	index = X.iloc[:,0].values
+	group = X.iloc[:,0].unique()
+	# Subsetting the time covariate and the features:
+	x = X.iloc[:,0]
+	Z = X.drop(X.columns[0], axis=1)
+	# Building dictionaries:
+	dict_stan = dict(p_z = Z[index==group[0]].shape[1],
+					 p_res = len(group),
+					 n_0 = Z[index==group[0]].shape[0],
+				 	 X_0 = x[index==group[0]],
+				 	 Z_0 = Z[index==group[0]],
+				 	 y_0 = y[index==group[0]].values.flatten(),
+					 n_1 = Z[index==group[1]].shape[0],
+				 	 X_1 = x[index==group[1]],
+				 	 Z_1 = Z[index==group[1]],
+				 	 y_1 = y[index==group[1]].values.flatten(),
+				 	 phi = y.max().values[0]*10) 
+
+if model == 'DBN-0~2':
+	# Subsetting time indexes and groups:
+	index = X.iloc[:,0].values
+	group = X.iloc[:,0].unique()
+	# Subsetting the time covariate and the features:
+	x = X.iloc[:,0]
+	Z = X.drop(X.columns[0], axis=1)
+	# Building dictionaries:
+	dict_stan = dict(p_z = Z[index==group[0]].shape[1],
+					 p_res = len(group),
+					 n_0 = Z[index==group[0]].shape[0],
+				 	 X_0 = x[index==group[0]],
+				 	 Z_0 = Z[index==group[0]],
+				 	 y_0 = y[index==group[0]].values.flatten(),
+					 n_1 = Z[index==group[1]].shape[0],
+				 	 X_1 = x[index==group[1]],
+				 	 Z_1 = Z[index==group[1]],
+				 	 y_1 = y[index==group[1]].values.flatten(),
+					 n_2 = Z[index==group[2]].shape[0],
+				 	 X_2 = x[index==group[2]],
+				 	 Z_2 = Z[index==group[2]],
+				 	 y_2 = y[index==group[2]].values.flatten(),			 	  
+				 	 phi = y.max().values[0]*10) 
+
+if model == 'DBN-0~3':
+	# Subsetting time indexes and groups:
+	index = X.iloc[:,0].values
+	group = X.iloc[:,0].unique()
+	# Subsetting the time covariate and the features:
+	x = X.iloc[:,0]
+	Z = X.drop(X.columns[0], axis=1)
+	# Building dictionaries:
+	dict_stan = dict(p_z = Z[index==group[0]].shape[1],
+					 p_res = len(group),
+					 n_0 = Z[index==group[0]].shape[0],
+				 	 X_0 = x[index==group[0]],
+				 	 Z_0 = Z[index==group[0]],
+				 	 y_0 = y[index==group[0]].values.flatten(),
+					 n_1 = Z[index==group[1]].shape[0],
+				 	 X_1 = x[index==group[1]],
+				 	 Z_1 = Z[index==group[1]],
+				 	 y_1 = y[index==group[1]].values.flatten(),
+					 n_2 = Z[index==group[2]].shape[0],
+				 	 X_2 = x[index==group[2]],
+				 	 Z_2 = Z[index==group[2]],
+				 	 y_2 = y[index==group[2]].values.flatten(),			 	  
+					 n_3 = Z[index==group[3]].shape[0],
+				 	 X_3 = x[index==group[3]],
+				 	 Z_3 = Z[index==group[3]],
+				 	 y_3 = y[index==group[3]].values.flatten(),
+				 	 phi = y.max().values[0]*10) 
+
+if model == 'DBN-0~4':
+	# Subsetting time indexes and groups:
+	index = X.iloc[:,0].values
+	group = X.iloc[:,0].unique()
+	# Subsetting the time covariate and the features:
+	x = X.iloc[:,0]
+	Z = X.drop(X.columns[0], axis=1)
+	# Building dictionaries:
+	dict_stan = dict(p_z = Z[index==group[0]].shape[1],
+					 p_res = len(group),
+					 n_0 = Z[index==group[0]].shape[0],
+				 	 X_0 = x[index==group[0]],
+				 	 Z_0 = Z[index==group[0]],
+				 	 y_0 = y[index==group[0]].values.flatten(),
+					 n_1 = Z[index==group[1]].shape[0],
+				 	 X_1 = x[index==group[1]],
+				 	 Z_1 = Z[index==group[1]],
+				 	 y_1 = y[index==group[1]].values.flatten(),
+					 n_2 = Z[index==group[2]].shape[0],
+				 	 X_2 = x[index==group[2]],
+				 	 Z_2 = Z[index==group[2]],
+				 	 y_2 = y[index==group[2]].values.flatten(),			 	  
+					 n_3 = Z[index==group[3]].shape[0],
+				 	 X_3 = x[index==group[3]],
+				 	 Z_3 = Z[index==group[3]],
+				 	 y_3 = y[index==group[3]].values.flatten(),
+					 n_4 = Z[index==group[4]].shape[0],
+				 	 X_4 = x[index==group[4]],
+				 	 Z_4 = Z[index==group[4]],
+				 	 y_4 = y[index==group[4]].values.flatten(),
+				 	 phi = y.max().values[0]*10) 
+
 if model == 'DBN-0~5':
 	# Subsetting time indexes and groups:
 	index = X.iloc[:,0].values
@@ -305,6 +409,30 @@ if model == 'PBN':
 	if (len(group0)!=1) & (len(group1)!=1):
 		for t in range(len(group0)):
 			fit.append(model_stan.sampling(data=dict_stan[t], chains=4, iter=400))
+
+# Compiling the DBN model:
+if model == 'DBN-0~1':
+	model_stan = ps.StanModel(file='dynamic_bayesian_network_0_1.stan')
+	# Fitting the model:
+	fit = model_stan.sampling(data=dict_stan, chains=4, iter=400)
+
+# Compiling the DBN model:
+if model == 'DBN-0~2':
+	model_stan = ps.StanModel(file='dynamic_bayesian_network_0_2.stan')
+	# Fitting the model:
+	fit = model_stan.sampling(data=dict_stan, chains=4, iter=400)
+
+# Compiling the DBN model:
+if model == 'DBN-0~3':
+	model_stan = ps.StanModel(file='dynamic_bayesian_network_0_3.stan')
+	# Fitting the model:
+	fit = model_stan.sampling(data=dict_stan, chains=4, iter=400)
+
+# Compiling the DBN model:
+if model == 'DBN-0~4':
+	model_stan = ps.StanModel(file='dynamic_bayesian_network_0_4.stan')
+	# Fitting the model:
+	fit = model_stan.sampling(data=dict_stan, chains=4, iter=400)
 
 # Compiling the DBN model:
 if model == 'DBN-0~5':
