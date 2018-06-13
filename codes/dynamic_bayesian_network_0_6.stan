@@ -1,14 +1,14 @@
 
 data {
 
+  // Number of features:
+  int<lower=1> p_z;
+
   // Number of residual groups:
   int<lower=1> p_res;
 
   // Number of row entries of the matrices or vectors:
   int<lower=1> n_0;
-
-  // Number of features:
-  int<lower=1> p_z;
 
   // Feature vector/matrix:
   vector[n_0] X_0;
@@ -69,7 +69,6 @@ data {
 
   // Number of row entries of the matrices or vectors:
   int<lower=1> n_6;
-  int<lower=1> p_x_6;
 
   // Feature vector/matrix:
   vector[n_6] X_6;

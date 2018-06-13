@@ -125,6 +125,39 @@ PREFIX_python=/workdir/jp2476/software/python/bin
 # Running the code:
 ${PREFIX_python}/python ${dir_proj}/codes/mtrait_bayesian_networks.py -y ${y} -x ${x} -m ${model} -di ${dir_in} -dp ${dir_proj} -do ${dir_out} & 
 
+#--------------To perform cross-validation analysis using the Dynamic Bayesian Network model-------------#
+
+
+# Name of the file with the phenotypes:
+y="y_cv1_height_k0_trn.csv"
+
+# Name of the file with the features:
+x="x_cv1_height_k0_trn.csv"
+
+# Name of the model that can be: 'BN' or 'PBN', or 'DBN':
+model='DBN-0~6'
+
+# Directory of the folder where y and x are stored:
+dir_in="/workdir/jp2476/repo/resul_mtrait-proj/data/cross_validation/"
+
+# Directory of the project folder:
+dir_proj="/workdir/jp2476/repo/sorghum-multi-trait/"
+
+# Getting just the model prefix:
+tmp="$(cut -d'-' -f1 <<<"$model")"
+
+# Prefix of the output directory:
+PREFIX="/workdir/jp2476/repo/resul_mtrait-proj/outputs/cross_validation/${tmp}"
+
+# Defining the output directory for the outputs:
+dir_out=${PREFIX}/"$(cut -d'_' -f2 <<<"$y")"/"$(cut -d'_' -f3 <<<"$y")"
+
+# Prefix for running the script:
+PREFIX_python=/workdir/jp2476/software/python/bin
+
+# Running the code:
+${PREFIX_python}/python ${dir_proj}/codes/mtrait_bayesian_networks.py -y ${y} -x ${x} -m ${model} -di ${dir_in} -dp ${dir_proj} -do ${dir_out} & 
+
 
 #----------------------------------------Install python locally----------------------------------------------#
 
