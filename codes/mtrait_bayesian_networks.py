@@ -206,16 +206,28 @@ os.chdir(dir_proj + "codes")
 # For running the models:
 if (model == 'BN' or model == 'PBN'):
 	# Compiling the Bayesian Network:
-	if model == 'BN':
-		model_stan = ps.StanModel(file='bayesian_network.stan')
-	# Compiling the Pleiotropic Bayesian Network:
-	if model == 'PBN':
-		model_stan = ps.StanModel(file='pleiotropic_bayesian_network.stan')
+	model_stan = ps.StanModel(file='bayesian_network.stan')
 	# Creating an empty list:
 	fit = []
 	# Fitting the model:
 	for t in range(len(group)):
 		fit.append(model_stan.sampling(data=dict_stan[t], chains=4, iter=400))
+
+if model == 'PBN':
+	# Compiling the Pleiotropic Bayesian Network:
+	model_stan = ps.StanModel(file='pleiotropic_bayesian_network.stan')
+	# Creating an empty list:
+	fit = []
+	# Fitting the model:
+	if len(group1)==1:
+		for t in range(len(group0)):
+			fit.append(model_stan.sampling(data=dict_stan[t], chains=4, iter=400))
+	if len(group0)==1:
+		for t in range(len(group1)):
+			fit.append(model_stan.sampling(data=dict_stan[t], chains=4, iter=400))
+	if (len(group0)!=1) & (len(group1)!=1):
+		for t in range(len(group0)):
+			fit.append(model_stan.sampling(data=dict_stan[t], chains=4, iter=400))
 
 # Compiling the DBN model:
 if bool(re.search('DBN', model)):
@@ -227,8 +239,25 @@ if bool(re.search('DBN', model)):
 # Setting directory:
 os.chdir(dir_out)
 
-# Saving stan fit object and model:
-if (model == 'BN' or model == 'PBN'):
+# Saving stan fit object and model for the BN:
+if model == 'BN':
 	for t in range(len(group)):
 		with open('output_' + model.lower() + '_fit_' + str(t) + '.pkl', 'wb') as f:
 		    pickle.dump({'model' : model_stan, 'fit' : fit[t]}, f, protocol=-1)
+
+# Saving stan fit object and model for the PBN:
+if model == 'PBN':
+	if len(group1)==1:
+		for t in range(len(group0)):
+			with open('output_' + model.lower() + '_fit_' + str(t) + '.pkl', 'wb') as f:
+			    pickle.dump({'model' : model_stan, 'fit' : fit[t]}, f, protocol=-1)
+	if len(group0)==1:
+		for t in range(len(group1)):
+			with open('output_' + model.lower() + '_fit_' + str(t) + '.pkl', 'wb') as f:
+			    pickle.dump({'model' : model_stan, 'fit' : fit[t]}, f, protocol=-1)
+	if (len(group0)!=1) & (len(group1)!=1):
+		for t in range(len(group0)):
+			with open('output_' + model.lower() + '_fit_' + str(t) + '.pkl', 'wb') as f:
+			    pickle.dump({'model' : model_stan, 'fit' : fit[t]}, f, protocol=-1)
+
+
