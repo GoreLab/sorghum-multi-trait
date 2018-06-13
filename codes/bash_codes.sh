@@ -126,7 +126,7 @@ PREFIX_python=/workdir/jp2476/software/python/bin
 ${PREFIX_python}/python ${dir_proj}/codes/mtrait_bayesian_networks.py -y ${y} -x ${x} -m ${model} -di ${dir_in} -dp ${dir_proj} -do ${dir_out} & 
 
 
-#--------------To perform cross-validation analysis using the Dynamic Bayesian Network model-------------#
+#----------------To perform cross-validation analysis using the Dynamic Bayesian Network model---------------#
 
 # Name of the file with the phenotypes:
 y="y_cv1_height_k0_trn.csv"
@@ -135,7 +135,7 @@ y="y_cv1_height_k0_trn.csv"
 x="x_cv1_height_k0_trn.csv"
 
 # Name of the model that can be: 'BN' or 'PBN', or 'DBN':
-model='DBN-0~6'
+model='DBN-0~5'
 
 # Directory of the folder where y and x are stored:
 dir_in="/workdir/jp2476/repo/resul_mtrait-proj/data/cross_validation/"
