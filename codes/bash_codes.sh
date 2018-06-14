@@ -87,10 +87,13 @@ echo "DBN-0~5" >> dbn_models_cv2_list.txt
 # Number of analysis to fire:
 n_analysis=10
 
+# Directory of the folder where y and x are stored:
+dir_in="/workdir/jp2476/repo/resul_mtrait-proj/data/cross_validation/"
+
 for i in $(seq 1 ${n_analysis}); do  
 
-	tmp1=$(sed -n "${i}p" y_cv1_trn_files.txt)
-	tmp2=$(sed -n "${i}p" x_cv1_trn_files.txt)
+	tmp1=$(sed -n "${i}p" ${dir_in}/y_cv1_trn_files.txt)
+	tmp2=$(sed -n "${i}p" ${dir_in}/x_cv1_trn_files.txt)
 
 	echo $tmp1
 	echo $tmp2
@@ -101,19 +104,22 @@ done;
 
 #-------------------To perform cross-validation analysis using the Bayesian Network model--------------------#
 
+# Number of analysis:
+n_analysis=10
+
 for i in $(seq 1 ${n_analysis}); do  
-
-	# Name of the file with the phenotypes:
-	y=$(sed -n "${i}p" y_cv1_trn_files.txt)
-
-	# Name of the file with the features:
-	x=$(sed -n "${i}p" x_cv1_trn_files.txt)
-
-	# Name of the model that can be: 'BN' or 'PBN', or 'DBN':
-	model='BN'
 
 	# Directory of the folder where y and x are stored:
 	dir_in="/workdir/jp2476/repo/resul_mtrait-proj/data/cross_validation/"
+
+	# Name of the file with the phenotypes:
+	y=$(sed -n "${i}p" ${dir_in}/y_cv1_trn_files.txt)
+
+	# Name of the file with the features:
+	x=$(sed -n "${i}p" ${dir_in}/x_cv1_trn_files.txt)
+
+	# Name of the model that can be: 'BN' or 'PBN', or 'DBN':
+	model='BN'
 
 	# Directory of the project folder:
 	dir_proj="/workdir/jp2476/repo/sorghum-multi-trait/"
@@ -129,6 +135,9 @@ for i in $(seq 1 ${n_analysis}); do
 
 	# Running the code:
 	${PREFIX_python}/python ${dir_proj}/codes/mtrait_bayesian_networks.py -y ${y} -x ${x} -m ${model} -di ${dir_in} -dp ${dir_proj} -do ${dir_out} & 
+
+	# Sleep for avoid exploding several processes:
+	sleep 5
 
 done;
 
