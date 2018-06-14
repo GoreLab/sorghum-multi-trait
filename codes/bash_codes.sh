@@ -69,6 +69,15 @@ ls y*cv1*trn* > y_cv1_trn_files.txt
 # Listing training genotypic data files names related to the CV1 scheme and storing it for latter usage:
 ls x*cv1*trn* > x_cv1_trn_files.txt
 
+# Listing training files names related to the CV1 scheme and storing it for latter usage on PBN model
+grep "drymass" y_cv1_trn_files.txt > tmp1.txt 
+grep "height" y_cv1_trn_files.txt > tmp2.txt 
+paste -d'-' tmp1.txt tmp2.txt > y_cv1_pbn_trn_files.txt
+grep "drymass" x_cv1_trn_files.txt > tmp1.txt 
+grep "height" x_cv1_trn_files.txt > tmp2.txt 
+paste -d'-' tmp1.txt tmp2.txt > x_cv1_pbn_trn_files.txt
+rm tmp1.txt tmp2.txt
+
 # Listing training phenotypic data files names related to the CV2 scheme and storing it for latter usage:
 ls y*cv2*trn* > y_cv2_trn_files.txt
 
@@ -140,6 +149,40 @@ for i in $(seq 1 ${n_analysis}); do
 	sleep 5
 
 done;
+
+# Directory of the folder where y and x are stored:
+dir_in="/workdir/jp2476/repo/resul_mtrait-proj/data/cross_validation/"
+
+# Name of the file with the phenotypes:
+y=$(sed -n "1p" ${dir_in}/y_cv1_trn_files.txt)
+
+# Name of the file with the features:
+x=$(sed -n "1p" ${dir_in}/x_cv1_trn_files.txt)
+
+# Name of the model that can be: 'BN' or 'PBN', or 'DBN':
+model='BN'
+
+# Getting the current fold of the cross-validation:
+cv="$(cut -d'_' -f4 <<<"$y")"
+
+# Directory of the project folder:
+dir_proj="/workdir/jp2476/repo/sorghum-multi-trait/"
+
+# Prefix of the output directory:
+PREFIX="/workdir/jp2476/repo/resul_mtrait-proj/outputs/cross_validation/${model}"
+
+# Defining the output directory for the outputs:
+dir_out=${PREFIX}/"$(cut -d'_' -f2 <<<"$y")"/"$(cut -d'_' -f3 <<<"$y")"/${cv}
+
+# Prefix for running the script:
+PREFIX_python=/workdir/jp2476/software/python/bin
+
+# Running the code:
+${PREFIX_python}/python ${dir_proj}/codes/mtrait_bayesian_networks.py -y ${y} -x ${x} -m ${model} -di ${dir_in} -dp ${dir_proj} -do ${dir_out} & 
+
+# Sleep for avoid exploding several processes:
+sleep 5
+
 
 #--------------To perform cross-validation analysis using the Pleiotropic Bayesian Network model-------------#
 
