@@ -374,10 +374,6 @@ if model == 'DBN-0~6':
 				 	 y_6 = y[index==group[6]].values.flatten(),
 				 	 phi = y.max().values[0]*10) 
 
-
-# To do list:
-# - Prepare data input for stan for all models
-
 #--------------------------------------Running the Bayesian Network------------------------------------------#
 
 # Setting directory:

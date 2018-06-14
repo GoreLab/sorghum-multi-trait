@@ -58,36 +58,79 @@ chmod +755 ${PREFIX_code}/mtrait_cross_validation_output_directories.sh
 # Creating directories:
 ${PREFIX_code}/mtrait_cross_validation_output_directories.sh -d ${PREFIX_out}
 
+#-------------Creating a text files for mapping the desired set of analysis for cv1 and cv2 schemes----------#
+
+# Setting directory where the data is:
+cd /workdir/jp2476/repo/resul_mtrait-proj/data/cross_validation
+
+# Listing training phenotypic data files names related to the CV1 scheme and storing it for latter usage:
+ls y*cv1*trn* > y_cv1_trn_files.txt
+
+# Listing training genotypic data files names related to the CV1 scheme and storing it for latter usage:
+ls x*cv1*trn* > x_cv1_trn_files.txt
+
+# Listing training phenotypic data files names related to the CV2 scheme and storing it for latter usage:
+ls y*cv2*trn* > y_cv2_trn_files.txt
+
+# Listing training genotypic data files names related to the CV2 scheme and storing it for latter usage:
+ls x*cv2*trn* > x_cv2_trn_files.txt
+
+# Creating a text file to store the different types of Dynamic Bayesian network models for latter usage;
+echo 'DBN-0~1' > dbn_models_cv2_list.txt
+echo "DBN-0~2" >> dbn_models_cv2_list.txt
+echo "DBN-0~3" >> dbn_models_cv2_list.txt
+echo "DBN-0~4" >> dbn_models_cv2_list.txt
+echo "DBN-0~5" >> dbn_models_cv2_list.txt
+
+#########* Temp code to use below latter:
+
+# Number of analysis to fire:
+n_analysis=10
+
+for i in $(seq 1 ${n_analysis}); do  
+
+	tmp1=$(sed -n "${i}p" y_cv1_trn_files.txt)
+	tmp2=$(sed -n "${i}p" x_cv1_trn_files.txt)
+
+	echo $tmp1
+	echo $tmp2
+	echo "-----"
+
+done;
+
 
 #-------------------To perform cross-validation analysis using the Bayesian Network model--------------------#
 
-# Name of the file with the phenotypes:
-y="y_cv1_height_k0_trn.csv"
+for i in $(seq 1 ${n_analysis}); do  
 
-# Name of the file with the features:
-x="x_cv1_height_k0_trn.csv"
+	# Name of the file with the phenotypes:
+	y=$(sed -n "${i}p" y_cv1_trn_files.txt)
 
-# Name of the model that can be: 'BN' or 'PBN', or 'DBN':
-model='BN'
+	# Name of the file with the features:
+	x=$(sed -n "${i}p" x_cv1_trn_files.txt)
 
-# Directory of the folder where y and x are stored:
-dir_in="/workdir/jp2476/repo/resul_mtrait-proj/data/cross_validation/"
+	# Name of the model that can be: 'BN' or 'PBN', or 'DBN':
+	model='BN'
 
-# Directory of the project folder:
-dir_proj="/workdir/jp2476/repo/sorghum-multi-trait/"
+	# Directory of the folder where y and x are stored:
+	dir_in="/workdir/jp2476/repo/resul_mtrait-proj/data/cross_validation/"
 
-# Prefix of the output directory:
-PREFIX="/workdir/jp2476/repo/resul_mtrait-proj/outputs/cross_validation/${model}"
+	# Directory of the project folder:
+	dir_proj="/workdir/jp2476/repo/sorghum-multi-trait/"
 
-# Defining the output directory for the outputs:
-dir_out=${PREFIX}/"$(cut -d'_' -f2 <<<"$y")"/"$(cut -d'_' -f3 <<<"$y")"
+	# Prefix of the output directory:
+	PREFIX="/workdir/jp2476/repo/resul_mtrait-proj/outputs/cross_validation/${model}"
 
-# Prefix for running the script:
-PREFIX_python=/workdir/jp2476/software/python/bin
+	# Defining the output directory for the outputs:
+	dir_out=${PREFIX}/"$(cut -d'_' -f2 <<<"$y")"/"$(cut -d'_' -f3 <<<"$y")"
 
-# Running the code:
-${PREFIX_python}/python ${dir_proj}/codes/mtrait_bayesian_networks.py -y ${y} -x ${x} -m ${model} -di ${dir_in} -dp ${dir_proj} -do ${dir_out} & 
+	# Prefix for running the script:
+	PREFIX_python=/workdir/jp2476/software/python/bin
 
+	# Running the code:
+	${PREFIX_python}/python ${dir_proj}/codes/mtrait_bayesian_networks.py -y ${y} -x ${x} -m ${model} -di ${dir_in} -dp ${dir_proj} -do ${dir_out} & 
+
+done;
 
 #--------------To perform cross-validation analysis using the Pleiotropic Bayesian Network model-------------#
 
