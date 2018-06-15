@@ -156,40 +156,49 @@ done;
 
 #--------------To perform cross-validation analysis using the Pleiotropic Bayesian Network model-------------#
 
-# Name of the file with the phenotypes:
-y="y_cv1_drymass_k0_trn.csv-y_cv1_height_k0_trn.csv"
+# Number of analysis:
+n_analysis=5
 
-# Name of the file with the features:
-x="x_cv1_drymass_k0_trn.csv-x_cv1_height_k0_trn.csv"
+for i in $(seq 1 ${n_analysis}); do
 
-# Name of the model that can be: 'BN' or 'PBN', or 'DBN':
-model='PBN'
+	# Directory of the folder where y and x are stored:
+	dir_in="/workdir/jp2476/repo/resul_mtrait-proj/data/cross_validation/"
 
-# Directory of the folder where y and x are stored:
-dir_in="/workdir/jp2476/repo/resul_mtrait-proj/data/cross_validation/"
+	# Name of the file with the phenotypes:
+	y=$(sed -n "${i}p" ${dir_in}/y_cv1_pbn_trn_files.txt)
 
-# Directory of the project folder:
-dir_proj="/workdir/jp2476/repo/sorghum-multi-trait/"
+	# Name of the file with the features:
+	x=$(sed -n "${i}p" ${dir_in}/x_cv1_pbn_trn_files.txt)
 
-# Prefix of the output directory:
-PREFIX="/workdir/jp2476/repo/resul_mtrait-proj/outputs/cross_validation/${model}"
-	
-# Getting the name of the cross-validation scheme and traits:
-tmp1="$(cut -d'_' -f2 <<<"$y")"
-tmp2="$(cut -d'-' -f1 <<<"$y")"
-tmp2="$(cut -d'_' -f3 <<<"$tmp2")"
-tmp3="$(cut -d'-' -f2 <<<"$y")"
-tmp3="$(cut -d'_' -f3 <<<"$tmp3")"
+	# Name of the model that can be: 'BN' or 'PBN', or 'DBN':
+	model='PBN'
 
-# Creating the name of the output directory:
-dir_out=${PREFIX}/${tmp1}/${tmp2}-${tmp3}
+	# Directory of the folder where y and x are stored:
+	dir_in="/workdir/jp2476/repo/resul_mtrait-proj/data/cross_validation/"
 
-# Prefix for running the script:
-PREFIX_python=/workdir/jp2476/software/python/bin
+	# Directory of the project folder:
+	dir_proj="/workdir/jp2476/repo/sorghum-multi-trait/"
 
-# Running the code:
-${PREFIX_python}/python ${dir_proj}/codes/mtrait_bayesian_networks.py -y ${y} -x ${x} -m ${model} -di ${dir_in} -dp ${dir_proj} -do ${dir_out} & 
+	# Prefix of the output directory:
+	PREFIX="/workdir/jp2476/repo/resul_mtrait-proj/outputs/cross_validation/${model}"
+		
+	# Getting the name of the cross-validation scheme and traits:
+	tmp1="$(cut -d'_' -f2 <<<"$y")"
+	tmp2="$(cut -d'-' -f1 <<<"$y")"
+	tmp2="$(cut -d'_' -f3 <<<"$tmp2")"
+	tmp3="$(cut -d'-' -f2 <<<"$y")"
+	tmp3="$(cut -d'_' -f3 <<<"$tmp3")"
 
+	# Creating the name of the output directory:
+	dir_out=${PREFIX}/${tmp1}/${tmp2}-${tmp3}
+
+	# Prefix for running the script:
+	PREFIX_python=/workdir/jp2476/software/python/bin
+
+	# Running the code:
+	${PREFIX_python}/python ${dir_proj}/codes/mtrait_bayesian_networks.py -y ${y} -x ${x} -m ${model} -di ${dir_in} -dp ${dir_proj} -do ${dir_out} & 
+
+done;
 
 #----------------To perform cross-validation analysis using the Dynamic Bayesian Network model---------------#
 
