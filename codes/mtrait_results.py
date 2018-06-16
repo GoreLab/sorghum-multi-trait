@@ -64,7 +64,9 @@ for t in range(len(cv2_type)):
 			X[index] = pd.read_csv('x_' + index + '.csv', header = 0, index_col=0)
 
 
-
+## To do list:
+# - Create a tree of directories for PBN, BN (height only), for receiving the cv2 full data scheme for each time point
+# - Update the cross-validation code for generating full data cv2 scheme for each data point and feed the new directories 
 
 
 
