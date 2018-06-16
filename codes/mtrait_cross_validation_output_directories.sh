@@ -19,21 +19,21 @@ while getopts ":d:" opt; do
 done
 
 # Creating CV directories on Bayesian network output folder:
-mkdir ${PREFIX}/outputs/cross_validation/BN;
-mkdir ${PREFIX}/outputs/cross_validation/BN/cv1;
-mkdir ${PREFIX}/outputs/cross_validation/BN/cv1/height;
-mkdir ${PREFIX}/outputs/cross_validation/BN/cv1/height/k0;
-mkdir ${PREFIX}/outputs/cross_validation/BN/cv1/height/k1;
-mkdir ${PREFIX}/outputs/cross_validation/BN/cv1/height/k2;
-mkdir ${PREFIX}/outputs/cross_validation/BN/cv1/height/k3;
-mkdir ${PREFIX}/outputs/cross_validation/BN/cv1/height/k4;
+# mkdir ${PREFIX}/outputs/cross_validation/BN;
+# mkdir ${PREFIX}/outputs/cross_validation/BN/cv1;
+# mkdir ${PREFIX}/outputs/cross_validation/BN/cv1/height;
+# mkdir ${PREFIX}/outputs/cross_validation/BN/cv1/height/k0;
+# mkdir ${PREFIX}/outputs/cross_validation/BN/cv1/height/k1;
+# mkdir ${PREFIX}/outputs/cross_validation/BN/cv1/height/k2;
+# mkdir ${PREFIX}/outputs/cross_validation/BN/cv1/height/k3;
+# mkdir ${PREFIX}/outputs/cross_validation/BN/cv1/height/k4;
 
-mkdir ${PREFIX}/outputs/cross_validation/BN/cv1/drymass;
-mkdir ${PREFIX}/outputs/cross_validation/BN/cv1/drymass/k0;
-mkdir ${PREFIX}/outputs/cross_validation/BN/cv1/drymass/k1;
-mkdir ${PREFIX}/outputs/cross_validation/BN/cv1/drymass/k2;
-mkdir ${PREFIX}/outputs/cross_validation/BN/cv1/drymass/k3;
-mkdir ${PREFIX}/outputs/cross_validation/BN/cv1/drymass/k4;
+# mkdir ${PREFIX}/outputs/cross_validation/BN/cv1/drymass;
+# mkdir ${PREFIX}/outputs/cross_validation/BN/cv1/drymass/k0;
+# mkdir ${PREFIX}/outputs/cross_validation/BN/cv1/drymass/k1;
+# mkdir ${PREFIX}/outputs/cross_validation/BN/cv1/drymass/k2;
+# mkdir ${PREFIX}/outputs/cross_validation/BN/cv1/drymass/k3;
+# mkdir ${PREFIX}/outputs/cross_validation/BN/cv1/drymass/k4;
 
 # Creating CV directories on Pleiotropic Bayesian network output folder:
 mkdir ${PREFIX}/outputs/cross_validation/PBN;
@@ -49,6 +49,11 @@ mkdir ${PREFIX}/outputs/cross_validation/PBN/cv1/drymass-height/k4;
 mkdir ${PREFIX}/outputs/cross_validation/DBN;
 mkdir ${PREFIX}/outputs/cross_validation/DBN/cv1;
 mkdir ${PREFIX}/outputs/cross_validation/DBN/cv1/height;
+mkdir ${PREFIX}/outputs/cross_validation/DBN/cv1/height/k0;
+mkdir ${PREFIX}/outputs/cross_validation/DBN/cv1/height/k1;
+mkdir ${PREFIX}/outputs/cross_validation/DBN/cv1/height/k2;
+mkdir ${PREFIX}/outputs/cross_validation/DBN/cv1/height/k3;
+mkdir ${PREFIX}/outputs/cross_validation/DBN/cv1/height/k4;
 mkdir ${PREFIX}/outputs/cross_validation/DBN/cv2-30~45;
 mkdir ${PREFIX}/outputs/cross_validation/DBN/cv2-30~45/height;
 mkdir ${PREFIX}/outputs/cross_validation/DBN/cv2-30~60;
