@@ -220,7 +220,7 @@ for i in $(seq 1 ${n_analysis}); do
 	tmp1="$(cut -d'_' -f2 <<<"$y")"
 	tmp2="$(cut -d'-' -f1 <<<"$y")"
 	tmp2="$(cut -d'_' -f3 <<<"$tmp2")"
-	tmp3="$(cut -d'-' -f2 <<<"$y")"
+	tmp3="$(cut -d'&' -f2 <<<"$y")"
 	tmp3="$(cut -d'_' -f3 <<<"$tmp3")"
 
 	# Getting the current fold of the cross-validation:
