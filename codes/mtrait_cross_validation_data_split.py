@@ -112,6 +112,21 @@ for c in cv2_types:
 		if s == 'tst':
 			# Logical vector for indexation:
 			index = (df.trait=='height') & (df.dap>upper_index)
+
+# Getting DAP groups:
+dap_group = df.dap.unique()[1:7]
+
+# Building the sets of the data for the CV2 schemes for the PBN and BN (height only) models using all data:
+for d in dap_group:
+	for s in sets:
+		# Key index for mapping data into dictionary:
+		key_index = 'cv2-' + str(d) + '_height_' + s
+		if s == 'trn':
+			# Logical vector for indexation:
+			index = (df.trait=='height') & (df.dap==d)
+		if s == 'tst':
+			# Logical vector for indexation:
+			index = (df.trait=='height') & (df.dap!=d)
 		# Building the response vector for the subset of data:
 		y[key_index] = df.y_hat[index]
 		# Building feature matrix for the subset of data:
