@@ -170,7 +170,7 @@ for i in $(seq 1 ${n_analysis}); do
 	model='BN'
 
 	# Directory of the project folder:
-	dir_proj="/workdir/jp2476/repo/sorghum-multi-trait"
+	dir_proj="/workdir/jp2476/repo/sorghum-multi-trait/"
 
 	# Prefix of the output directory:
 	PREFIX="/workdir/jp2476/repo/resul_mtrait-proj/outputs/cross_validation/${model}"
@@ -189,8 +189,7 @@ for i in $(seq 1 ${n_analysis}); do
 
 done;
 
-
-#--------------To perform cross-validation analysis using the Pleiotropic Bayesian Network model-------------#
+#-----------To perform cross-validation analysis using the Pleiotropic Bayesian Network model (CV1)----------#
 
 # Number of analysis:
 n_analysis=5
@@ -227,6 +226,55 @@ for i in $(seq 1 ${n_analysis}); do
 
 	# Creating the name of the output directory:
 	dir_out=${PREFIX}/${tmp1}/${tmp2}-${tmp3}/${cv}
+
+	# Prefix for running the script:
+	PREFIX_python=/workdir/jp2476/software/python/bin
+
+	# Running the code:
+	${PREFIX_python}/python ${dir_proj}/codes/mtrait_bayesian_networks.py -y ${y} -x ${x} -m ${model} -di ${dir_in} -dp ${dir_proj} -do ${dir_out} & 
+
+	# Sleep for avoid exploding several processes:
+	sleep 5
+
+done;
+
+
+#-----------To perform cross-validation analysis using the Pleiotropic Bayesian Network model (CV2)----------#
+
+# Number of analysis:
+n_analysis=6
+
+for i in $(seq 1 ${n_analysis}); do
+
+	# Directory of the folder where y and x are stored:
+	dir_in="/workdir/jp2476/repo/resul_mtrait-proj/data/cross_validation/"
+
+	# Name of the file with the phenotypes:
+	y=$(sed -n "${i}p" ${dir_in}/y_cv2_pbn_trn_files.txt)
+
+	# Name of the file with the features:
+	x=$(sed -n "${i}p" ${dir_in}/x_cv2_pbn_trn_files.txt)
+
+	# Name of the model that can be: 'BN' or 'PBN', or 'DBN':
+	model='PBN'
+
+	# Directory of the project folder:
+	dir_proj="/workdir/jp2476/repo/sorghum-multi-trait/"
+
+	# Prefix of the output directory:
+	PREFIX="/workdir/jp2476/repo/resul_mtrait-proj/outputs/cross_validation/${model}"
+
+	# Getting the name of the cross-validation scheme and traits:
+	tmp1="$(cut -d'_' -f5 <<<"$y")"
+	tmp2="$(cut -d'-' -f1 <<<"$y")"
+	tmp2="$(cut -d'_' -f3 <<<"$tmp2")"
+	tmp3="$(cut -d'_' -f6 <<<"$y")"
+
+	# Getting the current fold of the cross-validation:
+	cv="$(cut -d'_' -f4 <<<"$y")"
+
+	# Creating the name of the output directory:
+	dir_out=${PREFIX}/${tmp1}/${tmp2}-${tmp3}
 
 	# Prefix for running the script:
 	PREFIX_python=/workdir/jp2476/software/python/bin
