@@ -152,6 +152,7 @@ for i in $(seq 1 ${n_analysis}); do
 
 done;
 
+
 #-----------------To perform cross-validation analysis using the Bayesian Network model (CV2)----------------#
 
 # Number of analysis:
@@ -190,6 +191,7 @@ for i in $(seq 1 ${n_analysis}); do
 	sleep 5
 
 done;
+
 
 #-----------To perform cross-validation analysis using the Pleiotropic Bayesian Network model (CV1)----------#
 
@@ -383,6 +385,7 @@ for i in $(seq 1 ${n_analysis}); do
 	sleep 5
 
 done;
+
 
 #----------------------------------------Install python locally----------------------------------------------#
 
