@@ -73,10 +73,10 @@ ls x*cv1*height*trn* > x_cv1_dbn_trn_files.txt
 # Listing training files names related to the CV1 scheme and storing it for latter usage on PBN model
 grep "drymass" y_cv1_bn_trn_files.txt > tmp1.txt 
 grep "height" y_cv1_bn_trn_files.txt > tmp2.txt 
-paste -d'-' tmp1.txt tmp2.txt > y_cv1_pbn_trn_files.txt
+paste -d'&' tmp1.txt tmp2.txt > y_cv1_pbn_trn_files.txt
 grep "drymass" x_cv1_bn_trn_files.txt > tmp1.txt 
 grep "height" x_cv1_bn_trn_files.txt > tmp2.txt 
-paste -d'-' tmp1.txt tmp2.txt > x_cv1_pbn_trn_files.txt
+paste -d'&' tmp1.txt tmp2.txt > x_cv1_pbn_trn_files.txt
 rm tmp1.txt tmp2.txt
 
 # Listing training phenotypic data files names related to the CV2 scheme and storing it for latter usage (BN):
@@ -92,13 +92,15 @@ for i in $(seq 1 5); do
 	echo 'x_cv2_drymass_trn.csv' >> tmp2.txt
 
 done;
-paste -d'-' tmp1.txt y_cv2_bn_trn_files.txt > y_cv2_pbn_trn_files.txt
-paste -d'-' tmp2.txt x_cv2_bn_trn_files.txt > x_cv2_pbn_trn_files.txt
+paste -d'&' tmp1.txt y_cv2_bn_trn_files.txt > y_cv2_pbn_trn_files.txt
+paste -d'&' tmp2.txt x_cv2_bn_trn_files.txt > x_cv2_pbn_trn_files.txt
 rm tmp1.txt tmp2.txt
 
 # Listing training data files names related to the CV2 scheme and storing it for latter usage (DBN):
-ls y*cv2*trn* > y_cv2_dbn_trn_files.txt
-ls x*cv2*trn* > x_cv2_dbn_trn_files.txt
+ls y*cv2*height*trn* > y_cv2_dbn_trn_files.txt
+ls x*cv2*height*trn* > x_cv2_dbn_trn_files.txt
+sed -i '/only/d' y_cv2_dbn_trn_files.txt
+sed -i '/only/d' x_cv2_dbn_trn_files.txt
 
 # Creating a text file to store the different types of Dynamic Bayesian network models for latter usage (DBN);
 echo "DBN-0~5" > dbn_models_cv2_list.txt

@@ -48,10 +48,10 @@ os.chdir(dir_in)
 if model=='PBN':
 	y = args.y
 	x = args.x
-	y_0 = y.split("-")[0]
-	y_1 = y.split("-")[1]
-	x_0 = x.split("-")[0]
-	x_1 = x.split("-")[1]
+	y_0 = y.split("&")[0]
+	y_1 = y.split("&")[1]
+	x_0 = x.split("&")[0]
+	x_1 = x.split("&")[1]
 
 # Loading data:
 if (model=='BN') or bool(re.search('DBN', model)):
