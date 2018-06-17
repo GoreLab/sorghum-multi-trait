@@ -116,7 +116,7 @@ for c in cv2_types:
 # Getting DAP groups:
 dap_group = df.dap.unique()[1:7]
 
-# Building the sets of the data for the CV2 schemes for the PBN and BN (height only) models using all data:
+# Building the sets of the data for the CV2 schemes for the PBN and BN models using all data:
 for d in dap_group:
 	for s in sets:
 		# Key index for mapping data into dictionary:
@@ -131,6 +131,12 @@ for d in dap_group:
 		y[key_index] = df.y_hat[index]
 		# Building feature matrix for the subset of data:
 		X[key_index] = X_all[index]
+
+# Creating the sets only for the PBN model with drymass data together with height data:
+key_index = 'cv2_drymass_trn'
+y[key_index] = df.y_hat[df.trait=='drymass']
+X[key_index] = X_all[df.trait=='drymass']
+
 
 #-----------------------------------Saving different subsets of the data-------------------------------------#
 
