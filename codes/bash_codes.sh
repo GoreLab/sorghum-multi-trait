@@ -58,6 +58,7 @@ chmod +755 ${PREFIX_code}/mtrait_cross_validation_output_directories.sh
 # Creating directories:
 ${PREFIX_code}/mtrait_cross_validation_output_directories.sh -d ${PREFIX_out}
 
+
 #-------------Creating a text files for mapping the desired set of analysis for cv1 and cv2 schemes----------#
 
 # Setting directory where the data is:
@@ -78,15 +79,25 @@ grep "height" x_cv1_bn_trn_files.txt > tmp2.txt
 paste -d'-' tmp1.txt tmp2.txt > x_cv1_pbn_trn_files.txt
 rm tmp1.txt tmp2.txt
 
+# Listing training phenotypic data files names related to the CV2 scheme and storing it for latter usage (BN):
+ls y*cv2*only*trn* > y_cv2_bn_trn_files.txt
+ls x*cv2*only*trn* > x_cv2_bn_trn_files.txt
 
-# # Listing training phenotypic data files names related to the CV2 scheme and storing it for latter usage (BN):
-# ls y*cv2*trn* > y_cv2_dbn_trn_files.txt
+# Listing training phenotypic data files names related to the CV2 scheme and storing it for latter usage (PBN):
+echo 'y_cv2_drymass_trn.csv' > tmp1.txt
+echo 'x_cv2_drymass_trn.csv' > tmp2.txt
+for i in $(seq 1 5); do 
 
+	echo 'y_cv2_drymass_trn.csv' >> tmp1.txt
+	echo 'x_cv2_drymass_trn.csv' >> tmp2.txt
 
-# Listing training phenotypic data files names related to the CV2 scheme and storing it for latter usage (DBN):
+done;
+paste -d'-' tmp1.txt y_cv2_bn_trn_files.txt > y_cv2_pbn_trn_files.txt
+paste -d'-' tmp2.txt x_cv2_bn_trn_files.txt > x_cv2_pbn_trn_files.txt
+rm tmp1.txt tmp2.txt
+
+# Listing training data files names related to the CV2 scheme and storing it for latter usage (DBN):
 ls y*cv2*trn* > y_cv2_dbn_trn_files.txt
-
-# Listing training genotypic data files names related to the CV2 scheme and storing it for latter usage (DBN):
 ls x*cv2*trn* > x_cv2_dbn_trn_files.txt
 
 # Creating a text file to store the different types of Dynamic Bayesian network models for latter usage (DBN);
