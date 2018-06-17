@@ -120,7 +120,7 @@ dap_group = df.dap.unique()[1:7]
 for d in dap_group:
 	for s in sets:
 		# Key index for mapping data into dictionary:
-		key_index = 'cv2-' + str(d) + '_height_' + s
+		key_index = 'cv2-' + str(d) + '~only' + '_height_' + s
 		if s == 'trn':
 			# Logical vector for indexation:
 			index = (df.trait=='height') & (df.dap==d)

@@ -78,13 +78,18 @@ grep "height" x_cv1_bn_trn_files.txt > tmp2.txt
 paste -d'-' tmp1.txt tmp2.txt > x_cv1_pbn_trn_files.txt
 rm tmp1.txt tmp2.txt
 
-# Listing training phenotypic data files names related to the CV2 scheme and storing it for latter usage:
+
+# # Listing training phenotypic data files names related to the CV2 scheme and storing it for latter usage (BN):
+# ls y*cv2*trn* > y_cv2_dbn_trn_files.txt
+
+
+# Listing training phenotypic data files names related to the CV2 scheme and storing it for latter usage (DBN):
 ls y*cv2*trn* > y_cv2_dbn_trn_files.txt
 
-# Listing training genotypic data files names related to the CV2 scheme and storing it for latter usage:
+# Listing training genotypic data files names related to the CV2 scheme and storing it for latter usage (DBN):
 ls x*cv2*trn* > x_cv2_dbn_trn_files.txt
 
-# Creating a text file to store the different types of Dynamic Bayesian network models for latter usage;
+# Creating a text file to store the different types of Dynamic Bayesian network models for latter usage (DBN);
 echo "DBN-0~5" > dbn_models_cv2_list.txt
 echo "DBN-0~1" >> dbn_models_cv2_list.txt
 echo "DBN-0~2" >> dbn_models_cv2_list.txt
