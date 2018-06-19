@@ -11,7 +11,6 @@ data {
   int<lower=1> n_0;
 
   // Feature vector/matrix:
-  vector[n_0] X_0;
   matrix[n_0, p_z] Z_0;
   
   // Phenotypic vector:
@@ -20,8 +19,7 @@ data {
   // Number of row entries of the matrices or vectors:
   int<lower=1> n_1;
 
-  // Feature vector/matrix:
-  vector[n_1] X_1;
+  // Feature matrix:
   matrix[n_1, p_z] Z_1;
 
   // Phenotypic vector:
@@ -31,7 +29,6 @@ data {
   int<lower=1> n_2;
 
   // Feature vector/matrix:
-  vector[n_2] X_2;
   matrix[n_2, p_z] Z_2;
 
   // Phenotypic vector:
@@ -40,8 +37,7 @@ data {
   // Number of row entries of the matrices or vectors:
   int<lower=1> n_3;
 
-  // Feature vector/matrix:
-  vector[n_3] X_3;
+  // Feature matrix:
   matrix[n_3, p_z] Z_3;
 
   // Phenotypic vector:
@@ -50,8 +46,7 @@ data {
   // Number of row entries of the matrices or vectors:
   int<lower=1> n_4;
 
-  // Feature vector/matrix:
-  vector[n_4] X_4;
+  // Feature matrix:
   matrix[n_4, p_z] Z_4;
 
   // Phenotypic vector:
@@ -60,8 +55,7 @@ data {
   // Number of row entries of the matrices or vectors:
   int<lower=1> n_5;
 
-  // Feature vector/matrix:
-  vector[n_5] X_5;
+  // Feature matrix:
   matrix[n_5, p_z] Z_5;
 
   // Phenotypic vector:
@@ -70,8 +64,7 @@ data {
   // Number of row entries of the matrices or vectors:
   int<lower=1> n_6;
 
-  // Feature vector/matrix:
-  vector[n_6] X_6;
+  // Feature matrix:
   matrix[n_6, p_z] Z_6;
 
   // Phenotypic vector:
@@ -84,15 +77,15 @@ data {
 
 parameters {
 
-  // Global dap effect parameter/hyperparameters:
-  real<lower=0> pi_s_beta;
-  real<lower=0> s_beta;
-  real beta;
-
   // Heterogeneous residuals parameter/hyperparameters:
   real<lower=0> pi_s_sigma;
   real<lower=0> s_sigma;
   vector<lower=0>[p_res] sigma;
+
+  // Population mean effect parameter/hyperparameters:
+  real<lower=0> pi_s_mu_0;
+  real<lower=0> s_mu_0;
+  real mu_0;
 
   // Feature parameter/hyperparameters:
   real<lower=0> pi_s_alpha_0;
@@ -107,6 +100,11 @@ parameters {
   real<lower=0> s_eta_0_1;
   vector[p_z] eta_0_1;
 
+  // Population mean effect parameter/hyperparameters:
+  real<lower=0> pi_s_mu_1;
+  real<lower=0> s_mu_1;
+  real mu_1;
+
   // Defining variable to generate data from the model:
   real y_gen_1[n_1];
 
@@ -114,6 +112,11 @@ parameters {
   real<lower=0> pi_s_eta_1_2;
   real<lower=0> s_eta_1_2;
   vector[p_z] eta_1_2;
+
+  // Population mean effect parameter/hyperparameters:
+  real<lower=0> pi_s_mu_2;
+  real<lower=0> s_mu_2;
+  real mu_2;
 
   // Defining variable to generate data from the model:
   real y_gen_2[n_2];
@@ -123,6 +126,11 @@ parameters {
   real<lower=0> s_eta_2_3;
   vector[p_z] eta_2_3;
 
+  // Population mean effect parameter/hyperparameters:
+  real<lower=0> pi_s_mu_3;
+  real<lower=0> s_mu_3;
+  real mu_3;
+
   // Defining variable to generate data from the model:
   real y_gen_3[n_3];
 
@@ -130,6 +138,11 @@ parameters {
   real<lower=0> pi_s_eta_3_4;
   real<lower=0> s_eta_3_4;
   vector[p_z] eta_3_4;
+
+  // Population mean effect parameter/hyperparameters:
+  real<lower=0> pi_s_mu_4;
+  real<lower=0> s_mu_4;
+  real mu_4;
 
   // Defining variable to generate data from the model:
   real y_gen_4[n_4];
@@ -139,6 +152,11 @@ parameters {
   real<lower=0> s_eta_4_5;
   vector[p_z] eta_4_5;
 
+  // Population mean effect parameter/hyperparameters:
+  real<lower=0> pi_s_mu_5;
+  real<lower=0> s_mu_5;
+  real mu_5;
+
   // Defining variable to generate data from the model:
   real y_gen_5[n_5];
 
@@ -146,6 +164,11 @@ parameters {
   real<lower=0> pi_s_eta_5_6;
   real<lower=0> s_eta_5_6;
   vector[p_z] eta_5_6;
+
+  // Population mean effect parameter/hyperparameters:
+  real<lower=0> pi_s_mu_6;
+  real<lower=0> s_mu_6;
+  real mu_6;
 
   // Defining variable to generate data from the model:
   real y_gen_6[n_6];
@@ -170,43 +193,43 @@ transformed parameters {
   vector[n_6] expectation_6;
 
   // Computing the expectation of the likelihood function:
-  expectation_0 = X_0 * beta + Z_0 * alpha_0;
+  expectation_0 = mu_0 + Z_0 * alpha_0;
 
   // Computing the global genetic effect:
   alpha_1 = (alpha_0 + eta_0_1);
 
   // Computing the expectation of the likelihood function:
-  expectation_1 = X_1 * beta + Z_1 * alpha_1;
+  expectation_1 = mu_1 + Z_1 * alpha_1;
 
   // Computing the global genetic effect:
   alpha_2 = (alpha_1 + eta_1_2);
 
   // Computing the expectation of the likelihood function:
-  expectation_2 = X_2 * beta + Z_2 * alpha_2;
+  expectation_2 = mu_2 + Z_2 * alpha_2;
 
   // Computing the global genetic effect:
   alpha_3 = (alpha_2 + eta_2_3);
 
   // Computing the expectation of the likelihood function:
-  expectation_3 = X_3 * beta + Z_3 * alpha_3;
+  expectation_3 = mu_3 + Z_3 * alpha_3;
 
   // Computing the global genetic effect:
   alpha_4 = (alpha_3 + eta_3_4);
 
   // Computing the expectation of the likelihood function:
-  expectation_4 = X_4 * beta + Z_4 * alpha_4;
+  expectation_4 = mu_4 + Z_4 * alpha_4;
 
   // Computing the global genetic effect:
   alpha_5 = (alpha_4 + eta_4_5);
 
   // Computing the expectation of the likelihood function:
-  expectation_5 = X_5 * beta + Z_5 * alpha_5;
+  expectation_5 = mu_5 + Z_5 * alpha_5;
 
   // Computing the global genetic effect:
   alpha_6 = (alpha_5 + eta_5_6);
 
   // Computing the expectation of the likelihood function:
-  expectation_6 = X_6 * beta + Z_6 * alpha_6;
+  expectation_6 = mu_6 + Z_6 * alpha_6;
 
 }
 
@@ -214,15 +237,15 @@ model {
 
   //// First response variable conditionals probability distributions:
 
-  //// Conditional probabilities distributions that creates dependecy between the responses across time:
-  pi_s_beta ~ cauchy(0, phi);
-  s_beta ~ cauchy(0, pi_s_beta);
-  beta ~ normal(0, s_beta);
-
   //// Conditional probabilities distributions for residuals:
   pi_s_sigma ~ cauchy(0, phi);
   s_sigma ~ cauchy(0, pi_s_sigma);
   sigma ~ normal(0, s_sigma);
+
+  //// Conditional probabilities distributions for population mean:
+  pi_s_mu_0 ~ cauchy(0, phi);
+  s_mu_0 ~ cauchy(0, pi_s_mu_0);
+  mu_0 ~ normal(0, s_mu_0);
 
   // Conditional probabilities distributions for features:
   pi_s_alpha_0 ~ cauchy(0,  phi);
@@ -242,6 +265,11 @@ model {
 
   //// Second response variable conditionals probability distributions:
 
+  //// Conditional probabilities distributions for population mean:
+  pi_s_mu_1 ~ cauchy(0, phi);
+  s_mu_1 ~ cauchy(0, pi_s_mu_1);
+  mu_1 ~ normal(0, s_mu_1);
+
   // Specifying the likelihood:
   y_1 ~ normal(expectation_1, sigma[2]);
 
@@ -254,6 +282,11 @@ model {
   eta_1_2 ~ normal(0, s_eta_1_2);
 
   //// Third response variable conditionals probability distributions:
+
+  //// Conditional probabilities distributions for population mean:
+  pi_s_mu_2 ~ cauchy(0, phi);
+  s_mu_2 ~ cauchy(0, pi_s_mu_2);
+  mu_2 ~ normal(0, s_mu_2);
 
   // Specifying the likelihood:
   y_2 ~ normal(expectation_2, sigma[3]);
@@ -268,6 +301,11 @@ model {
 
   //// Third response variable conditionals probability distributions:
 
+  //// Conditional probabilities distributions for population mean:
+  pi_s_mu_3 ~ cauchy(0, phi);
+  s_mu_3 ~ cauchy(0, pi_s_mu_3);
+  mu_3 ~ normal(0, s_mu_3);
+
   // Specifying the likelihood:
   y_3 ~ normal(expectation_3, sigma[4]);
 
@@ -280,6 +318,11 @@ model {
   eta_3_4 ~ normal(0, s_eta_3_4);
 
   //// Fourth response variable conditionals probability distributions:
+
+  //// Conditional probabilities distributions for population mean:
+  pi_s_mu_4 ~ cauchy(0, phi);
+  s_mu_4 ~ cauchy(0, pi_s_mu_4);
+  mu_4 ~ normal(0, s_mu_4);
 
   // Specifying the likelihood:
   y_4 ~ normal(expectation_4, sigma[5]);
@@ -294,6 +337,11 @@ model {
 
   //// Fifth response variable conditionals probability distributions:
 
+  //// Conditional probabilities distributions for population mean:
+  pi_s_mu_5 ~ cauchy(0, phi);
+  s_mu_5 ~ cauchy(0, pi_s_mu_5);
+  mu_5 ~ normal(0, s_mu_5);
+
   // Specifying the likelihood:
   y_5 ~ normal(expectation_5, sigma[6]);
 
@@ -306,6 +354,11 @@ model {
   eta_5_6 ~ normal(0, s_eta_5_6);
 
   //// Sixth response variable conditionals probability distributions:
+
+  //// Conditional probabilities distributions for population mean:
+  pi_s_mu_6 ~ cauchy(0, phi);
+  s_mu_6 ~ cauchy(0, pi_s_mu_6);
+  mu_6 ~ normal(0, s_mu_6);
 
   // Specifying the likelihood:
   y_6 ~ normal(expectation_6, sigma[7]);

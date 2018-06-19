@@ -10,8 +10,7 @@ data {
   // Number of row entries of the matrices or vectors:
   int<lower=1> n_0;
 
-  // Feature vector/matrix:
-  vector[n_0] X_0;
+  // Feature matrix:
   matrix[n_0, p_z] Z_0;
   
   // Phenotypic vector:
@@ -20,8 +19,7 @@ data {
   // Number of row entries of the matrices or vectors:
   int<lower=1> n_1;
 
-  // Feature vector/matrix:
-  vector[n_1] X_1;
+  // Feature matrix:
   matrix[n_1, p_z] Z_1;
 
   // Phenotypic vector:
@@ -30,8 +28,7 @@ data {
   // Number of row entries of the matrices or vectors:
   int<lower=1> n_2;
 
-  // Feature vector/matrix:
-  vector[n_2] X_2;
+  // Feature matrix:
   matrix[n_2, p_z] Z_2;
 
   // Phenotypic vector:
@@ -44,15 +41,15 @@ data {
 
 parameters {
 
-  // Global dap effect parameter/hyperparameters:
-  real<lower=0> pi_s_beta;
-  real<lower=0> s_beta;
-  real beta;
-
   // Heterogeneous residuals parameter/hyperparameters:
   real<lower=0> pi_s_sigma;
   real<lower=0> s_sigma;
   vector<lower=0>[p_res] sigma;
+
+  // Population mean effect parameter/hyperparameters:
+  real<lower=0> pi_s_mu_0;
+  real<lower=0> s_mu_0;
+  real mu_0;
 
   // Feature parameter/hyperparameters:
   real<lower=0> pi_s_alpha_0;
@@ -67,6 +64,11 @@ parameters {
   real<lower=0> s_eta_0_1;
   vector[p_z] eta_0_1;
 
+  // Population mean effect parameter/hyperparameters:
+  real<lower=0> pi_s_mu_1;
+  real<lower=0> s_mu_1;
+  real mu_1;
+
   // Defining variable to generate data from the model:
   real y_gen_1[n_1];
 
@@ -74,6 +76,11 @@ parameters {
   real<lower=0> pi_s_eta_1_2;
   real<lower=0> s_eta_1_2;
   vector[p_z] eta_1_2;
+
+  // Population mean effect parameter/hyperparameters:
+  real<lower=0> pi_s_mu_2;
+  real<lower=0> s_mu_2;
+  real mu_2;
 
   // Defining variable to generate data from the model:
   real y_gen_2[n_2];
@@ -90,19 +97,19 @@ transformed parameters {
   vector[n_2] expectation_2;
 
   // Computing the expectation of the likelihood function:
-  expectation_0 = X_0 * beta + Z_0 * alpha_0;
+  expectation_0 = mu_0 + Z_0 * alpha_0;
 
   // Computing the global genetic effect:
   alpha_1 = (alpha_0 + eta_0_1);
 
   // Computing the expectation of the likelihood function:
-  expectation_1 = X_1 * beta + Z_1 * alpha_1;
+  expectation_1 = mu_1 + Z_1 * alpha_1;
 
   // Computing the global genetic effect:
   alpha_2 = (alpha_1 + eta_1_2);
 
   // Computing the expectation of the likelihood function:
-  expectation_2 = X_2 * beta + Z_2 * alpha_2;
+  expectation_2 = mu_2 + Z_2 * alpha_2;
 
 }
 
@@ -110,15 +117,15 @@ model {
 
   //// First response variable conditionals probability distributions:
 
-  //// Conditional probabilities distributions that creates dependecy between the responses across time:
-  pi_s_beta ~ cauchy(0, phi);
-  s_beta ~ cauchy(0, pi_s_beta);
-  beta ~ normal(0, s_beta);
-
   //// Conditional probabilities distributions for residuals:
   pi_s_sigma ~ cauchy(0, phi);
   s_sigma ~ cauchy(0, pi_s_sigma);
   sigma ~ normal(0, s_sigma);
+
+  //// Conditional probabilities distributions for population mean:
+  pi_s_mu_0 ~ cauchy(0, phi);
+  s_mu_0 ~ cauchy(0, pi_s_mu_0);
+  mu_0 ~ normal(0, s_mu_0);
 
   // Conditional probabilities distributions for features:
   pi_s_alpha_0 ~ cauchy(0,  phi);
@@ -138,6 +145,11 @@ model {
 
   //// Second response variable conditionals probability distributions:
 
+  //// Conditional probabilities distributions for population mean:
+  pi_s_mu_1 ~ cauchy(0, phi);
+  s_mu_1 ~ cauchy(0, pi_s_mu_1);
+  mu_1 ~ normal(0, s_mu_1);
+
   // Specifying the likelihood:
   y_1 ~ normal(expectation_1, sigma[2]);
 
@@ -150,6 +162,11 @@ model {
   eta_1_2 ~ normal(0, s_eta_1_2);
 
   //// Third response variable conditionals probability distributions:
+
+  //// Conditional probabilities distributions for population mean:
+  pi_s_mu_2 ~ cauchy(0, phi);
+  s_mu_2 ~ cauchy(0, pi_s_mu_2);
+  mu_2 ~ normal(0, s_mu_2);
 
   // Specifying the likelihood:
   y_2 ~ normal(expectation_2, sigma[3]);
