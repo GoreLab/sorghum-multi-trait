@@ -308,23 +308,7 @@ for c in range(len(cv2_type)):
   y_pred_cv2[index2] = mu + Z_tmp.dot(alpha)
 
 
-# # Saving data:
-# os.chdir(prefix_out + "outputs/tmp")
-# data = [y, X, y_pred_cv1, y_pred_cv2, y_obs_cv1, y_obs_cv2, df]
-# np.savez('mtrait_results.npz', data)
-
-# # Loading data:
-# os.chdir(prefix_out + "outputs/tmp")
-# container = np.load('mtrait_results.npz')
-# data = [container[key] for key in container]
-# y = data[0][0]
-# X = data[0][1]
-# y_pred_cv1 = data[0][2]
-# y_pred_cv2 = data[0][3]
-# y_obs_cv1 = data[0][4]
-# y_obs_cv2 = data[0][5]
-# df = data[0][6]
-
+#-----------------------------Compute prediction accuracies for the CV1 scheme-------------------------------#
 
 # Accuracies for cv1:
 for d in dap_group:
@@ -342,7 +326,50 @@ for d in dap_group:
 
 index = y_pred_cv1['bn_cv1_drymass'].index
 pearsonr(y_pred_cv1['bn_cv1_drymass'], y_obs_cv1['cv1_drymass'][index])[0]
-pearsonr(y_pred_cv1['pbn_cv1_drymass_ensambled'].values.flatten(), y_obs_cv1['cv1_drymass'][index])[0]
+
+
+#-----------------------------Compute prediction accuracies for the CV2 scheme-------------------------------#
+
+# Store into a list different DAP values:
+dap_group = ['30', '45', '60', '75', '90', '105']
+
+# Creating an empty correlation matrix:
+cor = np.empty([len(dap_group)]*2)
+cor[:] = np.nan
+
+if (j>i): 
+
+# Building correlation matrix for the Bayesian Network model:
 
 
 
+#(try to reshape)
+subset = df[df.dap==45].index
+y_obs_tmp = y_obs_cv2['cv2_height_for!trained!on:30'][subset]
+y_pred_tmp = y_pred_cv2['bn_cv2_height_trained!on!dap:30'][subset]
+
+pearsonr(y_pred_tmp, y_obs_tmp[y_pred_tmp.index].values.flatten())
+
+
+y_obs_cv2['cv2_height_for!trained!on:30'].values.flatten().shape
+y_pred_cv2['bn_cv2_height_trained!on!dap:45'].shape
+
+
+#----------------------------------------------Restore data--------------------------------------------------#
+
+# # Saving data:
+# os.chdir(prefix_out + "outputs/tmp")
+# data = [y, X, y_pred_cv1, y_pred_cv2, y_obs_cv1, y_obs_cv2, df]
+# np.savez('mtrait_results.npz', data)
+
+# # Loading data:
+# os.chdir(prefix_out + "outputs/tmp")
+# container = np.load('mtrait_results.npz')
+# data = [container[key] for key in container]
+# y = data[0][0]
+# X = data[0][1]
+# y_pred_cv1 = data[0][2]
+# y_pred_cv2 = data[0][3]
+# y_obs_cv1 = data[0][4]
+# y_obs_cv2 = data[0][5]
+# df = data[0][6]
