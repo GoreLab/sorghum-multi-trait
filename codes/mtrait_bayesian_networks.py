@@ -15,6 +15,7 @@ import pystan as ps
 import argparse
 parser = argparse.ArgumentParser()
 
+
 #-----------------------------------------Adding flags to the code-------------------------------------------#
 
 # Getting flags:
@@ -26,6 +27,7 @@ parser.add_argument("-dp", "--dir_proj", dest = "dir_proj", default = "error", h
 parser.add_argument("-do", "--dir_out", dest = "dir_out", default = "error", help="Directory of the folder that will receive the outputs")
 
 args = parser.parse_args()
+
 
 #---------------------------------------------Loading data---------------------------------------------------#
 
@@ -341,6 +343,7 @@ if model == 'DBN-0~6':
 				 	 y_6 = y[index==group[6]].values.flatten(),
 				 	 phi = y.max().values[0]*10) 
 
+
 #--------------------------------------Running the Bayesian Network------------------------------------------#
 
 # Setting directory:
@@ -377,37 +380,37 @@ if model == 'PBN':
 if model == 'DBN-0~1':
 	model_stan = ps.StanModel(file='dynamic_bayesian_network_0_1.stan')
 	# Fitting the model:
-	fit = model_stan.sampling(data=dict_stan, chains=4, iter=400)
+	fit = model_stan.sampling(data=dict_stan, chains=4, iter=2000)
 
 # Compiling the DBN model:
 if model == 'DBN-0~2':
 	model_stan = ps.StanModel(file='dynamic_bayesian_network_0_2.stan')
 	# Fitting the model:
-	fit = model_stan.sampling(data=dict_stan, chains=4, iter=400)
+	fit = model_stan.sampling(data=dict_stan, chains=4, iter=2000)
 
 # Compiling the DBN model:
 if model == 'DBN-0~3':
 	model_stan = ps.StanModel(file='dynamic_bayesian_network_0_3.stan')
 	# Fitting the model:
-	fit = model_stan.sampling(data=dict_stan, chains=4, iter=400)
+	fit = model_stan.sampling(data=dict_stan, chains=4, iter=2000)
 
 # Compiling the DBN model:
 if model == 'DBN-0~4':
 	model_stan = ps.StanModel(file='dynamic_bayesian_network_0_4.stan')
 	# Fitting the model:
-	fit = model_stan.sampling(data=dict_stan, chains=4, iter=400)
+	fit = model_stan.sampling(data=dict_stan, chains=4, iter=2000)
 
 # Compiling the DBN model:
 if model == 'DBN-0~5':
 	model_stan = ps.StanModel(file='dynamic_bayesian_network_0_5.stan')
 	# Fitting the model:
-	fit = model_stan.sampling(data=dict_stan, chains=4, iter=400)
+	fit = model_stan.sampling(data=dict_stan, chains=4, iter=2000)
 
 # Compiling the DBN model:
 if model == 'DBN-0~6':
 	model_stan = ps.StanModel(file='dynamic_bayesian_network_0_6.stan')
 	# Fitting the model:
-	fit = model_stan.sampling(data=dict_stan, chains=4, iter=400)
+	fit = model_stan.sampling(data=dict_stan, chains=4, iter=2000)
 
 
 #---------------------------------Saving outputs from the Bayesian Network-----------------------------------#
@@ -440,3 +443,4 @@ if model == 'PBN':
 if bool(re.search('DBN', model)):
 	with open('output_' + model.lower() + '.pkl', 'wb') as f:
 	    pickle.dump({'model' : model_stan, 'fit' : fit}, f, protocol=-1)
+
