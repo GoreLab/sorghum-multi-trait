@@ -406,7 +406,11 @@ print(cor_dict['cv2_bn'])
 print(cor_dict['cv2_pbn'])
 print(cor_dict['cv2_dbn'])
 
+# Setting directory:
+os.chdir(prefix_proj + 'plots/cv')
 
+# List of models to use:
+model_set = ['bn', 'pbn', 'dbn']
 
 # Generating accuracy heatmaps:
 for i in model_set:
@@ -419,7 +423,7 @@ for i in model_set:
   # Labels for plotting the heatmap:
   labels_axis1 = ['DAP 60', 'DAP 75', 'DAP 90', 'DAP 105', 'DAP 120']
   # Heat map of the adjusted means across traits:
-  heat = sns.heatmap(np.flip(np.flip(cor_dict['cv2_bn'],axis=1), axis=0),
+  heat = sns.heatmap(np.flip(np.flip(cor_dict['cv2_' + i],axis=1), axis=0),
              linewidths=0.25,
              vmin=0.3,
              vmax=1,
@@ -431,9 +435,8 @@ for i in model_set:
   heat.set_xlabel('')
   plt.xticks(rotation=25)
   plt.yticks(rotation=45)
-  # plt.savefig("heatplot_cv2_' + i + '_accuracy.pdf", dpi=150)
-  # plt.savefig("heatplot_cv2_' + i + '_accuracy.png", dpi=150)
-  plt.show()
+  plt.savefig("heatplot_cv2_" + i + "_accuracy.pdf", dpi=150)
+  plt.savefig("heatplot_cv2_" + i + "_accuracy.png", dpi=150)
   plt.clf()
 
 
@@ -477,3 +480,5 @@ y_pred_cv2 = data[0][3]
 y_obs_cv1 = data[0][4]
 y_obs_cv2 = data[0][5]
 df = data[0][6]
+
+
