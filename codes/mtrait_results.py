@@ -389,12 +389,52 @@ for i in range(len(dap_group1)):
 # Store the computed correlation matrix for the Bayesian network model under CV2 scheme:
 cor_dict['cv2_dbn'] = cor_tmp
 
+# Building a mask just to filter accuracies common across models:
+mask = np.isnan(cor_dict['cv2_dbn'])
+
+# Eliminating values not shared across all models:
+cor_dict['cv2_bn'][mask] = np.nan
+cor_dict['cv2_pbn'][mask] = np.nan
+
+# Eliminating rows and columns without any correlation value:
+cor_dict['cv2_bn'] = cor_dict['cv2_bn'][0:5,2:7]
+cor_dict['cv2_pbn'] = cor_dict['cv2_pbn'][0:5,2:7]
+cor_dict['cv2_dbn'] = cor_dict['cv2_dbn'][0:5,2:7]
+
 # Printing predictive accuracies
 print(cor_dict['cv2_bn'])
 print(cor_dict['cv2_pbn'])
 print(cor_dict['cv2_dbn'])
 
 
+
+# Generating accuracy heatmaps:
+for i in model_set:
+  # Labels for plotting the heatmap for the Pleiotropic Bayesian Network or Bayesian Network:
+  if (i=='bn') | (i=='pbn'):
+    labels_axis0 = ['DAP 45*', 'DAP 60*', 'DAP 75*', 'DAP 90*', 'DAP 105*']
+  # Labels for plotting the heatmap for the Dynamic Bayesian model:
+  if i=='dbn':
+    labels_axis0 = ['DAP 30:45*', 'DAP 30:60*', 'DAP 30:75*', 'DAP 30:90*', 'DAP 30:105*']
+  # Labels for plotting the heatmap:
+  labels_axis1 = ['DAP 60', 'DAP 75', 'DAP 90', 'DAP 105', 'DAP 120']
+  # Heat map of the adjusted means across traits:
+  heat = sns.heatmap(np.flip(np.flip(cor_dict['cv2_bn'],axis=1), axis=0),
+             linewidths=0.25,
+             vmin=0.3,
+             vmax=1,
+             annot=True,
+             annot_kws={"size": 18},
+             xticklabels=labels_axis0 ,
+             yticklabels=labels_axis1)
+  heat.set_ylabel('')    
+  heat.set_xlabel('')
+  plt.xticks(rotation=25)
+  plt.yticks(rotation=45)
+  # plt.savefig("heatplot_cv2_' + i + '_accuracy.pdf", dpi=150)
+  # plt.savefig("heatplot_cv2_' + i + '_accuracy.png", dpi=150)
+  plt.show()
+  plt.clf()
 
 
 
