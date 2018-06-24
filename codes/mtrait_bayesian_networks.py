@@ -380,37 +380,37 @@ if model == 'PBN':
 if model == 'DBN-0~1':
 	model_stan = ps.StanModel(file='dynamic_bayesian_network_0_1.stan')
 	# Fitting the model:
-	fit = model_stan.sampling(data=dict_stan, chains=4, iter=2000)
+	fit = model_stan.sampling(data=dict_stan, chains=4, iter=400)
 
 # Compiling the DBN model:
 if model == 'DBN-0~2':
 	model_stan = ps.StanModel(file='dynamic_bayesian_network_0_2.stan')
 	# Fitting the model:
-	fit = model_stan.sampling(data=dict_stan, chains=4, iter=2000)
+	fit = model_stan.sampling(data=dict_stan, chains=4, iter=400)
 
 # Compiling the DBN model:
 if model == 'DBN-0~3':
 	model_stan = ps.StanModel(file='dynamic_bayesian_network_0_3.stan')
 	# Fitting the model:
-	fit = model_stan.sampling(data=dict_stan, chains=4, iter=2000)
+	fit = model_stan.sampling(data=dict_stan, chains=4, iter=400)
 
 # Compiling the DBN model:
 if model == 'DBN-0~4':
 	model_stan = ps.StanModel(file='dynamic_bayesian_network_0_4.stan')
 	# Fitting the model:
-	fit = model_stan.sampling(data=dict_stan, chains=4, iter=2000)
+	fit = model_stan.sampling(data=dict_stan, chains=4, iter=400)
 
 # Compiling the DBN model:
 if model == 'DBN-0~5':
 	model_stan = ps.StanModel(file='dynamic_bayesian_network_0_5.stan')
 	# Fitting the model:
-	fit = model_stan.sampling(data=dict_stan, chains=4, iter=2000)
+	fit = model_stan.sampling(data=dict_stan, chains=4, iter=400)
 
 # Compiling the DBN model:
 if model == 'DBN-0~6':
 	model_stan = ps.StanModel(file='dynamic_bayesian_network_0_6.stan')
 	# Fitting the model:
-	fit = model_stan.sampling(data=dict_stan, chains=4, iter=2000)
+	fit = model_stan.sampling(data=dict_stan, chains=4, iter=400)
 
 
 #---------------------------------Saving outputs from the Bayesian Network-----------------------------------#
