@@ -189,8 +189,8 @@ if bool(re.search('PBN', model)):
 		# Getting posterior mean of the parameters:
 		if i == 0:
 			mu_tmp = outs['mu_' + str(i)].mean(axis=0)
-		beta_tmp = outs['beta_' + str(i)].mean(axis=0)
-		alpha_tmp = outs['alpha_' + str(i)].mean(axis=0)
+			beta_tmp = outs['beta_' + str(i)].mean(axis=0)
+			alpha_tmp = outs['alpha_' + str(i)].mean(axis=0)
 		if model == "PBN0":
 			eta_tmp = outs['eta'].mean(axis=0)
 		if model == "PBN1":
