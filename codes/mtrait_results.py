@@ -504,26 +504,26 @@ for i in model_set:
 
 #----------------------------------------------Restore data--------------------------------------------------#
 
-# # Load libraries:
-# import matplotlib
-# import matplotlib.pyplot as plt
-# import seaborn as sns
-# import pandas as pd
-# import numpy as np
-# import os
-# import pickle
-# import re
-# import pystan as ps
-# from scipy.stats.stats import pearsonr
-# from pprint import pprint as pprint 
-# import argparse
-# parser = argparse.ArgumentParser()
+# Load libraries:
+import matplotlib
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+import numpy as np
+import os
+import pickle
+import re
+import pystan as ps
+from scipy.stats.stats import pearsonr
+from pprint import pprint as pprint 
+import argparse
+parser = argparse.ArgumentParser()
 
-# # Prefix of the directory of the project is in:
-# prefix_proj = "/workdir/jp2476/repo/sorghum-multi-trait/"
+# Prefix of the directory of the project is in:
+prefix_proj = "/workdir/jp2476/repo/sorghum-multi-trait/"
 
-# # Prefix where the outputs was saved:
-# prefix_out = "/workdir/jp2476/repo/resul_mtrait-proj/"
+# Prefix where the outputs was saved:
+prefix_out = "/workdir/jp2476/repo/resul_mtrait-proj/"
 
 # # Saving data:
 # os.chdir(prefix_out + "outputs/tmp")
@@ -543,3 +543,19 @@ y_obs_cv2 = data[0][5]
 df = data[0][6]
 
 
+#--------------------------------------------For Latter usage------------------------------------------------#
+
+# n_for_plot = 25
+
+# upper_slice = np.argsort(prob).iloc[0:n_for_plot]
+# lower_slice = np.argsort(prob).iloc[(prob.size - n_for_plot):(prob.size)]
+
+# slice_prob = pd.concat([upper_slice,lower_slice], axis=0) 
+
+# tmp = pd.DataFrame({'ID': df.id_gbs[prob.index].iloc[slice_prob], 'Probabilities': prob.iloc[slice_prob].values}) 
+
+# tmp = pd.DataFrame({'ID': df.id_gbs[prob.index], 'Probabilities': prob.values}) 
+
+# sns.barplot(x='Probabilities', y='ID', data=tmp)
+
+# plt.show()
