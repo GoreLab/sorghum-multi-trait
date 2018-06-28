@@ -620,7 +620,8 @@ y_pred_cv1 = data[0][2]
 y_pred_cv2 = data[0][3]
 y_obs_cv1 = data[0][4]
 y_obs_cv2 = data[0][5]
-df = data[0][6]
+prob_dict = data[0][6]
+df = data[0][7]
 
 
 #--------------------------------------------For Latter usage------------------------------------------------#
