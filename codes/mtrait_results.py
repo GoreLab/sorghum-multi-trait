@@ -421,7 +421,7 @@ for k in model_set:
   # Store the computed correlation matrix for the Bayesian network model under CV2 scheme:
   cor_dict['cv2_' + k] = cor_tmp
 
-# Printing predictive accuracies
+# Print predictive accuracies
 print(cor_dict['cv2_bn'])
 print(cor_dict['cv2_pbn'])
 
@@ -435,11 +435,11 @@ cor_tmp[:] = np.nan
 
 # Compute correlation for the Baysian network and Pleiotropic Bayesian Network model under CV2 scheme:
 for i in range(len(dap_group1)):
-  # Subsetting predictions for correlation computation:
+  # Subset predictions for correlation computation:
   y_pred_tmp = y_pred_cv2['dbn_cv2_height_trained!on!dap:' + dap_group1[i]].mean(axis=0)
   y_obs_tmp = y_obs_cv2['cv2_height_for!trained!on:' + dap_group1[i]].y_hat
   for j in range(len(dap_group2)):    
-    # Getting the upper bound of the interval:
+    # Get the upper bound of the interval:
     upper = int(dap_group1[i].split('~')[1])
     # Conditional to compute correlation just forward in time:
     if (int(dap_group2[j])>upper):
@@ -451,19 +451,19 @@ for i in range(len(dap_group1)):
 # Store the computed correlation matrix for the Bayesian network model under CV2 scheme:
 cor_dict['cv2_dbn'] = cor_tmp
 
-# Building a mask just to filter accuracies common across models:
+# Builda mask just to filter accuracies common across models:
 mask = np.isnan(cor_dict['cv2_dbn'])
 
-# Eliminating values not shared across all models:
+# Eliminate values not shared across all models:
 cor_dict['cv2_bn'][mask] = np.nan
 cor_dict['cv2_pbn'][mask] = np.nan
 
-# Eliminating rows and columns without any correlation value:
+# Eliminate rows and columns without any correlation value:
 cor_dict['cv2_bn'] = cor_dict['cv2_bn'][0:5,2:7]
 cor_dict['cv2_pbn'] = cor_dict['cv2_pbn'][0:5,2:7]
 cor_dict['cv2_dbn'] = cor_dict['cv2_dbn'][0:5,2:7]
 
-# Printing predictive accuracies
+# Print predictive accuracies
 print(cor_dict['cv2_bn'])
 print(cor_dict['cv2_pbn'])
 print(cor_dict['cv2_dbn'])
@@ -477,7 +477,7 @@ for k in model_set:
     # Subset predictions and observations for probability computation:
     y_pred_tmp = y_pred_cv2[k + '_cv2_height_trained!on!dap:' + dap_group[i]]
     y_obs_tmp = y_obs_cv2['cv2_height_for!trained!on:' + dap_group[i]].y_hat
-    # Computing probability across DAP measures:
+    # Compute probability across DAP measures:
     for j in range(len(dap_group)):
       # Conditional to compute probability just forward in time:
       if (j>i):
@@ -485,7 +485,7 @@ for k in model_set:
         subset = df[df.dap==int(dap_group[j])].index
         # Get the number of selected individuals for 20% selection intensity:
         n_selected = int(y_obs_tmp[subset].size * 0.2)
-        # Building the indexes for computing the coeficient of coincidence:
+        # Build the indexes for computing the coeficient of coincidence:
         rank_obs = np.argsort(y_obs_tmp[subset])[::-1][0:n_selected]
         # Vector for storing the indicators:
         ind_vec = pd.DataFrame(index=y_pred_tmp[subset].index, columns=y_pred_tmp[subset].columns)
@@ -495,17 +495,17 @@ for k in model_set:
           ind_vec.iloc[sim] = np.argsort(y_pred_tmp[subset].iloc[sim])[::-1].isin(rank_obs)
         # Index to store probabilties into dictionary:
         index = k + '_' + dap_group[i] + '_' + dap_group[j]
-        # Computing probability:
+        # Compute probability:
         prob_dict[index]=ind_vec.mean(axis=0)
         print('Model: {}, DAP_i: {}, DAP_j: {}'.format(k, dap_group[i], dap_group[j]))
 
 # Compute correlation for the Baysian network and Pleiotropic Bayesian Network model under CV2 scheme:
 for i in range(len(dap_group1)):
-  # Subsetting predictions for correlation computation:
+  # Subset predictions for correlation computation:
   y_pred_tmp = y_pred_cv2['dbn_cv2_height_trained!on!dap:' + dap_group1[i]]
   y_obs_tmp = y_obs_cv2['cv2_height_for!trained!on:' + dap_group1[i]].y_hat
   for j in range(len(dap_group2)):    
-    # Getting the upper bound of the interval:
+    # Get the upper bound of the interval:
     upper = int(dap_group1[i].split('~')[1])
     # Conditional to compute correlation just forward in time:
     if (int(dap_group2[j])>upper):
@@ -513,7 +513,7 @@ for i in range(len(dap_group1)):
       subset = df[df.dap==int(dap_group2[j])].index
       # Get the number of selected individuals for 20% selection intensity:
       n_selected = int(y_obs_tmp[subset].size * 0.2)
-      # Building the indexes for computing the coeficient of coincidence:
+      # Build the indexes for computing the coeficient of coincidence:
       rank_obs = np.argsort(y_obs_tmp[subset])[::-1][0:n_selected]
       # Vector for storing the indicators:
       ind_vec = pd.DataFrame(index=y_pred_tmp[subset].index, columns=y_pred_tmp[subset].columns)
@@ -523,17 +523,17 @@ for i in range(len(dap_group1)):
         ind_vec.iloc[sim] = np.argsort(y_pred_tmp[subset].iloc[sim])[::-1].isin(rank_obs)
       # Index to store probabilties into dictionary:
       index = 'dbn_' + dap_group1[i] + '_' + dap_group2[j]
-      # Computing probability:
+      # Compute probability:
       prob_dict[index]=ind_vec.mean(axis=0)
       print('Model: dbn, DAP_i: {}, DAP_j: {}'.format(dap_group1[i], dap_group2[j]))
 
-# Setting directory:
-os.chdir(prefix_proj + 'plots/cv')
+# Set directory:
+os.chdir(prefix_proj + 'plots/cv/heatplot')
 
 # List of models to use:
 model_set = ['bn', 'pbn', 'dbn']
 
-# Generating accuracy heatmaps:
+# Generate accuracy heatmaps:
 for i in model_set:
   # Labels for plotting the heatmap for the Pleiotropic Bayesian Network or Bayesian Network:
   if (i=='bn') | (i=='pbn'):
@@ -560,9 +560,24 @@ for i in model_set:
   plt.savefig("heatplot_cv2_" + i + "_accuracy.png", dpi=150)
   plt.clf()
 
+# Set directory:
+os.chdir(prefix_proj + 'plots/cv/probplot')
 
-
-
+# Generate probabilistic profiling plots:
+for i in list(prob_dict.keys()):
+  # Subset probability for plotting:
+  prob=prob_dict[i]
+  # Get the order of the probabilities:
+  order_index = np.argsort(prob)
+  # Create temporal data frame for plotting:
+  tmp = pd.DataFrame({'Sorghum inbred lines': df.id_gbs[prob.index].iloc[order_index], 'Top 20% rank probabilities': prob.iloc[order_index].values}) 
+  # Plot probabilities barplot:
+  p1 = sns.barplot(x='Top 20% rank probabilities', y='Sorghum inbred lines', data=tmp)
+  p1.set(yticklabels=[])
+  plt.xlim(0, 1)
+  plt.savefig("prob_profile_barplot_" + i + ".pdf", dpi=150)
+  plt.savefig("prob_profile_barplot_" + i + ".png", dpi=150)
+  plt.clf()
 
 
 
@@ -610,6 +625,9 @@ df = data[0][6]
 
 #--------------------------------------------For Latter usage------------------------------------------------#
 
+
+# prob=prob_dict["bn_45_120"]
+
 # n_for_plot = 25
 
 # upper_slice = np.argsort(prob).iloc[0:n_for_plot]
@@ -617,10 +635,13 @@ df = data[0][6]
 
 # slice_prob = pd.concat([upper_slice,lower_slice], axis=0) 
 
-# tmp = pd.DataFrame({'ID': df.id_gbs[prob.index].iloc[slice_prob], 'Probabilities': prob.iloc[slice_prob].values}) 
+# tmp = pd.DataFrame({'Sorghum inbred lines': df.id_gbs[prob.index].iloc[slice_prob], 'Probabilities': prob.iloc[slice_prob].values}) 
 
-# tmp = pd.DataFrame({'ID': df.id_gbs[prob.index], 'Probabilities': prob.values}) 
+# tmp = pd.DataFrame({'Sorghum inbred lines': df.id_gbs[prob.index], 'Probabilities': prob.values}) 
 
-# sns.barplot(x='Probabilities', y='ID', data=tmp)
-
+# p1 = sns.barplot(x='Probabilities', y='Sorghum inbred lines', data=tmp)
+# p1.set(yticklabels=[])
+# plt.xlim(0, 1)
 # plt.show()
+
+

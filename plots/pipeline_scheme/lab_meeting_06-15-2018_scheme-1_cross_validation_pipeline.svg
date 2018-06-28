@@ -15,7 +15,7 @@
    version="1.1"
    id="svg8"
    inkscape:version="0.92.2 (unknown)"
-   sodipodi:docname="terra_mepp_meeting_06-15-2018_scheme-1-[cross_validation_pipeline].svg">
+   sodipodi:docname="lab_meeting_06-15-2018_scheme-1_cross_validation_pipeline.svg">
   <defs
      id="defs2" />
   <sodipodi:namedview
@@ -25,11 +25,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.7"
-     inkscape:cx="402.29618"
-     inkscape:cy="360.13471"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="544.18363"
+     inkscape:cy="471.66653"
      inkscape:document-units="mm"
-     inkscape:current-layer="g436"
+     inkscape:current-layer="g1420-5-7"
      showgrid="false"
      inkscape:window-width="1366"
      inkscape:window-height="744"
@@ -169,7 +169,7 @@
                    y="100.32072"
                    x="70.700035"
                    sodipodi:role="line"
-                   style="text-align:center;text-anchor:middle;stroke-width:0.33897665">breeding values</tspan>
+                   style="text-align:center;text-anchor:middle;stroke-width:0.33897665">values</tspan>
               </text>
               <path
                  inkscape:connector-curvature="0"
@@ -223,6 +223,7 @@
                    style="font-size:5.8484869px;line-height:1.5;text-align:end;text-anchor:end;stroke-width:0.35812911"><tspan
    id="tspan1189"
    style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans Bold'">CV2:</tspan>
+
  30-45, 30-60,</tspan>
                 <tspan
                    id="tspan1110"
@@ -296,6 +297,7 @@
                    style="font-size:5.8484869px;line-height:1.5;text-align:end;text-anchor:end;stroke-width:0.35812911"><tspan
    id="tspan1187"
    style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans Bold'">CV1:</tspan>
+
  20% missing</tspan>
               </text>
             </g>
@@ -531,31 +533,25 @@
                  style="font-variant:normal;font-weight:normal;font-size:6.48899078px;font-family:'DejaVu Sans';-inkscape-font-specification:DejaVuSans;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.33897665"
                  transform="scale(0.96087868,1.0407141)"
                  x="71.660217"
-                 y="85.117256">
+                 y="87.77684">
                 <tspan
-                   y="85.117256"
+                   y="87.77684"
                    x="71.660217"
                    sodipodi:role="line"
                    style="text-align:center;text-anchor:middle;stroke-width:0.33897665"
                    id="tspan987">Probability</tspan>
                 <tspan
-                   y="93.228493"
+                   y="95.888077"
                    x="71.660217"
                    sodipodi:role="line"
                    style="text-align:center;text-anchor:middle;stroke-width:0.33897665"
                    id="tspan991">computation and</tspan>
                 <tspan
-                   y="101.33974"
+                   y="103.99932"
                    x="71.660217"
                    sodipodi:role="line"
                    style="text-align:center;text-anchor:middle;stroke-width:0.33897665"
-                   id="tspan993">correlation and</tspan>
-                <tspan
-                   y="109.45097"
-                   x="71.660217"
-                   sodipodi:role="line"
-                   style="text-align:center;text-anchor:middle;stroke-width:0.33897665"
-                   id="tspan177">error analysis</tspan>
+                   id="tspan177">correlation analysis</tspan>
               </text>
               <path
                  inkscape:connector-curvature="0"
