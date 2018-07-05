@@ -61,19 +61,10 @@ args = parser.parse_args()
 #------------------------------------------Code parameters---------------------------------------------------#
 
 # # Current core where the analysis is happening:
-# n_core = args.ncore
+# core = args.core
 
 # # Number of alternative runs per bin:
 # n_alt = args.nalt
-
-# # Choosing the data structure to be analysed:
-# struc = args.data
-
-# # Specifying the model
-# model = args.model         # 'DBN' or 'BN' or 'BNP'
-
-# # Type of cross-validation scheme:
-# cv = args.cv
 
 ## Temp:
 n_core = 40

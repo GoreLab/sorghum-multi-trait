@@ -273,6 +273,9 @@ for j in cv1_fold:
 # Initialize list to receive the predictions:
 y_pred_cv2 = dict()
 
+# Initialize list to receive the expectaions:
+expect_cv2 = dict()
+
 # Different DAP measures:
 dap_group = ['30', '45', '60', '75', '90', '105']  
 
@@ -303,6 +306,8 @@ for d in range(len(dap_group)):
     tmp.iloc[sim] = (mu + X_tmp.dot(alpha)).values
   # Store predictions:
   y_pred_cv2[index2] = tmp
+  # Store expectations:
+  expect_cv2[index2] = pd.DataFrame(out['expectation'], index=index, columns=df.index[df.dap==int(dap_group[d])])
 
 # Compute predictions for the PBN model:
 for d in range(len(dap_group)):
@@ -332,6 +337,8 @@ for d in range(len(dap_group)):
     tmp.iloc[sim] = (mu + X_tmp.dot(alpha + eta)).values
   # Store predictions:
   y_pred_cv2[index2] = tmp
+  # Store expectations:
+  expect_cv2[index2] = pd.DataFrame(out['expectation_1'], index=index, columns=df.index[df.dap==int(dap_group[d])])
 
 # Different DAP measures:
 cv2_type = ['cv2-30~45', 'cv2-30~60', 'cv2-30~75', 'cv2-30~90', 'cv2-30~105']
@@ -366,6 +373,8 @@ for c in range(len(cv2_type)):
     tmp.iloc[sim] = (mu + Z_tmp.dot(alpha)).values
   # Prediction:
   y_pred_cv2[index2] = tmp
+  # Store expectations:
+  expect_cv2[index2] = pd.DataFrame(out['expectation_'  + upper], index=index, columns=df.index[df.dap==int(dap_group[upper])])
 
 
 #-----------------------------Compute prediction accuracies for the CV1 scheme-------------------------------#
@@ -568,18 +577,16 @@ for i in list(prob_dict.keys()):
   # Subset probability for plotting:
   prob=prob_dict[i]
   # Get the order of the probabilities:
-  order_index = np.argsort(prob)
-  # Create temporal data frame for plotting:
-  tmp = pd.DataFrame({'Sorghum inbred lines': df.id_gbs[prob.index].iloc[order_index], 'Top 20% rank probabilities': prob.iloc[order_index].values}) 
-  # Plot probabilities barplot:
-  p1 = sns.barplot(x='Top 20% rank probabilities', y='Sorghum inbred lines', data=tmp)
+  order_index = np.argsort(prob)[::-1]
+  # Subset probability for plotting:
+  p1 = prob.iloc[order_index].plot.barh(color='red')
   p1.set(yticklabels=[])
+  plt.xlabel('Top 20% rank probabilities')
+  plt.ylabel('Sorghum inbred lines')
   plt.xlim(0, 1)
   plt.savefig("prob_profile_barplot_" + i + ".pdf", dpi=150)
   plt.savefig("prob_profile_barplot_" + i + ".png", dpi=150)
   plt.clf()
-
-
 
 
 #----------------------------------------------Restore data--------------------------------------------------#
@@ -607,7 +614,7 @@ prefix_out = "/workdir/jp2476/repo/resul_mtrait-proj/"
 
 # # Saving data:
 # os.chdir(prefix_out + "outputs/tmp")
-# data = [y, X, y_pred_cv1, y_pred_cv2, y_obs_cv1, y_obs_cv2, prob_dict, df]
+# data = [y, X, y_pred_cv1, y_pred_cv2, y_obs_cv1, y_obs_cv2, prob_dict, expect_cv2, df]
 # np.savez('mtrait_results.npz', data)
 
 # Loading data:
@@ -621,7 +628,8 @@ y_pred_cv2 = data[0][3]
 y_obs_cv1 = data[0][4]
 y_obs_cv2 = data[0][5]
 prob_dict = data[0][6]
-df = data[0][7]
+expect_cv2 = data[0][7]
+df = data[0][8]
 
 
 #--------------------------------------------For Latter usage------------------------------------------------#
