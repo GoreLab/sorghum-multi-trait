@@ -49,7 +49,6 @@ for k in model_set:
         prob_dict[index]=ind_vec.mean(axis=0)
         print('Model: {}, DAP_i: {}, DAP_j: {}'.format(k, dap_group[i], dap_group[j]))
 
-
 # Store into a list different DAP values intervals:
 dap_group1 = ['30~45', '30~60', '30~75', '30~90', '30~105']
 dap_group2 = ['30', '45', '60', '75', '90', '105', '120']

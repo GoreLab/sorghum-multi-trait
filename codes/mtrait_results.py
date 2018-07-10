@@ -412,7 +412,7 @@ model_set = ['bn', 'pbn']
 # Dictionary to receive the accuracy matrices:
 cor_dict = dict()
 
-# Compute correlation for the Baysian network and Pleiotropic Bayesian Network model under CV2 scheme:
+# Compute correlation for the Baysian Network and Pleiotropic Bayesian Network model under CV2 scheme:
 for k in model_set:
   # Create an empty correlation matrix:
   cor_tmp = np.empty([len(dap_group)]*2)
@@ -443,7 +443,7 @@ dap_group2 = ['30', '45', '60', '75', '90', '105', '120']
 cor_tmp = np.empty([len(dap_group)]*2)
 cor_tmp[:] = np.nan
 
-# Compute correlation for the Baysian network and Pleiotropic Bayesian Network model under CV2 scheme:
+# Compute correlation for the Dynamic Bayesian Network model under CV2 scheme:
 for i in range(len(dap_group1)):
   # Subset predictions for correlation computation:
   y_pred_tmp = y_pred_cv2['dbn_cv2_height_trained!on!dap:' + dap_group1[i]].mean(axis=0)
@@ -588,6 +588,28 @@ for i in list(prob_dict.keys()):
   plt.savefig("prob_profile_barplot_" + i + ".pdf", dpi=150)
   plt.savefig("prob_profile_barplot_" + i + ".png", dpi=150)
   plt.clf()
+
+
+
+i=list(prob_dict.keys())[0]
+i
+# Subset probability for plotting:
+prob=prob_dict[i]
+# Get the order of the probabilities:
+order_index = np.argsort(prob)[::-1]
+# Individuais displaying probability higher then 80%:
+mask = prob.iloc[order_index] > 0.8
+
+# Subset probability for plotting:
+p1 = prob.iloc[order_index][mask].plot.barh(color='red')
+p1.set(yticklabels=df.id_gbs[mask.index])
+p1.tick_params(axis='y', labelsize=5)
+plt.xlabel('Top 20% rank probabilities')
+plt.ylabel('Sorghum inbred lines')
+plt.xlim(0.8, 1)
+plt.show()
+
+
 
 
 #-----------------Compute coincidence index for dry biomass selection using height adjusted means------------#
