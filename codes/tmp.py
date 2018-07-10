@@ -6,7 +6,6 @@
 
 
 
-
 # Store into a list different DAP values:
 dap_group = ['30', '45', '60', '75', '90', '105', '120']
 
