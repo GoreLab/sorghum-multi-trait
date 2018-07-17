@@ -785,6 +785,34 @@ plt.savefig("ci_plot.png", dpi=150)
 plt.clf()
 
 
+#-------------------------------Inspection of the bin probability relevance----------------------------------#
+
+
+# Set the directory:
+os.chdir(prefix_out + 'outputs/cross_validation/DBN/cv2-30~105/height/')
+
+# Load stan fit object and model:
+with open("output_dbn-0~5.pkl", "rb") as f:
+  data_dict = pickle.load(f)
+
+# Index the fit object and model
+out = data_dict['fit'].extract()
+
+lamb = 0.2
+
+tmp = (out['alpha_1'] > lamb) | (out['alpha_1'] < -1*lamb) 
+
+tmp.mean(axis=0)
+
+
+bin_labels = ["bin_" + str(i) for i in range(out['alpha_1'].shape[1])]
+
+
+sns.barplot(x = bin_labels, y=tmp.mean(axis=0))
+
+plt.show()
+
+
 #----------------------------------------------Restore data--------------------------------------------------#
 
 # Load libraries:
