@@ -5,14 +5,13 @@
 
 
 
-
 # Store into a list different DAP values:
 dap_group = ['30', '45', '60', '75', '90', '105', '120']
 
 # List of models to use:
 model_set = ['bn', 'pbn']
 
-# Dictionary to receive the accuracy matrices:
+# Dictionary to receive probabilities:
 prob_dict = dict()
 
 for k in model_set:
@@ -53,7 +52,7 @@ for k in model_set:
 dap_group1 = ['30~45', '30~60', '30~75', '30~90', '30~105']
 dap_group2 = ['30', '45', '60', '75', '90', '105', '120']
 
-# Compute correlation for the Dynamic Bayesian network model under CV2 scheme:
+# Compute probabilities for the Dynamic Bayesian network model under CV2 scheme:
 for i in range(len(dap_group1)):
   # Subset predictions for correlation computation:
   y_pred_tmp = y_pred_cv2['dbn_cv2_height_trained!on!dap:' + dap_group1[i]]

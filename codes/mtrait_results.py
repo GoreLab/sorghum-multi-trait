@@ -378,9 +378,54 @@ for c in range(len(cv2_type)):
   expect_cv2[index2] = pd.DataFrame(out['expectation_'  + upper], index=index, columns=df.index[df.dap==int(dap_group[int(upper)])])
 
 
+#--------------------------------Computing predictions for the CV3 scheme------------------------------------#
+
+# Initialize list to receive the predictions:
+y_pred_cv3 = dict()
+
+# Create a list with the cv1 folds:
+cv3_fold = ['k0', 'k1', 'k2', 'k3', 'k4']
+
+# Different DAP measures:
+dap_group = ['30', '45', '60', '75', '90', '105']  
+
+# Predict the drymass values under the PBN model:
+for d in range(len(dap_group)):
+  for j in cv3_fold:
+    # Set the directory:
+    os.chdir(prefix_out + 'outputs/cross_validation/PBN/cv3-' + dap_group[d] + '~only/drymass-height/' + j)
+    # Load stan fit object and model:
+    with open("output_pbn_fit_0.pkl", "rb") as f:
+        data_dict = pickle.load(f)
+    # Index the fit object and model
+    out = data_dict['fit'].extract()
+    # Index and subsetting the feature matrix:
+    index1 = 'cv1_drymass_' + j + '_tst'
+    index2 = 'pbn_cv3_drymass-height_trained!on!dap:' + dap_group[d]
+    X_tmp = X[index1].drop(X[index1].columns[0], axis=1)
+    # Create the indexes for creating a data frame to receive predictions:
+    index = ["s_" + str(i) for i in range(out['mu_0'].size)]
+    col_name = X_tmp.index
+    # Initialize a matrix to receive the posterior predictions:
+    tmp = pd.DataFrame(index=index, columns=col_name)
+    # Compute predictions:
+    for sim in range(out['mu_0'].size):
+      # Subset parameters:
+      mu = out['mu_0'][sim]
+      alpha = out['alpha_0'][sim,:]
+      # Prediction:
+      tmp.iloc[sim] = (mu + X_tmp.dot(alpha)).values
+    # Store prediction:
+    if j=='k0':
+      y_pred_cv3[index2] = tmp
+    if j!='k0':
+      y_pred_cv3[index2] = pd.concat([y_pred_cv3[index2], tmp], axis=1)
+    print('DAP: {}, fold: {}'.format(dap_group[d], j))
+
+
 #-----------------------------Compute prediction accuracies for the CV1 scheme-------------------------------#
 
-# Accuracies for cv1:
+# Accuracies for cv1 from the height prediction:
 for d in dap_group:
   index = y_pred_cv1['bn_cv1_height_trained!on!dap:' + d].columns
   np.round(pearsonr(y_pred_cv1['bn_cv1_height_trained!on!dap:' + d].mean(axis=0), y_obs_cv1['cv1_height_dap:' + d][index])[0],2)
@@ -393,7 +438,7 @@ for d in dap_group:
   index = y_pred_cv1['dbn_cv1_height_trained!on!dap:' + d].columns
   np.round(pearsonr(y_pred_cv1['dbn_cv1_height_trained!on!dap:' + d].mean(axis=0), y_obs_cv1['cv1_height_dap:' + d][index])[0],2)
 
-
+# Accuracies for cv1 from the drymass prediction:
 index = y_pred_cv1['bn_cv1_drymass'].columns
 np.round(pearsonr(y_pred_cv1['bn_cv1_drymass'].mean(axis=0), y_obs_cv1['cv1_drymass'][index])[0],2)
 
@@ -401,7 +446,14 @@ index = y_pred_cv1['pbn_cv1_drymass_ensambled'].columns
 np.round(pearsonr(y_pred_cv1['pbn_cv1_drymass_ensambled'].mean(axis=0), y_obs_cv1['cv1_drymass'][index])[0],2)
 
 
+# Accuracies for cv3:
+for k in list(y_pred_cv3.keys()):
+  index = y_obs_cv1['cv1_drymass'].index
+  np.round(pearsonr(y_pred_cv3[k].mean(axis=0)[index], y_obs_cv1['cv1_drymass'])[0],2)
+
+
 #-----------------------------Compute prediction accuracies for the CV2 scheme-------------------------------#
+
 
 # Store into a list different DAP values:
 dap_group = ['30', '45', '60', '75', '90', '105', '120']
@@ -478,10 +530,15 @@ print(cor_dict['cv2_bn'])
 print(cor_dict['cv2_pbn'])
 print(cor_dict['cv2_dbn'])
 
-# Dictionary to receive the accuracy matrices:
+# Store into a list different DAP values:
+dap_group = ['30', '45', '60', '75', '90', '105', '120']
+
+# List of models to use:
+model_set = ['bn', 'pbn']
+
+# Dictionary to receive probabilities:
 prob_dict = dict()
 
-# Compute correlation for the Bayesian network and Pleiotropic Bayesian Network model under CV2 scheme:
 for k in model_set:
   for i in range(len(dap_group[:-1])):
     # Subset predictions and observations for probability computation:
@@ -496,20 +553,31 @@ for k in model_set:
         # Get the number of selected individuals for 20% selection intensity:
         n_selected = int(y_obs_tmp[subset].size * 0.2)
         # Build the indexes for computing the coeficient of coincidence:
-        rank_obs = np.argsort(y_obs_tmp[subset])[::-1][0:n_selected]
+        rank_obs = np.argsort(y_obs_tmp[subset])[::-1].index[0:n_selected]
+        # Selected lines:
+        top_lines_obs = df.id_gbs[rank_obs]
         # Vector for storing the indicators:
         ind_vec = pd.DataFrame(index=y_pred_tmp[subset].index, columns=y_pred_tmp[subset].columns)
         # Build probability matrix for the Bayesian Network model:
         for sim in range(y_pred_tmp.shape[0]):
-          # Get the indicator of which genotype is in the top 20% or not: 
-          ind_vec.iloc[sim] = np.argsort(y_pred_tmp[subset].iloc[sim])[::-1].isin(rank_obs)
+          # Top predicted lines:
+          rank_pred = np.argsort(y_pred_tmp[subset].iloc[sim])[::-1][0:n_selected]
+          top_lines_pred = df.id_gbs[y_pred_tmp[subset].iloc[sim].iloc[rank_pred].index]
+          # Compute the indicator of coincidence in the top 20%
+          ind_tmp = top_lines_pred.isin(top_lines_obs)
+          index_tmp = ind_tmp.iloc[np.where(ind_tmp)].index
+          ind_vec.iloc[sim] = y_pred_tmp[subset].iloc[sim].index.isin(index_tmp)
         # Index to store probabilties into dictionary:
         index = k + '_' + dap_group[i] + '_' + dap_group[j]
         # Compute probability:
         prob_dict[index]=ind_vec.mean(axis=0)
         print('Model: {}, DAP_i: {}, DAP_j: {}'.format(k, dap_group[i], dap_group[j]))
 
-# Compute correlation for the Dynamic Bayesian network model under CV2 scheme:
+# Store into a list different DAP values intervals:
+dap_group1 = ['30~45', '30~60', '30~75', '30~90', '30~105']
+dap_group2 = ['30', '45', '60', '75', '90', '105', '120']
+
+# Compute probabilities for the Dynamic Bayesian network model under CV2 scheme:
 for i in range(len(dap_group1)):
   # Subset predictions for correlation computation:
   y_pred_tmp = y_pred_cv2['dbn_cv2_height_trained!on!dap:' + dap_group1[i]]
@@ -524,13 +592,20 @@ for i in range(len(dap_group1)):
       # Get the number of selected individuals for 20% selection intensity:
       n_selected = int(y_obs_tmp[subset].size * 0.2)
       # Build the indexes for computing the coeficient of coincidence:
-      rank_obs = np.argsort(y_obs_tmp[subset])[::-1][0:n_selected]
+      rank_obs = np.argsort(y_obs_tmp[subset])[::-1].index[0:n_selected]
+      # Selected lines:
+      top_lines_obs = df.id_gbs[rank_obs]
       # Vector for storing the indicators:
       ind_vec = pd.DataFrame(index=y_pred_tmp[subset].index, columns=y_pred_tmp[subset].columns)
       # Build probability matrix for the Bayesian Network model:
       for sim in range(y_pred_tmp.shape[0]):
-        # Get the indicator of which genotype is in the top 20% or not: 
-        ind_vec.iloc[sim] = np.argsort(y_pred_tmp[subset].iloc[sim])[::-1].isin(rank_obs)
+        # Top predicted lines:
+        rank_pred = np.argsort(y_pred_tmp[subset].iloc[sim])[::-1][0:n_selected]
+        top_lines_pred = df.id_gbs[y_pred_tmp[subset].iloc[sim].iloc[rank_pred].index]
+        # Compute the indicator of coincidence in the top 20%
+        ind_tmp = top_lines_pred.isin(top_lines_obs)
+        index_tmp = ind_tmp.iloc[np.where(ind_tmp)].index
+        ind_vec.iloc[sim] = y_pred_tmp[subset].iloc[sim].index.isin(index_tmp)
       # Index to store probabilties into dictionary:
       index = 'dbn_' + dap_group1[i] + '_' + dap_group2[j]
       # Compute probability:
@@ -589,27 +664,30 @@ for i in list(prob_dict.keys()):
   plt.savefig("prob_profile_barplot_" + i + ".png", dpi=150)
   plt.clf()
 
+# DAP groups used for plotting
+dap_group = ['45', '60', '75', '90', '105']
 
+# Generating panel plot:
+for i in range(len(dap_group)):
+  # Adding the subplot to the panel:
+  plt.subplot(2, 3, i+1)
+  # Subset probability for plotting:
+  prob=prob_dict['dbn_30~' + dap_group[i] + '_120']
+  if i==0:
+    # Get the order of the probabilities:
+    order_index = np.argsort(prob)[::-1]
+    # Individuais displaying probability higher then 80%:
+    mask = prob.iloc[order_index] > 0.8
+  # Subset probability for plotting:
+  p1 = prob.iloc[order_index][mask].plot.barh(color='red')
+  p1.set(yticklabels=df.id_gbs[mask.index])
+  p1.tick_params(axis='y', labelsize=3)
+  plt.xlabel('Top 20% rank probabilities')
+  plt.ylabel('Sorghum inbred lines')
+  plt.xlim(0.5, 1)
 
-i=list(prob_dict.keys())[0]
-i
-# Subset probability for plotting:
-prob=prob_dict[i]
-# Get the order of the probabilities:
-order_index = np.argsort(prob)[::-1]
-# Individuais displaying probability higher then 80%:
-mask = prob.iloc[order_index] > 0.8
-
-# Subset probability for plotting:
-p1 = prob.iloc[order_index][mask].plot.barh(color='red')
-p1.set(yticklabels=df.id_gbs[mask.index])
-p1.tick_params(axis='y', labelsize=5)
-plt.xlabel('Top 20% rank probabilities')
-plt.ylabel('Sorghum inbred lines')
-plt.xlim(0.8, 1)
+# Display plot:
 plt.show()
-
-
 
 
 #-----------------Compute coincidence index for dry biomass selection using height adjusted means------------#
@@ -656,7 +734,7 @@ for k in model_set:
       ci_post = pd.concat([ci_post, tmp], axis=0)
     print('Model: {}, DAP_i: {}'.format(k, dap_group[i]))
 
-# Store into a list different DAP values intervals:
+# Store into a list different DAP values interv
 dap_group = ['30~45', '30~60', '30~75', '30~90', '30~105']
 
 # Compute coincidence index for the Dynamic Bayesian network:
