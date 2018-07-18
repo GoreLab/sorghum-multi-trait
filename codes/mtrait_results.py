@@ -787,30 +787,62 @@ plt.clf()
 
 #-------------------------------Inspection of the bin probability relevance----------------------------------#
 
+# # Set the directory:
+# os.chdir(prefix_out + 'data')
 
-# Set the directory:
-os.chdir(prefix_out + 'outputs/cross_validation/DBN/cv2-30~105/height/')
+# # Read the data frame with the loci mapping information:
+# loci_info = pd.read_csv("loci_info.csv", index_col=0)
 
-# Load stan fit object and model:
-with open("output_dbn-0~5.pkl", "rb") as f:
-  data_dict = pickle.load(f)
+# # Set the directory:
+# os.chdir(prefix_out + 'outputs/cross_validation/DBN/cv2-30~105/height/')
 
-# Index the fit object and model
-out = data_dict['fit'].extract()
+# # Load stan fit object and model:
+# with open("output_dbn-0~5.pkl", "rb") as f:
+#   data_dict = pickle.load(f)
 
-lamb = 0.2
+# # Index the fit object and model
+# out = data_dict['fit'].extract()
 
-tmp = (out['alpha_1'] > lamb) | (out['alpha_1'] < -1*lamb) 
+# # Define a small interval around zero to compute probabilities:
+# lamb = 0.2
 
-tmp.mean(axis=0)
+# # Compute indicators with the values are larger then the intervals centered in zero in both directions:
+# ind_bin = (out['alpha_1'] > lamb) | (out['alpha_1'] < -1*lamb) 
+
+# # Compute the probability the effects are larger then the intervals centered in zero in both directions:
+# prob_bin = pd.DataFrame({'prob': ind_bin.mean(axis=0), 'bin': loci_info.bin.unique()})
+
+# # Generate the probabilistic Manhattan plot:
+# sns.barplot(x=prob_bin.bin, y=prob_bin.prob)
+
+# # Display plot:
+# plt.show()
+
+# # Selecting five bins under largest probabilities:
+# bin_cand = prob_bin.sort_values(by=['prob'], ascending=False).iloc[0:4]
+
+# # Getting the start and end position of the bin displaying the first largest probability:
+# tmp = loci_info[loci_info.bin == bin_cand.bin.iloc[2]]
+
+# pos = tmp.iloc[[0, tmp.shape[0]-1],:]
+
+# ##########
+
+# # Creating a column to receive the chromossomes:
+# prob_bin['chrom'] = np.nan
+
+# # Adding the values to the previous created column:
+# for i in prob_bin.bin:
+#   mask = loci_info.bin==i
+#   prob_bin.chrom[prob_bin.bin == i] = loci_info.chrom[mask].unique()[0]
+#   print(i)
 
 
-bin_labels = ["bin_" + str(i) for i in range(out['alpha_1'].shape[1])]
+# prob_bin[['bin', 'chrom']].drop_duplicates()
 
+# loci_info[['prob', 'chrom']].plot(kind='bar', colormap='Reds')
 
-sns.barplot(x = bin_labels, y=tmp.mean(axis=0))
-
-plt.show()
+# loci_info.sort_values(by=['chrom'])[['chrom', 'bin']].drop_duplicates()
 
 
 #----------------------------------------------Restore data--------------------------------------------------#

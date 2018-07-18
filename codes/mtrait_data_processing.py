@@ -224,7 +224,7 @@ for i in range(len(tmp[0])):
 M = pd.read_csv("gbs.csv")
 
 # Loading marker matrix:
-loci_info = pd.read_csv("gbs_info.csv")
+loci_info = pd.read_csv("gbs_info.csv", index_col=0)
 
 # Intersection between IDs:
 line_names = np.intersect1d(np.unique(df['id_gbs'].astype(str)), list(M))

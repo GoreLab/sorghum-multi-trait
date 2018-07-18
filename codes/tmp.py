@@ -5,31 +5,43 @@
 
 
 
+from pandas import DataFrame
+from scipy.stats import uniform
+from scipy.stats import randint
+import numpy as np
+import matplotlib.pyplot as plt
 
+# some sample data
+df = DataFrame({'gene' : ['gene-%i' % i for i in np.arange(10000)],
+'pvalue' : uniform.rvs(size=10000),
+'chromosome' : ['ch-%i' % i for i in randint.rvs(0,12,size=10000)]})
 
+# -log_10(pvalue)
+df['minuslog10pvalue'] = -np.log10(df.pvalue)
+df.chromosome = df.chromosome.astype('category')
+df.chromosome = df.chromosome.cat.set_categories(['ch-%i' % i for i in range(12)], ordered=True)
+df = df.sort_values('chromosome')
 
+# How to plot gene vs. -log10(pvalue) and colour it by chromosome?
+df['ind'] = range(len(df))
+df_grouped = df.groupby(('chromosome'))
 
+fig = plt.figure()
+ax = fig.add_subplot(111)
+colors = ['red','green','blue', 'yellow']
+x_labels = []
+x_labels_pos = []
 
+for num, (name, group) in enumerate(df_grouped):
+    group.plot(kind='scatter', x='ind', y='minuslog10pvalue',color=colors[num % len(colors)], ax=ax)
+    x_labels.append(name)
+    x_labels_pos.append((group['ind'].iloc[-1] - (group['ind'].iloc[-1] - group['ind'].iloc[0])/2))
 
-# Function to construct the bins:
-def get_bin(x, n_bin, method):
-  # Generating batches
-  batches = numpy.array_split(numpy.arange(x.shape[1]), n_bin)
-  # Initializing the binned matrix:
-  W_bin = pandas.DataFrame(index=x.index, columns=map('bin_{}'.format, range(n_bin)))
-  e_bin = []
-  if method=='pca':
-    for i in range(n_bin):
-      # Computing SVD of the matrix bin:
-      u,s,v = numpy.linalg.svd(x.iloc[:,batches[i]], full_matrices=False)
-      # Computing the first principal component and adding to the binned matrix:
-      W_bin['bin_' + str(i)] = numpy.dot(u[:,:1], numpy.diag(s[:1]))
-      e_bin.append(s[0]/s.sum())
-    return([W_bin, e_bin, batches])
-  if method=='average':
-    for i in range(n_bin):
-      # Computing the mean across the columns and adding to the binned matrix:
-      W_bin['bin_' + str(i)] = x.iloc[:,batches[i]].mean(axis=1)
-      return([W_bin, batches])
+ax.set_xticks(x_labels_pos)
+ax.set_xticklabels(x_labels)
+ax.set_xlim([0, len(df)])
+ax.set_ylim([0, 3.5])
+ax.set_xlabel('Chromosome')
 
+plt.show()
 
