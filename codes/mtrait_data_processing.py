@@ -223,6 +223,9 @@ for i in range(len(tmp[0])):
 # Loading marker matrix:
 M = pd.read_csv("gbs.csv")
 
+# Loading marker matrix:
+loci_info = pd.read_csv("gbs_info.csv")
+
 # Intersection between IDs:
 line_names = np.intersect1d(np.unique(df['id_gbs'].astype(str)), list(M))
 
@@ -236,8 +239,18 @@ W = W_model(x=M.transpose())
 tmp = get_bin(x=W, n_bin=1000, method='pca')
 W_bin = tmp[0]
 
-# Storing the variação explained by the pca:
+# Store the variação explained by the pca:
 w_e_bin = tmp[1]
+
+# Store the position of the bins into the genome:
+bin_map = tmp[2]
+
+# Adding a new column for the data frame with the loci positions:
+loci_info['bin'] = np.repeat(np.nan, loci_info.shape[0])
+
+# Adding the bins names for the bin column mapping its position:
+for i in range(len(bin_map)):
+	loci_info['bin'].iloc[bin_map[i]] = np.repeat(["bin_" + str(i)], bin_map[i].size)
 
 # Removing M from memory:
 # M = None
@@ -376,6 +389,9 @@ df.year = df.year.astype(object)
 
 # Writing the full data frame with phenotypic data and IDs:
 df.to_csv("df.csv")
+
+# Writing the bin info:
+loci_info.to_csv("loci_info.csv")
 
 # Writing the genomic binned matrix under Cockerham's model:						
 W_bin.to_csv("W_bin.csv")
