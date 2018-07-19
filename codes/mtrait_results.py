@@ -425,6 +425,9 @@ for d in range(len(dap_group)):
 
 #-----------------------------Compute prediction accuracies for the CV1 scheme-------------------------------#
 
+# Different DAP measures:
+dap_group = ['30', '45', '60', '75', '90', '105']  
+
 # Accuracies for cv1 from the height prediction:
 for d in dap_group:
   index = y_pred_cv1['bn_cv1_height_trained!on!dap:' + d].columns
@@ -648,29 +651,11 @@ for i in model_set:
 # Set directory:
 os.chdir(prefix_proj + 'plots/cv/probplot')
 
-# Generate probabilistic profiling plots:
-for i in list(prob_dict.keys()):
-  # Subset probability for plotting:
-  prob=prob_dict[i]
-  # Get the order of the probabilities:
-  order_index = np.argsort(prob)[::-1]
-  # Subset probability for plotting:
-  p1 = prob.iloc[order_index].plot.barh(color='red')
-  p1.set(yticklabels=[])
-  plt.xlabel('Top 20% rank probabilities')
-  plt.ylabel('Sorghum inbred lines')
-  plt.xlim(0, 1)
-  plt.savefig("prob_profile_barplot_" + i + ".pdf", dpi=150)
-  plt.savefig("prob_profile_barplot_" + i + ".png", dpi=150)
-  plt.clf()
-
 # DAP groups used for plotting
 dap_group = ['45', '60', '75', '90', '105']
 
 # Generating panel plot:
 for i in range(len(dap_group)):
-  # Adding the subplot to the panel:
-  plt.subplot(2, 3, i+1)
   # Subset probability for plotting:
   prob=prob_dict['dbn_30~' + dap_group[i] + '_120']
   if i==0:
@@ -679,15 +664,16 @@ for i in range(len(dap_group)):
     # Individuais displaying probability higher then 80%:
     mask = prob.iloc[order_index] > 0.8
   # Subset probability for plotting:
-  p1 = prob.iloc[order_index][mask].plot.barh(color='red')
+  p1 = prob.iloc[order_index][mask].plot.barh(color='red', figsize=(8,12))
   p1.set(yticklabels=df.id_gbs[mask.index])
   p1.tick_params(axis='y', labelsize=3)
-  plt.xlabel('Top 20% rank probabilities')
+  plt.xlabel('Top 20% rank joint probabilities')
   plt.ylabel('Sorghum inbred lines')
-  plt.xlim(0.5, 1)
+  plt.xlim(0, 1)
+  plt.savefig('probplot_cv2_' + 'dbn_30~' + dap_group[i] + '_120.pdf', dpi=150)
+  plt.savefig('probplot_cv2_' + 'dbn_30~' + dap_group[i] + '_120.png', dpi=150)
+  plt.clf()
 
-# Display plot:
-plt.show()
 
 
 #-----------------Compute coincidence index for dry biomass selection using height adjusted means------------#
