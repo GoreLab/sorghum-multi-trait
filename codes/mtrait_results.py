@@ -654,6 +654,13 @@ os.chdir(prefix_proj + 'plots/cv/probplot')
 # DAP groups used for plotting
 dap_group = ['45', '60', '75', '90', '105']
 
+# # Reading races data frame:
+# os.chdir(prefix_proj + 'data_small_files')
+# races = pd.read_csv('race_new.csv', index_col=0)
+
+# # Get the four most frequent races:
+# races.race.value_counts().index.tolist()[0:4]
+
 # Generating panel plot:
 for i in range(len(dap_group)):
   # Subset probability for plotting:
@@ -668,14 +675,13 @@ for i in range(len(dap_group)):
   p1.set(yticklabels=df.id_gbs[mask.index])
   p1.tick_params(axis='y', labelsize=7)
   p1.tick_params(axis='x', labelsize=12)
-  plt.xlabel('Top 20% rank joint probabilities', fontsize=20)
+  plt.xlabel('Top 20% posterior coincidence index based on inbreds', fontsize=20)
   plt.ylabel('Sorghum inbred lines', fontsize=20)
   plt.xlim(0.5, 1)
   plt.savefig('probplot_cv2_' + 'dbn_30~' + dap_group[i] + '_120.pdf', dpi=150)
   plt.savefig('probplot_cv2_' + 'dbn_30~' + dap_group[i] + '_120.png', dpi=150)
   plt.clf()
 
-##########
 
 
 #-----------------Compute coincidence index for dry biomass selection using height adjusted means------------#

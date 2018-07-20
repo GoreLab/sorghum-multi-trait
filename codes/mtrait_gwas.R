@@ -71,3 +71,5 @@ df_raw$dap = df_raw$dap %>% as.factor %>% droplevels
 df_raw$block = df_raw$block %>% as.factor %>% droplevels
 df_raw$loc = df_raw$loc %>% as.factor %>% droplevels
 df_raw$year = df_raw$year %>% as.factor %>% droplevels
+
+str(df_raw)

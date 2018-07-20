@@ -32,6 +32,17 @@ PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
 ${PREFIX_python}/python ${PREFIX_code}/mtrait_first_step_analysis_plots.py & 
 
 
+#-----------------------------------Joint races from different databases-------------------------------------#
+
+# Prefix python:
+PREFIX_python=/workdir/jp2476/software/python/bin
+
+# Prefix code:
+PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
+
+# Firing the process:
+${PREFIX_python}/python ${PREFIX_code}/mtrait_merge_race_information.py & 
+
 #----------------------To split the data into different subsets for cross-validation-------------------------#
 
 # Prefix python:
