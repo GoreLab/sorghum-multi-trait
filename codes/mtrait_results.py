@@ -677,13 +677,6 @@ for i in range(len(dap_group)):
 
 ##########
 
-# Set directory:
-os.chdir(prefix_proj + 'data_small_files')
-
-# Read races codifications:
-races_grin = pd.read_csv('race_grin.csv.csv', header = 0, index_col=0)
-races_cod = pd.read_csv('race_codification.csv.csv', header = 0, index_col=0)
-
 
 #-----------------Compute coincidence index for dry biomass selection using height adjusted means------------#
 
