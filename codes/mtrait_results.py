@@ -664,16 +664,25 @@ for i in range(len(dap_group)):
     # Individuais displaying probability higher then 80%:
     mask = prob.iloc[order_index] > 0.8
   # Subset probability for plotting:
-  p1 = prob.iloc[order_index][mask].plot.barh(color='red', figsize=(8,12))
+  p1 = prob.iloc[order_index][mask].plot.barh(color='red', figsize=(10,12))
   p1.set(yticklabels=df.id_gbs[mask.index])
-  p1.tick_params(axis='y', labelsize=3)
-  plt.xlabel('Top 20% rank joint probabilities')
-  plt.ylabel('Sorghum inbred lines')
-  plt.xlim(0, 1)
+  p1.tick_params(axis='y', labelsize=7)
+  p1.tick_params(axis='x', labelsize=12)
+  plt.xlabel('Top 20% rank joint probabilities', fontsize=20)
+  plt.ylabel('Sorghum inbred lines', fontsize=20)
+  plt.xlim(0.5, 1)
   plt.savefig('probplot_cv2_' + 'dbn_30~' + dap_group[i] + '_120.pdf', dpi=150)
   plt.savefig('probplot_cv2_' + 'dbn_30~' + dap_group[i] + '_120.png', dpi=150)
   plt.clf()
 
+##########
+
+# Set directory:
+os.chdir(prefix_proj + 'data_small_files')
+
+# Read races codifications:
+races_grin = pd.read_csv('race_grin.csv.csv', header = 0, index_col=0)
+races_cod = pd.read_csv('race_codification.csv.csv', header = 0, index_col=0)
 
 
 #-----------------Compute coincidence index for dry biomass selection using height adjusted means------------#
@@ -874,6 +883,7 @@ y_obs_cv2 = data[0][5]
 prob_dict = data[0][6]
 expect_cv2 = data[0][7]
 df = data[0][8]
+
 
 
 #--------------------------------------------For Latter usage------------------------------------------------#
