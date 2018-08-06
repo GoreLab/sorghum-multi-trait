@@ -10,50 +10,102 @@ library(stringr)
 library(Matrix)
 library(qdapTools)
 
+# Library to run linear mixed model analysis:
+library(sommer)
+
 
 #-------------------------------------Subset the information from flags--------------------------------------#
 
-# Subset the arguments:
-args=commandArgs(trailingOnly = TRUE)
+# # Subset the arguments:
+# args=commandArgs(trailingOnly = TRUE)
+ 
+# # Get the file names:
+# y = args[1]
+# X = args[2]
 
-print(args)
+# # Set the model:
+# model = args[3]
+
+# # Directory of the data:
+# dir_in = args[4]
+
+# # Directory of the project:
+# dir_proj = args[5]
+
+# # Directory where outputs will be saved:
+# dir_out = args[6]
+
+#******* Temp:
+y = "y_cv1_height_k0_trn.csv"
+X = "x_cv1_height_k0_trn.csv"
+model = "MTiLM-0~6"
+dir_in = "/workdir/jp2476/repo/resul_mtrait-proj/data/cross_validation/"
+dir_proj = "/workdir/jp2476/repo/sorghum-multi-trait/"
+dir_out = "/workdir/jp2476/repo/resul_mtrait-proj/outputs/cross_validation/MTiLM/cv1/height/k0"
 
 
 #-----------------------------------------------Load data----------------------------------------------------#
 
-# # Prefix of the directory of the project is in:
-# prefix_proj = "/workdir/jp2476/repo/sorghum-multi-trait/"
+# Load data:
+if (str_detect(model, 'MTi')) {
 
-# # Prefix where the outputs will be saved:
-# prefix_out = "/workdir/jp2476/repo/resul_mtrait-proj/"
+	# Set directory:
+	setwd(dir_in)
 
-# # Load adjusted means:
-# df = fread(paste0(prefix_out, "outputs/first_step_analysis/adjusted_means.csv"), header=TRUE)[,-1]
+	# Read adjusted means:
+	y = fread(y, header=TRUE) %>% data.matrix
+	rownames(y) = y[,1]
+	y = y[,-1]
+	
+	# Set directory:
+	setwd(str_split(dir_in, '/cross', simplify = TRUE)[1,1])
 
-# # Change classes:
-# df$id_gbs = df$id_gbs %>% as.factor %>% droplevels
-# df$trait = df$trait %>% as.factor %>% droplevels
-# df$dap = df$dap %>% as.factor %>% droplevels
+	# Read marker matrix:
+	X = fread('M.csv', header=TRUE)[,-1] %>% data.matrix %>% t(.)
 
-# # Structure of the data frame:
-# str(df)
+}
 
-# # Read binned marker data:
-# W_bin = fread(paste0(prefix_out, "data/W_bin.csv"), header=TRUE)[,-1]
+# Set directory:
+setwd(paste0(str_split(dir_out, '/cross', simplify = TRUE)[1,1], '/first_step_analysis'))
 
-
-# #--------------------------------------Prepare data format for sommer----------------------------------------#
-
-# # Creating the data frame:
-# df_sommer = df %>% filter((trait == 'height')) %>%
-#  			 	   select(id_gbs, dap, y_hat) %>%
-#  			 	   spread(key = dap, value=y_hat)
-
-# # Reordering columns:
-# df_sommer = df_sommer[c('id_gbs', '30', '45', '60', '75', '90', '105', '120')]
-
-# # Changing column names:
-# colnames(df_sommer) = c('ID', 'HT-30', 'HT-45', 'HT-60', 'HT-75', 'HT-90', 'HT-105', 'HT-120')
+# Load data frame with adjusted means:
+df = fread('adjusted_means.csv', header=TRUE) %>% data.frame
+rownames(df) = df[,1]
+df = df[,-1]
+df$id_gbs = df$id_gbs %>% as.factor %>% droplevels
+df$trait = df$trait %>% as.factor %>% droplevels
+df$dap = df$dap %>% as.factor %>% droplevels
 
 
+#--------------------------------------Prepare data format for sommer----------------------------------------#
+
+# Change the names of the columns:
+colnames(df) = c('id', 'trait', 'dap', 'y_hat')
+
+# Melting the data frame:
+df_melt = df %>% filter(dap != 'NA') %>%
+ 		      	 spread(key = dap, value=y_hat)
+
+# Subset the desired columns:
+df_melt = df_melt[,c('id', as.character(seq(30,120,by=15)))]
+
+# Change row and column names:
+rownames(df_melt) = df_melt$id
+colnames(df_melt) = c('id_gbs', paste0('HT', seq(30,120,by=15)))
+
+# Subset just the phenotyped and genotyped individuals:
+X = X[intersect(rownames(X), rownames(df_melt)),]
+
+# Create the relationship matrix:
+A = A.mat(X-1)
+
+# Keep the data frame with the same order as the relationship matrix:
+df_melt = df_melt[rownames(A),]
+
+
+fit = mmer2(cbind(HT30,HT45,HT60,HT75,HT90,HT105,HT120)~1,
+			random=~us(trait):g(id),
+            rcov=~diag(trait):units,
+            grouping=list(id=A),
+            data=df_melt)
 

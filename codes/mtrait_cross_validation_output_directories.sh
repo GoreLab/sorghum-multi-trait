@@ -129,3 +129,25 @@ mkdir ${PREFIX}/outputs/cross_validation/DBN/cv2-30~90;
 mkdir ${PREFIX}/outputs/cross_validation/DBN/cv2-30~90/height;
 mkdir ${PREFIX}/outputs/cross_validation/DBN/cv2-30~105;
 mkdir ${PREFIX}/outputs/cross_validation/DBN/cv2-30~105/height;
+
+# Creating CV directories for the Multiple Time Linear Mixed model output folder:
+mkdir ${PREFIX}/outputs/cross_validation/MTiLM;
+mkdir ${PREFIX}/outputs/cross_validation/MTiLM/cv1;
+mkdir ${PREFIX}/outputs/cross_validation/MTiLM/cv1/height;
+mkdir ${PREFIX}/outputs/cross_validation/MTiLM/cv1/height/k0;
+mkdir ${PREFIX}/outputs/cross_validation/MTiLM/cv1/height/k1;
+mkdir ${PREFIX}/outputs/cross_validation/MTiLM/cv1/height/k2;
+mkdir ${PREFIX}/outputs/cross_validation/MTiLM/cv1/height/k3;
+mkdir ${PREFIX}/outputs/cross_validation/MTiLM/cv1/height/k4;
+mkdir ${PREFIX}/outputs/cross_validation/MTiLM/cv2-30~45;
+mkdir ${PREFIX}/outputs/cross_validation/MTiLM/cv2-30~45/height;
+mkdir ${PREFIX}/outputs/cross_validation/MTiLM/cv2-30~60;
+mkdir ${PREFIX}/outputs/cross_validation/MTiLM/cv2-30~60/height;
+mkdir ${PREFIX}/outputs/cross_validation/MTiLM/cv2-30~75;
+mkdir ${PREFIX}/outputs/cross_validation/MTiLM/cv2-30~75/height;
+mkdir ${PREFIX}/outputs/cross_validation/MTiLM/cv2-30~90;
+mkdir ${PREFIX}/outputs/cross_validation/MTiLM/cv2-30~90/height;
+mkdir ${PREFIX}/outputs/cross_validation/MTiLM/cv2-30~105;
+mkdir ${PREFIX}/outputs/cross_validation/MTiLM/cv2-30~105/height;
+
+
