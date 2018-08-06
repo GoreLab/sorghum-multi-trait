@@ -3,25 +3,28 @@
 
 # Loading packages:
 
+import matplotlib.pyplot as plt
 from matplotlib import rc
 rc("font", family="serif", size=12)
 rc("text", usetex=True)
 import daft
-
+import os
+import numpy as np
 
 #---------------------------------------Draw the Bayesian network--------------------------------------------#
 
 # Prefix of the directory of the project is in:
-prefix_proj = "/workdir/jp2476/repo/sorghum-multi-trait/"
+prefix_proj = "/home/jhonathan/Documents/sorghum-multi-trait/"
 
-
+# Set the directory:
+os.chdir(prefix_proj + "plots/bayesian_networks")
 
 # Instantiate the PGM.
 bn = daft.PGM([2.3, 2.05], origin=[0.3, 0.3])
 
-# Hierarchical parameters.
-bn.add_node(daft.Node("alpha", r"$\alpha$", 0.5, 2, fixed=True))
-bn.add_node(daft.Node("beta", r"$\beta$", 1.5, 2))
+# Hierarchical parameters:
+bn.add_node(daft.Node("alpha", r"$\alpha_t$", 1.5, 2))
+
 
 # Latent variable.
 bn.add_node(daft.Node("w", r"$w_n$", 1, 1))
@@ -41,5 +44,5 @@ bn.add_plate(daft.Plate([0.5, 0.5, 2, 1], label=r"$n = 1, \cdots, N$",
 
 # Render and save.
 bn.render()
-bn.figure.savefig("classic.pdf")
-bn.figure.savefig("classic.png", dpi=150)
+bn.figure.savefig("bn.pdf", dpi=350)
+bn.figure.savefig("bn.png", dpi=350)
