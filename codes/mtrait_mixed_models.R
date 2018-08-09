@@ -9,10 +9,10 @@ library(magrittr)
 library(stringr)
 library(Matrix)
 library(qdapTools)
+library(rrBLUP)
 
 # Library to run linear mixed model analysis:
 library(sommer)
-
 
 #-------------------------------------Subset the information from flags--------------------------------------#
 
@@ -103,9 +103,27 @@ A = A.mat(X-1)
 df_melt = df_melt[rownames(A),]
 
 
-fit = mmer2(cbind(HT30,HT45,HT60,HT75,HT90,HT105,HT120)~1,
-			random=~us(trait):g(id),
-            rcov=~diag(trait):units,
-            grouping=list(id=A),
-            data=df_melt)
+df_melt_markers = cbind(df_melt, (X-1)[,1:100])
 
+
+df_new = data.frame(cbind(df_melt[,'HT120'], (X-1)[,1:100]))
+colnames(df_new) <- c('y', 1:(ncol(df_new)-1))
+df_new$y = as.numeric(df_new$y)
+
+
+
+fit = asreml(fixed = cbind(HT30,HT45,HT60,HT75,HT90,HT105,HT120)~-1,
+			 random=~us(trait):grp(genotypes),
+             rcov=~diag(trait):units,
+             group=list(genotypes=9:ncol(df_melt_markers)),
+             maxiter=100,
+             data=df_melt_markers)
+
+
+fit = asreml(HT120 ~ 1,
+			 random=~grp(genotype),
+             group=list(genotype=9:20),
+             data=df_melt_markers)
+
+model1 <- asreml(y ~ 1, random = ~ grp(genotype), 
+                 group = list(genotype = 1:100), data = df_new) 

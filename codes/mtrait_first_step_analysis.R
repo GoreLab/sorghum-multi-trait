@@ -54,7 +54,6 @@ fit = list()
 metrics = list()
 g = list()
 
-
 #------------------------------------------Biomass data analysis---------------------------------------------#
 
 # Index for mapping the results:
