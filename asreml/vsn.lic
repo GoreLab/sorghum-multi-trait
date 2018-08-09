@@ -1,0 +1,25 @@
+#
+# This file is VSN.lic and should be stored with the FLEXnet executables.
+#
+# ASReml license key
+# Contact:
+# Jhonathan Pedroso 
+# Cornell University
+# E-Mail: jp2476@cornell.edu
+# Site Ref: VS18AAL2
+# Call Ref: VL031714
+# Key Generated: 09-Aug-18 15:20
+#
+# In case of problems please refer to our online licensing guide at
+#   http://www.vsni.co.uk or email support@vsni.co.uk
+#
+# Things you are allowed to change:
+#    1. SERVER hostname and port number (6983 by default), but not the hostid
+#    2. VENDOR the vendor daemon pathname (e.g. /usr/local/bin/VSN)
+
+SERVER cbsugore02 3cfdfeabf189 6983
+VENDOR VSN /usr/local/bin/VSN port=6984
+FEATURE ASReml VSN 1907 31-jul-2019 1 VENDOR_STRING="Cornell \
+	University" DUP_GROUP=UHD SN=402082544 SIGN="032D 2E78 619E \
+	E32A E775 A1B9 F130 F945 74C3 1A4D 6003 5AEB 7B62 909C 7E1B \
+	BF37 22F1 F869 3E29 80AD 7938"

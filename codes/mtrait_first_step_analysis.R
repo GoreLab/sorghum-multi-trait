@@ -22,7 +22,7 @@ prefix_proj = "/workdir/jp2476/repo/sorghum-multi-trait/"
 
 # Prefix where the outputs will be saved:
 prefix_out = "/workdir/jp2476/repo/resul_mtrait-proj/"
-
+	
 # Setting the directory:
 setwd(paste0(prefix_out, 'data'))
 
