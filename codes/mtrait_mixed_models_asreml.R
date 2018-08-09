@@ -79,57 +79,77 @@ df$trait = df$trait %>% as.factor %>% droplevels
 df$dap = df$dap %>% as.factor %>% droplevels
 
 
-#--------------------------------------Prepare data format for sommer----------------------------------------#
+# Set directory:
+setwd(str_split(dir_in, '/cross', simplify = TRUE)[1,1])
 
-# Change the names of the columns:
-colnames(df) = c('id', 'trait', 'dap', 'y_hat')
-
-# Melting the data frame:
-df_melt = df %>% filter(dap != 'NA') %>%
- 		      	 spread(key = dap, value=y_hat)
-
-# Subset the desired columns:
-df_melt = df_melt[,c('id', as.character(seq(30,120,by=15)))]
-
-# Change row and column names:
-rownames(df_melt) = df_melt$id
-colnames(df_melt) = c('id_gbs', paste0('HT', seq(30,120,by=15)))
-
-# Subset just the phenotyped and genotyped individuals:
-X = X[intersect(rownames(X), rownames(df_melt)),]
-
-# Create the relationship matrix:
-A = A.mat(X-1)
-
-# Keep the data frame with the same order as the relationship matrix:
-df_melt = df_melt[rownames(A),]
-
-markers_subset = (X-1)[,1:100]
-
-df_new = cbind(df_melt, markers_subset) %>% data.frame
+# Load bin matrix:
+W_bin = fread('W_bin.csv', header=TRUE) %>% data.frame
+rownames(W_bin) = W_bin[,1]
+W_bin = W_bin[,-1]
 
 
-fit = asreml(fixed = cbind(HT30,HT45,HT60,HT75,HT90,HT105,HT120)~-1,
-			 random =~diag(trait):grp(bin),
-             # rcov=~diag(trait):units,
-             group=list(bin=9:ncol(df_new)),
-             maxiter=100,
-             data=df_new)
+#--------------------------------------Prepare data format for asreml----------------------------------------#
+
+# Subset data to build a data frame for asreml:
+df_asreml = df[df$trait=='height',]
+df_asreml = df_asreml %>% droplevels
+
+# Initialize matrix for extend the matrix rows:
+W_bin_expanded = W_bin[,1:100]
+
+# Extend the matrix rows:
+for (i in 2:nlevels(df_asreml$dap)) {
+
+	W_bin_expanded = rbind(W_bin_expanded, W_bin[,1:100])
+
+}
+
+# Merging new data frame with markers with proper ordering for asreml:
+df_asreml = cbind(df_asreml, data.matrix(W_bin_expanded)[df_asreml$id_gbs,])
+
+# # Ordering data frame:
+df_asreml = df_asreml[order(df_asreml$id_gbs),]
+# df_asreml = df_asreml[order(df_asreml$dap),]
+
+fit = asreml(y_hat ~ dap,
+			 random=~grp(bins):us(dap),
+			 rcov=~diag(dap):units,
+             group=list(bins=5:ncol(df_asreml)),
+             data=df_asreml)
+
+fit = asreml(y_hat ~ dap,
+			 random=~us(dap):grp(bins),
+			 rcov=~diag(dap):units,
+             group=list(bins=5:ncol(df_asreml)),
+             data=df_asreml)
+
+fit = asreml(y_hat ~ dap,
+			 random=~us(dap):grp(bins),
+			 rcov=~units:diag(dap),
+             group=list(bins=5:ncol(df_asreml)),
+             data=df_asreml)
+
+fit = asreml(y_hat ~ dap,
+			 random=~grp(bins):us(dap),
+			 rcov=~diag(dap):units,
+             group=list(bins=5:ncol(df_asreml)),
+             data=df_asreml)
 
 
-fit = asreml(HT120 ~ 1,
-			 random=~grp(genotype),
-             group=list(genotype=9:20),
-             data=df_melt_markers)
 
-model1 <- asreml(y ~ 1, random = ~ grp(markers), 
-                 group = list(markers = 2:101), data = df_new) 
-
-
+# Best guess (work on ordering):
+fit = asreml(y_hat ~ dap,
+			 random=~grp(bins):us(dap),
+			 rcov=~diag(dap):id_gbs,
+             group=list(bins=5:ncol(df_asreml)),
+             data=df_asreml)
 
 
-fit = asreml(HT120 ~ 1,
-			 random=~grp(genotype),
-             group=list(genotype=9:20),
-             data=df_melt_markers)
+
+
+
+
+
+
+
 
