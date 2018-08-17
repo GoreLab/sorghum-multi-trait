@@ -73,6 +73,7 @@ dir_in = "/workdir/jp2476/repo/resul_mtrait-proj/data/cross_validation/"
 dir_proj = "/workdir/jp2476/repo/sorghum-multi-trait/"
 dir_out = "/workdir/jp2476/repo/resul_mtrait-proj/outputs/cross_validation/MTiLM/cv1/height/k0"
 
+
 #-----------------------------------------------Load data----------------------------------------------------#
 
 # Load train data just to get the indexes of the train, and test sets, used in the Bayesian Networks analysis:
