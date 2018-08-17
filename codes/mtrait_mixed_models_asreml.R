@@ -62,9 +62,13 @@ spec_dec <-function(K) {
 #******* Temp:
 # y = "y_cv1_height_k0_trn.csv"
 # y = "y_cv1_drymass_k0_trn.csv&y_cv1_height_k0_trn.csv"
-y = "y_cv2-30~45_height_trn.csv"
-model = "MTiLM-0~5"
+# y = "y_cv2-30~45_height_trn.csv"
+y = "y_cv2_drymass_trn.csv&y_cv2-30~105_height_trn.csv"
+
+# model = "MTiLM-0~6"
+# model = "MTiLM-0~5"
 # model = "MTrLM-0~6"
+model = "MTrLM-0~5"
 dir_in = "/workdir/jp2476/repo/resul_mtrait-proj/data/cross_validation/"
 dir_proj = "/workdir/jp2476/repo/sorghum-multi-trait/"
 dir_out = "/workdir/jp2476/repo/resul_mtrait-proj/outputs/cross_validation/MTiLM/cv1/height/k0"
@@ -156,6 +160,12 @@ if (str_detect(model, 'MTr')) {
 	mask = df$dap == 'NA'
 	df[mask,]$dap = 'drymass'
 
+	# Vector with the time points:
+	time = seq(30, 120, 15)
+
+	# Subset just time points used for training:
+	upper = str_split(model, '~', simplify = TRUE)[1,2] %>% as.numeric
+
 	# Melting the data frame:
 	df_melt = df %>% select(-trait) %>%
 	 		      	 spread(key = dap, value=y_hat)
@@ -163,9 +173,13 @@ if (str_detect(model, 'MTr')) {
 	# Subset the desired columns:
 	df_melt = df_melt[,c('id','drymass', as.character(seq(30,120,by=15)))]
 
+	# Select height data used for train:
+	tmp = time[time <= time[upper+1]]
+	df_melt = df_melt[, c('id','drymass', tmp)]
+
 	# Change row and column names:
 	rownames(df_melt) = df_melt$id
-	colnames(df_melt) = c('id_gbs','dm', paste0('h', seq(30,120,by=15)))
+	colnames(df_melt) = c('id_gbs','dm', paste0('h', seq(30, time[upper+1], by=15)))
 
 	# Eliminate height phenotypes from only 11 inbred lines missing in the drymass for balance:
 	mask = !is.na(df_melt$dm)
@@ -210,7 +224,7 @@ if (str_detect(model, 'MTi')) {
 if (str_detect(model, 'MTr')) {
 
 	# Preparing matrix with the response variable:
-	select = c('dm', paste0('h', seq(30,120,15)))
+	select = c('dm', paste0('h', seq(30,time[upper+1],15)))
 	Y = t(df_melt[, select])
 	colnames(Y) = df_melt$id_gbs %>% as.character
 

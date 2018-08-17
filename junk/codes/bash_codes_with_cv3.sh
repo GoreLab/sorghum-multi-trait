@@ -72,16 +72,16 @@ ${PREFIX_code}/mtrait_cross_validation_output_directories.sh -d ${PREFIX_out}
 
 #-------------Creating a text files for mapping the desired set of analysis for cv1 and cv2 schemes----------#
 
-# Set directory where the data is:
+# Setting directory where the data is:
 cd /workdir/jp2476/repo/resul_mtrait-proj/data/cross_validation
 
-# List training data files names related to the CV1 scheme and storing it for latter usage:
+# Listing training data files names related to the CV1 scheme and storing it for latter usage:
 ls y*cv1*trn* > y_cv1_bn_trn_files.txt
 ls x*cv1*trn* > x_cv1_bn_trn_files.txt
 ls y*cv1*height*trn* > y_cv1_dbn_trn_files.txt
 ls x*cv1*height*trn* > x_cv1_dbn_trn_files.txt
 
-# List training files names related to the CV1 scheme and storing it for latter usage on PBN model
+# Listing training files names related to the CV1 scheme and storing it for latter usage on PBN model
 grep "drymass" y_cv1_bn_trn_files.txt > tmp1.txt 
 grep "height" y_cv1_bn_trn_files.txt > tmp2.txt 
 paste -d'&' tmp1.txt tmp2.txt > y_cv1_pbn_trn_files.txt
@@ -90,11 +90,11 @@ grep "height" x_cv1_bn_trn_files.txt > tmp2.txt
 paste -d'&' tmp1.txt tmp2.txt > x_cv1_pbn_trn_files.txt
 rm tmp1.txt tmp2.txt
 
-# List training phenotypic data files names related to the CV2 scheme and storing it for latter usage (BN):
+# Listing training phenotypic data files names related to the CV2 scheme and storing it for latter usage (BN):
 ls y*cv2*only*trn* > y_cv2_bn_trn_files.txt
 ls x*cv2*only*trn* > x_cv2_bn_trn_files.txt
 
-# List training phenotypic data files names related to the CV2 scheme and storing it for latter usage (PBN):
+# Listing training phenotypic data files names related to the CV2 scheme and storing it for latter usage (PBN):
 echo 'y_cv2_drymass_trn.csv' > tmp1.txt
 echo 'x_cv2_drymass_trn.csv' > tmp2.txt
 for i in $(seq 1 5); do 
@@ -107,31 +107,33 @@ paste -d'&' tmp1.txt y_cv2_bn_trn_files.txt > y_cv2_pbn_trn_files.txt
 paste -d'&' tmp2.txt x_cv2_bn_trn_files.txt > x_cv2_pbn_trn_files.txt
 rm tmp1.txt tmp2.txt
 
-# List training data files names related to the CV2 scheme and storing it for latter usage (DBN):
+# Listing training data files names related to the CV2 scheme and storing it for latter usage (DBN):
 ls y*cv2*height*trn* > y_cv2_dbn_trn_files.txt
 ls x*cv2*height*trn* > x_cv2_dbn_trn_files.txt
 sed -i '/only/d' y_cv2_dbn_trn_files.txt
 sed -i '/only/d' x_cv2_dbn_trn_files.txt
 
-# Create a text file to store the different types of Dynamic Bayesian network models for latter usage (DBN);
+# Creating a text file to store the different types of Dynamic Bayesian network models for latter usage (DBN);
 echo "DBN-0~5" > dbn_models_cv2_list.txt
 echo "DBN-0~1" >> dbn_models_cv2_list.txt
 echo "DBN-0~2" >> dbn_models_cv2_list.txt
 echo "DBN-0~3" >> dbn_models_cv2_list.txt
 echo "DBN-0~4" >> dbn_models_cv2_list.txt
 
-# List of files to get train data index into R to perform Multivariate Linear Mixed (MLM) model analysis in R:
-cat y_cv1_dbn_trn_files.txt > cv1_mtilm_files.txt
-cat y_cv1_pbn_trn_files.txt > cv1_mtrlm_files.txt
-cat y_cv2_dbn_trn_files.txt > cv2_mtilm_files.txt
-echo 'y_cv2_drymass_trn.csv' > tmp1.txt
-for i in $(seq 1 4); do 
-
-	echo 'y_cv2_drymass_trn.csv' >> tmp1.txt
-
-done;
-paste -d'&' tmp1.txt y_cv2_dbn_trn_files.txt > cv2_mtrlm_files.txt
-rm tmp1.txt
+# Listing training files names related to the CV3 scheme and storing it for latter usage on PBN model
+for i in 30 45 60 75 90 105
+do
+	grep "drymass" y_cv1_bn_trn_files.txt > y_tmp1.txt 
+	grep "drymass" x_cv1_bn_trn_files.txt > x_tmp1.txt 
+    for j in $(seq 1 5)
+    do 
+      	echo "y_cv2-${i}~only_height_trn.csv" >> y_tmp2.txt
+      	echo "x_cv2-${i}~only_height_trn.csv" >> x_tmp2.txt
+    done
+    paste -d'&' y_tmp1.txt y_tmp2.txt >> y_cv3_pbn_trn_files.txt
+    paste -d'&' x_tmp1.txt x_tmp2.txt >> x_cv3_pbn_trn_files.txt
+	rm y_tmp1.txt y_tmp2.txt x_tmp1.txt x_tmp2.txt 
+done
 
 
 #-----------------To perform cross-validation analysis using the Bayesian Network model (CV1)----------------#
@@ -314,6 +316,141 @@ for i in $(seq 1 ${n_analysis}); do
 	sleep 5
 
 done;
+
+#-----------To perform cross-validation analysis using the Pleiotropic Bayesian Network model (CV3)----------#
+
+## First batch run (uses 40 cores):
+for i in $(seq 1 10); do
+
+	# Directory of the folder where y and x are stored:
+	dir_in="/workdir/jp2476/repo/resul_mtrait-proj/data/cross_validation/"
+
+	# Name of the file with the phenotypes:
+	y=$(sed -n "${i}p" ${dir_in}/y_cv3_pbn_trn_files.txt)
+
+	# Name of the file with the features:
+	x=$(sed -n "${i}p" ${dir_in}/x_cv3_pbn_trn_files.txt)
+
+	# Name of the model that can be: 'BN' or 'PBN', or 'DBN':
+	model='PBN'
+
+	# Directory of the project folder:
+	dir_proj="/workdir/jp2476/repo/sorghum-multi-trait/"
+
+	# Prefix of the output directory:
+	PREFIX="/workdir/jp2476/repo/resul_mtrait-proj/outputs/cross_validation/${model}"
+
+	# Getting the name of the cross-validation scheme and traits:
+	tmp1="$(cut -d'-' -f2 <<<"$y")"
+	tmp1="$(cut -d'~' -f1 <<<"$tmp1")"
+	tmp2="$(cut -d'_' -f3 <<<"$y")"
+	tmp3="$(cut -d'_' -f7 <<<"$y")"
+
+	# Getting the current fold of the cross-validation:
+	cv="$(cut -d'_' -f4 <<<"$y")"
+
+	# Creating the name of the output directory:
+	dir_out=${PREFIX}/"cv3-"${tmp1}"~only"/${tmp2}-${tmp3}/${cv}
+
+	# Prefix for running the script:
+	PREFIX_python=/workdir/jp2476/software/python/bin
+
+	# Running the code:
+	${PREFIX_python}/python ${dir_proj}/codes/mtrait_bayesian_networks.py -y ${y} -x ${x} -m ${model} -di ${dir_in} -dp ${dir_proj} -do ${dir_out} & 
+
+	# Sleep for avoid exploding several processes:
+	sleep 5
+
+done;
+
+## Second batch run (uses 40 cores):
+for i in $(seq 11 20); do
+
+	# Directory of the folder where y and x are stored:
+	dir_in="/workdir/jp2476/repo/resul_mtrait-proj/data/cross_validation/"
+
+	# Name of the file with the phenotypes:
+	y=$(sed -n "${i}p" ${dir_in}/y_cv3_pbn_trn_files.txt)
+
+	# Name of the file with the features:
+	x=$(sed -n "${i}p" ${dir_in}/x_cv3_pbn_trn_files.txt)
+
+	# Name of the model that can be: 'BN' or 'PBN', or 'DBN':
+	model='PBN'
+
+	# Directory of the project folder:
+	dir_proj="/workdir/jp2476/repo/sorghum-multi-trait/"
+
+	# Prefix of the output directory:
+	PREFIX="/workdir/jp2476/repo/resul_mtrait-proj/outputs/cross_validation/${model}"
+
+	# Getting the name of the cross-validation scheme and traits:
+	tmp1="$(cut -d'-' -f2 <<<"$y")"
+	tmp1="$(cut -d'~' -f1 <<<"$tmp1")"
+	tmp2="$(cut -d'_' -f3 <<<"$y")"
+	tmp3="$(cut -d'_' -f7 <<<"$y")"
+
+	# Getting the current fold of the cross-validation:
+	cv="$(cut -d'_' -f4 <<<"$y")"
+
+	# Creating the name of the output directory:
+	dir_out=${PREFIX}/"cv3-"${tmp1}"~only"/${tmp2}-${tmp3}/${cv}
+
+	# Prefix for running the script:
+	PREFIX_python=/workdir/jp2476/software/python/bin
+
+	# Running the code:
+	${PREFIX_python}/python ${dir_proj}/codes/mtrait_bayesian_networks.py -y ${y} -x ${x} -m ${model} -di ${dir_in} -dp ${dir_proj} -do ${dir_out} & 
+
+	# Sleep for avoid exploding several processes:
+	sleep 5
+
+done;
+
+## Third batch run (uses 40 cores):
+for i in $(seq 21 30); do
+
+	# Directory of the folder where y and x are stored:
+	dir_in="/workdir/jp2476/repo/resul_mtrait-proj/data/cross_validation/"
+
+	# Name of the file with the phenotypes:
+	y=$(sed -n "${i}p" ${dir_in}/y_cv3_pbn_trn_files.txt)
+
+	# Name of the file with the features:
+	x=$(sed -n "${i}p" ${dir_in}/x_cv3_pbn_trn_files.txt)
+
+	# Name of the model that can be: 'BN' or 'PBN', or 'DBN':
+	model='PBN'
+
+	# Directory of the project folder:
+	dir_proj="/workdir/jp2476/repo/sorghum-multi-trait/"
+
+	# Prefix of the output directory:
+	PREFIX="/workdir/jp2476/repo/resul_mtrait-proj/outputs/cross_validation/${model}"
+
+	# Getting the name of the cross-validation scheme and traits:
+	tmp1="$(cut -d'-' -f2 <<<"$y")"
+	tmp1="$(cut -d'~' -f1 <<<"$tmp1")"
+	tmp2="$(cut -d'_' -f3 <<<"$y")"
+	tmp3="$(cut -d'_' -f7 <<<"$y")"
+
+	# Getting the current fold of the cross-validation:
+	cv="$(cut -d'_' -f4 <<<"$y")"
+
+	# Creating the name of the output directory:
+	dir_out=${PREFIX}/"cv3-"${tmp1}"~only"/${tmp2}-${tmp3}/${cv}
+
+	# Prefix for running the script:
+	PREFIX_python=/workdir/jp2476/software/python/bin
+
+	# Running the code:
+	${PREFIX_python}/python ${dir_proj}/codes/mtrait_bayesian_networks.py -y ${y} -x ${x} -m ${model} -di ${dir_in} -dp ${dir_proj} -do ${dir_out} & 
+
+	# Sleep for avoid exploding several processes:
+	sleep 5
+
+done;
+
 
 
 #-------------To perform cross-validation (CV1) analysis using the Dynamic Bayesian Network model------------#
