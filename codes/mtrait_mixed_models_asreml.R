@@ -62,10 +62,10 @@ spec_dec <-function(K) {
 
 #******* Temp:
 # y = "y_cv1_height_k0_trn.csv"
-y = "y_cv1_drymass_k0_trn.csv&y_cv1_height_k0_trn.csv"
-# X = "x_cv1_height_k0_trn.csv"
-X = "x_cv1_drymass_k0_trn.csv&x_cv1_height_k0_trn.csv"
-model = "MTrLM-0~6"
+# y = "y_cv1_drymass_k0_trn.csv&y_cv1_height_k0_trn.csv"
+y = "y_cv2-30~45_height_trn.csv"
+model = "MTiLM-0~5"
+# model = "MTrLM-0~6"
 dir_in = "/workdir/jp2476/repo/resul_mtrait-proj/data/cross_validation/"
 dir_proj = "/workdir/jp2476/repo/sorghum-multi-trait/"
 dir_out = "/workdir/jp2476/repo/resul_mtrait-proj/outputs/cross_validation/MTiLM/cv1/height/k0"
@@ -73,37 +73,22 @@ dir_out = "/workdir/jp2476/repo/resul_mtrait-proj/outputs/cross_validation/MTiLM
 #-----------------------------------------------Load data----------------------------------------------------#
 
 # Load train data just to get the indexes of the train, and test sets, used in the Bayesian Networks analysis:
-if (str_detect(model, 'MTi')) {
 
-	# Set directory:
-	setwd(dir_in)
+# Set directory:
+setwd(dir_in)
 
-	# Read adjusted means:
-	y = fread(y, header=TRUE) %>% data.matrix
-	rownames(y) = y[,1]
-	y = y[,-1]
-	
-}
 if (str_detect(model, 'MTr')) {
 
 	# Subset file names per trait:
-	y_0 = str_split(y, "&", simplify = TRUE)[1,1]
-	y_1 = str_split(y, "&", simplify = TRUE)[1,2]
+	y = str_split(y, "&", simplify = TRUE)[1,1]
 
-	# Set directory:
-	setwd(dir_in)
-
-	# Read adjusted means:
-	y_0 = fread(y_0, header=TRUE) %>% data.matrix
-	rownames(y_0) = y_0[,1]
-	y_0 = y_0[,-1]
-
-	y_1 = fread(y_1, header=TRUE) %>% data.matrix
-	rownames(y_1) = y_1[,1]
-	y_1 = y_1[,-1]
-	
 }
 
+# Read adjusted means:
+y = fread(y, header=TRUE) %>% data.matrix
+rownames(y) = y[,1]
+y = y[,-1]
+	
 # Set directory:
 setwd(str_split(dir_in, '/cross', simplify = TRUE)[1,1])
 
@@ -122,12 +107,7 @@ df$trait = df$trait %>% as.factor %>% droplevels
 df$dap = df$dap %>% as.factor %>% droplevels
 
 # Get the indexes of train set:
-if (str_detect(model, 'MTi')) {
-	index = names(y)
-}
-if (str_detect(model, 'MTr')) {
-	index = names(y_0)
-}
+index = names(y)
 
 # Get the inbred lines ID for train set:
 id_trn = df[index,]$id_gbs %>% as.character %>% unique
@@ -148,16 +128,26 @@ colnames(df) = c('id', 'trait', 'dap', 'y_hat')
 # Conditional based on models:
 if (str_detect(model, 'MTi')) {
 
+	# Vector with the time points:
+	time = seq(30, 120, 15)
+
+	# Subset just time points used for training:
+	upper = str_split(model, '~', simplify = TRUE)[1,2] %>% as.numeric
+
+	# Change DAP class on the data frame:
+	df$dap = df$dap %>% as.character %>% as.numeric
+
 	# Melting the data frame:
 	df_melt = df %>% filter(dap != 'NA') %>%
+					 filter(dap <= time[upper+1]) %>%
 	 		      	 spread(key = dap, value=y_hat)
 
 	# Subset the desired columns:
-	df_melt = df_melt[,c('id', as.character(seq(30,120,by=15)))]
+	df_melt = df_melt[,c('id', as.character(seq(30, time[upper+1], by=15)))]
 
 	# Change row and column names:
 	rownames(df_melt) = df_melt$id
-	colnames(df_melt) = c('id_gbs', paste0('h', seq(30,120,by=15)))
+	colnames(df_melt) = c('id_gbs', paste0('h', seq(30, time[upper+1], by=15)))
 
 }
 if (str_detect(model, 'MTr')) {
@@ -170,19 +160,19 @@ if (str_detect(model, 'MTr')) {
 	# Melting the data frame:
 	df_melt = df %>% select(-trait) %>%
 	 		      	 spread(key = dap, value=y_hat)
-	 		      	 
-	# Eliminate height phenotypes from only 11 inbred lines missing in the drymass for balance:
-	mask = !is.na(df_melt$drymass)
-	df_melt = df_melt[mask,]
-	mask = rownames(A)[rownames(A) %in% df_melt$id_gbs]
-	A = A[mask,]
-
+	
 	# Subset the desired columns:
 	df_melt = df_melt[,c('id','drymass', as.character(seq(30,120,by=15)))]
 
 	# Change row and column names:
 	rownames(df_melt) = df_melt$id
 	colnames(df_melt) = c('id_gbs','dm', paste0('h', seq(30,120,by=15)))
+
+	# Eliminate height phenotypes from only 11 inbred lines missing in the drymass for balance:
+	mask = !is.na(df_melt$dm)
+	df_melt = df_melt[mask,]
+	mask = rownames(A) %in% df_melt$id_gbs
+	A = A[mask, mask]
 
 }
 
@@ -210,10 +200,26 @@ Z = model.matrix(~ -1 + df_melt$id_gbs)
 rownames(Z) = df_melt$id_gbs %>% as.character
 colnames(Z) = df_melt$id_gbs %>% as.character
 
-# Preparing matrix with the response variable:
-select = paste0('h', seq(30,120,15))
-Y = t(df_melt[, select])
-colnames(Y) = df_melt$id_gbs %>% as.character
+if (str_detect(model, 'MTi')) {
+
+	# Preparing matrix with the response variable:
+	select = paste0('h', seq(30,time[upper+1],15))
+	Y = t(df_melt[, select])
+	colnames(Y) = df_melt$id_gbs %>% as.character
+
+}
+if (str_detect(model, 'MTr')) {
+
+	# Preparing matrix with the response variable:
+	select = c('dm', paste0('h', seq(30,120,15)))
+	Y = t(df_melt[, select])
+	colnames(Y) = df_melt$id_gbs %>% as.character
+
+	# Update train and test set ID:
+	id_trn = id_trn[id_trn %in% df_melt$id_gbs]
+	id_tst = id_tst[id_tst %in% df_melt$id_gbs]
+
+}
 
 # Initialize list to store run time:
 toc = list()
@@ -242,9 +248,12 @@ colnames(out$Gpred) = as.character(df_melt$id_gbs)
 
 # Accuracies between train and test set across different time points (20% unbalancing):
 acc_yhat_lst[["with_spec_dec"]] = cor(t(Y[,id_tst]), t(out$Gpred[,id_tst]))
+acc_yhat_lst[["with_spec_dec"]] 
 
 # Genetic correlation between time points:
 G_cor_lst[["with_spec_dec"]] = diag(diag(out$Vg)^-0.5) %*% out$Vg %*% diag(diag(out$Vg)^-0.5)
+G_cor_lst[["with_spec_dec"]]
 
 # Residual correlation between time points:
 R_cor_lst[["with_spec_dec"]] = diag(diag(out$Ve)^-0.5) %*% out$Ve %*% diag(diag(out$Ve)^-0.5)
+R_cor_lst[["with_spec_dec"]]
