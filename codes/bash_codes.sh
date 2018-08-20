@@ -457,7 +457,7 @@ for i in $(seq 1 ${n_analysis}); do
 	dir_out=${PREFIX}/"$(cut -d'_' -f2 <<<"$y")"/"$(cut -d'_' -f3 <<<"$y")"/${cv}
 
 	# Run the code:
-	Rscript ./mtrait_mixed_models.R ${y} ${model} ${dir_in} ${dir_proj} ${dir_out};
+	Rscript ${dir_proj}/codes/mtrait_mixed_models.R ${y} ${model} ${dir_in} ${dir_proj} ${dir_out};
 
 	# Sleep for avoid exploding several processes:
 	sleep 5
@@ -494,7 +494,7 @@ for i in $(seq 1 ${n_analysis}); do
 	dir_out=${PREFIX}/"$(cut -d'_' -f2 <<<"$y")"/"$(cut -d'_' -f3 <<<"$y")"
 
 	# Run the code:
-	Rscript ./mtrait_mixed_models.R ${y} ${model} ${dir_in} ${dir_proj} ${dir_out};
+	Rscript ${dir_proj}/codes/mtrait_mixed_models.R ${y} ${model} ${dir_in} ${dir_proj} ${dir_out};
 
 	# Sleep for avoid exploding several processes:
 	sleep 5
@@ -537,7 +537,7 @@ for i in $(seq 1 ${n_analysis}); do
 	dir_out=${PREFIX}/"$(cut -d'_' -f2 <<<"$y")"/${tmp}/${cv}
 
 	# Run the code:
-	Rscript ./mtrait_mixed_models.R ${y} ${model} ${dir_in} ${dir_proj} ${dir_out};
+	Rscript ${dir_proj}/codes/mtrait_mixed_models.R ${y} ${model} ${dir_in} ${dir_proj} ${dir_out};
 
 	# Sleep for avoid exploding several processes:
 	sleep 5
@@ -580,7 +580,7 @@ for i in $(seq 1 ${n_analysis}); do
 	dir_out=${PREFIX}/${cv}/${tmp}
 
 	# Run the code:
-	Rscript ./mtrait_mixed_models.R ${y} ${model} ${dir_in} ${dir_proj} ${dir_out};
+	Rscript ${dir_proj}/codes/mtrait_mixed_models.R ${y} ${model} ${dir_in} ${dir_proj} ${dir_out};
 
 	# Sleep for avoid exploding several processes:
 	sleep 5
@@ -659,7 +659,7 @@ PREFIX="/workdir/jp2476/repo/resul_mtrait-proj/outputs/cross_validation/${tmp}"
 dir_out=${PREFIX}/"$(cut -d'_' -f2 <<<"$y")"/"$(cut -d'_' -f3 <<<"$y")"/${cv}
 
 # Run the code:
-Rscript ./mtrait_mixed_models.R ${y} ${model} ${dir_in} ${dir_proj} ${dir_out};
+Rscript ${dir_proj}/codes/mtrait_mixed_models.R ${y} ${model} ${dir_in} ${dir_proj} ${dir_out};
 
 # Sleep for avoid exploding several processes:
 sleep 5
@@ -691,7 +691,7 @@ PREFIX="/workdir/jp2476/repo/resul_mtrait-proj/outputs/cross_validation/${tmp}"
 dir_out=${PREFIX}/"$(cut -d'_' -f2 <<<"$y")"/"$(cut -d'_' -f3 <<<"$y")"
 
 # Run the code:
-Rscript ./mtrait_mixed_models.R ${y} ${model} ${dir_in} ${dir_proj} ${dir_out};
+Rscript ${dir_proj}/codes/mtrait_mixed_models.R ${y} ${model} ${dir_in} ${dir_proj} ${dir_out};
 
 # Sleep for avoid exploding several processes:
 sleep 5
@@ -729,7 +729,7 @@ tmp="$(cut -d'_' -f3 <<<"$y")"-"$(cut -d'_' -f7 <<<"$y")"
 dir_out=${PREFIX}/"$(cut -d'_' -f2 <<<"$y")"/${tmp}/${cv}
 
 # Run the code:
-Rscript ./mtrait_mixed_models.R ${y} ${model} ${dir_in} ${dir_proj} ${dir_out};
+Rscript ${dir_proj}/codes/mtrait_mixed_models.R ${y} ${model} ${dir_in} ${dir_proj} ${dir_out};
 
 # Sleep for avoid exploding several processes:
 sleep 5
@@ -767,7 +767,7 @@ tmp="$(cut -d'_' -f3 <<<"$y")"-"$(cut -d'_' -f6 <<<"$y")"
 dir_out=${PREFIX}/${cv}/${tmp}
 
 # Run the code:
-Rscript ./mtrait_mixed_models.R ${y} ${model} ${dir_in} ${dir_proj} ${dir_out};
+Rscript ${dir_proj}/codes/mtrait_mixed_models.R ${y} ${model} ${dir_in} ${dir_proj} ${dir_out};
 
 # Sleep for avoid exploding several processes:
 sleep 5

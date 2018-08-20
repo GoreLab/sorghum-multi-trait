@@ -40,37 +40,37 @@ spec_dec <-function(K) {
 
 #-------------------------------------Subset the information from flags--------------------------------------#
 
-# Subset the arguments:
-args=commandArgs(trailingOnly = TRUE)
+# # Subset the arguments:
+# args=commandArgs(trailingOnly = TRUE)
  
-# Get the file names:
-y = args[1]
+# # Get the file names:
+# y = args[1]
 
-# Set the model:
-model = args[2]
+# # Set the model:
+# model = args[2]
 
-# Directory of the data:
-dir_in = args[3]
+# # Directory of the data:
+# dir_in = args[3]
 
-# Directory of the project:
-dir_proj = args[4]
+# # Directory of the project:
+# dir_proj = args[4]
 
-# Directory where outputs will be saved:
-dir_out = args[5]
+# # Directory where outputs will be saved:
+# dir_out = args[5]
 
 #******* Temp:
-# y = "y_cv1_height_k0_trn.csv"
+y = "y_cv1_height_k0_trn.csv"
 # y = "y_cv1_drymass_k0_trn.csv&y_cv1_height_k0_trn.csv"
 # y = "y_cv2-30~60_height_trn.csv"
 # y = "y_cv2_drymass_trn.csv&y_cv2-30~60_height_trn.csv"
 
-# model = "MTiLM-0~6"
+model = "MTiLM-0~6"
 # model = "MTrLM-0~6"
 # model = "MTiLM-0~2"
 # model = "MTrLM-0~2"
-# dir_in = "/workdir/jp2476/repo/resul_mtrait-proj/data/cross_validation/"
-# dir_proj = "/workdir/jp2476/repo/sorghum-multi-trait/"
-# dir_out = "/workdir/jp2476/repo/resul_mtrait-proj/outputs/cross_validation/MTiLM/cv1/height/k0"
+dir_in = "/workdir/jp2476/repo/resul_mtrait-proj/data/cross_validation/"
+dir_proj = "/workdir/jp2476/repo/sorghum-multi-trait/"
+dir_out = "/workdir/jp2476/repo/resul_mtrait-proj/outputs/cross_validation/MTiLM/cv1/height/k0"
 
 
 #-----------------------------------------------Load data----------------------------------------------------#
@@ -141,7 +141,8 @@ if (str_detect(model, 'MTi')) {
 	df$dap = df$dap %>% as.character %>% as.numeric
 
 	# Melting the data frame:
-	df_melt = df %>% filter(dap != 'NA') %>%
+	df_melt = df %>% suppressWarnings() %>%
+					 filter(dap != 'NA') %>%
 					 filter(dap <= time[upper+1]) %>%
 	 		      	 spread(key = dap, value=y_hat)
 
