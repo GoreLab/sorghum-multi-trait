@@ -40,23 +40,23 @@ spec_dec <-function(K) {
 
 #-------------------------------------Subset the information from flags--------------------------------------#
 
-# # Subset the arguments:
-# args=commandArgs(trailingOnly = TRUE)
+# Subset the arguments:
+args=commandArgs(trailingOnly = TRUE)
  
-# # Get the file names:
-# y = args[1]
+# Get the file names:
+y = args[1]
 
-# # Set the model:
-# model = args[2]
+# Set the model:
+model = args[2]
 
-# # Directory of the data:
-# dir_in = args[3]
+# Directory of the data:
+dir_in = args[3]
 
-# # Directory of the project:
-# dir_proj = args[4]
+# Directory of the project:
+dir_proj = args[4]
 
-# # Directory where outputs will be saved:
-# dir_out = args[5]
+# Directory where outputs will be saved:
+dir_out = args[5]
 
 #******* Temp:
 # y = "y_cv1_height_k0_trn.csv"
