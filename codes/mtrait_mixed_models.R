@@ -59,18 +59,17 @@ spec_dec <-function(K) {
 # dir_out = args[5]
 
 #******* Temp:
-y = "y_cv1_height_k0_trn.csv"
+# y = "y_cv1_height_k0_trn.csv"
 # y = "y_cv1_drymass_k0_trn.csv&y_cv1_height_k0_trn.csv"
 # y = "y_cv2-30~60_height_trn.csv"
 # y = "y_cv2_drymass_trn.csv&y_cv2-30~60_height_trn.csv"
-
-model = "MTiLM-0~6"
+# model = "MTiLM-0~6"
 # model = "MTrLM-0~6"
 # model = "MTiLM-0~2"
 # model = "MTrLM-0~2"
-dir_in = "/workdir/jp2476/repo/resul_mtrait-proj/data/cross_validation/"
-dir_proj = "/workdir/jp2476/repo/sorghum-multi-trait/"
-dir_out = "/workdir/jp2476/repo/resul_mtrait-proj/outputs/cross_validation/MTiLM/cv1/height/k0"
+# dir_in = "/workdir/jp2476/repo/resul_mtrait-proj/data/cross_validation/"
+# dir_proj = "/workdir/jp2476/repo/sorghum-multi-trait/"
+# dir_out = "/workdir/jp2476/repo/resul_mtrait-proj/outputs/cross_validation/MTiLM/cv1/height/k0"
 
 
 #-----------------------------------------------Load data----------------------------------------------------#
