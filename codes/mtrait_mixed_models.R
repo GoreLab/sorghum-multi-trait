@@ -1,4 +1,6 @@
 
+#-------------------------------------------Loading libraries------------------------------------------------#
+
 # Libraries to manipulate data:
 library(data.table)
 library(dplyr)

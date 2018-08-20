@@ -297,7 +297,7 @@ for i in $(seq 1 ${n_analysis}); do
 	# Name of the file with the features:
 	x=$(sed -n "${i}p" ${dir_in}/x_cv2_pbn_trn_files.txt)
 
-	# Name of the model that can be: 'BN' or 'PBN', or 'DBN':
+	# Name of the model that can be: 'BN' or 'PBN', or 'DBN'
 	model='PBN'
 
 	# Directory of the project folder:
@@ -346,7 +346,7 @@ for i in $(seq 1 ${n_analysis}); do
 	# Name of the file with the features:
 	x=$(sed -n "${i}p" ${dir_in}/x_cv1_dbn_trn_files.txt)
 
-	# Name of the model that can be: 'BN' or 'PBN', or 'DBN':
+	# Name of the model that can be: 'BN' or 'PBN', or 'DBN'
 	model='DBN-0~6'
 
 	# Directory of the folder where y and x are stored:
@@ -395,7 +395,7 @@ for i in $(seq 1 ${n_analysis}); do
 	# Name of the file with the features:
 	x=$(sed -n "${i}p" ${dir_in}/x_cv2_dbn_trn_files.txt)
 
-	# Name of the model that can be: 'BN' or 'PBN', or 'DBN':
+	# Name of the model that can be: 'BN' or 'PBN', or 'DBN'
 	model=$(sed -n "${i}p" ${dir_in}/dbn_models_cv2_list.txt)
 
 	# Directory of the folder where y and x are stored:
@@ -438,7 +438,7 @@ for i in $(seq 1 ${n_analysis}); do
 	# Name of the file with the phenotypes:
 	y=$(sed -n "${i}p" ${dir_in}/cv1_mtilm_files.txt)
 
-	# Name of the model: Multivariate Linear Mixed (MLM) model
+	# Name of the model:
 	model="MTiLM-0~6"
 
 	# Getting the current fold of the cross-validation:
@@ -478,7 +478,7 @@ for i in $(seq 1 ${n_analysis}); do
 	# Name of the file with the phenotypes:
 	y=$(sed -n "${i}p" ${dir_in}/cv2_mtilm_files.txt)
 
-	# Name of the model that can be: 'BN' or 'PBN', or 'DBN':
+	# Name of the model that can be:
 	model=$(sed -n "${i}p" ${dir_in}/mtilm_models_cv2_list.txt)
 
 	# Directory of the project folder:
@@ -502,7 +502,7 @@ for i in $(seq 1 ${n_analysis}); do
 done;
 
 
-#---------To perform cross-validation (CV1) analysis using the Mult trait time Linear Mixed model------------#
+#--------To perform cross-validation (CV1) analysis using the Multi trait time Linear Mixed model------------#
 
 # Number of analysis:
 n_analysis=5
@@ -515,7 +515,7 @@ for i in $(seq 1 ${n_analysis}); do
 	# Name of the file with the phenotypes:
 	y=$(sed -n "${i}p" ${dir_in}/cv1_mtrlm_files.txt)
 
-	# Name of the model: Multivariate Linear Mixed (MLM) model
+	# Name of the model:
 	model="MTrLM-0~6"
 
 	# Getting the current fold of the cross-validation:
@@ -545,7 +545,7 @@ for i in $(seq 1 ${n_analysis}); do
 done;
 
 
-#---------To perform cross-validation (CV2) analysis using the Mult trait time Linear Mixed model------------#
+#--------To perform cross-validation (CV2) analysis using the Multi trait time Linear Mixed model------------#
 
 # Number of analysis:
 n_analysis=5
@@ -558,7 +558,7 @@ for i in $(seq 1 ${n_analysis}); do
 	# Name of the file with the phenotypes:
 	y=$(sed -n "${i}p" ${dir_in}/cv2_mtrlm_files.txt)
 
-	# Name of the model: Multivariate Linear Mixed (MLM) model
+	# Name of the model:
 	model=$(sed -n "${i}p" ${dir_in}/mtrlm_models_cv2_list.txt)
 
 	# Directory of the project folder:
