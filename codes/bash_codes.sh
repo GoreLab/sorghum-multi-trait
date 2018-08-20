@@ -133,6 +133,13 @@ done;
 paste -d'&' tmp1.txt y_cv2_dbn_trn_files.txt > cv2_mtrlm_files.txt
 rm tmp1.txt
 
+# Create a text file to store the different types of Multi Time Linear Mixed (MTiLM) models for latter usage;
+echo "MTiLM-0~5" > mtilm_models_cv2_list.txt
+echo "MTiLM-0~1" >> mtilm_models_cv2_list.txt
+echo "MTiLM-0~2" >> mtilm_models_cv2_list.txt
+echo "MTiLM-0~3" >> mtilm_models_cv2_list.txt
+echo "MTiLM-0~4" >> mtilm_models_cv2_list.txt
+
 
 #-----------------To perform cross-validation analysis using the Bayesian Network model (CV1)----------------#
 
@@ -453,21 +460,18 @@ PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
 ${PREFIX_python}/python ${PREFIX_code}/tmp.py --model bn
 
 
-############################# Working on MLM model CV1 ###################################
+############################# MTiLM model CV1 ###################################
 
-i=1
+i=5
 
 # Directory of the folder where y and x are stored:
 dir_in="/workdir/jp2476/repo/resul_mtrait-proj/data/cross_validation/"
 
 # Name of the file with the phenotypes:
-y=$(sed -n "${i}p" ${dir_in}/y_cv1_bn_trn_files.txt)
-
-# Name of the file with the features:
-x=$(sed -n "${i}p" ${dir_in}/x_cv1_bn_trn_files.txt)
+y=$(sed -n "${i}p" ${dir_in}/cv1_mtilm_files.txt)
 
 # Name of the model: Multivariate Linear Mixed (MLM) model
-model='MTiLM'
+model="MTiLM-0~6"
 
 # Getting the current fold of the cross-validation:
 cv="$(cut -d'_' -f4 <<<"$y")"
@@ -475,37 +479,35 @@ cv="$(cut -d'_' -f4 <<<"$y")"
 # Directory of the project folder:
 dir_proj="/workdir/jp2476/repo/sorghum-multi-trait"
 
+# Getting just the model prefix:
+tmp="$(cut -d'-' -f1 <<<"$model")"
+
 # Prefix of the output directory:
-PREFIX="/workdir/jp2476/repo/resul_mtrait-proj/outputs/cross_validation/${model}"
+PREFIX="/workdir/jp2476/repo/resul_mtrait-proj/outputs/cross_validation/${tmp}"
 
 # Define the output directory for the outputs:
 dir_out=${PREFIX}/"$(cut -d'_' -f2 <<<"$y")"/"$(cut -d'_' -f3 <<<"$y")"/${cv}
 
 # Run the code:
-Rscript ./mtrait_mixed_models.R ${y} ${x} ${m} ${dir_in} ${dir_proj} ${dir_out};
+Rscript ./mtrait_mixed_models.R ${y} ${model} ${dir_in} ${dir_proj} ${dir_out};
+
+# Sleep for avoid exploding several processes:
+sleep 5
 
 
+############################# MTiLM model CV2 ###################################
 
 
-
-
-
-i=1
+i=4
 
 # Directory of the folder where y and x are stored:
 dir_in="/workdir/jp2476/repo/resul_mtrait-proj/data/cross_validation/"
 
 # Name of the file with the phenotypes:
-y=$(sed -n "${i}p" ${dir_in}/y_cv1_dbn_trn_files.txt)
-
-# Name of the file with the features:
-x=$(sed -n "${i}p" ${dir_in}/x_cv1_dbn_trn_files.txt)
+y=$(sed -n "${i}p" ${dir_in}/cv2_mtilm_files.txt)
 
 # Name of the model that can be: 'BN' or 'PBN', or 'DBN':
-model='MTiLM-0~6'
-
-# Directory of the folder where y and x are stored:
-dir_in="/workdir/jp2476/repo/resul_mtrait-proj/data/cross_validation/"
+model=$(sed -n "${i}p" ${dir_in}/mtilm_models_cv2_list.txt)
 
 # Directory of the project folder:
 dir_proj="/workdir/jp2476/repo/sorghum-multi-trait/"
@@ -516,17 +518,20 @@ tmp="$(cut -d'-' -f1 <<<"$model")"
 # Prefix of the output directory:
 PREFIX="/workdir/jp2476/repo/resul_mtrait-proj/outputs/cross_validation/${tmp}"
 
-# Getting the current fold of the cross-validation:
-cv="$(cut -d'_' -f4 <<<"$y")"
-
 # Defining the output directory for the outputs:
-dir_out=${PREFIX}/"$(cut -d'_' -f2 <<<"$y")"/"$(cut -d'_' -f3 <<<"$y")"/${cv}
+dir_out=${PREFIX}/"$(cut -d'_' -f2 <<<"$y")"/"$(cut -d'_' -f3 <<<"$y")"
 
 # Run the code:
-Rscript ./mtrait_mixed_models.R ${y} ${x} ${m} ${dir_in} ${dir_proj} ${dir_out};
+Rscript ./mtrait_mixed_models.R ${y} ${model} ${dir_in} ${dir_proj} ${dir_out};
 
 # Sleep for avoid exploding several processes:
 sleep 5
 
+
+echo $y
+echo $model
+echo $dir_in
+echo $dir_proj
+echo $dir_out
 
 

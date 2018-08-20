@@ -45,30 +45,29 @@ spec_dec <-function(K) {
  
 # # Get the file names:
 # y = args[1]
-# X = args[2]
 
 # # Set the model:
-# model = args[3]
+# model = args[2]
 
 # # Directory of the data:
-# dir_in = args[4]
+# dir_in = args[3]
 
 # # Directory of the project:
-# dir_proj = args[5]
+# dir_proj = args[4]
 
 # # Directory where outputs will be saved:
-# dir_out = args[6]
+# dir_out = args[5]
 
 #******* Temp:
 # y = "y_cv1_height_k0_trn.csv"
 # y = "y_cv1_drymass_k0_trn.csv&y_cv1_height_k0_trn.csv"
-# y = "y_cv2-30~45_height_trn.csv"
-y = "y_cv2_drymass_trn.csv&y_cv2-30~105_height_trn.csv"
+# y = "y_cv2-30~60_height_trn.csv"
+y = "y_cv2_drymass_trn.csv&y_cv2-30~60_height_trn.csv"
 
 # model = "MTiLM-0~6"
-# model = "MTiLM-0~5"
 # model = "MTrLM-0~6"
-model = "MTrLM-0~5"
+# model = "MTiLM-0~2"
+model = "MTrLM-0~2"
 dir_in = "/workdir/jp2476/repo/resul_mtrait-proj/data/cross_validation/"
 dir_proj = "/workdir/jp2476/repo/sorghum-multi-trait/"
 dir_out = "/workdir/jp2476/repo/resul_mtrait-proj/outputs/cross_validation/MTiLM/cv1/height/k0"
@@ -252,22 +251,27 @@ out <- emmremlMultivariate(Y = Y[,id_trn],
 # Final time:
 toc = proc.time() - tic
 
-# Initialize list:
-acc_yhat_lst = list()
-G_cor_lst = list()
-R_cor_lst = list()
+# Save output:
+setwd(paste0(prefix,"resul_syng-proj/results/mini-batch/no_loc2"))
+save.image("output.RData")
 
-# Naming the columns of the genomic estimated breeding values output:
-colnames(out$Gpred) = as.character(df_melt$id_gbs)
 
-# Accuracies between train and test set across different time points (20% unbalancing):
-acc_yhat_lst[["with_spec_dec"]] = cor(t(Y[,id_tst]), t(out$Gpred[,id_tst]))
-acc_yhat_lst[["with_spec_dec"]] 
+# # Initialize list:
+# acc_yhat_lst = list()
+# G_cor_lst = list()
+# R_cor_lst = list()
 
-# Genetic correlation between time points:
-G_cor_lst[["with_spec_dec"]] = diag(diag(out$Vg)^-0.5) %*% out$Vg %*% diag(diag(out$Vg)^-0.5)
-G_cor_lst[["with_spec_dec"]]
+# # Naming the columns of the genomic estimated breeding values output:
+# colnames(out$Gpred) = as.character(df_melt$id_gbs)
 
-# Residual correlation between time points:
-R_cor_lst[["with_spec_dec"]] = diag(diag(out$Ve)^-0.5) %*% out$Ve %*% diag(diag(out$Ve)^-0.5)
-R_cor_lst[["with_spec_dec"]]
+# # Accuracies between train and test set across different time points (20% unbalancing):
+# acc_yhat_lst[["with_spec_dec"]] = cor(t(Y[,id_tst]), t(out$Gpred[,id_tst]))
+# acc_yhat_lst[["with_spec_dec"]] 
+
+# # Genetic correlation between time points:
+# G_cor_lst[["with_spec_dec"]] = diag(diag(out$Vg)^-0.5) %*% out$Vg %*% diag(diag(out$Vg)^-0.5)
+# G_cor_lst[["with_spec_dec"]]
+
+# # Residual correlation between time points:
+# R_cor_lst[["with_spec_dec"]] = diag(diag(out$Ve)^-0.5) %*% out$Ve %*% diag(diag(out$Ve)^-0.5)
+# R_cor_lst[["with_spec_dec"]]
