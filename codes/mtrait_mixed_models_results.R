@@ -305,9 +305,57 @@ acc_lst[['MTrLM']][['cv1']]
 acc_lst[['MTiLM']][['cv2']]
 acc_lst[['MTrLM']][['cv2']]
 
-# Write accuracy files:
-setwd(paste0(prefix_proj, 'plots/cv/heatplot'))
-for (i in names(acc_lst[["MTiLM"]])) write.csv(acc_lst[["MTiLM"]][[i]], file=paste0("acc_MTiLM_", i, ".csv"))
-for (i in names(acc_lst[["MTrLM"]])) write.csv(acc_lst[["MTrLM"]][[i]], file=paste0("acc_MTrLM_", i, ".csv"))
+# Set of models to compute the coincidence index:
+model_set = c('MTiLM', 'MTrLM')
 
+# Set of upper time points:
+upper_set = seq(45,105,15)
+
+# Create a vector to store the coincidence indexes:
+ci_tmp = rep(NA, length(upper_set))
+names(ci_tmp) = paste0('cv2-30~', upper_set)
+
+# Initialize a list to store results:
+ci_lst = list()
+
+for (m in model_set) {
+  for (i in upper_set) {
+
+    # Subset the expectation of plant height for the i^th DAP:
+    yhat_height = y_pred_lst[[m]][[paste0('cv2-30~', i)]]
+    tmp = yhat_height %>% colnames
+    yhat_height = c(yhat_height)
+    names(yhat_height) = tmp
+
+    # Subset adjusted mean for drymass related:
+    yhat_drymass = df[df$trait=='drymass',]$y_hat
+    names(yhat_drymass) = df[df$trait=='drymass',]$id %>% as.character
+
+    # Number of individuals selected to order genotypes:
+    n_selected = as.integer(length(yhat_drymass) * 0.2)
+
+    # Get the index of the top observed selected inbred lines for dry mass:
+    top_lines_obs = yhat_drymass[order(yhat_drymass, decreasing=TRUE)][1:n_selected] %>% names
+
+    # Get the index of the predicted to be best selected inbred lines for height:
+    top_lines_pred = yhat_height[order(yhat_height, decreasing=TRUE)][1:n_selected] %>% names
+
+    # Compute the coincidence index:
+    ci_tmp[paste0('cv2-30~', i)] = mean(top_lines_pred %in% top_lines_obs)
+
+  }
+
+  # Store the coincidence indexes in a list:
+  ci_lst[[m]] = ci_tmp
+
+}
+
+# Print coincidence indexes:
+print(ci_lst)
+
+
+# # Write accuracy files:
+# setwd(paste0(prefix_proj, 'plots/cv/heatplot'))
+# for (i in names(acc_lst[["MTiLM"]])) write.csv(acc_lst[["MTiLM"]][[i]], file=paste0("acc_MTiLM_", i, ".csv"))
+# for (i in names(acc_lst[["MTrLM"]])) write.csv(acc_lst[["MTrLM"]][[i]], file=paste0("acc_MTrLM_", i, ".csv"))
 

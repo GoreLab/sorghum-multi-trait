@@ -21,7 +21,7 @@ spec_dec <-function(K) {
   # Creates a diagonal matrix for receiving the eigenvalues:
   Dg= diag(E$values)
 
-  # Identifies eigenvalues lower then a small constant and pick the lowest one and add a fraction of it:
+  # Identifies eigenvalues lower then a small constant and pick the lowest one:
   for (i in 1:nrow(Dg)) {
     if (Dg[i,i]<1e-4) {
       Dg[i,i]=Dg[(i-1),(i-1)]-0.01*Dg[(i-1),(i-1)]

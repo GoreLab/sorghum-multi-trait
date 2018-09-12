@@ -683,7 +683,6 @@ for i in range(len(dap_group)):
   plt.clf()
 
 
-
 #-----------------Compute coincidence index for dry biomass selection using height adjusted means------------#
 
 # Store into a list different DAP values:
@@ -816,8 +815,12 @@ for i in range(len(model_set)):
   plt.xticks(rotation=25)
   plt.yticks(rotation=45)
   plt.savefig("heatplot_cv2_" + model_set[i] + "_accuracy.pdf", dpi=150)
-  plt.savefig("heatplot_cv2_" + model_set[i] "_accuracy.png", dpi=150)
+  plt.savefig("heatplot_cv2_" + model_set[i] + "_accuracy.png", dpi=150)
   plt.clf()
+
+
+print(np.round(mlm_dict['MTiLM_cv1'],2))
+print(np.round(mlm_dict['MTrLM_cv1'],2))
 
 
 #-------------------------------Inspection of the bin probability relevance----------------------------------#
