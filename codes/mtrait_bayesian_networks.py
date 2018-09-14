@@ -351,11 +351,11 @@ if bool(re.search('GBN', model)):
 	# Subset the time covariate and the features:
 	Z = X.drop(X.columns[0], axis=1)[X.iloc[:,0].values==time_points[0]]
 	# Initialize numpy array:
-	y_array = np.zeros(shape=(Z.shape[0],time_points.size))
+	y_array = np.zeros(shape=(time_points.size, Z.shape[0]))
 	y_array[:] = np.nan
 	# Add phenotypes to two time point column:
 	for t in range(time_points.size):
-		y_array[:, t] = y[X.iloc[:,0].values==time_points[t]].values.reshape((Z.shape[0]))
+		y_array[t, :] = y[X.iloc[:,0].values==time_points[t]].values.reshape((Z.shape[0]))
 	# Build dictionary:
 	dict_stan = dict(n = Z.shape[0],
 					 n_t = time_points.size,
