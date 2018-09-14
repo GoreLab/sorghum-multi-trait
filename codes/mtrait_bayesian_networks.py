@@ -349,7 +349,7 @@ if model == 'DBN-0~6':
 # Setting directory:
 os.chdir(dir_proj + "codes")
 
-# For running the Bayesian Network model:
+# For running the Bayesian Network model:s
 if model == 'BN':
 	# Compiling the Bayesian Network:
 	model_stan = ps.StanModel(file='bayesian_network.stan')
@@ -411,6 +411,16 @@ if model == 'DBN-0~6':
 	model_stan = ps.StanModel(file='dynamic_bayesian_network_0_6.stan')
 	# Fitting the model:
 	fit = model_stan.sampling(data=dict_stan, chains=4, iter=400)
+
+
+# Compiling the DBN model:
+if model == 'GBN':
+	model_stan = ps.StanModel(file='growth_bayesian_network.stan')
+	# Fitting the model:
+	fit = model_stan.sampling(data=dict_stan, chains=4, iter=400)
+
+
+
 
 
 #---------------------------------Saving outputs from the Bayesian Network-----------------------------------#

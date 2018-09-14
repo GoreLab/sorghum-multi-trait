@@ -4,7 +4,7 @@ functions {
   # User-defined vectorized logistic growth function:
   vector logistic_growth(real a, real c, real r, vector t) {
 
-      return (c ./ (1 + a .* exp(-r .* t)));
+      return (c ./ (1 + a .* exp(-r * t)));
 
   }
 
