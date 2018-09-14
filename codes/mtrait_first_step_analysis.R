@@ -146,3 +146,18 @@ save.image("mtrait_first_step_analysis.RData")
 # # Loading data:
 # setwd(paste0(prefix_out, "outputs/first_step_analysis"))
 # load("mtrait_first_step_analysis.RData")
+
+
+
+# c = rep(49.9)
+# a = rep(134)
+# r = rep(1.96)
+# t = 1:10
+
+# for (i in 1:10) {
+
+# 	out = c / (1 + (a * exp(-r * t)))
+
+# }
+
+# plot(x=1:10, y=out,type="line")
