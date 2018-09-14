@@ -64,7 +64,7 @@ parameters {
 transformed parameters {
 
   // Declaring variables to receive input:
-  vector[n] expectation[n_t];
+  vector<lower=0>[n] expectation[n_t];
   vector[n] r;
 
   // Compute genotypic values:
