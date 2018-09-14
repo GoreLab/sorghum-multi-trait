@@ -21,7 +21,7 @@ data {
   matrix[n, p_z] Z;
   
   // Phenotypic vectors:
-  vector[n_t] y_0[n];
+  vector[n_t] y[n];
 
   // Time points:
   vector[n_t] time_points;
