@@ -343,15 +343,27 @@ if model == 'DBN-0~6':
 				 	 y_6 = y[index==group[6]].values.flatten(),
 				 	 phi = y.max().values[0]*10) 
 
-
-
-model = 'GBN-0~1'
-
-upper = int(model.split('~')[1])
-
-time_points = X.iloc[:,0].unique()[range(upper+1)]
-time_points
-
+if bool(re.search('GBN', model)):
+	# Extract the time upper bound from the model name:
+	upper = int(model.split('~')[1])
+	# Subset time points:
+	time_points = X.iloc[:,0].unique()[range(upper+1)]
+	# Subset the time covariate and the features:
+	Z = X.drop(X.columns[0], axis=1)[X.iloc[:,0].values==time_points[0]]
+	# Initialize numpy array:
+	y_array = np.zeros(shape=(Z.shape[0],time_points.size))
+	y_array[:] = np.nan
+	# Add phenotypes to two time point column:
+	for t in range(time_points.size):
+		y_array[:, t] = y[X.iloc[:,0].values==time_points[t]].values.reshape((Z.shape[0]))
+	# Build dictionary:
+	dict_stan = dict(n = Z.shape[0],
+					 n_t = time_points.size,
+					 p_z = Z.shape[1],
+					 Z = Z,
+					 y = y_array,
+					 time_points = time_points,
+					 phi = np.max(y_array)*10)
 
 
 #--------------------------------------Running the Bayesian Network------------------------------------------#
@@ -422,7 +434,7 @@ if model == 'DBN-0~6':
 	# Fitting the model:
 	fit = model_stan.sampling(data=dict_stan, chains=4, iter=400)
 
-# Compiling the DBN model:
+# Compiling the GBN model:
 if bool(re.search('GBN', model)):
 	model_stan = ps.StanModel(file='growth_bayesian_network.stan')
 	# Fitting the model:

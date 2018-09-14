@@ -105,10 +105,10 @@ model {
   for (t in 1:n_t) {
 
     // Specifying the likelihood:
-    y[t] ~ normal(expectation[t], sigma);
+    y[t] ~ normal(expectation[t], sigma[t]);
 
     // Generating data from the model:
-    y_gen[t] ~ normal(expectation[t], sigma);
+    y_gen[t] ~ normal(expectation[t], sigma[t]);
 
   }
 
