@@ -46,10 +46,10 @@ parameters {
   // Logistic growth function non-bin parameter/hyperparameters:
   real<lower=0> pi_s_a;
   real<lower=0> s_a;
-  vector<lower=0>[n] a;
+  real<lower=0> a;
   real<lower=0> pi_s_c;
   real<lower=0> s_c;
-  vector<lower=0>[n] c;
+  real<lower=0> c;
 
   // Residual parameter/hyperparameters:
   real<lower=0> pi_s_sigma;
