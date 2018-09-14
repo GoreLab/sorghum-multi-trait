@@ -344,6 +344,16 @@ if model == 'DBN-0~6':
 				 	 phi = y.max().values[0]*10) 
 
 
+
+model = 'GBN-0~1'
+
+upper = int(model.split('~')[1])
+
+time_points = X.iloc[:,0].unique()[range(upper+1)]
+time_points
+
+
+
 #--------------------------------------Running the Bayesian Network------------------------------------------#
 
 # Setting directory:
@@ -412,16 +422,11 @@ if model == 'DBN-0~6':
 	# Fitting the model:
 	fit = model_stan.sampling(data=dict_stan, chains=4, iter=400)
 
-
 # Compiling the DBN model:
-if model == 'GBN':
+if bool(re.search('GBN', model)):
 	model_stan = ps.StanModel(file='growth_bayesian_network.stan')
 	# Fitting the model:
 	fit = model_stan.sampling(data=dict_stan, chains=4, iter=400)
-
-
-
-
 
 #---------------------------------Saving outputs from the Bayesian Network-----------------------------------#
 

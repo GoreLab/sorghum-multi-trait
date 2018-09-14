@@ -149,15 +149,16 @@ save.image("mtrait_first_step_analysis.RData")
 
 
 
-# c = rep(49.9)
-# a = rep(134)
-# r = rep(1.96)
-# t = 1:10
+# c = rep(49.9, 3)
+# a = rep(134, 3)
+# r = rep(1.96, 3)
 
-# for (i in 1:10) {
+# out = matrix(NA, 3, 10)
 
-# 	out = c / (1 + (a * exp(-r * t)))
+# for (t in 0:10) {
+
+# 	out[,t] = c / (1 + (a * exp(-r * t)))
 
 # }
 
-# plot(x=1:10, y=out,type="line")
+# plot(x=1:10, y=out[1,],type="line")

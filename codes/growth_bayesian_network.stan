@@ -1,10 +1,10 @@
 
 functions {
 
-  # User-defined vectorized logistic growth function:
-  vector logistic_growth(real a, real c, real r, vector t) {
+  // User-defined vectorized logistic growth function:
+  vector logistic_growth(vector a, vector c, vector r, real t) {
 
-      return (c ./ (1 + a * exp(-r * t)));
+      return (c ./ (1 + a .* exp(-r * t)));
 
   }
 
@@ -21,7 +21,7 @@ data {
   matrix[n, p_z] Z;
   
   // Phenotypic vectors:
-  vector[n_t] y[n];
+  vector[n] y[n_t];
 
   // Time points:
   vector[n_t] time_points;
@@ -57,22 +57,22 @@ parameters {
   vector<lower=0>[n_t] sigma;
 
   // Defining variable to generate data from the model:
-  vector[n_t] y_gen[n];
+  vector[n] y_gen[n_t];
 
 }
 
 transformed parameters {
 
   // Declaring variables to receive input:
-  vector[n_t] expectation[n];
+  vector[n] expectation[n_t];
   vector[n] r;
 
   // Compute genotypic values:
   r = mu + Z * alpha;
 
   // Computing the expectation of the likelihood function:
-  for (i in 1:n)
-    expectation[i] = logistic_growth(a[i], c[i], r[i], time_points);
+  for (t in 1:n_t)
+    expectation[t] = logistic_growth(a, c, r, time_points[t]);
  
 }
 
@@ -102,13 +102,13 @@ model {
   s_sigma ~ cauchy(0, pi_s_sigma);
   sigma ~ cauchy(0, s_sigma);
 
-  for (i in 1:n) {
+  for (t in 1:n_t) {
 
     // Specifying the likelihood:
-    y[i] ~ normal(expectation[i], sigma);
+    y[t] ~ normal(expectation[t], sigma);
 
     // Generating data from the model:
-    y_gen[i] ~ normal(expectation[i], sigma);
+    y_gen[t] ~ normal(expectation[t], sigma);
 
   }
 
