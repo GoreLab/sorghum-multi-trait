@@ -24,7 +24,7 @@ data {
   vector[n_t] y_0[n];
 
   // Time points:
-  real time_points[n_t];
+  vector[n_t] time_points;
 
   // Global known hyperparameter:
   real phi;
