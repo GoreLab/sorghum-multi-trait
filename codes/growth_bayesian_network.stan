@@ -68,11 +68,11 @@ transformed parameters {
   vector[n] r;
   
   // Compute genotypic values:
-  r = mu + Z * alpha;
+  r = Z * alpha;
 
   // Computing the expectation of the likelihood function:
   for (t in 1:n_t)
-    expectation[t] = logistic_growth(a, c, r, time_points[t]);
+    expectation[t] = mu + logistic_growth(a, c, r, time_points[t]);
  
 }
 
