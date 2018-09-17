@@ -2,9 +2,9 @@
 functions {
 
   // User-defined vectorized logistic growth function:
-  vector logistic_growth(real a, real c, vector r, real t) {
+  vector logistic_growth(vector a, vector c, vector r, real t) {
 
-      return (c ./ (1 + a * exp(-r * t)));
+      return (c ./ (1 + a .* exp(-r .* t)));
 
   }
 
@@ -44,12 +44,15 @@ parameters {
   vector[p_z] alpha;  
 
   // Logistic growth function non-bin parameter/hyperparameters:
-  real<lower=0> pi_s_a;
-  real<lower=0> s_a;
-  real<lower=0> a;
+  real<lower=0> pi_s_r;
+  real<lower=0> s_r;
+  vector<lower=0>[n] r;
+  // real<lower=0> pi_s_a;
+  // real<lower=0> s_a;
+  // real<lower=0> a;
   real<lower=0> pi_s_c;
   real<lower=0> s_c;
-  real<lower=0> c;
+  vector<lower=0>[n] c;
 
   // Residual parameter/hyperparameters:
   real<lower=0> pi_s_sigma;
@@ -65,14 +68,15 @@ transformed parameters {
 
   // Declaring variables to receive input:
   vector[n] expectation[n_t];
-  vector[n] r;
+  // vector[n] r;
+  vector[n] a;
   
   // Compute genotypic values:
-  r = Z * alpha;
+  a = mu + Z * alpha;
 
   // Computing the expectation of the likelihood function:
   for (t in 1:n_t)
-    expectation[t] = mu + logistic_growth(a, c, r, time_points[t]);
+    expectation[t] = logistic_growth(a, c, r, time_points[t]);
  
 }
 
@@ -89,9 +93,12 @@ model {
   alpha ~ normal(0, s_alpha);
 
   //// Conditional probabilities distributions for logistic growth function parameters:
-  pi_s_a ~ cauchy(0,  phi);
-  s_a ~ cauchy(0, pi_s_a);
-  a ~ normal(0, s_a);
+  pi_s_r ~ cauchy(0,  phi);
+  s_r ~ cauchy(0, pi_s_r);
+  r ~ normal(0, s_r);
+  // pi_s_a ~ cauchy(0,  phi);
+  // s_a ~ cauchy(0, pi_s_a);
+  // a ~ normal(0, s_a);
 
   pi_s_c ~ cauchy(0,  phi);
   s_c ~ cauchy(0, pi_s_c);
