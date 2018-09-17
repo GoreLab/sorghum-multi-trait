@@ -41,7 +41,7 @@ parameters {
   // Features parameter/hyperparameters:
   real<lower=0> pi_s_alpha;
   real<lower=0> s_alpha;
-  vector<lower=0>[p_z] alpha;  
+  vector[p_z] alpha;  
 
   // Logistic growth function non-bin parameter/hyperparameters:
   real<lower=0> pi_s_a;
