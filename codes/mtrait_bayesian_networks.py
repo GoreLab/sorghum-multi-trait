@@ -440,11 +440,13 @@ if model == 'DBN-0~6':
 if bool(re.search('GBN', model)):
 	model_stan  = ps.StanModel(file='growth_bayesian_network.stan')
 	# Fitting the model:
-	fit = model_stan.sampling(data=dict_stan, chains=4, iter=400, init="random", init_r=100)
+	fit = model_stan.sampling(data=dict_stan, chains=4, iter=400)
 
+
+fit = model_stan.sampling(data=dict_stan, chains=4, iter=400)
 
 # Fitting the model:
-fit = model_stan.sampling(data=dict_stan, chains=4, iter=400, init="random", init_r=10)
+fit = model_stan.sampling(data=dict_stan, chains=4, iter=400, init="random", init_r=0.01)
 
 #---------------------------------Saving outputs from the Bayesian Network-----------------------------------#
 

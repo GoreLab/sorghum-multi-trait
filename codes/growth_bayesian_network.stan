@@ -36,7 +36,7 @@ parameters {
   // Population mean parameter/hyperparameters:
   real<lower=0> pi_s_mu;
   real<lower=0> s_mu;
-  real mu;
+  real<lower=0> mu;
 
   // Features parameter/hyperparameters:
   real<lower=0> pi_s_alpha;
@@ -66,7 +66,7 @@ transformed parameters {
   // Declaring variables to receive input:
   vector[n] expectation[n_t];
   vector<lower=0>[n] r;
-
+  
   // Compute genotypic values:
   r = mu + Z * alpha;
 
