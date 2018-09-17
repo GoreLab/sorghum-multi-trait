@@ -33,15 +33,15 @@ data {
 
 parameters {
 
-  // Population mean parameter/hyperparameters:
-  real<lower=0> pi_s_mu;
-  real<lower=0> s_mu;
-  real<lower=0> mu;
+  // // Population mean parameter/hyperparameters:
+  // real<lower=0> pi_s_mu;
+  // real<lower=0> s_mu;
+  // real<lower=0> mu;
 
   // Features parameter/hyperparameters:
   real<lower=0> pi_s_alpha;
   real<lower=0> s_alpha;
-  vector[p_z] alpha;  
+  vector<lower=0>[p_z] alpha;  
 
   // Logistic growth function non-bin parameter/hyperparameters:
   real<lower=0> pi_s_a;
@@ -65,10 +65,11 @@ transformed parameters {
 
   // Declaring variables to receive input:
   vector[n] expectation[n_t];
-  vector<lower=0>[n] r;
+  vector[n] r;
   
   // Compute genotypic values:
-  r = mu + Z * alpha;
+  // r = mu + Z * alpha;
+  r = Z * alpha;
 
   // Computing the expectation of the likelihood function:
   for (t in 1:n_t)
@@ -78,10 +79,10 @@ transformed parameters {
 
 model {
 
-  //// Conditional probabilities distributions for mean:
-  pi_s_mu ~ cauchy(0,  phi);
-  s_mu ~ cauchy(0, pi_s_mu);
-  mu ~ normal(0, s_mu);
+  // //// Conditional probabilities distributions for mean:
+  // pi_s_mu ~ cauchy(0,  phi);
+  // s_mu ~ cauchy(0, pi_s_mu);
+  // mu ~ normal(0, s_mu);
 
   //// Conditional probabilities distributions for features:
   pi_s_alpha ~ cauchy(0,  phi);
