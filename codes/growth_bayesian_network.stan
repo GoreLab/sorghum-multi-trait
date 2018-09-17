@@ -13,7 +13,7 @@ functions {
 data {
 
   // Number of row entries of the matrices or vectors:
-  int<lower=1> n;  
+  int<lower=1> n;
   int<lower=1> n_t;  
   int<lower=1> p_z;
 
@@ -65,14 +65,14 @@ transformed parameters {
 
   // Declaring variables to receive input:
   vector[n] expectation[n_t];
-  vector[n] r;
+  vector<lower=0>[n] r;
 
   // Compute genotypic values:
-  r = Z * alpha;
+  r = mu + Z * alpha;
 
   // Computing the expectation of the likelihood function:
   for (t in 1:n_t)
-    expectation[t] = mu + logistic_growth(a, c, r, time_points[t]);
+    expectation[t] = logistic_growth(a, c, r, time_points[t]);
  
 }
 

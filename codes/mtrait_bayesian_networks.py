@@ -83,7 +83,7 @@ y = "y_cv1_height_k0_trn.csv"
 x = "x_cv1_height_k0_trn.csv"
 
 # Name of the model that can be: 'BN' or 'PBN', or 'DBN':
-model ='DBN-0~6'
+model ='GBN-0~5'
 
 # Getting each trait file names:
 if model=='PBN':
@@ -347,15 +347,17 @@ if bool(re.search('GBN', model)):
 	# Extract the time upper bound from the model name:
 	upper = int(model.split('~')[1])
 	# Subset time points:
-	time_points = X.iloc[:,0].unique()[range(upper+1)]
+	dap = X.iloc[:,0].unique()[range(upper+1)]
+	# Get time points range:
+	time_points = np.linspace(start=0, stop=upper, num=dap.size) + 1
 	# Subset the time covariate and the features:
-	Z = X.drop(X.columns[0], axis=1)[X.iloc[:,0].values==time_points[0]]
+	Z = X.drop(X.columns[0], axis=1)[X.iloc[:,0].values==dap[0]]
 	# Initialize numpy array:
-	y_array = np.zeros(shape=(time_points.size, Z.shape[0]))
+	y_array = np.zeros(shape=(dap.size, Z.shape[0]))
 	y_array[:] = np.nan
 	# Add phenotypes to two time point column:
-	for t in range(time_points.size):
-		y_array[t, :] = y[X.iloc[:,0].values==time_points[t]].values.reshape((Z.shape[0]))
+	for t in range(dap.size):
+		y_array[t, :] = y[X.iloc[:,0].values==dap[t]].values.reshape((Z.shape[0]))
 	# Build dictionary:
 	dict_stan = dict(n = Z.shape[0],
 					 n_t = time_points.size,
@@ -436,9 +438,13 @@ if model == 'DBN-0~6':
 
 # Compiling the GBN model:
 if bool(re.search('GBN', model)):
-	model_stan = ps.StanModel(file='growth_bayesian_network.stan')
+	model_stan  = ps.StanModel(file='growth_bayesian_network.stan')
 	# Fitting the model:
-	fit = model_stan.sampling(data=dict_stan, chains=4, iter=400)
+	fit = model_stan.sampling(data=dict_stan, chains=4, iter=400, init="random", init_r=100)
+
+
+# Fitting the model:
+fit = model_stan.sampling(data=dict_stan, chains=4, iter=400, init="random", init_r=10)
 
 #---------------------------------Saving outputs from the Bayesian Network-----------------------------------#
 
