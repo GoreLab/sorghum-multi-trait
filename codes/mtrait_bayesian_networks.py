@@ -349,7 +349,8 @@ if bool(re.search('GBN', model)):
 	# Subset time points:
 	dap = X.iloc[:,0].unique()[range(upper+1)]
 	# Get time points range:
-	time_points = np.linspace(start=0, stop=upper, num=dap.size) + 1
+	time_points = np.log1p(dap)
+	# time_points = np.linspace(start=0, stop=upper, num=dap.size) + 1	
 	# Subset the time covariate and the features:
 	Z = X.drop(X.columns[0], axis=1)[X.iloc[:,0].values==dap[0]]
 	# Initialize numpy array:
