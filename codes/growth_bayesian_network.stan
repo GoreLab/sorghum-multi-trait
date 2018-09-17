@@ -36,7 +36,7 @@ parameters {
   // Population mean parameter/hyperparameters:
   real<lower=0> pi_s_mu;
   real<lower=0> s_mu;
-  real<lower=0> mu;
+  real mu;
 
   // Features parameter/hyperparameters:
   real<lower=0> pi_s_alpha;
