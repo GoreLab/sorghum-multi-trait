@@ -83,7 +83,7 @@ y = "y_cv1_height_k0_trn.csv"
 x = "x_cv1_height_k0_trn.csv"
 
 # Name of the model that can be: 'BN' or 'PBN', or 'DBN':
-model ='GBN-0~1'
+model ='GBN-0~5'
 
 # Getting each trait file names:
 if model=='PBN':
@@ -349,7 +349,8 @@ if bool(re.search('GBN', model)):
 	# Subset time points:
 	dap = X.iloc[:,0].unique()[range(upper+1)]
 	# Get time points range:
-	time_points = np.linspace(start=0, stop=upper, num=dap.size) + 1	
+	# time_points = np.linspace(start=0, stop=upper, num=dap.size) + 1	
+	time_points = dap/np.min(dap)
 	# Subset the time covariate and the features:
 	Z = X.drop(X.columns[0], axis=1)[X.iloc[:,0].values==dap[0]]
 	# Initialize numpy array:
@@ -448,6 +449,17 @@ fit = model_stan.sampling(data=dict_stan, chains=1, iter=100)
 
 # Fitting the model:
 fit = model_stan.sampling(data=dict_stan, chains=4, iter=400, init="random", init_r=0.01)
+
+
+
+
+out = fit.extract()
+
+tmp=np.mean(out['expectation'], axis=0)
+
+plt.plot(tmp[:,1])
+
+
 
 #---------------------------------Saving outputs from the Bayesian Network-----------------------------------#
 

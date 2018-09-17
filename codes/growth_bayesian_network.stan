@@ -47,12 +47,9 @@ parameters {
   real<lower=0> pi_s_r;
   real<lower=0> s_r;
   vector<lower=0>[n] r;
-  // real<lower=0> pi_s_a;
-  // real<lower=0> s_a;
-  // real<lower=0> a;
-  real<lower=0> pi_s_c;
-  real<lower=0> s_c;
-  vector<lower=0>[n] c;
+  real<lower=0> pi_s_a;
+  real<lower=0> s_a;
+  vector<lower=0>[n] a;
 
   // Residual parameter/hyperparameters:
   real<lower=0> pi_s_sigma;
@@ -68,11 +65,10 @@ transformed parameters {
 
   // Declaring variables to receive input:
   vector[n] expectation[n_t];
-  // vector[n] r;
-  vector[n] a;
+  vector[n] c;
   
   // Compute genotypic values:
-  a = mu + Z * alpha;
+  c = mu + Z * alpha;
 
   // Computing the expectation of the likelihood function:
   for (t in 1:n_t)
@@ -96,13 +92,10 @@ model {
   pi_s_r ~ cauchy(0,  phi);
   s_r ~ cauchy(0, pi_s_r);
   r ~ normal(0, s_r);
-  // pi_s_a ~ cauchy(0,  phi);
-  // s_a ~ cauchy(0, pi_s_a);
-  // a ~ normal(0, s_a);
 
-  pi_s_c ~ cauchy(0,  phi);
-  s_c ~ cauchy(0, pi_s_c);
-  c ~ normal(0, s_c);
+  pi_s_a ~ cauchy(0,  phi);
+  s_a ~ cauchy(0, pi_s_a);
+  a ~ normal(0, s_a);
 
   //// Conditional probabilities distributions for residuals:
   pi_s_sigma ~ cauchy(0,  phi);

@@ -149,13 +149,13 @@ save.image("mtrait_first_step_analysis.RData")
 
 
 
-c = rep(49.9, 3)
-a = rep(134, 3)
-r = rep(1.96, 3)
+c = rep(100, 3)
+a = rep(10, 3)
+r = rep(4, 3)
 
 out = matrix(NA, 3, 7)
 
-time = 1 + seq(30,120,15)/120
+time = seq(30,120,15)/30
 
 counter=1
 for (t in time) {
@@ -165,3 +165,5 @@ for (t in time) {
 }
 
 plot(x=time, y=out[1,],type="line")
+
+
