@@ -65,7 +65,7 @@ transformed parameters {
 
   // Declaring variables to receive input:
   vector[n] expectation[n_t];
-  vector<lower=0>[n] r;
+  vector[n] r;
   
   // Compute genotypic values:
   r = mu + Z * alpha;

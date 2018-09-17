@@ -364,9 +364,9 @@ if bool(re.search('GBN', model)):
 					 n_t = time_points.size,
 					 p_z = Z.shape[1],
 					 Z = Z,
-					 y = y_array/100,
+					 y = y_array,
 					 time_points = time_points,
-					 phi = np.max(y_array/100)*10)
+					 phi = np.max(y_array)*10)
 
 
 #--------------------------------------Running the Bayesian Network------------------------------------------#
