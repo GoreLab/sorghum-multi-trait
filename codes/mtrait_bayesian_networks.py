@@ -58,9 +58,9 @@ if model=='PBN':
 # Loading data:
 if (model=='BN') or bool(re.search('DBN', model)) or bool(re.search('GBN', model)):
 	# Reading adjusted means:
-	y = pd.read_csv(y, index_col=0)
+	y = pd.read_csv(args.y, index_col=0)
 	# Reading feature matrix:
-	X = pd.read_csv(x, index_col=0)
+	X = pd.read_csv(args.x, index_col=0)
 
 # Loading data:
 if model=='PBN':
