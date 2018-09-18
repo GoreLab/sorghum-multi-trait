@@ -83,7 +83,7 @@ y = "y_cv1_height_k0_trn.csv"
 x = "x_cv1_height_k0_trn.csv"
 
 # Name of the model that can be: 'BN' or 'PBN', or 'DBN':
-model ='GBN-0~6'
+model ='GBN-0~6-cv1'
 
 # Getting each trait file names:
 if model=='PBN':
@@ -348,11 +348,10 @@ if model == 'DBN-0~6':
 
 if bool(re.search('GBN', model)):
 	# Extract the time upper bound from the model name:
-	upper = int(model.split('~')[1])
+	upper = int((model.split('~')[1]).split('-')[0])
 	# Subset time points:
 	dap = X.iloc[:,0].unique()[range(upper+1)]
 	# Get time points range:
-	# time_points = np.linspace(start=0, stop=upper, num=dap.size) + 1	
 	time_points = dap/np.min(dap)
 	# Subset the time covariate and the features:
 	Z = X.drop(X.columns[0], axis=1)[X.iloc[:,0].values==dap[0]]
@@ -442,7 +441,10 @@ if model == 'DBN-0~6':
 
 # Compiling the GBN model:
 if bool(re.search('GBN', model)):
-	model_stan  = ps.StanModel(file='growth_bayesian_network.stan')
+	if bool(re.search('cv1', model)):
+		model_stan  = ps.StanModel(file='growth_bayesian_network_cv1.stan')
+	if bool(re.search('cv2', model)):
+		model_stan  = ps.StanModel(file='growth_bayesian_network_cv2.stan')
 	# Fitting the model:
 	fit = model_stan.sampling(data=dict_stan, chains=4, iter=400)
 
