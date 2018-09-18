@@ -147,6 +147,13 @@ echo "MTrLM-0~2" >> mtrlm_models_cv2_list.txt
 echo "MTrLM-0~3" >> mtrlm_models_cv2_list.txt
 echo "MTrLM-0~4" >> mtrlm_models_cv2_list.txt
 
+# Create a text file to store the different types of Growth Bayesian Network (GBN) models for latter usage;
+echo "GBN-0~5" > gbn_models_cv2_list.txt
+echo "GBN-0~1" >> gbn_models_cv2_list.txt
+echo "GBN-0~2" >> gbn_models_cv2_list.txt
+echo "GBN-0~3" >> gbn_models_cv2_list.txt
+echo "GBN-0~4" >> gbn_models_cv2_list.txt
+
 
 #-----------------To perform cross-validation analysis using the Bayesian Network model (CV1)----------------#
 
@@ -636,51 +643,50 @@ for i in $(seq 1 ${n_analysis}); do
 
 done;
 
+#-------------To perform cross-validation (CV2) analysis using the Growth Bayesian Network model------------#
 
+# Number of analysis:
+n_analysis=5
 
-i=1
+for i in $(seq 1 ${n_analysis}); do
 
-# Directory of the folder where y and x are stored:
-dir_in="/workdir/jp2476/repo/resul_mtrait-proj/data/cross_validation/"
+	# Directory of the folder where y and x are stored:
+	dir_in="/workdir/jp2476/repo/resul_mtrait-proj/data/cross_validation/"
 
-# Name of the file with the phenotypes:
-y=$(sed -n "${i}p" ${dir_in}/y_cv1_dbn_trn_files.txt)
+	# Name of the file with the phenotypes:
+	y=$(sed -n "${i}p" ${dir_in}/y_cv2_dbn_trn_files.txt)
 
-# Name of the file with the features:
-x=$(sed -n "${i}p" ${dir_in}/x_cv1_dbn_trn_files.txt)
+	# Name of the file with the features:
+	x=$(sed -n "${i}p" ${dir_in}/x_cv2_dbn_trn_files.txt)
 
-# Name of the model that can be: 'BN' or 'PBN', or 'DBN'
-model='GBN-0~6'
+	# Name of the model that can be: 'BN' or 'PBN', or 'DBN'
+	model=$(sed -n "${i}p" ${dir_in}/gbn_models_cv2_list.txt)
 
-# Directory of the folder where y and x are stored:
-dir_in="/workdir/jp2476/repo/resul_mtrait-proj/data/cross_validation/"
+	# Directory of the folder where y and x are stored:
+	dir_in="/workdir/jp2476/repo/resul_mtrait-proj/data/cross_validation/"
 
-# Directory of the project folder:
-dir_proj="/workdir/jp2476/repo/sorghum-multi-trait/"
+	# Directory of the project folder:
+	dir_proj="/workdir/jp2476/repo/sorghum-multi-trait/"
 
-# Getting just the model prefix:
-tmp="$(cut -d'-' -f1 <<<"$model")"
+	# Getting just the model prefix:
+	tmp="$(cut -d'-' -f1 <<<"$model")"
 
-# Prefix of the output directory:
-PREFIX="/workdir/jp2476/repo/resul_mtrait-proj/outputs/cross_validation/${tmp}"
+	# Prefix of the output directory:
+	PREFIX="/workdir/jp2476/repo/resul_mtrait-proj/outputs/cross_validation/${tmp}"
 
-# Getting the current fold of the cross-validation:
-cv="$(cut -d'_' -f4 <<<"$y")"
+	# Defining the output directory for the outputs:
+	dir_out=${PREFIX}/"$(cut -d'_' -f2 <<<"$y")"/"$(cut -d'_' -f3 <<<"$y")"
 
-# Defining the output directory for the outputs:
-dir_out=${PREFIX}/"$(cut -d'_' -f2 <<<"$y")"/"$(cut -d'_' -f3 <<<"$y")"/${cv}
+	# Prefix for running the script:
+	PREFIX_python=/workdir/jp2476/software/python/bin
 
-# Prefix for running the script:
-PREFIX_python=/workdir/jp2476/software/python/bin
+	# Running the code:
+	${PREFIX_python}/python ${dir_proj}/codes/mtrait_bayesian_networks.py -y ${y} -x ${x} -m ${model} -di ${dir_in} -dp ${dir_proj} -do ${dir_out} & 
 
-# Running the code:
-${PREFIX_python}/python ${dir_proj}/codes/mtrait_bayesian_networks.py -y ${y} -x ${x} -m ${model} -di ${dir_in} -dp ${dir_proj} -do ${dir_out} & 
+	# Sleep for avoid exploding several processes:
+	sleep 5
 
-# Sleep for avoid exploding several processes:
-sleep 5
-
-
-
+done;
 
 
 #----------------------------------------Install python locally----------------------------------------------#

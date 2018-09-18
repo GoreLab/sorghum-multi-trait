@@ -18,6 +18,10 @@ from pymc3.stats import hpd
 import argparse
 parser = argparse.ArgumentParser()
 
+## Logistic growth function:
+def logistic_growth(a, c, r, t):
+    return(c / (1 + a * np.exp(-r * t)))
+
 
 #---------------------------------------Reading train and test data------------------------------------------#
 
@@ -267,6 +271,67 @@ for j in cv1_fold:
       y_pred_cv1[index2] = tmp
     if j!='k0':
       y_pred_cv1[index2] = pd.concat([y_pred_cv1[index2], tmp], axis=1)
+
+
+##########################
+
+# Compute predictions for the GBN model:
+for j in cv1_fold:
+
+#****
+j = cv1_fold[0]
+
+# Set the directory:
+os.chdir(prefix_out + 'outputs/cross_validation/GBN/cv1/height/' + j)
+# Load stan fit object and model:
+with open("output_gbn-0~6.pkl", "rb") as f:
+    data_dict = pickle.load(f)
+# Index the fit object and model
+out = data_dict['fit'].extract()
+# Time points values as input in the logistic growth function:
+time_points = np.linspace(30,120,7)/30.0
+
+for d in range(len(dap_group)):
+
+#****
+d = range(len(dap_group))[0]
+
+# Index and subset the feature matrix:
+index1 = 'cv1_height_' + j + '_tst'
+index2 = 'dbn_cv1_height_trained!on!dap:' + dap_group[d]
+X_tmp = X[index1][X[index1].iloc[:,0] == int(dap_group[d])]
+Z_tmp = X_tmp.drop(X_tmp.columns[0], axis=1)
+# Create the indexes for creating a data frame to receive predictions:
+index = ["s_" + str(i) for i in range(out['mu'].size)]
+col_name = X_tmp.index
+# Initialize a matrix to receive the posterior predictions:
+tmp = pd.DataFrame(index=index, columns=col_name)
+
+# Compute predictions:
+for sim in range(out['mu'].size):
+
+#***
+sim = range(out['mu'].size)[0]
+
+# Subset parameters:
+mu = out['mu'][sim]
+a = out['a'][sim]
+r = out['r'][sim]
+alpha = out['alpha'][sim,:]
+# Prediction:
+tmp.iloc[sim] = logistic_growth(a, (mu + Z_tmp.dot(alpha)).values, r, time_points[d])
+
+# Store prediction:
+if j=='k0':
+  y_pred_cv1[index2] = tmp
+if j!='k0':
+  y_pred_cv1[index2] = pd.concat([y_pred_cv1[index2], tmp], axis=1)
+
+
+ logistic_growth(a, c, r, t)
+
+
+##########################
 
 
 #--------------------------------Computing predictions for the CV2 scheme------------------------------------#

@@ -2,9 +2,9 @@
 functions {
 
   // User-defined vectorized logistic growth function:
-  vector logistic_growth(vector a, vector c, vector r, real t) {
+  vector logistic_growth(real a, vector c, real r, real t) {
 
-      return (c ./ (1 + a .* exp(-r * t)));
+      return (c ./ (1 + a * exp(-r * t)));
 
   }
 
@@ -46,10 +46,10 @@ parameters {
   // Logistic growth function non-bin parameter/hyperparameters:
   real<lower=0> pi_s_r;
   real<lower=0> s_r;
-  vector<lower=0>[n] r;
+  real<lower=0> r;
   real<lower=0> pi_s_a;
   real<lower=0> s_a;
-  vector<lower=0>[n] a;
+  real<lower=0> a;
 
   // Residual parameter/hyperparameters:
   real<lower=0> pi_s_sigma;
