@@ -148,11 +148,11 @@ echo "MTrLM-0~3" >> mtrlm_models_cv2_list.txt
 echo "MTrLM-0~4" >> mtrlm_models_cv2_list.txt
 
 # Create a text file to store the different types of Growth Bayesian Network (GBN) models for latter usage;
-echo "GBN-0~5-cv2" > gbn_models_cv2_list.txt
-echo "GBN-0~1-cv2" >> gbn_models_cv2_list.txt
-echo "GBN-0~2-cv2" >> gbn_models_cv2_list.txt
-echo "GBN-0~3-cv2" >> gbn_models_cv2_list.txt
-echo "GBN-0~4-cv2" >> gbn_models_cv2_list.txt
+echo "GBN-0~5" > gbn_models_cv2_list.txt
+echo "GBN-0~1" >> gbn_models_cv2_list.txt
+echo "GBN-0~2" >> gbn_models_cv2_list.txt
+echo "GBN-0~3" >> gbn_models_cv2_list.txt
+echo "GBN-0~4" >> gbn_models_cv2_list.txt
 
 
 #-----------------To perform cross-validation analysis using the Bayesian Network model (CV1)----------------#
@@ -612,7 +612,7 @@ for i in $(seq 1 ${n_analysis}); do
 	x=$(sed -n "${i}p" ${dir_in}/x_cv1_dbn_trn_files.txt)
 
 	# Name of the model that can be: 'BN' or 'PBN', or 'DBN'
-	model='GBN-0~6-cv1'
+	model='GBN-0~6'
 
 	# Directory of the folder where y and x are stored:
 	dir_in="/workdir/jp2476/repo/resul_mtrait-proj/data/cross_validation/"

@@ -31,97 +31,36 @@ args = parser.parse_args()
 
 #---------------------------------------------Loading data---------------------------------------------------#
 
-# # Setting the model:
-# model = args.model
+# Setting the model:
+model = args.model
 
-# # Directory of the data:
-# dir_in = args.dir_in
+# Directory of the data:
+dir_in = args.dir_in
 
-# # Directory of the project:
-# dir_proj = args.dir_proj
+# Directory of the project:
+dir_proj = args.dir_proj
 
-# # Directory where outputs will be saved:
-# dir_out = args.dir_out
-
-# # Setting directory:
-# os.chdir(dir_in)
-
-# # Getting each trait file names:
-# if model=='PBN':
-# 	y = args.y
-# 	x = args.x
-# 	y_0 = y.split("&")[0]
-# 	y_1 = y.split("&")[1]
-# 	x_0 = x.split("&")[0]
-# 	x_1 = x.split("&")[1]
-
-# # Loading data:
-# if (model=='BN') or bool(re.search('DBN', model)) or bool(re.search('GBN', model)):
-# 	# Reading adjusted means:
-# 	y = pd.read_csv(args.y, index_col=0)
-# 	# Reading feature matrix:
-# 	X = pd.read_csv(args.x, index_col=0)
-
-# # Loading data:
-# if model=='PBN':
-# 	# Reading adjusted means for both traits:
-# 	y_0 = pd.read_csv(y_0, index_col=0)
-# 	y_1 = pd.read_csv(y_1, index_col=0)
-# 	# Reading feature matrix for both traits:
-# 	X_0 = pd.read_csv(x_0, index_col=0)
-# 	X_1 = pd.read_csv(x_1, index_col=0)
-
-
-##***** Temp chunck of code:
-
-# Data:
-
-# y = "y_cv1_drymass_k0_trn.csv-y_cv1_height_k0_trn.csv"
-# x = "x_cv1_drymass_k0_trn.csv-x_cv1_height_k0_trn.csv"
-
-y = "y_cv1_height_k0_trn.csv"
-x = "x_cv1_height_k0_trn.csv"
-
-# Name of the model that can be: 'BN' or 'PBN', or 'DBN':
-model ='GBN-0~6-cv1'
-
-# Getting each trait file names:
-if model=='PBN':
-	y_0 = y.split("-")[0]
-	y_1 = y.split("-")[1]
-	x_0 = x.split("-")[0]
-	x_1 = x.split("-")[1]
-
-# Choose the trait:
-trait = 'height'
-
-# Choose the cv scheme:
-cv = 'cv1'
-
-# Directory of the folder where y and x are stored:
-dir_in='/workdir/jp2476/repo/resul_mtrait-proj/data/cross_validation/'
-
-# Directory of the project folder:
-dir_proj='/workdir/jp2476/repo/sorghum-multi-trait/'
-
-# Prefix of the output directory:
-PREFIX='/workdir/jp2476/repo/resul_mtrait-proj/outputs/cross_validation/' + model
-
-if bool(re.search('GBN', model)):
-	PREFIX='/workdir/jp2476/repo/resul_mtrait-proj/outputs/cross_validation/' + model.split('-')[0]
-
-# Directory of the folder that will receive the outputs:
-dir_out= PREFIX + '/' + cv + '/' + trait + '/k0'
+# Directory where outputs will be saved:
+dir_out = args.dir_out
 
 # Setting directory:
 os.chdir(dir_in)
 
+# Getting each trait file names:
+if model=='PBN':
+	y = args.y
+	x = args.x
+	y_0 = y.split("&")[0]
+	y_1 = y.split("&")[1]
+	x_0 = x.split("&")[0]
+	x_1 = x.split("&")[1]
+
 # Loading data:
 if (model=='BN') or bool(re.search('DBN', model)) or bool(re.search('GBN', model)):
 	# Reading adjusted means:
-	y = pd.read_csv(y, index_col=0)
+	y = pd.read_csv(args.y, index_col=0)
 	# Reading feature matrix:
-	X = pd.read_csv(x, index_col=0)
+	X = pd.read_csv(args.x, index_col=0)
 
 # Loading data:
 if model=='PBN':
@@ -131,6 +70,67 @@ if model=='PBN':
 	# Reading feature matrix for both traits:
 	X_0 = pd.read_csv(x_0, index_col=0)
 	X_1 = pd.read_csv(x_1, index_col=0)
+
+
+##***** Temp chunck of code:
+
+# Data:
+
+# y = "y_cv1_drymass_k0_trn.csv-y_cv1_height_k0_trn.csv"
+# x = "x_cv1_drymass_k0_trn.csv-x_cv1_height_k0_trn.csv"
+
+# y = "y_cv1_height_k0_trn.csv"
+# x = "x_cv1_height_k0_trn.csv"
+
+# # Name of the model that can be: 'BN' or 'PBN', or 'DBN':
+# model ='GBN-0~6'
+
+# # Getting each trait file names:
+# if model=='PBN':
+# 	y_0 = y.split("-")[0]
+# 	y_1 = y.split("-")[1]
+# 	x_0 = x.split("-")[0]
+# 	x_1 = x.split("-")[1]
+
+# # Choose the trait:
+# trait = 'height'
+
+# # Choose the cv scheme:
+# cv = 'cv1'
+
+# # Directory of the folder where y and x are stored:
+# dir_in='/workdir/jp2476/repo/resul_mtrait-proj/data/cross_validation/'
+
+# # Directory of the project folder:
+# dir_proj='/workdir/jp2476/repo/sorghum-multi-trait/'
+
+# # Prefix of the output directory:
+# PREFIX='/workdir/jp2476/repo/resul_mtrait-proj/outputs/cross_validation/' + model
+
+# if bool(re.search('GBN', model)):
+# 	PREFIX='/workdir/jp2476/repo/resul_mtrait-proj/outputs/cross_validation/' + model.split('-')[0]
+
+# # Directory of the folder that will receive the outputs:
+# dir_out= PREFIX + '/' + cv + '/' + trait + '/k0'
+
+# # Setting directory:
+# os.chdir(dir_in)
+
+# # Loading data:
+# if (model=='BN') or bool(re.search('DBN', model)) or bool(re.search('GBN', model)):
+# 	# Reading adjusted means:
+# 	y = pd.read_csv(y, index_col=0)
+# 	# Reading feature matrix:
+# 	X = pd.read_csv(x, index_col=0)
+
+# # Loading data:
+# if model=='PBN':
+# 	# Reading adjusted means for both traits:
+# 	y_0 = pd.read_csv(y_0, index_col=0)
+# 	y_1 = pd.read_csv(y_1, index_col=0)
+# 	# Reading feature matrix for both traits:
+# 	X_0 = pd.read_csv(x_0, index_col=0)
+# 	X_1 = pd.read_csv(x_1, index_col=0)
 
 
 #------------------------------------------Data input for stan-----------------------------------------------#
@@ -348,10 +348,11 @@ if model == 'DBN-0~6':
 
 if bool(re.search('GBN', model)):
 	# Extract the time upper bound from the model name:
-	upper = int((model.split('~')[1]).split('-')[0])
+	upper = int(model.split('~')[1])
 	# Subset time points:
 	dap = X.iloc[:,0].unique()[range(upper+1)]
 	# Get time points range:
+	# time_points = np.linspace(start=0, stop=upper, num=dap.size) + 1	
 	time_points = dap/np.min(dap)
 	# Subset the time covariate and the features:
 	Z = X.drop(X.columns[0], axis=1)[X.iloc[:,0].values==dap[0]]
@@ -441,10 +442,7 @@ if model == 'DBN-0~6':
 
 # Compiling the GBN model:
 if bool(re.search('GBN', model)):
-	if bool(re.search('cv1', model)):
-		model_stan  = ps.StanModel(file='growth_bayesian_network_cv1.stan')
-	if bool(re.search('cv2', model)):
-		model_stan  = ps.StanModel(file='growth_bayesian_network_cv2.stan')
+	model_stan  = ps.StanModel(file='growth_bayesian_network.stan')
 	# Fitting the model:
 	fit = model_stan.sampling(data=dict_stan, chains=4, iter=400)
 
