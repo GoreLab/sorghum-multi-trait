@@ -128,6 +128,22 @@ mkdir ${PREFIX}/outputs/cross_validation/MTrLM/cv2-30~90/drymass-height;
 mkdir ${PREFIX}/outputs/cross_validation/MTrLM/cv2-30~105;
 mkdir ${PREFIX}/outputs/cross_validation/MTrLM/cv2-30~105/drymass-height;
 
-
-
-
+# Creating CV directories for the Growth Bayesian Network model output folder:
+mkdir ${PREFIX}/outputs/cross_validation/GBN;
+mkdir ${PREFIX}/outputs/cross_validation/GBN/cv1;
+mkdir ${PREFIX}/outputs/cross_validation/GBN/cv1/height;
+mkdir ${PREFIX}/outputs/cross_validation/GBN/cv1/height/k0;
+mkdir ${PREFIX}/outputs/cross_validation/GBN/cv1/height/k1;
+mkdir ${PREFIX}/outputs/cross_validation/GBN/cv1/height/k2;
+mkdir ${PREFIX}/outputs/cross_validation/GBN/cv1/height/k3;
+mkdir ${PREFIX}/outputs/cross_validation/GBN/cv1/height/k4;
+mkdir ${PREFIX}/outputs/cross_validation/GBN/cv2-30~45;
+mkdir ${PREFIX}/outputs/cross_validation/GBN/cv2-30~45/height;
+mkdir ${PREFIX}/outputs/cross_validation/GBN/cv2-30~60;
+mkdir ${PREFIX}/outputs/cross_validation/GBN/cv2-30~60/height;
+mkdir ${PREFIX}/outputs/cross_validation/GBN/cv2-30~75;
+mkdir ${PREFIX}/outputs/cross_validation/GBN/cv2-30~75/height;
+mkdir ${PREFIX}/outputs/cross_validation/GBN/cv2-30~90;
+mkdir ${PREFIX}/outputs/cross_validation/GBN/cv2-30~90/height;
+mkdir ${PREFIX}/outputs/cross_validation/GBN/cv2-30~105;
+mkdir ${PREFIX}/outputs/cross_validation/GBN/cv2-30~105/height;
