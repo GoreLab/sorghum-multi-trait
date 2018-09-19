@@ -277,58 +277,43 @@ for j in cv1_fold:
 
 # Compute predictions for the GBN model:
 for j in cv1_fold:
+  # Set the directory:
+  os.chdir(prefix_out + 'outputs/cross_validation/GBN/cv1/height/' + j)
+  # Load stan fit object and model:
+  with open("output_gbn-0~6.pkl", "rb") as f:
+      data_dict = pickle.load(f)
+  # Index the fit object and model
+  out = data_dict['fit'].extract()
+  # Time points values as input in the logistic growth function:
+  time_points = np.linspace(30,120,7)/30.0
+  for d in range(len(dap_group)):
+    # Index and subset the feature matrix:
+    index1 = 'cv1_height_' + j + '_tst'
+    index2 = 'gbn_cv1_height_trained!on!dap:' + dap_group[d]
+    X_tmp = X[index1][X[index1].iloc[:,0] == int(dap_group[d])]
+    Z_tmp = X_tmp.drop(X_tmp.columns[0], axis=1)
+    # Create the indexes for creating a data frame to receive predictions:
+    index = ["s_" + str(i) for i in range(out['mu'].size)]
+    col_name = X_tmp.index
+    # Initialize a matrix to receive the posterior predictions:
+    tmp = pd.DataFrame(index=index, columns=col_name)
+    # Compute predictions:
+    for sim in range(out['mu'].size):
+      # Subset parameters:
+      mu = out['mu'][sim]
+      a = out['a'][sim]
+      r = out['r'][sim]
+      alpha = out['alpha'][sim,:]
+      # Prediction:
+      tmp.iloc[sim] = logistic_growth(a, (mu + Z_tmp.dot(alpha)).values, r, time_points[d])
+      # Print current iteration:
+      print('DAP: {}, fold: {}, sim: {}'.format(dap_group[d], j, sim))
+    # Store prediction:
+    if j=='k0':
+      y_pred_cv1[index2] = tmp
+    if j!='k0':
+      y_pred_cv1[index2] = pd.concat([y_pred_cv1[index2], tmp], axis=1)
 
-#****
-j = cv1_fold[0]
-
-# Set the directory:
-os.chdir(prefix_out + 'outputs/cross_validation/GBN/cv1/height/' + j)
-# Load stan fit object and model:
-with open("output_gbn-0~6.pkl", "rb") as f:
-    data_dict = pickle.load(f)
-# Index the fit object and model
-out = data_dict['fit'].extract()
-# Time points values as input in the logistic growth function:
-time_points = np.linspace(30,120,7)/30.0
-
-for d in range(len(dap_group)):
-
-#****
-d = range(len(dap_group))[0]
-
-# Index and subset the feature matrix:
-index1 = 'cv1_height_' + j + '_tst'
-index2 = 'dbn_cv1_height_trained!on!dap:' + dap_group[d]
-X_tmp = X[index1][X[index1].iloc[:,0] == int(dap_group[d])]
-Z_tmp = X_tmp.drop(X_tmp.columns[0], axis=1)
-# Create the indexes for creating a data frame to receive predictions:
-index = ["s_" + str(i) for i in range(out['mu'].size)]
-col_name = X_tmp.index
-# Initialize a matrix to receive the posterior predictions:
-tmp = pd.DataFrame(index=index, columns=col_name)
-
-# Compute predictions:
-for sim in range(out['mu'].size):
-
-#***
-sim = range(out['mu'].size)[0]
-
-# Subset parameters:
-mu = out['mu'][sim]
-a = out['a'][sim]
-r = out['r'][sim]
-alpha = out['alpha'][sim,:]
-# Prediction:
-tmp.iloc[sim] = logistic_growth(a, (mu + Z_tmp.dot(alpha)).values, r, time_points[d])
-
-# Store prediction:
-if j=='k0':
-  y_pred_cv1[index2] = tmp
-if j!='k0':
-  y_pred_cv1[index2] = pd.concat([y_pred_cv1[index2], tmp], axis=1)
-
-
- logistic_growth(a, c, r, t)
 
 
 ##########################
@@ -442,6 +427,103 @@ for c in range(len(cv2_type)):
   # Store expectations:
   expect_cv2[index2] = pd.DataFrame(out['expectation_'  + upper], index=index, columns=df.index[df.dap==int(dap_group[int(upper)])])
 
+#################################
+
+# Different DAP measures:
+dap_group = ['30', '45', '60', '75', '90', '105']  
+
+# Different DAP measures:
+cv2_type = ['cv2-30~45', 'cv2-30~60', 'cv2-30~75', 'cv2-30~90', 'cv2-30~105']
+dap_index = ['0~1', '0~2', '0~3', '0~4', '0~5']
+
+# Compute predictions for the DBN model:
+for c in range(len(cv2_type)):
+  # Set the directory:
+  os.chdir(prefix_out + 'outputs/cross_validation/GBN/' + cv2_type[c] + '/height/')
+  # Load stan fit object and model:
+  with open("output_dbn-" + dap_index[c] + ".pkl", "rb") as f:
+    data_dict = pickle.load(f)
+  # Index the fit object and model
+  out = data_dict['fit'].extract()
+  # Get the last time point used for training:
+  upper = dap_index[c].split('~')[1]
+  # Index and subset the feature matrix:
+  index1 = cv2_type[c] +'_height_tst'
+  index2 = 'gbn_cv2_height_trained!on!dap:' + cv2_type[c].split('-')[1]
+  Z_tmp = X[index1].drop(X[index1].columns[0], axis=1)
+  # Create the indexes for creating a data frame to receive predictions:
+  index = ["s_" + str(i) for i in range(out['mu'].size)]
+  col_name = Z_tmp.index
+  # Initialize a matrix to receive the posterior predictions:
+  tmp = pd.DataFrame(index=index, columns=col_name)
+  # Compute predictions:
+  for sim in range(out['mu'].size):
+    # Subset parameters:
+    mu = out['mu_' + upper][sim]
+    alpha = out['alpha_' + upper][sim,:]
+    # Prediction:
+    tmp.iloc[sim] = (mu + Z_tmp.dot(alpha)).values
+  # Prediction:
+  y_pred_cv2[index2] = tmp
+  # Store expectations:
+  expect_cv2[index2] = pd.DataFrame(out['expectation_'  + upper], index=index, columns=df.index[df.dap==int(dap_group[int(upper)])])
+
+
+tmp = dict()
+tmp['a'] = dict()
+tmp['a']['b'] = np.linspace(1,5,5)
+tmp['a']['c'] = np.linspace(1,5,5)
+
+
+
+# Compute predictions for the GBN model:
+for j in cv1_fold:
+  # Set the directory:
+  os.chdir(prefix_out + 'outputs/cross_validation/GBN/cv1/height/' + j)
+  # Load stan fit object and model:
+  with open("output_gbn-0~6.pkl", "rb") as f:
+      data_dict = pickle.load(f)
+  # Index the fit object and model
+  out = data_dict['fit'].extract()
+  # Time points values as input in the logistic growth function:
+  time_points = np.linspace(30,120,7)/30.0
+  for d in range(len(dap_group)):
+    # Index and subset the feature matrix:
+    index1 = 'cv1_height_' + j + '_tst'
+    index2 = 'gbn_cv1_height_trained!on!dap:' + dap_group[d]
+    X_tmp = X[index1][X[index1].iloc[:,0] == int(dap_group[d])]
+    Z_tmp = X_tmp.drop(X_tmp.columns[0], axis=1)
+    # Create the indexes for creating a data frame to receive predictions:
+    index = ["s_" + str(i) for i in range(out['mu'].size)]
+    col_name = X_tmp.index
+    # Initialize a matrix to receive the posterior predictions:
+    tmp = pd.DataFrame(index=index, columns=col_name)
+    # Compute predictions:
+    for sim in range(out['mu'].size):
+      # Subset parameters:
+      mu = out['mu'][sim]
+      a = out['a'][sim]
+      r = out['r'][sim]
+      alpha = out['alpha'][sim,:]
+      # Prediction:
+      tmp.iloc[sim] = logistic_growth(a, (mu + Z_tmp.dot(alpha)).values, r, time_points[d])
+      # Print current iteration:
+      print('DAP: {}, fold: {}, sim: {}'.format(dap_group[d], j, sim))
+    # Store prediction:
+    if j=='k0':
+      y_pred_cv1[index2] = tmp
+    if j!='k0':
+      y_pred_cv1[index2] = pd.concat([y_pred_cv1[index2], tmp], axis=1)
+
+
+
+
+
+
+
+#################################
+
+
 
 #--------------------------------Computing predictions for the CV3 scheme------------------------------------#
 
@@ -505,6 +587,43 @@ for d in dap_group:
 for d in dap_group:
   index = y_pred_cv1['dbn_cv1_height_trained!on!dap:' + d].columns
   np.round(pearsonr(y_pred_cv1['dbn_cv1_height_trained!on!dap:' + d].mean(axis=0), y_obs_cv1['cv1_height_dap:' + d][index])[0],2)
+
+for d in dap_group:
+  index = y_pred_cv1['gbn_cv1_height_trained!on!dap:' + d].columns
+  np.round(pearsonr(y_pred_cv1['gbn_cv1_height_trained!on!dap:' + d].mean(axis=0), y_obs_cv1['cv1_height_dap:' + d][index])[0],2)
+
+
+
+index0 = y_pred_cv1['gbn_cv1_height_trained!on!dap:' + dap_group[0]].columns
+index1 = y_pred_cv1['gbn_cv1_height_trained!on!dap:' + dap_group[1]].columns
+index2 = y_pred_cv1['gbn_cv1_height_trained!on!dap:' + dap_group[2]].columns
+index3 = y_pred_cv1['gbn_cv1_height_trained!on!dap:' + dap_group[3]].columns
+index4 = y_pred_cv1['gbn_cv1_height_trained!on!dap:' + dap_group[4]].columns
+index5 = y_pred_cv1['gbn_cv1_height_trained!on!dap:' + dap_group[5]].columns
+index6 = y_pred_cv1['gbn_cv1_height_trained!on!dap:' + dap_group[6]].columns
+
+
+i=13
+
+yobs = [y_obs_cv1['cv1_height_dap:' + dap_group[0]][index0].iloc[i],
+        y_obs_cv1['cv1_height_dap:' + dap_group[1]][index1].iloc[i],
+        y_obs_cv1['cv1_height_dap:' + dap_group[2]][index2].iloc[i],
+        y_obs_cv1['cv1_height_dap:' + dap_group[3]][index3].iloc[i],
+        y_obs_cv1['cv1_height_dap:' + dap_group[4]][index4].iloc[i],
+        y_obs_cv1['cv1_height_dap:' + dap_group[5]][index5].iloc[i],
+        y_obs_cv1['cv1_height_dap:' + dap_group[6]][index6].iloc[i]]
+
+ypred = [y_pred_cv1['gbn_cv1_height_trained!on!dap:' + dap_group[0]].mean(axis=0).iloc[i],
+         y_pred_cv1['gbn_cv1_height_trained!on!dap:' + dap_group[1]].mean(axis=0).iloc[i],
+         y_pred_cv1['gbn_cv1_height_trained!on!dap:' + dap_group[2]].mean(axis=0).iloc[i],
+         y_pred_cv1['gbn_cv1_height_trained!on!dap:' + dap_group[3]].mean(axis=0).iloc[i],
+         y_pred_cv1['gbn_cv1_height_trained!on!dap:' + dap_group[4]].mean(axis=0).iloc[i],
+         y_pred_cv1['gbn_cv1_height_trained!on!dap:' + dap_group[5]].mean(axis=0).iloc[i],
+         y_pred_cv1['gbn_cv1_height_trained!on!dap:' + dap_group[6]].mean(axis=0).iloc[i]]
+
+
+plt.scatter(np.linspace(0,6,7), yobs); plt.plot(ypred); plt.show()
+
 
 # Accuracies for cv1 from the drymass prediction:
 index = y_pred_cv1['bn_cv1_drymass'].columns
