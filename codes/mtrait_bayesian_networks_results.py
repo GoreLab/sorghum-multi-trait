@@ -13,6 +13,7 @@ import pickle
 import re
 import pystan as ps
 from scipy.stats.stats import pearsonr
+from scipy.stats import gaussian_kde
 from pprint import pprint as pprint
 from pymc3.stats import hpd 
 import argparse
@@ -594,6 +595,76 @@ for d in dap_group:
 
 
 
+# # Listing data for saving:
+# data = [y_pred_cv1]
+# # Saving data:
+# np.savez(('y_pred_cv1.npz'), data)
+os.chdir('/workdir/jp2476/repo/sorghum-multi-trait/data_small_files')
+container = np.load("y_pred_cv1.npz")
+data = [container[key] for key in container]
+y_pred_cv1 = data[0][0]
+
+
+# Set the directory:
+os.chdir(prefix_out + 'outputs/cross_validation/GBN/cv1/height/' + cv1_fold[0])
+# Load stan fit object and model:
+with open("output_gbn-0~6.pkl", "rb") as f:
+    data_dict = pickle.load(f)
+
+# Index the fit object and model
+out = data_dict['fit'].extract()
+
+os.chdir('/workdir/jp2476/repo/sorghum-multi-trait/data_small_files')
+# 7 & 610
+i=610
+
+yobs = [y_obs_cv1['cv1_height_dap:' + dap_group[0]].iloc[i],
+        y_obs_cv1['cv1_height_dap:' + dap_group[1]].iloc[i],
+        y_obs_cv1['cv1_height_dap:' + dap_group[2]].iloc[i],
+        y_obs_cv1['cv1_height_dap:' + dap_group[3]].iloc[i],
+        y_obs_cv1['cv1_height_dap:' + dap_group[4]].iloc[i],
+        y_obs_cv1['cv1_height_dap:' + dap_group[5]].iloc[i],
+        y_obs_cv1['cv1_height_dap:' + dap_group[6]].iloc[i]]
+
+yhat = np.mean(out['expectation'],axis=0)[:,i]
+
+
+plt.scatter(range(7),yobs,c="orange")
+plt.plot(yhat,c="blue")
+plt.xlabel("Time units")
+plt.ylabel("Plant height (cm)")
+# plt.savefig('train_curves.pdf', dpi=150)
+
+
+plt.show()
+
+
+
+plt.hist(list(out['expectation'][:,6,500]),bins=50)
+plt.xlabel("Plant height (cm)")
+plt.ylabel("Frequency")
+# plt.savefig('yhat_train_hist.pdf', dpi=150)
+
+
+
+plt.show()
+
+
+y_pred = np.empty((ypred_tmp.shape[1], 1))
+y_pred[:] = np.nan
+
+
+for i in range(ypred_tmp.shape[1]):
+
+#***:
+i=0
+
+den <- gaussian_kde(ypred_tmp[:,i])
+y_pred[i] <- den$x[which.max(den$y)]
+
+print(i)
+
+
 index0 = y_pred_cv1['gbn_cv1_height_trained!on!dap:' + dap_group[0]].columns
 index1 = y_pred_cv1['gbn_cv1_height_trained!on!dap:' + dap_group[1]].columns
 index2 = y_pred_cv1['gbn_cv1_height_trained!on!dap:' + dap_group[2]].columns
@@ -603,7 +674,8 @@ index5 = y_pred_cv1['gbn_cv1_height_trained!on!dap:' + dap_group[5]].columns
 index6 = y_pred_cv1['gbn_cv1_height_trained!on!dap:' + dap_group[6]].columns
 
 
-i=1
+# 7 & 800
+i=800
 
 yobs = [y_obs_cv1['cv1_height_dap:' + dap_group[0]][index0].iloc[i],
         y_obs_cv1['cv1_height_dap:' + dap_group[1]][index1].iloc[i],
@@ -622,7 +694,22 @@ ypred = [y_pred_cv1['gbn_cv1_height_trained!on!dap:' + dap_group[0]].mean(axis=0
          y_pred_cv1['gbn_cv1_height_trained!on!dap:' + dap_group[6]].mean(axis=0).iloc[i]]
 
 
-plt.scatter(np.linspace(0,6,7), yobs); plt.plot(ypred); plt.show()
+plt.scatter(range(7),yobs,c="orange")
+plt.plot(ypred,c="blue")
+plt.xlabel("Time units")
+plt.ylabel("Plant height (cm)")
+# plt.savefig('test_curves.pdf', dpi=150)
+plt.show()
+
+
+# 806 & 830
+ypred_tmp = y_pred_cv1['gbn_cv1_height_trained!on!dap:' + dap_group[6]].values
+plt.hist(list(ypred_tmp[:,806]),bins=50)
+plt.xlabel("Plant height (cm)")
+plt.ylabel("Frequency")
+plt.savefig('yhat_test_hist.pdf', dpi=150)
+
+
 
 
 # Accuracies for cv1 from the drymass prediction:

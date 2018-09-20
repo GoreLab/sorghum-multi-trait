@@ -91,11 +91,11 @@ model {
   //// Conditional probabilities distributions for logistic growth function parameters:
   pi_s_r ~ cauchy(0,  phi);
   s_r ~ cauchy(0, pi_s_r);
-  r ~ normal(0, s_r);
+  r ~ cauchy(0, s_r);
 
   pi_s_a ~ cauchy(0,  phi);
   s_a ~ cauchy(0, pi_s_a);
-  a ~ normal(0, s_a);
+  a ~ cauchy(0, s_a);
 
   //// Conditional probabilities distributions for residuals:
   pi_s_sigma ~ cauchy(0,  phi);
