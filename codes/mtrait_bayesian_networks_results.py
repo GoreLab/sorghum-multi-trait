@@ -603,7 +603,7 @@ index5 = y_pred_cv1['gbn_cv1_height_trained!on!dap:' + dap_group[5]].columns
 index6 = y_pred_cv1['gbn_cv1_height_trained!on!dap:' + dap_group[6]].columns
 
 
-i=13
+i=1
 
 yobs = [y_obs_cv1['cv1_height_dap:' + dap_group[0]][index0].iloc[i],
         y_obs_cv1['cv1_height_dap:' + dap_group[1]][index1].iloc[i],
