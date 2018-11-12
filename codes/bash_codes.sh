@@ -19,6 +19,8 @@ PREFIX_code=/workdir/jp2476/repo/sorghum-multi-trait/codes
 # Firing the process:
 Rscript ${PREFIX_code}/mtrait_first_step_analysis.R & 
 
+# Firing the process:
+Rscript ${PREFIX_code}/mtrait_first_step_analysis_hardability.R & 
 
 #--------------------------------To plot results from first stage analysis-----------------------------------#
 

@@ -430,19 +430,22 @@ for c in range(len(cv2_type)):
 
 #################################
 
+#******:
+y_pred_cv2 = dict()
+
 # Different DAP measures:
-dap_group = ['30', '45', '60', '75', '90', '105']  
+dap_group = ['30', '45', '60', '75', '90', '105', '120']  
 
 # Different DAP measures:
 cv2_type = ['cv2-30~45', 'cv2-30~60', 'cv2-30~75', 'cv2-30~90', 'cv2-30~105']
 dap_index = ['0~1', '0~2', '0~3', '0~4', '0~5']
 
-# Compute predictions for the DBN model:
+# Compute predictions for the GBN model:
 for c in range(len(cv2_type)):
   # Set the directory:
   os.chdir(prefix_out + 'outputs/cross_validation/GBN/' + cv2_type[c] + '/height/')
   # Load stan fit object and model:
-  with open("output_dbn-" + dap_index[c] + ".pkl", "rb") as f:
+  with open("output_gbn-" + dap_index[c] + ".pkl", "rb") as f:
     data_dict = pickle.load(f)
   # Index the fit object and model
   out = data_dict['fit'].extract()
@@ -450,55 +453,17 @@ for c in range(len(cv2_type)):
   upper = dap_index[c].split('~')[1]
   # Index and subset the feature matrix:
   index1 = cv2_type[c] +'_height_tst'
-  index2 = 'gbn_cv2_height_trained!on!dap:' + cv2_type[c].split('-')[1]
-  Z_tmp = X[index1].drop(X[index1].columns[0], axis=1)
-  # Create the indexes for creating a data frame to receive predictions:
-  index = ["s_" + str(i) for i in range(out['mu'].size)]
-  col_name = Z_tmp.index
-  # Initialize a matrix to receive the posterior predictions:
-  tmp = pd.DataFrame(index=index, columns=col_name)
-  # Compute predictions:
-  for sim in range(out['mu'].size):
-    # Subset parameters:
-    mu = out['mu_' + upper][sim]
-    alpha = out['alpha_' + upper][sim,:]
-    # Prediction:
-    tmp.iloc[sim] = (mu + Z_tmp.dot(alpha)).values
-  # Prediction:
-  y_pred_cv2[index2] = tmp
-  # Store expectations:
-  expect_cv2[index2] = pd.DataFrame(out['expectation_'  + upper], index=index, columns=df.index[df.dap==int(dap_group[int(upper)])])
-
-
-tmp = dict()
-tmp['a'] = dict()
-tmp['a']['b'] = np.linspace(1,5,5)
-tmp['a']['c'] = np.linspace(1,5,5)
-
-
-
-# Compute predictions for the GBN model:
-for j in cv1_fold:
-  # Set the directory:
-  os.chdir(prefix_out + 'outputs/cross_validation/GBN/cv1/height/' + j)
-  # Load stan fit object and model:
-  with open("output_gbn-0~6.pkl", "rb") as f:
-      data_dict = pickle.load(f)
-  # Index the fit object and model
-  out = data_dict['fit'].extract()
   # Time points values as input in the logistic growth function:
   time_points = np.linspace(30,120,7)/30.0
-  for d in range(len(dap_group)):
-    # Index and subset the feature matrix:
-    index1 = 'cv1_height_' + j + '_tst'
-    index2 = 'gbn_cv1_height_trained!on!dap:' + dap_group[d]
-    X_tmp = X[index1][X[index1].iloc[:,0] == int(dap_group[d])]
-    Z_tmp = X_tmp.drop(X_tmp.columns[0], axis=1)
+  for d in range(int(upper)+1, len(dap_group)):
+    # Prediction index:
+    index2 = 'gbn_cv2_height_trained!on!dap:' + cv2_type[c].split('-')[1] + '_pred:' + dap_group[d]
+    # Subset feature matrix:
+    X_tmp = X[index1][X[index1].iloc[:,0] == int(dap_group[d])].drop(X_tmp.columns[0], axis=1)
     # Create the indexes for creating a data frame to receive predictions:
     index = ["s_" + str(i) for i in range(out['mu'].size)]
-    col_name = X_tmp.index
     # Initialize a matrix to receive the posterior predictions:
-    tmp = pd.DataFrame(index=index, columns=col_name)
+    tmp = pd.DataFrame(index=index, columns=X_tmp.index)
     # Compute predictions:
     for sim in range(out['mu'].size):
       # Subset parameters:
@@ -507,19 +472,43 @@ for j in cv1_fold:
       r = out['r'][sim]
       alpha = out['alpha'][sim,:]
       # Prediction:
-      tmp.iloc[sim] = logistic_growth(a, (mu + Z_tmp.dot(alpha)).values, r, time_points[d])
+      tmp.iloc[sim] = logistic_growth(a, (mu + X_tmp.dot(alpha)).values, r, time_points[d])
       # Print current iteration:
-      print('DAP: {}, fold: {}, sim: {}'.format(dap_group[d], j, sim))
-    # Store prediction:
-    if j=='k0':
-      y_pred_cv1[index2] = tmp
-    if j!='k0':
-      y_pred_cv1[index2] = pd.concat([y_pred_cv1[index2], tmp], axis=1)
+      print('predicted DAP: {}, cv type: {}, sim: {}'.format(dap_group[d], cv2_type[c], sim))
+    # Prediction:
+    y_pred_cv2[index2] = tmp
 
 
+# Store into a list different DAP values intervals:
+dap_group1 = ['30~45', '30~60', '30~75', '30~90', '30~105']
+dap_group2 = ['30', '45', '60', '75', '90', '105', '120']
+dap_index = ['0~1', '0~2', '0~3', '0~4', '0~5']
 
+# Create an empty correlation matrix:
+cor_tmp = np.empty([len(dap_group)]*2)
+cor_tmp[:] = np.nan
 
+# Compute correlation for the Dynamic Bayesian Network model under CV2 scheme:
+for i in range(len(dap_group1)):
+  # Get the last time point used for training:
+  upper = dap_index[i].split('~')[1]
+  for j in range(int(upper)+1, len(dap_group2)):
+    # Get the dictionary key for subset observations:
+    index1 = 'cv2-' + dap_group1[i] + '_height_tst'
+    # Get the dictionary key for subset predictions:
+    index2 = 'gbn_cv2_height_trained!on!dap:' + dap_group1[i] + '_pred:' + dap_group2[j]
+    # Subset observations:
+    y_obs_tmp = y[index1][X[index1].iloc[:,0] == int(dap_group2[j])].y_hat
+    # Subset predictions:
+    y_pred_tmp = y_pred_cv2[index2].mean(axis=0)
+    # Get correlation:
+    cor_tmp[i, j] = np.round(pearsonr(y_pred_tmp, y_obs_tmp)[0],4)
 
+# Print correlation:
+cor_tmp
+
+# # Store the computed correlation matrix for the Bayesian network model under CV2 scheme:
+# cor_dict['cv2_gbn'] = cor_tmp
 
 
 #################################
@@ -573,37 +562,102 @@ for d in range(len(dap_group)):
 
 #-----------------------------Compute prediction accuracies for the CV1 scheme-------------------------------#
 
+# Different models:
+models = ['bn', 'pbn', 'dbn']
+
 # Different DAP measures:
-dap_group = ['30', '45', '60', '75', '90', '105']  
+dap_group = ['30', '45', '60', '75', '90', '105', '120']  
+
+# Number of Monte Carlo simulations:
+n_sim = 800
 
 # Accuracies for cv1 from the height prediction:
-for d in dap_group:
-  index = y_pred_cv1['bn_cv1_height_trained!on!dap:' + d].columns
-  np.round(pearsonr(y_pred_cv1['bn_cv1_height_trained!on!dap:' + d].mean(axis=0), y_obs_cv1['cv1_height_dap:' + d][index])[0],2)
+for m in models:
+  print('-------------------')
+  for d in dap_group:
+    index = y_pred_cv1[m + '_cv1_height_trained!on!dap:' + d].columns
+    cor_tmp = np.round(pearsonr(y_pred_cv1[m + '_cv1_height_trained!on!dap:' + d].mean(axis=0), y_obs_cv1['cv1_height_dap:' + d][index])[0],2)
+    print('Accuracy for {} model and DAP {}: {}'.format(m.upper(), d, cor_tmp))
 
-for d in dap_group:
-  index = y_pred_cv1['pbn_cv1_height_trained!on!dap:' + d].columns
-  np.round(pearsonr(y_pred_cv1['pbn_cv1_height_trained!on!dap:' + d].mean(axis=0), y_obs_cv1['cv1_height_dap:' + d][index])[0],2)
 
-for d in dap_group:
-  index = y_pred_cv1['dbn_cv1_height_trained!on!dap:' + d].columns
-  np.round(pearsonr(y_pred_cv1['dbn_cv1_height_trained!on!dap:' + d].mean(axis=0), y_obs_cv1['cv1_height_dap:' + d][index])[0],2)
+# Accuracies for cv1 from the drymass prediction:
+index = y_pred_cv1['bn_cv1_drymass'].columns
+np.round(pearsonr(y_pred_cv1['bn_cv1_drymass'].mean(axis=0), y_obs_cv1['cv1_drymass'][index])[0],2)
 
-for d in dap_group:
-  index = y_pred_cv1['gbn_cv1_height_trained!on!dap:' + d].columns
-  np.round(pearsonr(y_pred_cv1['gbn_cv1_height_trained!on!dap:' + d].mean(axis=0), y_obs_cv1['cv1_height_dap:' + d][index])[0],2)
+index = y_pred_cv1['pbn_cv1_drymass_ensambled'].columns
+np.round(pearsonr(y_pred_cv1['pbn_cv1_drymass_ensambled'].mean(axis=0), y_obs_cv1['cv1_drymass'][index])[0],2)
+
+# Initialize models accuracy standard deviation dictionary:
+cor_std_dict = dict()
+
+for m in models:
+  # Vector to store the predictive accuracy of each posterior draw:
+  cor_tmp = pd.DataFrame(index=["s_" + str(i) for i in range(n_sim)], columns=dap_group)
+  # To compute the standard deviation of the accuracies in the posterior level:
+  for d in dap_group:
+    index1 = y_pred_cv1[m + '_cv1_height_trained!on!dap:' + d].columns
+    index2 = y_pred_cv1[m + '_cv1_height_trained!on!dap:' + d].index
+    for s in index2:
+      cor_tmp.loc[s,d] = pearsonr(y_pred_cv1[m + '_cv1_height_trained!on!dap:' + d].loc[s], y_obs_cv1['cv1_height_dap:' + d][index1])[0]
+      print('Model: {}, DAP: {}, Simulation: {}'.format(m.upper(), d, s))
+  # Printing the standard deviation of the predictive accuracies:
+  cor_std_dict[m] = np.round(cor_tmp.std(axis=0),3)
+
+# Different models:
+models = ['bn_biomass', 'pbn_biomass']
+
+for m in models:
+  # Vector to store the predictive accuracy of each posterior draw:
+  cor_tmp = pd.DataFrame(index=["s_" + str(i) for i in range(n_sim)], columns=['acc'])
+  # To compute the standard deviation of the accuracies in the posterior level:
+  for d in dap_group:
+    if m=='bn_biomass':
+      index1 = y_pred_cv1['bn_cv1_drymass'].columns
+      index2 = y_pred_cv1['bn_cv1_drymass'].index
+    if m=='pbn_biomass':
+      index1 = y_pred_cv1['pbn_cv1_drymass_ensambled'].columns
+      index2 = y_pred_cv1['pbn_cv1_drymass_ensambled'].index
+    for s in index2:
+      if m=='bn_biomass':
+        cor_tmp.loc[s] = pearsonr(y_pred_cv1['bn_cv1_drymass'].loc[s], y_obs_cv1['cv1_drymass'][index1])[0]
+      if m=='pbn_biomass':
+        cor_tmp.loc[s] = pearsonr(y_pred_cv1['pbn_cv1_drymass_ensambled'].loc[s], y_obs_cv1['cv1_drymass'][index1])[0]
+      print('Model: {}, Simulation: {}'.format(m.upper(), s))
+  # Printing the standard deviation of the predictive accuracies:
+  cor_std_dict[m] = np.round(cor_tmp.std(axis=0),3)
+
+# Print the results:
+pprint(cor_std_dict)
+
+
+
+
+
+
+
+# Accuracies for cv3:
+for k in list(y_pred_cv3.keys()):
+  index = y_obs_cv1['cv1_drymass'].index
+  np.round(pearsonr(y_pred_cv3[k].mean(axis=0)[index], y_obs_cv1['cv1_drymass'])[0],2)
+
+
+
 
 
 
 # # Listing data for saving:
-# data = [y_pred_cv1]
+# os.chdir('/workdir/jp2476/repo/sorghum-multi-trait/data_small_files')
+# data = [y_pred_cv1, y_pred_cv2, y_obs_cv1, y_obs_cv2, X]
 # # Saving data:
 # np.savez(('y_pred_cv1.npz'), data)
-os.chdir('/workdir/jp2476/repo/sorghum-multi-trait/data_small_files')
-container = np.load("y_pred_cv1.npz")
-data = [container[key] for key in container]
-y_pred_cv1 = data[0][0]
-
+# os.chdir('/workdir/jp2476/repo/sorghum-multi-trait/data_small_files')
+# container = np.load("y_pred_cv1.npz")
+# data = [container[key] for key in container]
+# y_pred_cv1 = data[0][0]
+# y_pred_cv2 = data[0][1]
+# y_obs_cv1 = data[0][2]
+# y_obs_cv2 = data[0][3]
+# X = data[0][4]
 
 # Set the directory:
 os.chdir(prefix_out + 'outputs/cross_validation/GBN/cv1/height/' + cv1_fold[0])
@@ -616,7 +670,7 @@ out = data_dict['fit'].extract()
 
 os.chdir('/workdir/jp2476/repo/sorghum-multi-trait/data_small_files')
 # 7 & 610
-i=610
+i=661
 
 yobs = [y_obs_cv1['cv1_height_dap:' + dap_group[0]].iloc[i],
         y_obs_cv1['cv1_height_dap:' + dap_group[1]].iloc[i],
@@ -635,7 +689,6 @@ plt.xlabel("Time units")
 plt.ylabel("Plant height (cm)")
 # plt.savefig('train_curves.pdf', dpi=150)
 
-
 plt.show()
 
 
@@ -650,19 +703,55 @@ plt.ylabel("Frequency")
 plt.show()
 
 
-y_pred = np.empty((ypred_tmp.shape[1], 1))
-y_pred[:] = np.nan
+# Initialize dictionary:
+ypred_map_cv1 = dict()
+
+for j in list(y_pred_cv1.keys()):
+  # Subset predictions:
+  ypred_tmp = y_pred_cv1[j]
+  # Create empty matrix to receive predictions:
+  y_pred = pd.DataFrame(index=ypred_tmp.columns, columns=['map'])
+  for i in ypred_tmp.columns:
+    # Estimate the densities of the posterior samples:
+    den = gaussian_kde(ypred_tmp[i].tolist())
+    # Subset MAP estimate:
+    y_pred.loc[i] = ypred_tmp[i].tolist()[np.argmax(den(ypred_tmp[i].tolist()))]
+    print(i)
+  # Store predictions: 
+  ypred_map_cv1[j] = y_pred 
 
 
-for i in range(ypred_tmp.shape[1]):
 
-#***:
-i=0
 
-den <- gaussian_kde(ypred_tmp[:,i])
-y_pred[i] <- den$x[which.max(den$y)]
 
+# Initialize dictionary:
+ypred_map_cv1 = dict()
+
+for j in list(y_pred_cv1.keys()):
+
+# Subset predictions:
+ypred_tmp = y_pred_cv1[j]
+
+# Create empty matrix to receive predictions:
+y_pred = pd.DataFrame(index=ypred_tmp.columns, columns=['map'])
+
+for i in ypred_tmp.columns:
+
+i=ypred_tmp.columns[0]
+
+# Estimate the densities of the posterior samples:
+den = gaussian_kde(ypred_tmp[i].tolist())
+# Subset MAP estimate:
+y_pred.loc[i] = ypred_tmp[i].tolist()[np.argmax(den(ypred_tmp[i].tolist()))]
 print(i)
+
+# Store predictions: 
+ypred_map_cv1[j] = y_pred 
+
+
+
+
+
 
 
 index0 = y_pred_cv1['gbn_cv1_height_trained!on!dap:' + dap_group[0]].columns
@@ -707,23 +796,10 @@ ypred_tmp = y_pred_cv1['gbn_cv1_height_trained!on!dap:' + dap_group[6]].values
 plt.hist(list(ypred_tmp[:,806]),bins=50)
 plt.xlabel("Plant height (cm)")
 plt.ylabel("Frequency")
-plt.savefig('yhat_test_hist.pdf', dpi=150)
+# plt.savefig('yhat_test_hist.pdf', dpi=150)
+plt.show()
 
 
-
-
-# Accuracies for cv1 from the drymass prediction:
-index = y_pred_cv1['bn_cv1_drymass'].columns
-np.round(pearsonr(y_pred_cv1['bn_cv1_drymass'].mean(axis=0), y_obs_cv1['cv1_drymass'][index])[0],2)
-
-index = y_pred_cv1['pbn_cv1_drymass_ensambled'].columns
-np.round(pearsonr(y_pred_cv1['pbn_cv1_drymass_ensambled'].mean(axis=0), y_obs_cv1['cv1_drymass'][index])[0],2)
-
-
-# Accuracies for cv3:
-for k in list(y_pred_cv3.keys()):
-  index = y_obs_cv1['cv1_drymass'].index
-  np.round(pearsonr(y_pred_cv3[k].mean(axis=0)[index], y_obs_cv1['cv1_drymass'])[0],2)
 
 
 #-----------------------------Compute prediction accuracies for the CV2 scheme-------------------------------#
