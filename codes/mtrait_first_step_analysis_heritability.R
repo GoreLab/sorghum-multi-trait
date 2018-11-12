@@ -129,10 +129,10 @@ h_table = qdapTools::list_vect2df(metrics, col1 = "dap", col2 = "structure", col
 setwd(paste0(prefix_out, "outputs/first_step_analysis"))
 
 # Saving results:
-write.csv(h_table, file="mtrait_first_step_analysis_herdability_table.txt")
+write.csv(h_table, file="mtrait_first_step_analysis_heritability.txt")
 
 # Saving RData:
-save.image("mtrait_first_step_analysis_herdability.RData")
+save.image("mtrait_first_step_analysis_heritability.RData")
 
 # # Loading data:
 # setwd(paste0(prefix_out, "outputs/first_step_analysis"))
