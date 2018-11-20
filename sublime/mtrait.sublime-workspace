@@ -184,44 +184,35 @@
 	"buffers":
 	[
 		{
-			"file": "/home/jhonathan/Documents/mtrait-proj/codes/mtrait_code.py",
+			"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/mtrait_first_step_analysis_plots.py",
 			"settings":
 			{
-				"buffer_size": 5134,
+				"buffer_size": 4277,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/home/jhonathan/Documents/mtrait-proj/codes/tmp.py",
+			"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/bash_codes.sh",
 			"settings":
 			{
-				"buffer_size": 841,
-				"encoding": "UTF-8",
+				"buffer_size": 27422,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/home/jhonathan/Documents/mtrait-proj/codes/mtrait_gdrive.sh",
+			"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/mtrait_gdrive.sh",
 			"settings":
 			{
-				"buffer_size": 2444,
+				"buffer_size": 2917,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/home/jhonathan/Documents/mtrait-proj/codes/external_functions.py",
+			"contents": "bar_cv = sns.barplot(x='labels', y='h2', data=h2_table)\nbar_cv.set(xlabel='Traits', ylabel='Broad-sense Heritability')\nplt.xticks(rotation=25)\nbar_cv.tick_params(labelsize=6)\nplt.savefig(\"barplot_h.pdf\", dpi=150)\nplt.savefig(\"barplot_coefficient_of_variation.png\", dpi=150)\nplt.clf()\n",
 			"settings":
 			{
-				"buffer_size": 2989,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/jhonathan/Documents/sorghum-proj/codes/sorghum-proj_main_code.py",
-			"settings":
-			{
-				"buffer_size": 26433,
+				"buffer_size": 284,
 				"line_ending": "Unix"
 			}
 		}
@@ -234,16 +225,36 @@
 	"command_palette":
 	{
 		"height": 132.0,
-		"last_filter": "push",
+		"last_filter": "",
 		"selected_items":
 		[
 			[
-				"push",
-				"Git: Push Current Branch"
+				"git pu",
+				"Git: Pull"
+			],
+			[
+				"pull",
+				"Git: Pull Current Branch"
 			],
 			[
 				"com",
 				"Git: Commit"
+			],
+			[
+				"git add",
+				"Git: Add All"
+			],
+			[
+				"install con",
+				"Package Control: Install Package"
+			],
+			[
+				"control",
+				"Preferences: Package Control Settings – User"
+			],
+			[
+				"push",
+				"Git: Push Current Branch"
 			],
 			[
 				"add",
@@ -302,10 +313,6 @@
 				"CSV: Compact columns"
 			],
 			[
-				"git add",
-				"Git: Add All"
-			],
-			[
 				"co",
 				"Git: Commit"
 			],
@@ -358,16 +365,8 @@
 				"Git: Pull"
 			],
 			[
-				"pull",
-				"Git: Pull Current Branch"
-			],
-			[
 				"git pul",
 				"Git: Pull Current Branch"
-			],
-			[
-				"git pu",
-				"Git: Pull Using Rebase"
 			],
 			[
 				"git branch",
@@ -532,6 +531,15 @@
 	},
 	"file_history":
 	[
+		"/home/jhonathan/Documents/phd1/gpu_tf_install/tutorial_for_ubuntu_18_lts_gpu.sh",
+		"/home/jhonathan/Documents/diversity-proj/codes/diversity2.py",
+		"/home/jhonathan/Documents/phd1/gore_lab/install_printer_driver/tutorial_11-04-2018",
+		"/home/jhonathan/.config/sublime-text-3/Packages/User/Package Control.sublime-settings",
+		"/home/jhonathan/Documents/mtrait-proj/codes/mtrait_code.py",
+		"/home/jhonathan/Documents/mtrait-proj/codes/mtrait_gdrive.sh",
+		"/home/jhonathan/Documents/mtrait-proj/codes/tmp.py",
+		"/home/jhonathan/Documents/mtrait-proj/codes/external_functions.py",
+		"/home/jhonathan/Documents/sorghum-proj/codes/sorghum-proj_main_code.py",
 		"/home/jhonathan/Documents/deep_phd-proj/codes/deep-code_my-fe.py",
 		"/home/jhonathan/Documents/house-proj_kaggle/install/tutorial_gpu.sh",
 		"/home/jhonathan/Documents/deep-course/codes/py_codes/vectorization_demo.py",
@@ -650,20 +658,11 @@
 		"/home/jhonathan/Documents/time-proj/sh_codes/dbn_6_points_f2_cv22.pbs",
 		"/home/jhonathan/Documents/time-proj/sh_codes/dbn_2_points_f2_cv21.pbs",
 		"/home/jhonathan/Documents/time-proj/sh_codes/dbn_6_points_f2_cv21.pbs",
-		"/home/jhonathan/Documents/time-proj/sh_codes/dbn_2_points_cockerham_cv23.pbs",
-		"/home/jhonathan/Documents/time-proj/sh_codes/dbn_3_points_cockerham_cv23.pbs",
-		"/home/jhonathan/Documents/time-proj/sh_codes/dbn_2_points_cockerham_cv22.pbs",
-		"/home/jhonathan/Documents/time-proj/sh_codes/dbn_3_points_cockerham_cv22.pbs",
-		"/home/jhonathan/Documents/time-proj/sh_codes/dbn_2_points_cockerham_cv21.pbs",
-		"/home/jhonathan/Documents/time-proj/sh_codes/dbn_3_points_cockerham_cv21.pbs",
-		"/home/jhonathan/Documents/time-proj/sh_codes/dbn_2_points_cockerham.pbs",
-		"/home/jhonathan/Documents/time-proj/notes/previous_result_cockerham_model.tex",
-		"/home/jhonathan/Documents/time-proj/codes/dbn_3_points.stan",
-		"/home/jhonathan/Documents/time-proj/notes/previous_result_cockerham_model.R"
+		"/home/jhonathan/Documents/time-proj/sh_codes/dbn_2_points_cockerham_cv23.pbs"
 	],
 	"find":
 	{
-		"height": 21.0
+		"height": 26.0
 	},
 	"find_in_files":
 	{
@@ -955,31 +954,28 @@
 			[
 				{
 					"buffer": 0,
-					"file": "/home/jhonathan/Documents/mtrait-proj/codes/mtrait_code.py",
+					"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/mtrait_first_step_analysis_plots.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5134,
+						"buffer_size": 4277,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4919,
-								4919
+								4277,
+								4277
 							]
 						],
 						"settings":
 						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
 							"syntax": "Packages/Python/Python.sublime-syntax",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 0.0,
-						"translation.y": 1716.0,
+						"translation.x": 60.0,
+						"translation.y": 1431.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -987,27 +983,53 @@
 				},
 				{
 					"buffer": 1,
-					"file": "/home/jhonathan/Documents/mtrait-proj/codes/tmp.py",
+					"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/bash_codes.sh",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 841,
+						"buffer_size": 27422,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								841,
-								841
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Python/Python.sublime-syntax"
+							"syntax": "Packages/ShellScript/Bash.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1989.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/mtrait_gdrive.sh",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2917,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2405,
+								2405
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/ShellScript/Bash.sublime-syntax"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1017,28 +1039,24 @@
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "/home/jhonathan/Documents/mtrait-proj/codes/mtrait_gdrive.sh",
+					"buffer": 3,
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2444,
+						"buffer_size": 284,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								284,
+								284
 							]
 						],
 						"settings":
 						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/ShellScript/Shell-Unix-Generic.sublime-syntax"
+							"syntax": "Packages/Python/Python.sublime-syntax"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1046,84 +1064,18 @@
 					},
 					"stack_index": 3,
 					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/home/jhonathan/Documents/mtrait-proj/codes/external_functions.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2989,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 312.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 4,
-					"file": "/home/jhonathan/Documents/sorghum-proj/codes/sorghum-proj_main_code.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 26433,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3427,
-								3427
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1053.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				}
 			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 21.0
+		"height": 26.0
 	},
 	"input":
 	{
@@ -1140,21 +1092,21 @@
 				1
 			],
 			[
-				1,
 				0,
-				2,
-				1
+				1,
+				1,
+				2
 			]
 		],
 		"cols":
 		[
 			0.0,
-			0.811127379209,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
+			0.89170984456,
 			1.0
 		]
 	},
@@ -1162,6 +1114,10 @@
 	"output.find_results":
 	{
 		"height": 0.0
+	},
+	"output.git":
+	{
+		"height": 319.0
 	},
 	"output.sftp":
 	{
@@ -1171,7 +1127,7 @@
 	"project": "mtrait.sublime-project",
 	"replace":
 	{
-		"height": 62.0
+		"height": 48.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1189,12 +1145,16 @@
 	},
 	"select_project":
 	{
-		"height": 0.0,
+		"height": 500.0,
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"",
+				"~/Documents/diversity-proj/sublime/diversity-proj.sublime-project"
+			]
 		],
-		"width": 0.0
+		"width": 380.0
 	},
 	"select_symbol":
 	{

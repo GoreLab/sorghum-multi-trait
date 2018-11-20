@@ -96,8 +96,9 @@ for j in df.dap.unique():
 
 # Transform into pandas data frame:
 metrics = pd.DataFrame(metrics, columns=["cv"]).assign(labels=labels)
+metrics
 
-# Plotting CVs:
+# Plot CVs:
 bar_cv = sns.barplot(x='labels', y='cv', data=metrics)
 bar_cv.set(xlabel='Traits', ylabel='Coefficient of variation (%)')
 plt.xticks(rotation=25)
@@ -105,3 +106,33 @@ bar_cv.tick_params(labelsize=6)
 plt.savefig("barplot_coefficient_of_variation.pdf", dpi=150)
 plt.savefig("barplot_coefficient_of_variation.png", dpi=150)
 plt.clf()
+
+# Read heritability values:
+h2_table = pd.read_csv('mtrait_first_step_analysis_heritability.txt', index_col=0)
+h2_table
+
+# Add new labels to the h2_table for plotting:
+h2_table['labels'] = labels
+
+# Plot heritabilities:
+bar_cv = sns.barplot(x='labels', y='h2', data=h2_table)
+bar_cv.set(xlabel='Traits', ylabel='Broad-sense Heritability')
+plt.xticks(rotation=25)
+bar_cv.tick_params(labelsize=6)
+plt.savefig("barplot_heritabilities.pdf", dpi=150)
+plt.savefig("barplot_heritabilities.png", dpi=150)
+plt.clf()
+
+git filter-branch --index-filter 'git rm --cached --ignore-unmatch y_pred_cv1.npz'
+
+git update-ref -d refs/original/refs/heads/master
+
+
+git filter-branch --force --index-filter \
+  'git rm --cached --ignore-unmatch y_pred_cv1.npz' \
+  --prune-empty --tag-name-filter cat -- --all
+
+git filter-branch -f --index-filter 'git rm y_pred_cv1.npz'
+
+
+git filter-branch --tree-filter 'rm -rf /workdir/jp2476/repo/sorghum-multi-trait/data_small_files/y_pred_cv1.npz' HEAD
