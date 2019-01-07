@@ -981,6 +981,7 @@ for i in model_set:
   # Heat map of the adjusted means across traits:
   heat = sns.heatmap(np.flip(np.flip(cor_dict['cv2_' + i],axis=1), axis=0),
              linewidths=0.25,
+             cmap='YlOrBr',
              vmin=0.3,
              vmax=1,
              annot=True,
@@ -997,7 +998,7 @@ for i in model_set:
 
 # Set directory:
 os.chdir(prefix_proj + 'plots/cv/probplot')
-
+  
 # DAP groups used for plotting
 dap_group = ['45', '60', '75', '90', '105']
 

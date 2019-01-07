@@ -21,14 +21,14 @@ Rscript ${PREFIX_code}/mtrait_first_step_analysis.R &
 
 #-------------------------- Install python locally -----------------------------------#
 
+# Folder where the python is installed:
+/workdir/jp2476/software/python
+
 # Download anaconta:
 wget https://repo.anaconda.com/archive/Anaconda3-5.1.0-Linux-x86_64.sh
 
 # For install python local:
 bash Anaconda3-5.1.0-Linux-x86_64.sh
-
-# Folder where the python is installed:
-/workdir/jp2476/software/python
 
 # To install modules:
 /workdir/jp2476/software/python/bin/pip install SOFTWARE_NAME --upgrade
