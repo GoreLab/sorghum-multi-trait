@@ -159,4 +159,3 @@ plt.savefig("barplot_heritabilities.pdf", dpi=150)
 plt.savefig("barplot_heritabilities.png", dpi=150)
 plt.clf()
 
-

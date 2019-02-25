@@ -188,28 +188,21 @@
 	"buffers":
 	[
 		{
+			"contents": "\n#------------------------------------------------Modules-----------------------------------------------------#\n\n## Loading libraries:\nimport matplotlib\nimport matplotlib.pyplot as plt\nimport pandas as pd\nimport numpy as np\nimport itertools\nimport seaborn as sns\n\nimport os\n\nfrom sklearn.model_selection import KFold\n\n# Prefix of the directory of the project is in:\nprefix_proj = \"/workdir/jp2476/repo/sorghum-multi-trait/\"\n\n# Prefix where the outputs will be saved:\nprefix_out = \"/workdir/jp2476/repo/resul_mtrait-proj/\"\n\n# Setting directory:\nos.chdir(prefix_proj + \"codes\")\n\n# Loading external functions:\nfrom external_functions import * \n\n\n#-----------------------------------Loading Adjusted Means and plotting--------------------------------------#\n\n# Setting directory:\nos.chdir(prefix_out + \"outputs/first_step_analysis\")\n\n# Readomg adjusted means:\ndf = pd.read_csv(\"adjusted_means.csv\", index_col=0)\n\n# Changing class of the dap:\ndf.dap = df.dap.fillna(0).astype(int)\n\n# Adding a new column in the data frame for plotting:\ntmp = df.pivot(index='id_gbs', columns='dap', values='y_hat')\n\n# Labels for plotting the heatmap:\nlabels = [\"Biomass\",\n  \t\t  \"Height DAP 30\",\n\t\t  \"Height DAP 45\",\n\t\t  \"Height DAP 60\",\n\t\t  \"Height DAP 75\",\n\t\t  \"Height DAP 90\",\n\t\t  \"Height DAP 105\",\n\t\t  \"Height DAP 120\"]\n\n# Heat map of the adjusted means across traits:\nheat = sns.heatmap(tmp.corr(),\n         linewidths=0.25,\n         cmap='YlOrBr',\n         vmin=0.09,\n         vmax=1,\n         annot=True,\n         annot_kws={\"size\": 12},\n         xticklabels=labels ,\n         yticklabels=labels)\nheat.set_ylabel('')    \nheat.set_xlabel('')\nheat.tick_params(labelsize=7.6)\nplt.xticks(rotation=25)\nplt.yticks(rotation=45)\nplt.savefig(\"heatplot_traits_adjusted_means.pdf\", dpi=150)\nplt.savefig(\"heatplot_traits_adjusted_means.png\", dpi=150)\nplt.clf()\n\n# Density plot of the adjusted means from dry mass (2.241699: from US t/acre to t/ha):\nden_dm = sns.kdeplot(df.y_hat[df.trait==\"drymass\"]*2.241699, bw=1, shade=True, legend=False)\nden_dm.set_ylabel('Density')    \nden_dm.set_xlabel('Biomass (t/ha)')\nden_dm.get_lines()[0].set_color('#006d2c')\nx = den_dm.get_lines()[0].get_data()[0]\ny = den_dm.get_lines()[0].get_data()[1]\nplt.fill_between(x,y, color='#006d2c').set_alpha(.25)\nplt.savefig(\"denplot_drymass_adjusted_means.pdf\", dpi=150)\nplt.savefig(\"denplot_drymass_adjusted_means.png\", dpi=150)\nplt.clf()\n\n# Box plot of the adjusted means from height measures:\nbox_ph = sns.boxplot(x='dap', y='y_hat',\n\t\t\t\t\t data=df[df.trait==\"height\"])\nbox_ph.set_ylabel('Height (cm)')    \nbox_ph.set_xlabel('Days after Planting')\ncolors = ['#fee391', '#fec44f', '#fe9929', '#ec7014', '#cc4c02', '#993404', '#662506']\n\nfor i in range(1,len(colors)): \n\tbox_ph.artists[i].set_facecolor(colors[i])\n\nplt.savefig(\"boxplot_height_adjusted_means.pdf\", dpi=150)\nplt.savefig(\"boxplot_height_adjusted_means.png\", dpi=150)\nplt.clf()\n\n# Loading coeficient of variation values:\nmetrics = np.empty([df.dap.unique().size])\nmetrics[:] = np.nan\ncounter = 0\nfor j in df.dap.unique():\n\tfor i in df.trait.unique():\n\t\tif (i==\"height\") & (j!=0):\n\t\t\tmetrics[counter] = pd.read_csv('metrics~' + i + '_' + str(j) + '-cv.csv', index_col=0).get_values()*100\n\t\tif (i==\"drymass\") & (j==0):\n\t\t\tmetrics[counter] = pd.read_csv('metrics~' + i + '-cv.csv', index_col=0).get_values()*100\n\tcounter = counter + 1\n\n# Transform into pandas data frame:\nmetrics = pd.DataFrame(metrics, columns=[\"cv\"]).assign(labels=labels)\nmetrics\n\n# Plot CVs:\nbar_cv = sns.barplot(x='labels', y='cv', data=metrics)\nbar_cv.set(xlabel='Traits', ylabel='Coefficient of variation (%)')\nplt.xticks(rotation=25) \nbar_cv.tick_params(labelsize=6)\nplt.savefig(\"barplot_coefficient_of_variation.pdf\", dpi=150)\nplt.savefig(\"barplot_coefficient_of_variation.png\", dpi=150)\nplt.clf()\n\n# Read heritability values:\nh2_table = pd.read_csv('mtrait_first_step_analysis_heritability.txt', index_col=0)\n\n# Add new labels to the h2_table for plotting:\nh2_table['labels'] = labels\nh2_table\n\n# Add colors to be ploted:\nh2_table['colors'] = ['#006d2c', '#fe9929', '#ec7014', '#cc4c02', '#993404', '#662506', '#fee391', '#fec44f']\n\n# Plot heritabilities:\n# bar_cv = sns.barplot(x='labels', y='h2', data=h2_table)\n# bar_cv.set(xlabel='Traits', ylabel='Broad-sense Heritability')\n# plt.xticks(rotation=25)\n# bar_cv.tick_params(labelsize=6)\n# plt.savefig(\"barplot_heritabilities.pdf\", dpi=150)\n# plt.savefig(\"barplot_heritabilities.png\", dpi=150)\n# plt.clf()\n\n# Reordering the table:\nindex = [0, 4, 5, 6, 7, 1, 2, 3]\nh2_table = h2_table.iloc[index]\n\n# Plot heritabilities:\nbar_obj=plt.bar(h2_table['labels'].tolist(), h2_table['Estimate'].tolist(),\n \t\t\t    yerr = h2_table['SE'].tolist(),\n \t\t\t    align='center',\n \t\t\t    alpha=1,\n \t\t\t    color= h2_table['colors'].tolist()\n \t\t\t    )\nplt.tick_params(labelsize=7.6)\nplt.xticks(h2_table['labels'].tolist())\nplt.xticks(rotation=25)\nplt.xlabel('Traits')\nplt.ylabel('Broad-sense Heritability')\nplt.savefig(\"barplot_heritabilities.pdf\", dpi=150)\nplt.savefig(\"barplot_heritabilities.png\", dpi=150)\nplt.clf()\n\n\nrange(0,1,10)\n\n",
 			"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/mtrait_first_step_analysis_plots.py",
+			"file_size": 5034,
+			"file_write_time": 131914503352873417,
 			"settings":
 			{
-				"buffer_size": 4439,
-				"encoding": "UTF-8",
+				"buffer_size": 5050,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/mtrait_mixed_models.R",
+			"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/external_functions.py",
 			"settings":
 			{
-				"buffer_size": 7784,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/jhonathan/Downloads/jeeh_code.R",
-			"settings":
-			{
-				"buffer_size": 2247,
-				"encoding": "UTF-8",
+				"buffer_size": 3175,
 				"line_ending": "Unix"
 			}
 		},
@@ -266,6 +259,126 @@
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
+		},
+		{
+			"contents": "\\documentclass[article,A4paper,11pt,oneside,oldfontcommands]{memoir}\n% oldfontcommands: necessário para genetics.bst\n\\usepackage{./template/Template_Projeto}\n\n\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Additional packages%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\\usepackage{bm} %package to use bold fonts\n\\usepackage{tikz}\n\\usetikzlibrary{fit,positioning}\n\\usepackage{float} %to put the figure in the right place\n%%\\usepackage{xcolor} %to set up other font colors\n\\newenvironment{textred}{\\par\\color{red}}{\\par} %to set up other font colors\n\n\\usepackage{caption} %to adjust figure captions with mathmode\n\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n\n\\begin{document}\n\n% To call the macro in the preamble that changed the font of heads\n\\pagestyle{fnsizeheadings}\n\n% Capa externa, para imprimir em papel glossy, etc\n\\input{./template/Capa.tex}\n\n% Sumário e Índice\n\\clearpage\n% TOC\n\\setupshorttoc\n\\renewcommand*\\contentsname{Summary}\n\n\\pagenumbering*{roman}\n\\tableofcontents\n\n\n\\clearpage\n% MAIN TOC\n\\setupparasubsecs\n\\setupmaintoc\n\\pagenumbering*{roman}\n\\tableofcontents\n\n\\renewcommand{\\indexname}{Index}\n\n\\setlength{\\unitlength}{1pt}\n\\clearpage\n\n\n%%%%%%%%%\n%% INÍCIO DO CONTEÚDO\n\n%%%%%%%%\n\n\\chapter*{Development of temporal Genomic Selection models via Bayesian Networks applied to \\textit{Sorghum bicolor}} % insert title here\n\n\\vspace{1cm}\n\n\\begin{abstract}\n  \\abslabeldelim{Oo} \n\n\nNew Genomic Selection models that allows predicting sorghum (\\textit{Sorghum bicolor}) traits early in season using repeated measures data obtained from robotic platforms may help to increase predictability accuracy of genotypes after successive circles of selection using only molecular markers information. However, to date, there is no developed Genomic selection models that can recovery temporal genetic information and conjointly are computationally suitable to be applied in scenarios \\textit{Big Data}. Bayesian inference in conjunction with Bayesian networks offers high versatility to model complex natural processes. Using these modeling frameworks we propose to develop new statistical models to deal with this situation. We are going to analyze a unique outstanding database, which includes phenotypic and genomic data collected by high-throughput platforms. Phenotypic data will be collected by a robotic platform under development called TERRA-MEPP.  Genomic functional data will be collected with the most advanced platforms like second-generation sequencing, sequencing with reduced-representation of the genome and DNS-chip profiling. We expect more than  $\\sim$180 millions repeated measures phenotypic data collected until the end of the season and approximately $\\sim$300,000 functional variants (SNPs) discovered. This dataset will be provided by Dr. Michael Gore from Cornell University (USA) who will be out partner in developing the models and analyzing/interpreting the results. We are going to propose, validate and test our Genomic Selection models via Bayesian Networks.\n\n  \n\\end{abstract}\n\n\\clearpage\n\n\\chapter*{Desenvolvimento de modelos genético-estatísticos temporais de Seleção Genômica via Redes Bayesianas: uma aplicação em sorgo} % insert title here\n\n\\vspace{1cm}\n\n\\begin{abstract}\n  \\abslabeldelim{Oo} \n  \n\nNovos modelos de Seleção Genômica que permitem a predição de caracteres de sorgo (\\textit{Sorghum bicolor}) precocemente, antes do fim do seu ciclo de desenvolvimento utilizando dados medidos diariamente com plataformas robóticas, podem auxiliar no incremento da acurácia preditiva de genótipos após sucessivos ciclos de seleção utilizando apenas informação de marcadores moleculares. Entretanto, até hoje, não há modelos de Seleção Genômica que contemplem a recuperação de padrões genéticos temporais, e ao mesmo tempo, são computacionalmente convenientes para serem aplicados em cenários \\textit{Big Data}. A inferência Bayesiana em conjunção com redes Bayesianas oferecem alta versatilidade para modelar processos naturais de alta complexidade. Utilizando essa rede de modelagem,  aqui serão propostos novos modelos estatísticos para lidar com essa situação. Um banco de dados único e excepcional serão analisados com redes Bayesianas, que incluem dados fenotípicos e genômicos obtidos por plataformas de coleta de dados em alta escala. Os dados fenotípicos em larga escala serão coletados por uma plataforma robótica em desenvolvimento chamada TERRA-MEPP. Os dados genômicos funcionais serão coletados com as plataformas mais avançadas atualmente, como sequenciamento de segunda geração, sequenciamento por representação reduzida do genoma e \\textit{DNS-chip profilling}. Espera-se mais de $\\sim$180 milhões de dados fenotípicos mensurados diariamente até o fim da safra, e aproximadamente $\\sim$300.000 variantes funcionais (SNPs) descobertos. Esse banco de dados será disponibilizado pelo Dr. Michael Gore da Universidade de Cornell (USA), que irá colaborar durante o desenvolvimento dos modelos, análise e interpretação dos resultados. O objetivo desse projeto é propor, validar e testar nossos modelos de Seleção Genômica via Redes Bayesianas.\n\n\n   \n\\end{abstract}\n\n\\clearpage\n\n%%%\n\\chapter{Introduction}\n\nTo support world demands of food and energy, the development and breeding of new bioenergy crops are essential to establish food and environmental security. Sorghum (\\textit{Sorghum bicolor} L. Moench spp.) has genetic and physiologic potential as a bioenergy crop, being an important biological source for energy production. This crop has high resilience to drought and poorly fertilized soils, a high genetic variability and a stable diploid (2n) genome that make easier its breeding process \\citep{Vermerris2011, Lawrence2007}.\n\nFor sorghum breeding, an useful strategy that may increase the genetic gain per unit of time is the adoption of advanced breeding platforms \\citep{Cabrera-Bosquet2012}. Among the several advanced breeding tools, there are four that may complement each other: whole-genome sequencing (WGS) \\citep{Shendure2008}, sequencing of reduced-representation of the genome (RRG) \\citep{Elshire2011},  differential nuclease sensitivity profiling of chromatin (DNS-chip) \\citep{Vera2014}, and high-throughput phenotyping (HTP) \\citep{Araus2014}.  WGS provides information about the entire genome sequence. RRG is a low cost strategy to sequence many individuals and when coupled with imputed information from WGS can offer high genome coverage \\citep{Georges2014}.  DNS-chip can reveal genomic sequences with functional role and that may contribute to the filtering of causal genomic sequences. Finally, HTP can be used to gather phenotypic data to train genomic selection (GS) models.\n\nA key step towards the application of GS is the choice of a statistical model that best predict trait performance. Despite the different GS models published in the last years, none among them was best in all scenarios of genetic architecture. A hypothesis that may justify this fact is the difficulty of capturing information only from the fraction of causal genomic sequences, given that samples from whole-genome sequences have both causal and non-causal sequences \\citep{Heslot2015}.  The main feature of the whole-genome based models is that all markers are fitted together using a linear regression process, mainly, happening at large $p$ (number of parameters)  and small $n$ (number of observations) scenarios \\citep{deLosCampos2013}. Currently, available HTP platforms may change this paradigm reversing the $p>>n$ to $n>>p$ problem (after filtering functional sequences), and developing models that deal with the problem of using millions of phenotypic data points and take into account functional sequences are important steps to the future success of the GS in plant breeding. This is the focus of this project.\n\nAmong the models that can deal with millions of data points, Bayesian models offers the possibility to learn from data sets that are computational large, but statistically small \\citep{Bishop2013}. Especially in GS, these structured models can be represented using Bayesian networks, that is, a modelling strategy to specify a structured jointly distribution of a set of unknown parameters controlling a given statistical model \\citep{Daly2011}. These nets are useful to describe complex patterns, generally, involving several set of variables, like, for instance, nodes representing several correlated traits or causative regions of the genome.  In addition, posterior updating (progressive learning), using as prior the last posterior distribution, previously obtained after learning with the data, can offer high speed analysis and modeling topologies that allow exploring temporal correlation patterns of the data \\citep{AlJadda2014}.  Here, we are going to propose a Bayesian Network and evaluate several modeling scenarios to reveal if this modeling framework can be applied to analyse a sorghum massive amount of genomic and HTP data. The GS models will exploit effective temporal genetic information, since the data is collected over time. We believe that these results will shed some light about the genetic architecture of sorghum and also could help better design GS application.\n\n\\pagenumbering{arabic}\n\n%%%%%%%%%\n\\chapter{Rationale}\n\n\\section{Sorghum as a bioenergy crop}\n\nFuture trends of population growth coupled with the rising levels of pollutant gases and reduction of non-renewable energy sources tend to increase demands for food, fiber, grains, bioproducts and bioenergy \\citep{Foley2011, Mace2013}. A strategy that may be used to mitigate these food, natural environment and climate issues directly or indirectly are the usage of biofuels produced from bioenergy crops. There are several bioenergy crops which have value to this purpose, some relevant examples are switchgrass (\\textit{Panicum virgatum}), sugarcanes (\\textit{Saccharum} spp.), \\textit{Miscanthus}  (\\textit{ Miscanthus spp.}), napier grass (\\textit{Pennisetum purpureum}) and sorghum (\\textit{Sorghum bicolor} L. Moench spp.) \\citep{Mullet2014}. \n\nAmong the bioenergy crops, sorghum has several attractive features that makes a target crop to be considered as source for biofuels production. Sorghum belongs to the family Poaceae and subfamily Panicoideae, whereby most of the grasses with utility for bioenergy purposes \\citep{Calvino2011}. Evidences show that sorghum was first domesticated in Ethiopia and Sudan more then 8000 years ago \\citep{Mace2013}. Along its domestication, sorghum was spread at trade routes in Africa and Asia. It established four main races known as Durra, Caudatum, Guinea and Kefir. Specially at North and South Americas, sorghum germoplasm was first introduced in 1800s \\citep{Mullet2014}. Afterwards, due to efforts of sorghum breeding programs, three main types of sorghum have been developed. These particular types of sorghum can be classified as sweet sorghum, grain sorghum and photoperiod-sensitive sorghum or forage sorghum \\citep{Rooney2007}.  \n\nSorghum is a diploid, $C_{4}$ plant and has a stable and non-complex genome (2n=20), which makes it an efficient photosynthetically plant.\\citep{Vermerris2011, Lawrence2007}. Furthermore, due to sorghum being a predominantly self-pollinating specie and easily to cross- and self-fertilize, its improvement can be favored using well-established breeding processes. Sorghum can attracts both private and public sector in function of its possibility to be the naturally protected in the form of hybrids after inbred lines development and crossing \\citep{Mullet2014}. \n\n\n\\section{Advanced breeding platforms}\n\nIn the last century, plant breeding had a magnificent role in the improvement of plants with global importance. Maize is a clear example in which had  a ~4-fold yield increase after improvements in genetics and production management systems  \\citep{Hammer2010}.  To sorghum, it is estimated that its yield potential is between ~55-60 dry $Mg ha^{-1}$, even though it showed only biomass production averages of ~15-25 dry $Mg ha^{-1}$ at non-irrigated conditions  \\citep{Mullet2014}. Recently, it was argued that the same achievements obtained in maize could equally occur with the improvement of bioenergy sorghum \\citep{Mullet2014}. Advanced breeding techniques such as whole-genome sequencing \\citep{Shendure2008}, high-thoughput genotyping \\citep{Elshire2011}, functional annotation of variants \\citep{Vera2014} and robotic-based phenotyping \\citep{Araus2014} are pivotal tools to speed up this breeding process. \n\nWhole-genome sequencing (WGS) offers a variety of useful information with practical implications for sorghum breeding programs. Sanger sequencing was the first proposed approach to reveal genome sequences using a set of biochemical reactions; however, due its low automation capability, nowadays, it has lost importance in research compared to new sequencing technologies \\citep{Shendure2008}. To overcome the limitations of Sanger sequencing, second-generation (SG) sequencing technologies were proposed \\citep{Sims2014}. Some available platforms are Solexa technology, 454 sequencing, SOLiD platform, Polonator and others. Sequencing information obtained from these platforms allows the detection of single-nucleotide variants (SNVs), small insertions and deletions (indels), larger structural variants and copy number variants (CNVs) \\citep{Sims2014}. By using WGS in 44 sorghum lines, \\citet{Mace2013} found 4,946,038 SNVs, 1,982,971 indels, and 120,929 CNVs. \n\nDespite the advantages of second-generation sequencing technologies, due to its high cost, the whole-genome sequencing of several individuals is still a challenge \\citep{Peterson2012}. Currently, the application of this technique in plant breeding could be even more elusive, where depending on the available resources even thousands of genotypes are evaluated per breeding cycle. A practical strategy to reduce sequencing costs is the library preparation with a reduced-representation of the genome. The main steps of this process are the fragmentation of the genome using one or more restriction enzymes or some physical fragmentation technique, selection of DNA fragments and subsequent sequencing \\citep{Davey2011}. Polymorphisms found among individuals may be used as molecular markers in practical applications at sorghum breeding programs \\citep{Baird2008}. There are many variations of this process, with slightly variations in the main steps. Some examples of these genotyping techniques are Genotyping-by-sequencing (GBS) \\citep{Elshire2011}, Double Digest Restriction-site Associated DNA sequencing (RADseq) \\citep{Peterson2012} and Diversity Array technology (DArT) \\citep{Jaccoud2001}. These techniques were used in sorghum to reveal genome-wide patterns \\citep{Zheng2011}, for executing population genomics and to allow genome-wide association studies of several traits \\citep{Morris2013}.\n\nA drawback that can happen when doing genotyping with reduced-representation of the genome is the absence of relevant functional DNA sequences in the sample. To improve the gathering of these genomic regions, a complementary approach is the functional annotation of genetic variants. A new approach to execute this process is the differential nuclease sensitivity profiling of chromatin (DNS-chip) \\citep{Vera2014}. In short, the process is based on a genomic DNA digestion with different degrees of micrococcal nuclease (MNase), which is an enzyme that mainly cleaves regions of internucleossomal DNA. This technique showed promising results to reveal important functional DNA sequences in maize, including positions within and around genes and in regulatory regions  \\citep{Vera2014}. To date, there is no report of the employment of this technique using bioenergy sorghum as a model organism, despite its high homology and synteny with maize and other crops.\n\nAlthough the great advances in genomic data gathering, there is still a phenotyping bottleneck that slows the progress in the applied and theoretical plant breeding research \\citep{Fiorani2013}. The high-throughput phenotyping (HTP) is a new and intensively studied scientific field which promises a quick increasing in the plant breeding efficiency \\citep{Fiorani2013,Cobb2013,Araus2014}. HTP can be defined as a process of characterization and measuring of plant development, morphology and physiology by large scale data collecting. In a nutshell,  field-based HTP could be categorized in three most common approaches, which are: (i) VIS-NIR spectroradiometry, (ii) infrared thermometry and thermal imaging, and (iii) conventional digital photography (RGB color cameras) \\citep{Araus2014}. The VIS-NIR spectroradiometer allows obtaining images with sensible cameras to reach wavelengths around 2500 nm, which makes possible the measurement of several traits, e.g., photosynthetic status, water content and biomass. Infrared themometry and thermal imaging capture images in the range of $\\mu$m; this images offers information, for instance, to measure water stress and disease damages.  Conventional digital photography is a technique to obtain images in the visible spectrum (400-700 nm) and is an approach that allows the evaluation of plant vegetative architecture. Integrating all these HTP platforms in robots can offers high capacity to gather temporal, precise and abundant phenotypic data through a breeding cycle. These informations can strength the power analysis to find relation between genes and traits when coupled with genomic data,  supporting key sorghum breeding decisions like parental choices and progenies selection.   \n  \n\\section{Genomic selection}\n\nDuring the breeding process of quantitative traits with economical importance, selection of parents with good performance in crosses, and phenotypic evaluations of several populations and/or genotypes are extremely time consuming and expensive \\citep{Heslot2015}. For instance, considering a sorghum breeding scenario that 100 inbred lines of a heterotic group are crossed with 100 inbred lines from another heterotic group, 10,000 combinations of single-cross hybrids must be evaluated at several sites with replicates. Under such scenario, the adoption of statistical techniques that allow to predict the best inbred lines combinations, without needing to test all single-cross hybrids in field-based trials, can reduce substantially financial expenses in sorghum breeding programs.\n\nGenomic selection (GS) is a breeding approach that allows the prediction and/or selection of individuals based on genotypic or breeding values, which are obtained using whole-genome regression models \\citep{Heslot2015}. These models explore as response variable phenotypic data and as covariates high density of molecular markers spread through the genome  \\citep{deLosCampos2013}. GS statistical predictive techniques showed to be useful at animal breeding programs, but it is still giving its first steps into practical applications in plant breeding programs \\citep{Heslot2015}. To the best of our knowledge, there is no report to date of GS applications in sorghum breeding, except about its potential to support the management of germplasm banks via prediction of unevaluated accessions \\citep{Yu2016}. However, using maize as reference, practical and simulation studies suggest that GS may effectively increases genetic gain per unit of time and cost compared to other breeding approaches, like Marker Assisted Selection (MAS) and   Indirect Selection (IS) \\citep{Bernardo2007,Massman2013,Ziyomo2013,Beyene2015}. Evaluation and development of new GS models are essential towards its application in sorghum breeding programs.\n\nSeveral GS models have been developed in the last years; for example, multiple linear regression models with variable selection, linear mixed models, semi-parametric methods and Bayesian hierarchical linear models \\citep{Gianola2009}. Among the several models,  mixed and Bayesian models are most frequently used in practical applications. Mixed models are usually applied in GS either based on the assumption that marker genetics effects follows a common univariate normal probability distribution (rrBLUP) or in other formulation that individuals genetic effects follow a joint multivariate normal distribution (GBLUP). This distribution uses a given genetic relationship matrix estimated from the kinship information obtained by using molecular markers \\citep{Vitezica2013}. Bayesian models allow the assumption of different \\textit{prior} distribution specifications, and can offer high versatility to model genetic architecture, assuming, for instance, that each marker genetic effect follows a specific \\textit{prior} probability distribution. It is also possible modeling different \\textit{prior} strength in the \\textit{posterior} distribution of marker genetic effects \\citep{deLosCampos2013}.  \n\nAfter many publications, at least in predictive tasks, all GS models showed similar predictive abilities, with one or other displaying slight superiority depending on the genetic architecture of the predicted trait, which usually vanishes in cross-validation schemes \\citep{Gianola2013, Heslot2012}. However, all these models were mostly developed for end-of-season collected phenotypes and do not allow by its modeling topology exploit temporal genetic autocorrelation that is present in temporal series data, like the ones obtained by high-throughput phenotyping platforms.  Likewise, all these models are computationally intensive, not allowing them to be employed using millions of phenotypic observations gathered by robotic platforms. New models to cope with the high-throughput phenotyping data collection that are computationally large, but statistically small (considering quantitative traits) in conjunction with models that exploit temporal genetic autocorrelation are imperative to the optimize the GS process. Thus, it is even more important for crops like sorghum in which growth traits are usually targets for selection \\citep{Cabrera-Bosquet2012,Fiorani2013}.\n \n\\section{Bayesian networks}\n\nBayesian inference is a modeling approach based upon the combination of information from data (likelihood) with previous known knowledge (prior), which results in an update of the current state of knowledge about some process under investigation (posterior) \\citep{Gelman2014}. Bayesian models allows the understanding of a set of deterministic or latent variables using a connected network of probability distributions \\citep{Bishop2013} . This modeling process is given by the factorization of a joint probability distribution in a set of conditional probability distributions with the application of the product rule of probability\n\n\\begin{equation} \\label{eq:solve}\np(x_{1},x_{2},x_{3},x_{4})=p(x_{4}|x_{3}, x_{2}, x_{1})p(x_{3}|x_{1},x_{2})p(x_{2}|x_{1})p(x_{1})\n\\end{equation}\n\nHowever, non-structural models, like the one shown in equation (1) with a fully flexible joint distribution, usually become an intractable problem. An alternative way to express a joint distribution factorization can be adopted using structured models \\citep{Bishop2013}. An example can be observed in the following form\n \n\\begin{equation} \\label{eq:solve}\np(x_{1},x_{2},x_{3},x_{4})=p(x_{1})p(x_{2}|x_{1})p(x_{3})p(x_{4}|x_{2},x_{3})\n\\end{equation}\n\nAnother way to express the factorization process observed in  the equation (2) can be accomplished using probabilistic Graphical Models \\citep{Bishop2013}. Among the most popular probabilistic graphical models available, we can mention as key representations: the directed graphical models or Bayesian networks, undirected graphical models or Markov random fields, chain models and factor graphs \\citep{Hamelryck2012}. Among them, several attractive features makes Bayesian networks (\tBN) the graphical model of choice when coming up with statistical models applied in genetics. Some examples of these advantages are: (i) possibility to create a wide-range of models in which traditional statistical or machine learning models are considered as special cases; (ii) a model can be designed easily to a specific problem without corrupting the inferences algorithms; (iii) the model structure shows intuitively the  nature of the problem; (iv) missing data can be handled naturally;  (v) \\textit{priori} knowledge can be included in the model \\citep{Moreau2003, Bishop2013}.\n\nIn short, a Bayesian network can be defined as a graphical representation of a factorization process of a joint probability distribution, wherein each variable is represented by a node and the dependencies among the nodes can be described using a set of arrows. An example of BN structure representation of the right-hand side of the equation (2) could be seen at the Figure (1).\n\n\\begin{figure}[H]\n    \\centering\n            \\begin{tikzpicture}\n    \\tikzstyle{main}=[circle, minimum size = 8mm, thick, draw =blue!80, node distance = 8mm, line width=0.4mm]\n    \\tikzstyle{connect}=[-latex, thick]\n    \n    \\node[main] (a) [label=right:$x_{1}$] {};\n    \\node[main] (b) [below left= of a, label=below:$x_{2}$] {};\n    \\node[main] (c) [below right=of a, label=below:$x_{3}$] { };\n    \n    \n    \\node[main] (d) [below right=of b, label=below:$x_{4}$] { };\n    \n    \\path\n    (a) edge [connect,blue] (b)\n    (b) edge [connect,blue] (d)\n    (c) edge [connect,blue] (d);\n    \n    \\end{tikzpicture}\n    \\caption{Factorization of a joint probability distribution in a set of conditional distributions using Bayesian networks as graphical syntax notation.}\n    \\label{fig:graph1}\n\\end{figure}\n\nIn the Figure (1), the node $x_{1}$ has an independent relationship with the nodes $x_{2}$,  $x_{3}$ and $x_{4}$, as a result, there is no arrows connecting other nodes to the node $x_{1}$. The node $x_{2}$ has a dependent relationship with $x_{1}$, since there is a direct arrow linking the node $x_{1}$ to the node $x_{2}$. The node $x_{3}$ is independent to all other nodes, similar to what was observed with the node $x_{1}$, as a consequence, that there is no coming arrows linking the node $x_{3}$ to the others. Finally, the node $x_{4}$ has a dependency relation with both nodes $x_{2}$ and $x_{3}$, given that both nodes are connected with arrows to the node $x_{4}$.\n\nIn a BN representation, the arrow direction states if nodes are parent or child of other nodes. For instance, how there is an arrow expressing a conditional relationship of the node $x_{2}$ with the node $x_{1}$, we can say that $x_{1}$ is a parent of the node $x_{2}$, and naturally that $x_{2}$ is a child of the node $x_{1}$. A requirement to a BN structure is that must not occurs any directed loop of arrows connected to a specific subset of nodes in the net. Another interesting result of the BN structure is that a factorization of a joint probability distribution can be described by:\n\n\\begin{equation} \\label{eq:solve}\np(\\boldsymbol{x})= \\prod_{x_{j}}^{J}p(x_{j}|pa_{j})\n\\end{equation} where $pa_{j}$ represents the parents of the node $x_{j}$, and $\\boldsymbol{x}=\\left \\{ x_{1},...,x_{J} \\right \\}$  \n \nIn the equation (3), an explicit  information is that nodes are independent of a subset of nodes in the net, conditioned in the information of their parents by the product rule of probability. This property is known as Markov condition \\citep{Su2013}. An outstanding consequence of this condition is that the dimensionality of the model could be reduced substantially. Therefore, due to the Markov condition, local inferences can be performed with a reduced number of parameters \\citep{Su2013, Bishop2013}.\n\nEspecially at genetic modeling applications, the possibility to reduce complex models with many nodes to a reduced set of variables offers great potential to the resolution and elucidation of several problems.  Moreover, the huge versatility that BN offer in the attribution of nodes with different specifications of probability distributions, as building blocks, opened new frontiers in the elaboration of models in many genetics subareas. For instance, there are examples of applications using BN in genome assemblies \\citep{Loman2015}, execution of SNP genotyping \\citep{Serang2012, Garcia2013}, comprehension of gene interactions \\citep{Han2012}, elucidation of gene-environment interactions \\citep{Su2013}, understanding of genes expression patterns \\citep{Neapolitan2014}, and the construction of genomic selection models for analysis of multiple traits \\citep{Scutari2014}.     \n\nWe can give more detail about the example related to the SNP genotyping application using Bayesian Networks. Our group developed a Bayesian network, which contributed for the definition of genotypic states of loci from individuals with different degrees of polyploidy \\citep{Serang2012, Garcia2013}. The model explores data from a quantitative-based platforms of genotyping. In addition, we developed a user-friendly software called SuperMASSA to run our Bayesian Network. SuperMASSA requires only the researcher includes as response variable the output from quantitative-based platforms of genotyping. Given some input data for SuperMASSA (output from some quantitative-based sequencing platform), the software runs the model, and shows the optimal genotypic configurations of the population. In a nutshell, SuperMASSA base-line Bayesian Network represents a set of latent random variables substantiated on: (i) the level of ploidy ($P$), (ii) the genotypic distribution of the population ($G$) that were dependent on the level $P$, (iii) the number of individuals ($C$) assigned to a given $G$, and (iv) the distribution of allelic frequencies ($T$) which dependents of $P$. The model uses a generative process by sampling from the Bayesian network, and finds the optimal genotypic configuration for different degrees of ploidy that maximizes the probability of the observed data ($D$). Nowadays, the genotyping of populations with different degrees of ploidy became a reality with the development of our Bayesian Network \\citep{Garcia2013}.\n\nDue to the feasibility of coupling a wide-range of different continuous and discrete probability distributions, Bayesian networks offers the possibility to aggregate different models of machine learning in a unique modeling framework. Specifically at GS, as mentioned earlier, a common practice is the utilization of Bayesian hierarchical linear models, which are popularly know as the Bayesian alphabet \\citep{deLosCampos2013, Gianola2013}. All these models can be combined using BN; however, there is no study to date trying to unify these in a way aiming to build powerful GS models to predict and understand the genetic architecture of complex traits.\n\nAnother outstanding possibility that Bayesian networks offer is the possibility to learn parameters in a progressive or online mode.  In this scenarios, BN may contribute to a modeling scheme that could be more computationally efficient than other approaches, given some proper inference algorithm. Concurrently, it should offer a non \\textit{ad hoc} strategy to fit models with massive amount of data and to recover temporal genetic patterns \\citep{AlJadda2014}. For instance, analysis of millions temporal series phenotypic observations collected by high-throughput phenotyping robotic platforms, together with the evaluation of whole-genome sequencing and information from functional annotation of variants could be done using BN. Likewise, insights of genes-environment-time patterns could be revealed using these models.\n\nOn the other hand, to date, there is no study seeking to answer these genetics questions related to the prediction and understanding of the genetic architecture of complex traits, and, simultaneously, trying to handle “Big Data” and heterogeneous databases.  Here we are proposing the first investigation aiming to answer these questions using Bayesian networks via prior/posterior updating.\n      \n%%%%%%%%%\n\\chapter{Objectives}\n\n\\section{General Objective}\n\nDevelop and evaluate different Genomic Selection models using Bayesian Networks based on prior/posterior updating to learn temporal genetic information and predict sorghum plants performance using phenotypic repeated measures data obtained by a robotic platform, and information from functional molecular markers.  \n\n\\section{Specific Objectives}\n\n\\begin{itemize}\n  \\tightlist\n\\item Evaluate and develop Genomic Selection (GS) models by implementing Bayesian Networks (BN) via RStan package \\citep{Carpenter2015}. \n\\item Come up with BN that will allows the creation of a online system to learn Genomic Breeding Values as data is collected using different sorts of data.\n\\item Develop GS models that will allows the selection of plants before the end-of-season and plant maturity.\n\\item  Create GS-BN models that give additional weights for functional genomic sequences in relation to the unknown variants.\n\\end{itemize}\n\n\n\n%%%%%%%%%%%%55\n\\chapter{Material and Methods}\n\n\\section{Data gathering using advanced breeding platforms}\n\nAll the phenotypic and genomic data necessary to the development of this project will be provided by the Prof. Michael Gore (Cornell University) in a collaboration with the Statistical Genetics Lab of the advisor of the project (http://statgen.esalq.usp.br). This partnership with Prof. Michael Gore is a key step towards the proof-of-concept of the models proposed here. Currently, all the data are being collected by the execution of a project called “TERRA-MEPP project”, that prof. Michael Gore is involved. Some details of the project are described below.   \n\n\\subsection{Field-based high-throughput phenotyping of sorghum}\n\nPhenotyping of a panel collection of 2500 sorghum inbreds will be accomplished using a robotic platform of field-based HPP  (TERRA-MEPP) which have been developed by a multidisciplinary expertise team from several elite American universities. This sorghum panel was designed to represent its global germplasm pool and to give reliable information to be extrapolate to other sorghum breeding programs.\n\nTERRA-MEPP is a robotic platform projected to be equipped with powerful visual, thermal, multi-spectral reflectance, and other electronic sensors to collect phenotypic information with integrated data storage and link to cloud storage and data processing. The 2500 sorghum accessions in addition to 20\\% repeated checks will be phenotyped on field trials of 4-row plots, twice times per day, during 150 days and over two years at the Energy Farm at the University Illinois and the Experimental Station at Lubbock, TX. At these two environmental contrasting sites, the target trait biomass will be phenotyped using 3-D image of each plant created as the TERRA-MEPP rover moves past each plant of one side, coupled with 180° as it transverses the row on the other side of each plant. This approach will provide volume as a proxy for biomass that will be improved further by the use of the spectral measurements. TERRA-MEPP platform is expected to move at 0.3 m/s (upward limit of 13 km/day), traversing a 9 $m^{2}$ plot in 10s and one hectare in just over 3 hours. This platform will allow obtaining 180 millions of phenotypic observations in two years (2500 4-row plots x 100 center-row plants x 2 measurements/day x 150 days of phenotyping x 2 years = 180 millions observations); this takes account of 2500 accessions, plus 20\\% repeated checks. TERRA-MEPP will derive from its hyperspectral reflectance sensors some other phenotypes that may also be available. These phenotypes include canopy nitrogen, canopy water stress, leaf area index, photosynthetic functioning, photosynthetic physiology, chlorophyll content, and modulated chlrophyll fluorescence.\n\nFurthermore, if robots completely fail to collect precise phenotypic data, manually repeated measurements of plant height on 800 photoperiod-sensitive sorghum accessions over the growing season will be collected every two weeks. This effort will ensure that our proposed models will be tested with a high quality dataset.\n\n\\subsection{Sorghum genomic data}\n\nGenotyping-by-sequencing (GBS) on the 2500 sorghum accessions will be performed sequencing 96-plex ApeKI libraries on the Illumina Hiseq. The SNP calling are planned to be done against the Tx623 reference genome using TASSEL5. It is envisaged the identification of >100,000 GBS SNPs scored across 2500 sorghum accessions. In parallel, whole-genome resequencing of 500 inbreds accessions (genetically representative of the 2500 inbred accessions) will be performed using Illumina HiSeq technology. Our objetive is generate 10X Illumina coverage after sequencing insert libraries (400-500 bp). We expect the identification of >3,000,000 SNPs and structural variants across 500 sorghum accessions. Furthermore, 100X Illumina coverage combined with Nanospore long reads will be executed in 40 sorgum accessions (genetically representative), with the contiging done by employing DISCOVAR de novo \\citep{Weisenfeld2014} or a hybrid approach of correcting the long reads \\citep{Goodwin2015}. After higher sequencing depth of coverage, we are expecting the identification of >4,000,000 SNPs and structural variants across 40 sorghum accessions. A sorghum multi-reference HapMap will be developed using the MaizeHapV4 multi-reference pipeline using the obtained sorghum sequencing data. We are expecting to find nearly 7,5 millions SNPs and structural variants through this effort.\n\nAs explained earlier, GBS is a sequencing technique that uses a reduced-representation of the genome. Sparse non-sampled sequences of the genome will be imputed using the information from the developed multi-reference sorghum HapMap. We are going to employ a imputation process using the FILLIN algorithm, that it is effective to impute maize variants with a hit of >97\\%  \\citep{Swarts2014}. Afterwards, we forecast the imputation of  >4,000,000 SNPs and structural variants across the 2500 sorghum accessions.\n\nTo distinguish functional and non-functional genomic sequences, DNS-chip profiling will be performed using the 10 inbreds most genetically representative to the rest of the panel. We are going to perform the annotation of functional variants like coding regions, UTRs and regulatory regions. We expect the this strategy will reduce 40-fold the number of candidate SNPs potentially contributing to heritable phenotypic variation.  We are also going to use an evolutionary approach to look for functional variants, which alighs all well-sequenced monocots and ranks every variant based on its evolutionary conservation \\citep{Rodgers-Melnick2015}. We aim to obtain a filtered number of ~300,000 functional variants (SNPs), to perform subsequent analysis using only the functional fraction of the genome.\n\n\\section{Genetic Models}\n\nSeveral advances occurred into the development of GS statistical models considering a vast range of different genetic scenarios, e. g., considering several traits phenotyped and evaluated at different environments \\citep{Montesinos2016} or taking into account both additive and nonadditive genetic effects \\citep{dosSantos2015,dosSantos2016b}, and also for epigenetic variation \\citep{Varona2015}. However, as mentioned earlier in the literature, it is still lacking GS models that allow learning temporal genetic information from repeatedly measured phenotypes.\n\n\\citet{Ratcliffe2015} gave some contributions analysing repeated measured height data from interior spruce (\\textit{Picea engelmanni x glauca}). They essentially performed a first stage analysis via multivariate (or multitrait) mixed model approach recovering temporal genetic information considering each time-measured data as a specific “trait”. They modelled additive effects correlation via a non-structured additive variance-covariance matrix with the additional information from a pedigree-based enumerator (\\textbf{$A$}) relationship matrix. In the second-stage analysis, they used each specific-time estimated breeding value (EBVs) as response variable to decompose it into time-specific marker additive genetic effects and residuals using the $BayesC\\pi$, \\textit{Generalized Ridge Regression} and \\textit{rrBLUP} models \\citep{Gianola2009, deLosCampos2013}. Their approach showed to be effective in capitalizing temporal-genetic information, concluding several practical relevant information about interior spruce breeding.  However, we believe that this approach hardly could deal with the problem of analyzing millions of phenotypic datapoints obtained from high-throughput phenotyping platforms, mainly, due to the computational burden of executing a multivariate mixed analysis (extremely large   $n$) taking into account all temporal series phenotypic data in a first stage analysis. Also, their approach can not allow a system of marker-genetic value online learning as data is collected. Their modeling GS approach requires collecting data at least in some period of time to then perform the GS temporal analysis.\n\nHere we aim to propose an approach that will circumvent some modeling limitations from the current approach of \\citet{Ratcliffe2015}. Motivated by the work developed by \\citet{Technow2015} for analyzing joint different biparental populations using a Multilevel Bayesian Hierarchical model, we are going to try unify and improve these models via Bayesian Networks (BNs). Our objective is to learn temporal series genetic information using the same concepts of sharing parameters that they exploited to recover genetic information among populations; however, here we are going to learn genetic information from repeated measured data and try to do even better by creating an online learning system of marker genetic values trajectory through time via prior/posterior updating.\n\nWe are going to propose a modelling scenarios that also requires a two-stage analysis. On the other hand, contrary to the approach of \\citet{Ratcliffe2015}, we are going to develop models that recover temporal information in the second stage analysis, instead of the first stage. Our first stage analysis is required only to control for field variability within and between plots through the inclusion of spatial (control for field effects) explanatory variables in the mixed model and other non-genetic variables if necessary to obtain only vague time-specific EBVs with minimal residual noise.\n\nGiven the time-specific EBVs, we are going to perform a second-stage analysis using these as response variables at some Multilevel Bayesian Hierarchical models with the modeling topology determined by the nature of the genetic phenomena evaluated using BNs.  A underpinning general joint distributions that will serve to us as the basis to develop our models are illustrated in the BN represented at Figure (2).\n\n\\begin{figure}[H]\n    \\centering\n            \\begin{tikzpicture}\n    \\tikzstyle{main}=[circle, minimum size = 8mm, align=center, text width=8mm,thick, draw =blue!80, node distance = 8mm, line width=0.4mm]\n    \\tikzstyle{connect}=[-latex, thick]\n    \n    \\node[main, fill = blue!20] (a) {$u_{a_{t-1}}$};\n    \\node[main, fill = blue!20] (b) [right = of a] {$\\sigma_{a_{t-1}}$};\n    \n    \\node[main] (c) [below right=of a] {$a_{t}$};\n    \\node[main, fill = blue!20] (d) [right=of c] {$u_{r_{t-1}}$};\n      \\node[main, fill = blue!20] (da) [right=of d] {$\\sigma_{r_{t-1}}$};\n    \\node[main, fill = blue!20] (e) [left=of c] {$W$};\n    \\node[main, fill = blue!20] (f) [left=of e] {$\\sigma_{\\mu_{t-1}}$};\n    \\node[main, fill = blue!20] (g) [left=of f] {$u_{\\mu_{t-1}}$};\n    \n    \n    \\node[main] (h) [below right=of g] {$\\mu_{t}$};\n    \\node[main, fill = blue!20] (i) [below left=of c] {$g_{t}$};\n    \\node[main] (j) [below left=of da] {$\\sigma_{t}$};\n    \n    \\node[main, fill = blue!20] (k) [below=of i] {$y_{t}$};\n        \n    \n    \\path (a) edge [connect,blue] (c)\n          (b) edge [connect,blue] (c)\n          (g) edge [connect,blue] (h)\n             (f) edge [connect,blue] (h)\n             (e) edge [connect,blue] (i)\n             (c) edge [connect,blue] (i)\n             (d) edge [connect,blue] (j)\n             (da) edge [connect,blue] (j)\n             (h) edge [connect,blue] (k)\n             (i) edge [connect,blue] (k)\n             (j) edge [connect,blue] (k);\n    \n    \\end{tikzpicture}\n\\caption{\\small Bayesian Network representing the factorization of a joint probability distribution in a set of conditional distributions of our underpinning temporal GS model. Shaded nodes represents nodes with known information and non-shaded nodes express stochastic variables from the model. Our graphical model represents the decomposition of the observed phenotypes ($y_t$) in a sample mean effect ($\\mu_t$), which has prior mean $u_{\\mu_t}$ and scale $\\sigma_{\\mu_{t-1}}$, breeding values ($g_t$), given the the marker additive deviation matrix ($W$) and the stochastic additive marker effects ($a_t$) with prior mean $u_{a_{t-1}}$ and scale $\\sigma_{a_{t-1}}$. The residual scale parameter ($\\sigma_t$) will control the residual variation not explained by the model, which will have prior mean $u_{r_{t-1}}$ and scale $\\sigma_{r_{t-1}}$. The model will learn the hyperparameters ($u_{\\mu_t}, \\sigma_{\\mu_{t-1}}, u_{a_{t-1}}, \\sigma_{a_{t-1}}, u_{r_{t-1}},  \\sigma_{r_{t-1}}$) using the data from the previous $(t-1)$ analysis.}\n    \\label{fig:graph1}\n\\end{figure}\n\nOur BN represents that in each analysis step we are going to breakdown the EBVs ($y_{t}$) from time $t$ into time-specific Genomic Estimated Breeding values (GEBVs) represented in the network as the deterministic variable $g_{t}$, time-specific mean ($\\mu_{t}$)  and residuals ($\\sigma_{t}$) that defines our conditional likelihood function\n\n\\begin{equation} \\label{eq:solve}\ny_{t}|\\mu_{t}, g_{t} \\sim N( \\mu_{t} + g_{t} , \\sigma_{t} )       \n\\end{equation}\n\nOur GEBVs will be obtained by the output of the linear combination function $g_{t}=W a_{t}$ determined by the marker substitution genetic effects ($a_{t}$) and marker additive deviation matrix ($W$) encoded by the Cockerham’s metric \\citep{Cockerham1954, Zeng2005, dosSantos2016b}\n\n\n\\[  W \\, \\left\\{\n\\begin{array}{ll}\n    2 \\, – \\, 2p_{k} & for \\, \\, \\, AA \\\\\n    1 \\, – \\, 2p_{k} & for \\, \\, \\, Aa \\\\\n    0 \\, – \\, 2p_{k} & for \\, \\, \\, aa \\\\\n\\end{array}\n\\right. \\] in which $p_{k}$ is the marker allelic frequency at loci $k$\n\nThe $a_{t}$ effects will have priors $a_{t} \\sim N(u_{a_{t-1}},\\sigma_{a_{t-1}})$ controlled by the location $u_{a_{t-1}}$ and scale $\\sigma_{a_{t-1}}$ hyperparameters, in which hyperprior distributions will be learned from the previous $t-1$ analysis via prior/posterior updating. Conjointly, the location and scale hyparameters from the stochastic nodes $\\mu_{t} \\sim N(u_{\\mu_{t-1}},\\sigma_{\\mu_{t-1}})$ and $\\sigma_{t} \\sim N^+(u_{r_{t-1}},\\sigma_{r_{t-1}})$ in the same way will be learned from the previous $t-1$ analysis. We are going to combine the information from the data with our prior specifications and obtain posterior values for all stochastic node via the algorithm Nuts (No-U-Turn Sampler), which is a extension of the Hamiltonian Monte Carlo (HMC) algorithm that does not require that users specify any parameters \\citep{Hoffman2014}. The key advantage of this algorithm is that the user does not need to know the analytical functional form of the posterior distribution to perform the Monte Carlo integration, which is a great step towards the popularization of our BNs that we are proposing here. We are going to code our BNs using the probabilistic programming R package \\textit{RStan}, which have the Nuts algorithm implemented at its coding machinery \\citep{Carpenter2015}.\n\n\nWe are going to perform posterior predictive checking via the construction of Bayesian statistical tests \\citep{Gelman2013, Gelman2014}. The checking procedure is based on the following simplified steps: (i) generates data ($y_{rep}$) from the conditional posterior distribution of the response variable (phenotypes) given the fitted parameters; that is, sampling data from $y_{t}|\\mu_{t}, g_{t} \\sim N( \\mu_{t} + g_{t} , \\sigma_{t} )$, (ii) Compute some test statistic of the sampled draws against the observed data values ($y_{obs}$); for example, in case of the maximum, \\scriptsize $T(max \\left(y_{rep}) > max(y_{obs}) \\right)$ \\normalsize, (iii) if the statistic is between 0.05 $\\sim$ 0.95 means that the model feature under evaluation agrees with the observed data values; thus, the model has good properties for the feature under testing. This procedure allows us to find modeling pitfalls. If the test statistic for maximum shows values below 0.05, it indicates the need of new priors on the model parameters that will induce lower shrinkage on the marker effects. We would solve or mitigate the problem with a normal prior distribution with a higher variance on the substitution marker effects. It induces higher magnitude of marker effects. We repeat the testing procedure until most of the relevant features of the data agrees with the data generated from the model. The testing procedure allows us to fix modelling pitfalls until our model shows, as good as possible, a reflection of the true generative process of the data.  We are going to use, and propose for the first time this modern Bayesian diagnostics in Genomic Selection models scenarios. The posterior predictive check will eliminate the subjectivity of the Bayesian Genomic Selection models (prior distributions) reported frequently into the literature \\citep{Gianola2009, Gianola2013}. Finally, we are going to evaluate the predictive performance of our models via WAIC, AIC information criteria and some cross-validation information criteria and obtain correlations between predictive and observed genotype field performance \\citep{Gelman2014}.\n\n\n%%%%%%\n\n\\chapter{Considerations}\n\nNew tools to increase the genetic gain per unit of time in sorghum breeding programs are fundamental to its future success as a bioenergy crop. We believe that our contribution will pave the way for GS applications using massive amount of data and will contribute to the optimization of GS process in sorghum breeding, due to our collaboration with Prof. Dr. Michael Gore (The Gore Lab/ Cornell University). Our groups (Statistical Genetics Lab) will offer the statistical modeling support and Prof. Dr. Gore will provide his relevant knowledge with sorghum genetics. To our knowledge, we believe that it is the biggest sorghum phenotypic and genotypic database ever collected.\n\nThe Cornell university is the second highest in 2017 rankings of the best global universities for animal and plant science \\citep{Morse2017}. We strongly believe this partnership between us and Cornell University will give fruitful exchange of knowledge and also, probably, will result in outstanding publications at the most relevant genetic scientific journals of the world.  Prof. Gore has expertise in both quantitative genetics \\citep{Gore2009,Korte2012,Owens2014} and high-throughput phenotyping \\citep{Andrade-Sanchez2014,Thorp2015}. The advisor Prof. Augusto Garcia has developed together with his lab staff many relevant studies in genetic mapping \\citep{Pereira2013,Quezada2014}, QTL mapping \\citep{Gazaffi2014}, and genetic models using the Bayesian network approach \\citep{Serang2012,Garcia2013}, that is the same modeling approach proposed here. Prof. Dr. Gore already mentioned that is open to receive at his lab for a time the Ph.D student involved into this project, and this may be fundamental to the accomplishment of this project. Jhonathan dos Santos has experience in developing GS models  \\citep{dosSantos2015,dosSantos2016a,dosSantos2016b} and this future internship will contribute greatly to his formation. We intend to submit a proposal to FAPESP BEPE scholarship.\n \nThus, putting it all together, we believe that the strong collaboration plus the features of the genetic database and the adoption of a modeling framework that is state-of-art in both machine learning and statistics will likely to result in innovations, contributions to sorghum Breeding, and naturally, to the biofuels industry and world society. In addition, the genomic selection models proposed here will also benefit breeding programs from other crops, given that our models are applicable to these, if phenotypic and molecular marker data are available. Brazil has several studies in progress with genomic selection (including our group). Our models will contribute to the analysis of complex plant breeding \\textit{Big Data}, even before HTP become a standard phenotyping approach in target tropical breeding mega-environments.\n\n\n%%%%\n\\chapter{Work Plan and Schedule}\n\nAll doctorate activities that involves courses and research development follows on Table 1. \n\n\\scriptsize\n\n\\begin{center}\n\\noindent\n\\begin{table} [!h]\n  \\caption{Schedule of the project development and doctorate activities} \n  \\centering  \n  \\label{Table 1}\n\\scriptsize\n\\begin{tabular}{lcccccccc}\n\\hline\nActivities                      & \\multicolumn{8}{c}{Semester} \\\\\n\\cline{2-9}\n                         & 2015-2 & 2016-1 & 2016-2 & 2017-1 & 2017-2 & 2018-1 & 2018-2 & 2019-1 \\\\ \\hline\\hline\nCourses                  &OK      &OK      &OK       &X       &        &        &        &        \\\\ \nReview of Literature     &OK      &OK      &OK        &        &        &        &        &        \\\\ \nModels development       &        &OK      &OK       &X       &X       &X       &        &        \\\\ \nCodes development        &        &OK      &OK       &X       &X       &X       &        &        \\\\  \nQualification exam       &        &        &        &X       &        &X       &X       &        \\\\  \nInternational intership (to be submitted)  &        &        &        &        &        &X       &X       &        \\\\ \nPaper writing            &        &        &        &        &X       &X       &X       &X       \\\\  \nThesis writing           &        &        &        &        &        &        &X       &X        \\\\  \nThesis defense           &        &        &        &        &        &        &        &X      \\\\ \\hline\\hline\n\\end{tabular}\n\\end{table}\n\n\\end{center}\n\n\n\n%%%%%%%%%%%\n% Referências\n\\renewcommand\\bibname{References} %or any prefered name\n\n\\bibliographystyle{./referencias/genetics} %for Natbib it was plainnat\n\\bibliography{./referencias/bibliografia} %the .bib file and its location\n\n%\\vspace{1cm}\n\\vfill{}\n%\\hrulefill\n\n\n%%%%%%%%%%%\n% Fim do documento\n\n\\begin{center}\n{\\sffamily \\scriptsize  Updated at \\today\\- •\\- \nTypografy on \\href{http://en.wikipedia.org/wiki/XeTeX}{\\XeTeX }\\\\\n% Coloque aqui sua página\n\\textit{\\href{https://github.com/Jhonathan-Pedroso/}{https://github.com/Jhonathan-Pedroso/}}}\\\\\n\\end{center}\n\n\\end{document}\n",
+			"file": "/home/jhonathan/Documents/phd1/Project/projeto_jhonathan_fapesp/Projeto.tex",
+			"file_size": 54716,
+			"file_write_time": 131866962511496089,
+			"settings":
+			{
+				"buffer_size": 54622,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/jhonathan/Documents/phd1/my_theses/my_template/Tese.tex",
+			"settings":
+			{
+				"buffer_size": 4535,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/jhonathan/Documents/phd1/my_theses/my_template/template/Template_Tese.sty",
+			"settings":
+			{
+				"buffer_size": 5804,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/jhonathan/Documents/phd1/my_theses/my_template/textual/Capitulo1.tex",
+			"settings":
+			{
+				"buffer_size": 33978,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "\\clearpage\n\\section{Bayesian data analysis}\n\nIn statistics, the frequentist paradigm assumes that exists only one true value of a parameter, it must be fixed and unknown, and estimated as a function of a data set - data set treated as random  \\citep{Bishop2013, Goodfellow2016}. Another important research line in statistics is known as Bayesian paradigm. This line believes the point value of a parameter is never know, and it should be treated as unknown and represented by a random variable learned directly on the data set - data set treated as not random and observed. The Bayesian paradigm learns the likely values of a unknown parameter using the probability theory rules \\citep{Gelman2014a, Goodfellow2016}.In this framework, previous knowledge is mapped on a prior probability function, the information from experiments into a likelihood probability function, and the Bayes theorem is used to merge both into a posterior probability distribution \\citep{Gelman2014a},\n\n\\begin{equation}\np(\\beta | y) = \\dfrac{p(y | \\beta) p(\\beta)}{p(y)}\n\\end{equation}\n\n\\noindent where $p(y | theta) $ is the conditional likelihood probability function, $p(theta)$ is the marginal prior probability of the parameter $\\beta$, $p(y)$ is the marginal probability function of the data.\n\nThe Bayesian paradigm can be understood directly on an example related to prediction. In GP, we usually are interested in learning the effects ($\\beta$) of a set $\\{x_{i1}, x_{i2}, \\hdots, x_{ij}, \\hdots, x_{ik}\\}$ of $k$ SNPs on the phenotype ($y_i$) of the $\\text{i}^{\\text{th}}$ line from a population of $n$ lines with mean $\\mu \\in \\mathbb{R}$, allelic dosage $x_{ij} \\in \\{2 , 1 , 0 \\}$, SNP effect $\\beta \\in\\mathbb{R}^k$, and phenotype $y \\in\\mathbb{R}^n$, where $\\mathbb{R}^k$ and $\\mathbb{R}^n$ denotes real space with $k$ and $n$ dimensions, respectively.  \n\nThe first step in Bayesian data analysis requires specify a likelihood probability function reflecting a probabilistic mechanism that generates the data given the parameters. This probability distribution will concatenate the information from the phenotypic data ($y$) obtained by a plant breeding trial.  In the case of quantitative traits, a widely accepted likelihood probability function is the normal distribution \\citep{ Mackay2009, Barton2017},\n\n\\begin{equation} \t\ny_i  \\, | \\, \\ x_i, \\mu, \\beta, \\sigma \\sim \\mathcal{N}(y_i \\, | \\, \\mu + x_i \\beta, \\sigma) \n\\end{equation}\n\n\\noindent where $\\sigma \\in \\mathbb{R}^+$ represent the scale parameter controlling the uncertainty around the expected value $\\hat{y_i} = \\mu + x_i \\beta$.\n\nThe next step is to specify the prior probability functions reflecting our current beliefs about the unknowns parameters. In the example case, for $\\mu$ and $\\beta_j$, the normal probability function may be a wise prior choice in the light of Fisher the infinitesimal model, which states that genes have small and linear cumulative contribution on the phenotype \\citep{Fisher1918, Mackay2009, Barton2017}. In this perspective, the conditional probability prior distributions for these two parameters are given by \\citep{Feller1968},\n\n\\begin{equation} \n\\mu  \\, | \\, 0, s_\\mu \\sim \\mathcal{N}(\\mu \\, | \\, 0, s_\\mu) \n\\end{equation}\n\n\\begin{equation} \n\\beta_j \\, | \\, 0, s_\\beta \\sim \\mathcal{N}(\\beta_j \\, | \\, 0, s_\\beta) \n\\end{equation}\n\n\\noindent where the probability point of mass a priori is centered around zero, and the $s_\\mu \\in \\mathbb{R}^+$ and $s_\\beta \\in \\mathbb{R}^+$ represents scale hyperparameters describing the uncertainty regarding the likely values of the parameter around zero. In non hierarchical Bayesian models, we can simply create a uninformative prior with high entropy by setting the scale hyperparameters to a known high positive value depending on the scale of the phenotype \\citep{Goodfellow2016}. However, this approach may have the disadvantage of subjectiness when choosing the high scalar value \\citep{Bishop2013}. Also, this approach may cause posterior mean discalibration, that is, the situation where bias may be introduced in the model if the likely values assumed a priori is too much different from the one expected by the true mechanism that generates the data \\citep{Gelman2014a}.  \n\nAs mentioned before, the scale parameter  $\\sigma$ represent our uncertainty about the phenotypic values $y_i$. Due to this parameter restricted to positive real numbers, it may be modeled by a half Cauchy prior probability function to avoid the presence of unexpected large predicted values after the learning process \\citep{Feller1968, Gelman2008, Gelman2014a}, \n\n\\begin{equation} \n\\sigma \\, | \\, 0, s_\\sigma \\sim \\text{Cauchy}^+(\\sigma \\, | \\, 0, s_\\sigma) \n\\end{equation}\n\n\\noindent where the probability point of mass a priori is centered around zero, and the $s_\\sigma \\in \\mathbb{R}^+$ represents a scale hyperparameter describing the uncertainty regarding the likely values of the parameter around zero. Similar to the normal prior distribution case, an uninformative half Cauchy prior can be constructed by assuming the value of $s_\\sigma$ as a known high scalar value. However, a strategy to eliminate the subjectiveness in defining those scale hyperparameters can be obtained by using a hierarchical structure instead of a non hierarchical formulation. In this approach, hyperpriors are added to the hyperparameters - prior distribution of the hyperparameters-, which the information from the data can be used to learn their most likely values in a full probabilistic model only controlled by a global known hyperparameter. In the hierarchical formulation, the hyperparameters are treated as a unknown parameters instead of known subjective parameters set by the user. In this hierarchical Bayesian model formulation, we can define the hyperpriors for the scale hyperparameters using half Cauchy priors \\citep{Gelman2008, Gelman2014a},\n \n\\begin{equation} \ns_{\\mu} \\, | \\, 0, \\phi \\sim \\text{Cauchy}^+(s_{\\mu}\\, | \\, 0, \\phi) \n\\end{equation}\n\n\\begin{equation} \ns_{\\beta} \\, | \\, 0, \\phi \\sim \\text{Cauchy}^+(s_{\\beta}\\, | \\, 0, \\phi) \n\\end{equation}\n\n\\begin{equation} \ns_{\\sigma} \\, | \\, 0, \\phi \\sim \\text{Cauchy}^+(s_{\\sigma}\\, | \\, 0, \\phi) \n\\end{equation}\n\n\\noindent where the hyperpriors are centered around zero and it have a scale global hyperparameter $\\phi$ for creating a parameter sharing mechanism to recover information between hyperpriors. One strategy to handle this global hyperparameter is to set to a known but not large value to build a weakly informative prior \\citep{Gelman2006, Gelman2008, Gelman2014a}. One choice may be a measure of the size of the vector of the phenotypes, for instance, we may define $\\phi$ to build a weakly informative prior by using the $L^{\\infty}$ norm \\citep{Goodfellow2016} of the phenotypic vector times a constant of order 10,\n\n\\begin{equation}\n\\phi = || y ||_{\\infty} \\times 10 = \\text{max}_i |y_i| \\times 10 \n\\end{equation}\n\n\\noindent where max represent the maximum value in the vector.\n\nThis known hyperparameter will create hyperpriors that will have weakly information without introducing dramatically discalibration at the posterior means, and eliminate the subjectiveness in determining known values of hyperparameters in the priors \\citep{Gelman2008, Gelman2014a}. The main advantage of using the global hyperparameter as a function of the  $L^{\\infty}$ norm in the data us that the hyperprior will most of the time be invariant to the scale of the data, if the dataset represent most values of the true distribution that generates the data. \n \nAfter defining the likelihood, priors, and hyperpriors distribution, the next step in Bayesian data analysis is specify the joint distribution of all model unknowns, which can be obtained by the product of the conditional probability distribution by the chain rule \\citep{Bishop2013},\n\n\\begin{multline} \np(y, \\mu, \\beta, \\sigma, s_\\mu, s_\\beta, s_\\sigma \\, | \\, X, \\phi) = \\prod_{i=1}^n  \\mathcal{N}(y_i \\, | \\, \\mu + x_i \\beta, \\sigma) \\, \\mathcal{N}(\\mu \\, | \\, 0, s_\\mu) \\, \\mathcal{N}(\\beta \\, | \\, 0, s_\\beta) \\\\ \\text{Cauchy}^+(\\sigma \\, | \\, 0, s_\\sigma) \\, \\text{Cauchy}^+(s_{\\mu}\\, | \\, 0, \\phi) \\\\ \\text{Cauchy}^+(s_{\\beta}\\, | \\, 0, \\phi) \\, \\text{Cauchy}^+(s_{\\sigma}\\, | \\, 0, \\phi) \n\\end{multline} \n\nTo update the prior knowledge with the one obtained from experiments, we obtain a distribution called posterior probability function for each parameter in the continuous variable case using the marginalization operation,\n\n\\begin{equation}\np(\\mu \\, | \\, y, X, \\phi) = \\int \\int \\int \\int\\int p(y, \\mu, \\beta, \\sigma, s_\\mu, s_\\beta, s_\\sigma \\, | \\, X, \\phi) \\, d\\beta \\, d\\sigma \\, ds_\\mu \\, ds_\\beta \\, ds_\\sigma \n\\end{equation}\n\n\\begin{equation}\np(\\beta \\, | \\, y, X, \\phi) = \\int \\int \\int \\int\\int p(y, \\mu, \\beta, \\sigma, s_\\mu, s_\\beta, s_\\sigma \\, | \\, X, \\phi) \\, d\\mu \\, d\\sigma \\, ds_\\mu \\, ds_\\beta \\, ds_\\sigma \n\\end{equation}\n\n\\begin{equation}\np(\\sigma \\, | \\, y, X, \\phi) = \\int \\int \\int \\int\\int p(y, \\mu, \\beta, \\sigma, s_\\mu, s_\\beta, s_\\sigma \\, | \\, X, \\phi) \\, d\\mu \\, d\\beta \\, ds_\\mu \\, ds_\\beta \\, ds_\\sigma \n\\end{equation}\n\n\\begin{equation}\np(s_\\mu \\, | \\, y, X, \\phi) = \\int \\int \\int \\int\\int p(y, \\mu, \\beta, \\sigma, s_\\mu, s_\\beta, s_\\sigma \\, | \\, X, \\phi) \\, d\\mu \\, d\\beta \\, d\\sigma \\, ds_\\beta \\, ds_\\sigma \n\\end{equation}\n\n\\begin{equation}\np(s_\\beta \\, | \\, y, X, \\phi) = \\int \\int \\int \\int\\int p(y, \\mu, \\beta, \\sigma, s_\\mu, s_\\beta, s_\\sigma \\, | \\, X, \\phi) \\, d\\mu \\, d\\beta \\, d\\sigma \\, ds_\\mu \\, ds_\\sigma \n\\end{equation}\n\n\\begin{equation}\np(s_\\sigma \\, | \\, y, X, \\phi) = \\int \\int \\int \\int\\int p(y, \\mu, \\beta, \\sigma, s_\\mu, s_\\beta, s_\\sigma \\, | \\, X, \\phi) \\, d\\mu \\, d\\beta \\, d\\sigma \\, ds_\\mu \\, ds_\\beta\n\\end{equation}\n\n\\noindent where we integrate over all likely values of the unknown parameters except the one we are interested in marginalizing using the sum rule for continuous variables. \n\nIn Bayesian models used for genomic selection so far, the integrals shown above usually are solved analytically by choosing some class of priors that can be combined algebraically with the likelihood function with the same functional form. This is a kind of Bayesian theory known as conjugate analysis.  After obtaining the analytical posterior distribution,  the posterior distribution is obtained using a Monte Carlo integration algorithm known as Gibbs sampler \\citep{DeLosCampos2013}. However, one of the disadvantages of this approach is that the priors usually are required to be chosen subjectively to be able to conduct the conjugate analysis, and it may result in posterior distributions displaying discalibration at the posterior mean with unlikely high values \\citep{Gelman2008, Gelman2014a}.\n\nAs mentioned before, a solution to avoid discalibration of the posterior mean for the scale components can be accomplished with half Cauchy priors \\citep{Gelman2008}. However, the Gibbs sampler algorithm can not be implemented because the posterior can not be obtained algebraically as required by the conjugate analysis. A convenient solution for this non-conjugate problem is to use a general approach based on the Hamiltonian Monte Carlo (HMC) algorithm, in which an analytical posterior distribution are not required for sampling \\citep{Gelman2014a, Hoffman2014}. The HMC algorithm uses the dynamics of the samples to learn the region on posterior space with the most likely values. The No-U-Turn Sampler (NUTS) algorithm is a form of HMC method with parameters automatically tuned. This algorithm usually shows the same performance or even better then the Gibbs sampler, it does not has a random walk behavior, and conjugate priors are not required \\citep{Hoffman2014}. The NUTS algorithm is available in many high level languages like python (PyMC3, pystan) and R (rstan) \\citep{Pystan2018, rstan2018, Carpenter2017}. These open source probabilistic programming platforms can be easily used for developing novel genomic prediction models for research and production.\n\nOnce the training process is over and posterior samples are available, predictions can be obtained by obtaining an estimate of the posterior mean of the parameters by averaging over the Monte Carlo samples, and predictions of the phenotypes in the test set obtained by,\n\n\\begin{equation}\n\\hat{y}^\\text{[test]}_i = \\hat{\\mu} + x^\\text{[test]}_i \\hat{\\beta} \n\\end{equation}\n\n\\noindent where $\\hat{y}^\\text{[test]}_i$ is the phenotype of the $\\text{i}^{\\text{th}}$ in the test set and  $x^\\text{[test]}_i$ its marker vector, $\\hat{\\mu}$ the posterior mean estimate of the population mean, and $\\hat{\\beta}$ is the posterior mean effects of the markers.\n\n",
+			"settings":
+			{
+				"buffer_size": 12622,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/jhonathan/Documents/phd1/my_theses/my_template/textual/Capitulo2.tex",
+			"settings":
+			{
+				"buffer_size": 57292,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "\t%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n% Template para redação de Teses/Dissertações da ESALQ/USP\n% Autor: Antonio Augusto Franco Garcia\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n\n% Preâmbulo\n% NÃO MUDE NADA AQUI, NEM O TAMANHO DA FONTE\\newpage \n\\documentclass[a4paper,11pt,twoside,oldfontcommands]{memoir}\n\\usepackage{./template/Template_Tese}\n\n% Inclua aqui a lista dos pacotes do LaTeX que você necessita usar.\n% Por exemplo, para incluir o pacote amsmath, remova o comentário da\n% linha correspondente logo abaixo. Insira os demais pacotes de forma análoga.\n% ATENÇÃO: alguns pacotes são incompatíveis entre si, ou se sobrepõem\n% as configurações de outros; use com cuidado\n% amsmath: \\usepackage{amsmath}\n\\usepackage{rotating}\n\\usepackage{multirow}\n\\usepackage{graphicx}\n%\\usepackage{bibtopic} %\n%\\usepackage[T1]{fontenc} %\n%\\usepackage[sc,osf]{mathpazo} % \n\n\n\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n% Início do documento - Parte Pré-textual\n\\begin{document}\n\\renewcommand\\bibsection{\\section*{\\refname}}\n% Macro da classe memoir que remove os cabeçalhos (comuns em\n% documentos da classe \"book\")\n\\pagestyle{fnsizeheadings}\n\n% Inclusão do arquivo com informações necessárias para a parte\n% pré-textual.\n% %%%% \n% VOCÊ DEVE ABRIR O ARQUIVO TodasInformações.tex E\n% ALTERÁ-LO DA FORMA APROPRIADA PARA O SEU TRABALHO. \n% %%%%\n% Lembre-se de  conferir o número de páginas quando tiver a versão final a ser\n% submetida.\n\\input{./pre-textual/TodasInformações.tex} \n\n\n% Inclusão de arquivos que compõem a parte pré-textual\n\n% Inclusão das Capas\n% NÃO HÁ NADA A SER ALTERADO NO ARQUIVO ABAIXO \n% A capa é produzida automaticamente\n\\input{./pre-textual/Capa.tex}\n\n% Ficha catalográfica\n% NÃO HÁ NADA A SER ALTERADO NESTE ARQUIVO.\n% A ficha é produzida automaticamente\n\\input{./pre-textual/Ficha.tex}\n\n% Duas configurações importantes que não devem ser removidas:\n% Paginação constante a partir da Ficha Catalográfica, fontes roman\n\\openany\n\\rmfamily\n\n% Dedicatória (opcional)\n\\input{./pre-textual/Dedicatoria.tex}   \n\\clearpage\n\n% Agradecimentos (opcional)\n\\input{./pre-textual/Agradecimentos.tex}\n\\clearpage\n\n% Biografia (opcional)\n%\\input{./pre-textual/Biografia.tex}\n%\\clearpage\n\n% Epígrafe (opcional)\n\\input{./pre-textual/Epigrafe.tex}\n\\clearpage\n\n% Sumário (é feito automaticamente; não há nada a ser alterado!)\n\\setupshorttoc\n\\setupparasubsecs\n\\setupmaintoc\n\\tableofcontents*\n\\setlength{\\unitlength}{1pt}\n\\clearpage\n\n% Resumo. Abra o arquivo para alterações.\n\\input{./pre-textual/Resumo.tex}\n\\clearpage\n\n% Abstract. Abra o arquivo para alterações.\n\\input{./pre-textual/Abstract.tex}\n\\clearpage\n\n% Lista de Figuras (opcional). Feita automaticamente.\n%\\listoffigures\n%\\clearpage\n\n% Lista de Tabelas (opcional). Feita automaticamente.\n%\\listoftables\n%\\clearpage\n\n% Lista de Abreviaturas e Siglas (opcional). Abra o arquivo para\n% inclusões.   \n%\\input{./pre-textual/ListaAbreviaturas.tex}\n%\\clearpage\n\n% Lista de Símbolos (opcional). Abra o arquivo para modificações\n%\\input{./pre-textual/ListaSimbolos.tex}\n\n\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n% Início da Parte Textual. Conteúdo mais importante\n\n% A opção abaixo, que não deve ser removida, inicia cada capítulo\n% em página ímpar\n\\openright\n\n% Os items abaixo dependem do tipo de trabalho: capítulos, texto\n% convencional, etc, de acordo com o Regulamento. Abra os arquivos\n% abaixo (estão no diretório chamado \"textual\") para ver como os\n% modelos foram criados. Basicamente, é uma edição usando LaTeX, sem\n% modificações substanciais. Modifique o conteúdo dos arquivos, insira\n% novos .tex, etc.\n\n\\include{./textual/Capitulo1}\n\n\\end{document}\n",
+			"file": "/home/jhonathan/Documents/phd1/my_theses/my_template/Tese_Capitulo1.tex",
+			"file_size": 3735,
+			"file_write_time": 131915121740000000,
+			"settings":
+			{
+				"buffer_size": 3655,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/jhonathan/Documents/phd1/my_theses/cateto/textual/Capitulo1.tex",
+			"settings":
+			{
+				"buffer_size": 59858,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/home/jhonathan/Documents/phd1/events/pag_2019/my_template/Poster.tex",
+			"settings":
+			{
+				"buffer_size": 9701,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/jhonathan/Documents/phd1/my_theses/my_template/referencias/Capitulo1.bib",
+			"settings":
+			{
+				"buffer_size": 69918,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/jhonathan/Documents/phd1/my_theses/my_template/referencias/Capitulo2.bib",
+			"settings":
+			{
+				"buffer_size": 89364,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/jhonathan/Documents/phd1/my_theses/matheus/Dissertacao/Dissertacao_2_CAP/manuscript_terramepp_genetics_template/example-bibliography.bib",
+			"settings":
+			{
+				"buffer_size": 89364,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/jhonathan/Documents/phd1/Project/projeto_jhonathan_fapesp/referencias/bibliografia.bib",
+			"settings":
+			{
+				"buffer_size": 154484,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
 		}
 	],
 	"build_system": "",
@@ -280,20 +393,28 @@
 		"selected_items":
 		[
 			[
-				"git pull",
-				"Git: Pull Current Branch"
-			],
-			[
 				"push",
 				"Git: Push Current Branch"
 			],
 			[
-				"com",
+				"git com",
 				"Git: Commit"
 			],
 			[
 				"git add",
 				"Git: Add All"
+			],
+			[
+				"git pull",
+				"Git: Pull Current Branch"
+			],
+			[
+				"git pul",
+				"Git: Pull Current Branch"
+			],
+			[
+				"com",
+				"Git: Commit"
 			],
 			[
 				"git pu",
@@ -414,10 +535,6 @@
 			[
 				"repl she",
 				"SublimeREPL: Shell"
-			],
-			[
-				"git pul",
-				"Git: Pull Current Branch"
 			],
 			[
 				"git branch",
@@ -582,6 +699,18 @@
 	},
 	"file_history":
 	[
+		"/home/jhonathan/Documents/phd1/my_slides/syngenta_crop_challenge_2018/slides.tex",
+		"/home/jhonathan/Documents/phd1/my_slides/talk_lab_syngenta/slides.tex",
+		"/home/jhonathan/Downloads/Cauchy.tex",
+		"/home/jhonathan/Documents/phd1/my_theses/my_template/textual/Capitulo2.tex",
+		"/home/jhonathan/Documents/phd1/my_theses/Dissertacao_Capitulos_Working/Tese.tex",
+		"/home/jhonathan/Documents/phd1/my_theses/my_template/referencias/Capitulo2.bib",
+		"/home/jhonathan/Documents/phd1/Project/jhonathan_fapesp_docs/Referencias/referencias.tex",
+		"/home/jhonathan/Documents/phd1/my_theses/matheus/Dissertacao/Dissertacao_2_CAP/textual/Capitulo2.tex",
+		"/home/jhonathan/Documents/phd1/my_theses/matheus/Dissertacao/Dissertacao_2_CAP/textual/Capitulo1.tex",
+		"/home/jhonathan/Documents/sorghum-multi-trait/codes/mtrait_mixed_models.R",
+		"/home/jhonathan/Downloads/jeeh_code.R",
+		"/home/jhonathan/Music/yuan.R",
 		"/home/jhonathan/Documents/phd1/Project/bepe/bepe_project_with_resume/referencias/bibliografia.bib",
 		"/home/jhonathan/Documents/sorghum-multi-trait/codes/mtrait_first_step_analysis_heritability.R",
 		"/home/jhonathan/Documents/sorghum-multi-trait/codes/junk_code.py",
@@ -697,19 +826,7 @@
 		"/home/jhonathan/Documents/time-proj/sh_codes/dbn_3_points_f2_cv21.pbs",
 		"/home/jhonathan/Documents/time-proj/Rscripts/rscript_dbn_2_points_f2_cv23.R",
 		"/home/jhonathan/Documents/time-proj/Rscripts/rscript_dbn_6_points_cockerham_cv23.R",
-		"/home/jhonathan/Documents/time-proj/Rscripts/rscript_dbn_6_points_cockerham_cv22.R",
-		"/home/jhonathan/Documents/time-proj/Rscripts/rscript_dbn_6_points_cockerham_cv21.R",
-		"/home/jhonathan/Documents/time-proj/Rscripts/rscript_dbn_3_points_cockerham_cv23.R",
-		"/home/jhonathan/Documents/time-proj/Rscripts/rscript_dbn_2_points_cockerham_cv23.R",
-		"/home/jhonathan/Documents/time-proj/sh_codes/dbn_6_points_rbf_cv23.pbs",
-		"/home/jhonathan/Documents/time-proj/sh_codes/dbn_3_points_rbf_cv23.pbs",
-		"/home/jhonathan/Documents/time-proj/sh_codes/dbn_2_points_rbf_cv23.pbs",
-		"/home/jhonathan/Documents/time-proj/sh_codes/dbn_2_points_rbf_cv22.pbs",
-		"/home/jhonathan/Documents/time-proj/sh_codes/dbn_6_points_rbf_cv22.pbs",
-		"/home/jhonathan/Documents/time-proj/sh_codes/dbn_3_points_rbf_cv22.pbs",
-		"/home/jhonathan/Documents/time-proj/sh_codes/dbn_2_points_rbf_cv21.pbs",
-		"/home/jhonathan/Documents/time-proj/sh_codes/dbn_3_points_rbf_cv21.pbs",
-		"/home/jhonathan/Documents/time-proj/sh_codes/dbn_6_points_rbf_cv21.pbs"
+		"/home/jhonathan/Documents/time-proj/Rscripts/rscript_dbn_6_points_cockerham_cv22.R"
 	],
 	"find":
 	{
@@ -724,9 +841,61 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": true,
+		"case_sensitive": false,
 		"find_history":
 		[
+			"\\theta",
+			"pystan",
+			"}",
+			"phenotype",
+			"gather*",
+			"table",
+			"Dispersion plots with simulated relatedness",
+			"\\captionsetup",
+			"[subfigure]",
+			"mathbb",
+			"Goodwin",
+			"Loman",
+			"Bishop",
+			"Gelman",
+			"Gelman2014",
+			"Calus",
+			"Bernardo",
+			"2013",
+			"Morris",
+			"Morris2013",
+			"2008",
+			"Baird",
+			"Baird2008",
+			"Moris",
+			"Mor",
+			"2012",
+			"Peterson",
+			"2014",
+			"Si",
+			"Sim",
+			"Sims",
+			"Sims2014",
+			"Sims",
+			"Shendure2008",
+			"Ham",
+			"Hammer2010",
+			"Hammer2010\n",
+			"Hammer",
+			"Hammer2010",
+			"Vermeris",
+			"Verme",
+			"Regassa2014",
+			"2007",
+			"2008",
+			"Rooney",
+			"Rooney2007",
+			"Rooney",
+			"rooney",
+			"roney",
+			"rone",
+			"savefig",
+			"i",
 			"\"",
 			"[",
 			"[0]",
@@ -802,59 +971,7 @@
 			"cv22",
 			"dbn_3",
 			"dbn_2",
-			"cv21",
-			"dbn_3",
-			"dbn_2",
-			"23",
-			"f2",
-			"dbn_3",
-			"dbn_2",
-			"cv22",
-			"dbn_3",
-			"dbn_2",
-			"cv21",
-			"dbn_3",
-			"dbn_2",
-			"cockerham",
-			"cv23",
-			"dbn_3",
-			"dbn_2",
-			"cv22",
-			"dbn_3",
-			"dbn_2",
-			"cv21",
-			"21",
-			"dbn_3",
-			"dbn_2",
-			"_cv21",
-			"2_points_cockerham",
-			"f2",
-			"cock",
-			"up",
-			"DBN_",
-			"CV3",
-			"env",
-			"cv_list",
-			"df_cross",
-			"SSM",
-			"mse",
-			"\"NONE\"",
-			"19), lwd=3",
-			"19)",
-			", xlim=c(0,25)",
-			"25",
-			"dbn_2",
-			"f2",
-			"dbn_3",
-			"dbn_2",
-			"cockerham",
-			"dbn_3",
-			"dbn_6",
-			"dbn_2",
-			"ssm_2",
-			"ssm",
-			"dbn",
-			"ssm"
+			"cv21"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -862,6 +979,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"\\beta",
 			"'",
 			"[1]",
 			"/deep_phd-proj",
@@ -988,8 +1106,7 @@
 			"ssm",
 			"blr",
 			"y_temp_t_1",
-			"y_temp_t",
-			"ssm"
+			"y_temp_t"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -1000,7 +1117,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -1009,15 +1126,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4439,
+						"buffer_size": 5050,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								975,
-								975
+								2761,
+								2761
 							]
 						],
 						"settings":
@@ -1026,73 +1143,44 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1377.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/mtrait_mixed_models.R",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 7784,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4917,
-								4917
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/R/R.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 2346.0,
+						"translation.y": 999.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "/home/jhonathan/Downloads/jeeh_code.R",
+					"buffer": 1,
+					"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/external_functions.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2247,
+						"buffer_size": 3175,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								439,
-								439
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"auto_name": "",
-							"syntax": "Packages/R/R.sublime-syntax",
+							"syntax": "Packages/Python/Python.sublime-syntax",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 153.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 14,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 2,
 					"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/mtrait_bayesian_networks_results.py",
 					"semi_transient": false,
 					"settings":
@@ -1104,8 +1192,8 @@
 						"selection":
 						[
 							[
-								43996,
-								43996
+								37296,
+								37296
 							]
 						],
 						"settings":
@@ -1115,14 +1203,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 18530.0,
+						"translation.y": 10320.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 15,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 3,
 					"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/untitled.py",
 					"semi_transient": false,
 					"settings":
@@ -1148,11 +1236,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 18,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 4,
 					"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/mtrait_first_step_analysis_heritability_std_delta.R",
 					"semi_transient": false,
 					"settings":
@@ -1174,14 +1262,14 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1479.0,
+						"translation.y": 950.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 17,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 5,
 					"file": "/home/jhonathan/Documents/phd1/Project/bepe/manuscript_terra-mepp_bayesian_networks/bib_latex.bib",
 					"semi_transient": false,
 					"settings":
@@ -1204,14 +1292,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 510.0,
+						"translation.y": 287.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 16,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 6,
 					"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/tmp.R",
 					"semi_transient": false,
 					"settings":
@@ -1236,11 +1324,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 20,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 7,
 					"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/bash_codes.sh",
 					"semi_transient": false,
 					"settings":
@@ -1265,20 +1353,395 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 19,
 					"type": "text"
 				}
 			]
 		},
 		{
+			"selected": 3,
 			"sheets":
 			[
+				{
+					"buffer": 8,
+					"file": "/home/jhonathan/Documents/phd1/Project/projeto_jhonathan_fapesp/Projeto.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 54622,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								31853,
+								31853
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 763.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "/home/jhonathan/Documents/phd1/my_theses/my_template/Tese.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4535,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4438,
+								4438
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 675.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "/home/jhonathan/Documents/phd1/my_theses/my_template/template/Template_Tese.sty",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5804,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1136,
+								1136
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/TeX.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 135.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "/home/jhonathan/Documents/phd1/my_theses/my_template/textual/Capitulo1.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 33978,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								22411,
+								22411
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3423.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 12622,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								640,
+								640
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "/home/jhonathan/Documents/phd1/my_theses/my_template/textual/Capitulo2.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 57292,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								22708,
+								22708
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 2070.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "/home/jhonathan/Documents/phd1/my_theses/my_template/Tese_Capitulo1.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3655,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1,
+								1
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"file": "/home/jhonathan/Documents/phd1/my_theses/cateto/textual/Capitulo1.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 59858,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								50967,
+								50967
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 327.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 16,
+					"file": "/home/jhonathan/Documents/phd1/events/pag_2019/my_template/Poster.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9701,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								771,
+								771
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 17,
+					"file": "/home/jhonathan/Documents/phd1/my_theses/my_template/referencias/Capitulo1.bib",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 69918,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								43832,
+								43832
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/Bibtex.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 8354.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 18,
+					"file": "/home/jhonathan/Documents/phd1/my_theses/my_template/referencias/Capitulo2.bib",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 89364,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								82067,
+								82067
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/Bibtex.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 16627.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 19,
+					"file": "/home/jhonathan/Documents/phd1/my_theses/matheus/Dissertacao/Dissertacao_2_CAP/manuscript_terramepp_genetics_template/example-bibliography.bib",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 89364,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								89364,
+								89364
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/Bibtex.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 642.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 20,
+					"file": "/home/jhonathan/Documents/phd1/Project/projeto_jhonathan_fapesp/referencias/bibliografia.bib",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 154484,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								79859,
+								79859
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/Bibtex.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 16167.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 13,
+					"type": "text"
+				}
 			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 31.0
+		"height": 27.0
 	},
 	"input":
 	{
@@ -1309,7 +1772,7 @@
 		"rows":
 		[
 			0.0,
-			0.839008922294,
+			0.611350421686,
 			1.0
 		]
 	},
@@ -1330,7 +1793,7 @@
 	"project": "mtrait.sublime-project",
 	"replace":
 	{
-		"height": 58.0
+		"height": 70.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1349,12 +1812,16 @@
 	"select_project":
 	{
 		"height": 500.0,
-		"last_filter": "",
+		"last_filter": "div",
 		"selected_items":
 		[
 			[
+				"div",
+				"~/Documents/diversity-proj/sublime/diversity-proj.sublime-project"
+			],
+			[
 				"",
-				"~/Documents/merc-proj/sublime/merc.sublime-project"
+				"~/Documents/diversity-proj/sublime/diversity-proj.sublime-project"
 			],
 			[
 				"o",

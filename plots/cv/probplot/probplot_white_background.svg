@@ -15,8 +15,11 @@
    width="15.88cm"
    height="11.64cm"
    viewBox="0 0 600.18898 439.93703"
-   sodipodi:docname="probplot.svg"
-   inkscape:version="0.92.3 (2405546, 2018-03-11)"><metadata
+   sodipodi:docname="probplot_white_background.svg"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   inkscape:export-filename="/home/jhonathan/Documents/sorghum-multi-trait/plots/cv/probplot/probplot_white_background.png"
+   inkscape:export-xdpi="350"
+   inkscape:export-ydpi="350"><metadata
      id="metadata8"><rdf:RDF><cc:Work
          rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
@@ -4024,7 +4027,7 @@
      id="namedview4"
      showgrid="false"
      inkscape:zoom="1.1588694"
-     inkscape:cx="546.19576"
+     inkscape:cx="359.8072"
      inkscape:cy="195.79644"
      inkscape:window-x="0"
      inkscape:window-y="32"
@@ -4694,6 +4697,7 @@
      sodipodi:role="line"
      id="tspan820">0.5</tspan></text>
 
+
 <path
    d="m 201.6,95.04 v -3.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -4706,6 +4710,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan826">0.6</tspan></text>
+
 
 <path
    d="m 313.2,95.04 v -3.5"
@@ -4720,6 +4725,7 @@
      sodipodi:role="line"
      id="tspan832">0.7</tspan></text>
 
+
 <path
    d="m 424.8,95.04 v -3.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -4732,6 +4738,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan838">0.8</tspan></text>
+
 
 <path
    d="m 536.4,95.04 v -3.5"
@@ -4746,6 +4753,7 @@
      sodipodi:role="line"
      id="tspan844">0.9</tspan></text>
 
+
 <path
    d="m 648,95.04 v -3.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -4759,6 +4767,7 @@
      sodipodi:role="line"
      id="tspan850">1.0</tspan></text>
 
+
 <text
    transform="matrix(1,0,0,-1,94.085937,57.211875)"
    style="font-variant:normal;font-weight:normal;font-size:20px;font-family:'DejaVu Sans';-inkscape-font-specification:DejaVuSans;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
@@ -4767,6 +4776,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan854">Top 20% posterior coincidence index based on inbreds</tspan></text>
+
 
 <path
    d="M 90,99.198 H 86.5"
@@ -4781,6 +4791,7 @@
      sodipodi:role="line"
      id="tspan860">PI329727</tspan></text>
 
+
 <path
    d="M 90,107.514 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -4793,6 +4804,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan866">PI452590</tspan></text>
+
 
 <path
    d="M 90,115.83 H 86.5"
@@ -4807,6 +4819,7 @@
      sodipodi:role="line"
      id="tspan872">PI454131</tspan></text>
 
+
 <path
    d="M 90,124.146 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -4819,6 +4832,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan878">PI329597</tspan></text>
+
 
 <path
    d="M 90,132.462 H 86.5"
@@ -4833,6 +4847,7 @@
      sodipodi:role="line"
      id="tspan884">PI452584</tspan></text>
 
+
 <path
    d="M 90,140.778 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -4845,6 +4860,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan890">PI452648</tspan></text>
+
 
 <path
    d="M 90,149.094 H 86.5"
@@ -4859,6 +4875,7 @@
      sodipodi:role="line"
      id="tspan896">PI453395</tspan></text>
 
+
 <path
    d="M 90,157.41 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -4871,6 +4888,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan902">PI452994</tspan></text>
+
 
 <path
    d="M 90,165.726 H 86.5"
@@ -4885,6 +4903,7 @@
      sodipodi:role="line"
      id="tspan908">PI452697</tspan></text>
 
+
 <path
    d="M 90,174.042 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -4897,6 +4916,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan914">PI453221</tspan></text>
+
 
 <path
    d="M 90,182.358 H 86.5"
@@ -4911,6 +4931,7 @@
      sodipodi:role="line"
      id="tspan920">PI452639</tspan></text>
 
+
 <path
    d="M 90,190.674 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -4923,6 +4944,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan926">PI456401A</tspan></text>
+
 
 <path
    d="M 90,198.99 H 86.5"
@@ -4937,6 +4959,7 @@
      sodipodi:role="line"
      id="tspan932">PI453341</tspan></text>
 
+
 <path
    d="M 90,207.306 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -4949,6 +4972,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan938">PI453490</tspan></text>
+
 
 <path
    d="M 90,215.622 H 86.5"
@@ -4963,6 +4987,7 @@
      sodipodi:role="line"
      id="tspan944">PI452988</tspan></text>
 
+
 <path
    d="M 90,223.938 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -4975,6 +5000,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan950">PI148086</tspan></text>
+
 
 <path
    d="M 90,232.254 H 86.5"
@@ -4989,6 +5015,7 @@
      sodipodi:role="line"
      id="tspan956">PI329403</tspan></text>
 
+
 <path
    d="M 90,240.57 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -5001,6 +5028,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan962">PI148083</tspan></text>
+
 
 <path
    d="M 90,248.886 H 86.5"
@@ -5015,6 +5043,7 @@
      sodipodi:role="line"
      id="tspan968">PI329569</tspan></text>
 
+
 <path
    d="M 90,257.202 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -5027,6 +5056,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan974">PI452991</tspan></text>
+
 
 <path
    d="M 90,265.518 H 86.5"
@@ -5041,6 +5071,7 @@
      sodipodi:role="line"
      id="tspan980">PI453349</tspan></text>
 
+
 <path
    d="M 90,273.834 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -5053,6 +5084,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan986">PI330165</tspan></text>
+
 
 <path
    d="M 90,282.15 H 86.5"
@@ -5067,6 +5099,7 @@
      sodipodi:role="line"
      id="tspan992">PI452982</tspan></text>
 
+
 <path
    d="M 90,290.466 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -5079,6 +5112,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan998">PI196049</tspan></text>
+
 
 <path
    d="M 90,298.782 H 86.5"
@@ -5093,6 +5127,7 @@
      sodipodi:role="line"
      id="tspan1004">PI454674</tspan></text>
 
+
 <path
    d="M 90,307.098 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -5105,6 +5140,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1010">PI452968</tspan></text>
+
 
 <path
    d="M 90,315.414 H 86.5"
@@ -5119,6 +5155,7 @@
      sodipodi:role="line"
      id="tspan1016">PI457183A</tspan></text>
 
+
 <path
    d="M 90,323.73 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -5131,6 +5168,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1022">PI454468</tspan></text>
+
 
 <path
    d="M 90,332.046 H 86.5"
@@ -5145,6 +5183,7 @@
      sodipodi:role="line"
      id="tspan1028">PI563330</tspan></text>
 
+
 <path
    d="M 90,340.362 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -5157,6 +5196,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1034">PI330095</tspan></text>
+
 
 <path
    d="M 90,348.678 H 86.5"
@@ -5171,6 +5211,7 @@
      sodipodi:role="line"
      id="tspan1040">PI456419</tspan></text>
 
+
 <path
    d="M 90,356.994 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -5183,6 +5224,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1046">PI453330</tspan></text>
+
 
 <path
    d="M 90,365.31 H 86.5"
@@ -5197,6 +5239,7 @@
      sodipodi:role="line"
      id="tspan1052">PI453522</tspan></text>
 
+
 <path
    d="M 90,373.626 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -5209,6 +5252,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1058">PI452578</tspan></text>
+
 
 <path
    d="M 90,381.942 H 86.5"
@@ -5223,6 +5267,7 @@
      sodipodi:role="line"
      id="tspan1064">PI452611</tspan></text>
 
+
 <path
    d="M 90,390.258 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -5235,6 +5280,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1070">PI452804</tspan></text>
+
 
 <path
    d="M 90,398.574 H 86.5"
@@ -5249,6 +5295,7 @@
      sodipodi:role="line"
      id="tspan1076">PI329299</tspan></text>
 
+
 <path
    d="M 90,406.89 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -5261,6 +5308,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1082">PI453346</tspan></text>
+
 
 <path
    d="M 90,415.206 H 86.5"
@@ -5275,6 +5323,7 @@
      sodipodi:role="line"
      id="tspan1088">NSL55476</tspan></text>
 
+
 <path
    d="M 90,423.522 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -5287,6 +5336,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1094">PI452625</tspan></text>
+
 
 <path
    d="M 90,431.838 H 86.5"
@@ -5301,6 +5351,7 @@
      sodipodi:role="line"
      id="tspan1100">PI453393</tspan></text>
 
+
 <path
    d="M 90,440.154 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -5313,6 +5364,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1106">PI148089</tspan></text>
+
 
 <path
    d="M 90,448.47 H 86.5"
@@ -5327,6 +5379,7 @@
      sodipodi:role="line"
      id="tspan1112">PI452628</tspan></text>
 
+
 <path
    d="M 90,456.786 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -5339,6 +5392,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1118">PI148114</tspan></text>
+
 
 <path
    d="M 90,465.102 H 86.5"
@@ -5353,6 +5407,7 @@
      sodipodi:role="line"
      id="tspan1124">PI456431</tspan></text>
 
+
 <path
    d="M 90,473.418 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -5365,6 +5420,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1130">PI453392</tspan></text>
+
 
 <path
    d="M 90,481.734 H 86.5"
@@ -5379,6 +5435,7 @@
      sodipodi:role="line"
      id="tspan1136">PI452995</tspan></text>
 
+
 <path
    d="M 90,490.05 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -5391,6 +5448,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1142">PI452534</tspan></text>
+
 
 <path
    d="M 90,498.366 H 86.5"
@@ -5405,6 +5463,7 @@
      sodipodi:role="line"
      id="tspan1148">PI330185</tspan></text>
 
+
 <path
    d="M 90,506.682 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -5417,6 +5476,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1154">PI453035</tspan></text>
+
 
 <path
    d="M 90,514.998 H 86.5"
@@ -5431,6 +5491,7 @@
      sodipodi:role="line"
      id="tspan1160">PI453336</tspan></text>
 
+
 <path
    d="M 90,523.314 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -5443,6 +5504,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1166">PI454241</tspan></text>
+
 
 <path
    d="M 90,531.63 H 86.5"
@@ -5457,6 +5519,7 @@
      sodipodi:role="line"
      id="tspan1172">PI452665</tspan></text>
 
+
 <path
    d="M 90,539.946 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -5469,6 +5532,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1178">PI452987</tspan></text>
+
 
 <path
    d="M 90,548.262 H 86.5"
@@ -5483,6 +5547,7 @@
      sodipodi:role="line"
      id="tspan1184">PI457145</tspan></text>
 
+
 <path
    d="M 90,556.578 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -5495,6 +5560,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1190">PI453335</tspan></text>
+
 
 <path
    d="M 90,564.894 H 86.5"
@@ -5509,6 +5575,7 @@
      sodipodi:role="line"
      id="tspan1196">PI453690</tspan></text>
 
+
 <path
    d="M 90,573.21 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -5521,6 +5588,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1202">PI457167</tspan></text>
+
 
 <path
    d="M 90,581.526 H 86.5"
@@ -5535,6 +5603,7 @@
      sodipodi:role="line"
      id="tspan1208">PI452577</tspan></text>
 
+
 <path
    d="M 90,589.842 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -5547,6 +5616,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1214">PI562732</tspan></text>
+
 
 <path
    d="M 90,598.158 H 86.5"
@@ -5561,6 +5631,7 @@
      sodipodi:role="line"
      id="tspan1220">PI453080</tspan></text>
 
+
 <path
    d="M 90,606.474 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -5573,6 +5644,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1226">NSL55671</tspan></text>
+
 
 <path
    d="M 90,614.79 H 86.5"
@@ -5587,6 +5659,7 @@
      sodipodi:role="line"
      id="tspan1232">PI456421</tspan></text>
 
+
 <path
    d="M 90,623.106 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -5599,6 +5672,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1238">PI453257</tspan></text>
+
 
 <path
    d="M 90,631.422 H 86.5"
@@ -5613,6 +5687,7 @@
      sodipodi:role="line"
      id="tspan1244">PI563329</tspan></text>
 
+
 <path
    d="M 90,639.738 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -5625,6 +5700,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1250">PI455852</tspan></text>
+
 
 <path
    d="M 90,648.054 H 86.5"
@@ -5639,6 +5715,7 @@
      sodipodi:role="line"
      id="tspan1256">PI329311</tspan></text>
 
+
 <path
    d="M 90,656.37 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -5651,6 +5728,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1262">PI453367</tspan></text>
+
 
 <path
    d="M 90,664.686 H 86.5"
@@ -5665,6 +5743,7 @@
      sodipodi:role="line"
      id="tspan1268">PI452587</tspan></text>
 
+
 <path
    d="M 90,673.002 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -5677,6 +5756,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1274">PI148084</tspan></text>
+
 
 <path
    d="M 90,681.318 H 86.5"
@@ -5691,6 +5771,7 @@
      sodipodi:role="line"
      id="tspan1280">PI453014</tspan></text>
 
+
 <path
    d="M 90,689.634 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -5703,6 +5784,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1286">PI453315</tspan></text>
+
 
 <path
    d="M 90,697.95 H 86.5"
@@ -5717,6 +5799,7 @@
      sodipodi:role="line"
      id="tspan1292">PI453464</tspan></text>
 
+
 <path
    d="M 90,706.266 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -5729,6 +5812,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1298">PI569452</tspan></text>
+
 
 <path
    d="M 90,714.582 H 86.5"
@@ -5743,6 +5827,7 @@
      sodipodi:role="line"
      id="tspan1304">PI453224</tspan></text>
 
+
 <path
    d="M 90,722.898 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -5755,6 +5840,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1310">PI329444</tspan></text>
+
 
 <path
    d="M 90,731.214 H 86.5"
@@ -5769,6 +5855,7 @@
      sodipodi:role="line"
      id="tspan1316">NSL55713</tspan></text>
 
+
 <path
    d="M 90,739.53 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -5781,6 +5868,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1322">NSL55345B</tspan></text>
+
 
 <path
    d="M 90,747.846 H 86.5"
@@ -5795,6 +5883,7 @@
      sodipodi:role="line"
      id="tspan1328">PI453494</tspan></text>
 
+
 <path
    d="M 90,756.162 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -5808,6 +5897,7 @@
      sodipodi:role="line"
      id="tspan1334">PI521155</tspan></text>
 
+
 <text
    transform="matrix(0,1,1,0,34.203125,320.62531)"
    style="font-variant:normal;font-weight:normal;font-size:20px;font-family:'DejaVu Sans';-inkscape-font-specification:DejaVuSans;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
@@ -5816,6 +5906,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1338">Sorghum inbred lines</tspan></text>
+
 
 <path
    d="M 90,95.04 V 760.32"
@@ -6413,6 +6504,7 @@
      sodipodi:role="line"
      id="tspan820-9">0.5</tspan></text>
 
+
 <path
    d="m 201.6,95.04 v -3.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -6425,6 +6517,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan826-4">0.6</tspan></text>
+
 
 <path
    d="m 313.2,95.04 v -3.5"
@@ -6439,6 +6532,7 @@
      sodipodi:role="line"
      id="tspan832-07">0.7</tspan></text>
 
+
 <path
    d="m 424.8,95.04 v -3.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -6451,6 +6545,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan838-8">0.8</tspan></text>
+
 
 <path
    d="m 536.4,95.04 v -3.5"
@@ -6465,6 +6560,7 @@
      sodipodi:role="line"
      id="tspan844-8">0.9</tspan></text>
 
+
 <path
    d="m 648,95.04 v -3.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -6478,6 +6574,7 @@
      sodipodi:role="line"
      id="tspan850-3">1.0</tspan></text>
 
+
 <text
    transform="matrix(1,0,0,-1,94.085937,57.211875)"
    style="font-variant:normal;font-weight:normal;font-size:20px;font-family:'DejaVu Sans';-inkscape-font-specification:DejaVuSans;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
@@ -6486,6 +6583,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan854-3">Top 20% posterior coincidence index based on inbreds</tspan></text>
+
 
 <path
    d="M 90,99.198 H 86.5"
@@ -6500,6 +6598,7 @@
      sodipodi:role="line"
      id="tspan860-1">PI329727</tspan></text>
 
+
 <path
    d="M 90,107.514 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -6512,6 +6611,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan866-7">PI452590</tspan></text>
+
 
 <path
    d="M 90,115.83 H 86.5"
@@ -6526,6 +6626,7 @@
      sodipodi:role="line"
      id="tspan872-4">PI454131</tspan></text>
 
+
 <path
    d="M 90,124.146 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -6538,6 +6639,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan878-33">PI329597</tspan></text>
+
 
 <path
    d="M 90,132.462 H 86.5"
@@ -6552,6 +6654,7 @@
      sodipodi:role="line"
      id="tspan884-9">PI452584</tspan></text>
 
+
 <path
    d="M 90,140.778 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -6564,6 +6667,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan890-6">PI452648</tspan></text>
+
 
 <path
    d="M 90,149.094 H 86.5"
@@ -6578,6 +6682,7 @@
      sodipodi:role="line"
      id="tspan896-4">PI453395</tspan></text>
 
+
 <path
    d="M 90,157.41 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -6590,6 +6695,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan902-77">PI452994</tspan></text>
+
 
 <path
    d="M 90,165.726 H 86.5"
@@ -6604,6 +6710,7 @@
      sodipodi:role="line"
      id="tspan908-4">PI452697</tspan></text>
 
+
 <path
    d="M 90,174.042 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -6616,6 +6723,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan914-5">PI453221</tspan></text>
+
 
 <path
    d="M 90,182.358 H 86.5"
@@ -6630,6 +6738,7 @@
      sodipodi:role="line"
      id="tspan920-5">PI452639</tspan></text>
 
+
 <path
    d="M 90,190.674 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -6642,6 +6751,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan926-1">PI456401A</tspan></text>
+
 
 <path
    d="M 90,198.99 H 86.5"
@@ -6656,6 +6766,7 @@
      sodipodi:role="line"
      id="tspan932-6">PI453341</tspan></text>
 
+
 <path
    d="M 90,207.306 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -6668,6 +6779,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan938-25">PI453490</tspan></text>
+
 
 <path
    d="M 90,215.622 H 86.5"
@@ -6682,6 +6794,7 @@
      sodipodi:role="line"
      id="tspan944-3">PI452988</tspan></text>
 
+
 <path
    d="M 90,223.938 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -6694,6 +6807,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan950-92">PI148086</tspan></text>
+
 
 <path
    d="M 90,232.254 H 86.5"
@@ -6708,6 +6822,7 @@
      sodipodi:role="line"
      id="tspan956-4">PI329403</tspan></text>
 
+
 <path
    d="M 90,240.57 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -6720,6 +6835,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan962-4">PI148083</tspan></text>
+
 
 <path
    d="M 90,248.886 H 86.5"
@@ -6734,6 +6850,7 @@
      sodipodi:role="line"
      id="tspan968-1">PI329569</tspan></text>
 
+
 <path
    d="M 90,257.202 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -6746,6 +6863,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan974-1">PI452991</tspan></text>
+
 
 <path
    d="M 90,265.518 H 86.5"
@@ -6760,6 +6878,7 @@
      sodipodi:role="line"
      id="tspan980-3">PI453349</tspan></text>
 
+
 <path
    d="M 90,273.834 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -6772,6 +6891,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan986-58">PI330165</tspan></text>
+
 
 <path
    d="M 90,282.15 H 86.5"
@@ -6786,6 +6906,7 @@
      sodipodi:role="line"
      id="tspan992-19">PI452982</tspan></text>
 
+
 <path
    d="M 90,290.466 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -6798,6 +6919,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan998-9">PI196049</tspan></text>
+
 
 <path
    d="M 90,298.782 H 86.5"
@@ -6812,6 +6934,7 @@
      sodipodi:role="line"
      id="tspan1004-3">PI454674</tspan></text>
 
+
 <path
    d="M 90,307.098 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -6824,6 +6947,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1010-7">PI452968</tspan></text>
+
 
 <path
    d="M 90,315.414 H 86.5"
@@ -6838,6 +6962,7 @@
      sodipodi:role="line"
      id="tspan1016-8">PI457183A</tspan></text>
 
+
 <path
    d="M 90,323.73 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -6850,6 +6975,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1022-1">PI454468</tspan></text>
+
 
 <path
    d="M 90,332.046 H 86.5"
@@ -6864,6 +6990,7 @@
      sodipodi:role="line"
      id="tspan1028-9">PI563330</tspan></text>
 
+
 <path
    d="M 90,340.362 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -6876,6 +7003,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1034-0">PI330095</tspan></text>
+
 
 <path
    d="M 90,348.678 H 86.5"
@@ -6890,6 +7018,7 @@
      sodipodi:role="line"
      id="tspan1040-92">PI456419</tspan></text>
 
+
 <path
    d="M 90,356.994 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -6902,6 +7031,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1046-7">PI453330</tspan></text>
+
 
 <path
    d="M 90,365.31 H 86.5"
@@ -6916,6 +7046,7 @@
      sodipodi:role="line"
      id="tspan1052-64">PI453522</tspan></text>
 
+
 <path
    d="M 90,373.626 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -6928,6 +7059,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1058-38">PI452578</tspan></text>
+
 
 <path
    d="M 90,381.942 H 86.5"
@@ -6942,6 +7074,7 @@
      sodipodi:role="line"
      id="tspan1064-7">PI452611</tspan></text>
 
+
 <path
    d="M 90,390.258 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -6954,6 +7087,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1070-1">PI452804</tspan></text>
+
 
 <path
    d="M 90,398.574 H 86.5"
@@ -6968,6 +7102,7 @@
      sodipodi:role="line"
      id="tspan1076-3">PI329299</tspan></text>
 
+
 <path
    d="M 90,406.89 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -6980,6 +7115,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1082-9">PI453346</tspan></text>
+
 
 <path
    d="M 90,415.206 H 86.5"
@@ -6994,6 +7130,7 @@
      sodipodi:role="line"
      id="tspan1088-4">NSL55476</tspan></text>
 
+
 <path
    d="M 90,423.522 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -7006,6 +7143,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1094-0">PI452625</tspan></text>
+
 
 <path
    d="M 90,431.838 H 86.5"
@@ -7020,6 +7158,7 @@
      sodipodi:role="line"
      id="tspan1100-61">PI453393</tspan></text>
 
+
 <path
    d="M 90,440.154 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -7032,6 +7171,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1106-5">PI148089</tspan></text>
+
 
 <path
    d="M 90,448.47 H 86.5"
@@ -7046,6 +7186,7 @@
      sodipodi:role="line"
      id="tspan1112-3">PI452628</tspan></text>
 
+
 <path
    d="M 90,456.786 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -7058,6 +7199,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1118-6">PI148114</tspan></text>
+
 
 <path
    d="M 90,465.102 H 86.5"
@@ -7072,6 +7214,7 @@
      sodipodi:role="line"
      id="tspan1124-7">PI456431</tspan></text>
 
+
 <path
    d="M 90,473.418 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -7084,6 +7227,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1130-3">PI453392</tspan></text>
+
 
 <path
    d="M 90,481.734 H 86.5"
@@ -7098,6 +7242,7 @@
      sodipodi:role="line"
      id="tspan1136-3">PI452995</tspan></text>
 
+
 <path
    d="M 90,490.05 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -7110,6 +7255,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1142-39">PI452534</tspan></text>
+
 
 <path
    d="M 90,498.366 H 86.5"
@@ -7124,6 +7270,7 @@
      sodipodi:role="line"
      id="tspan1148-42">PI330185</tspan></text>
 
+
 <path
    d="M 90,506.682 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -7136,6 +7283,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1154-5">PI453035</tspan></text>
+
 
 <path
    d="M 90,514.998 H 86.5"
@@ -7150,6 +7298,7 @@
      sodipodi:role="line"
      id="tspan1160-2">PI453336</tspan></text>
 
+
 <path
    d="M 90,523.314 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -7162,6 +7311,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1166-1">PI454241</tspan></text>
+
 
 <path
    d="M 90,531.63 H 86.5"
@@ -7176,6 +7326,7 @@
      sodipodi:role="line"
      id="tspan1172-3">PI452665</tspan></text>
 
+
 <path
    d="M 90,539.946 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -7188,6 +7339,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1178-0">PI452987</tspan></text>
+
 
 <path
    d="M 90,548.262 H 86.5"
@@ -7202,6 +7354,7 @@
      sodipodi:role="line"
      id="tspan1184-6">PI457145</tspan></text>
 
+
 <path
    d="M 90,556.578 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -7214,6 +7367,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1190-2">PI453335</tspan></text>
+
 
 <path
    d="M 90,564.894 H 86.5"
@@ -7228,6 +7382,7 @@
      sodipodi:role="line"
      id="tspan1196-7">PI453690</tspan></text>
 
+
 <path
    d="M 90,573.21 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -7240,6 +7395,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1202-8">PI457167</tspan></text>
+
 
 <path
    d="M 90,581.526 H 86.5"
@@ -7254,6 +7410,7 @@
      sodipodi:role="line"
      id="tspan1208-1">PI452577</tspan></text>
 
+
 <path
    d="M 90,589.842 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -7266,6 +7423,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1214-8">PI562732</tspan></text>
+
 
 <path
    d="M 90,598.158 H 86.5"
@@ -7280,6 +7438,7 @@
      sodipodi:role="line"
      id="tspan1220-8">PI453080</tspan></text>
 
+
 <path
    d="M 90,606.474 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -7292,6 +7451,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1226-4">NSL55671</tspan></text>
+
 
 <path
    d="M 90,614.79 H 86.5"
@@ -7306,6 +7466,7 @@
      sodipodi:role="line"
      id="tspan1232-7">PI456421</tspan></text>
 
+
 <path
    d="M 90,623.106 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -7318,6 +7479,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1238-53">PI453257</tspan></text>
+
 
 <path
    d="M 90,631.422 H 86.5"
@@ -7332,6 +7494,7 @@
      sodipodi:role="line"
      id="tspan1244-6">PI563329</tspan></text>
 
+
 <path
    d="M 90,639.738 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -7344,6 +7507,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1250-1">PI455852</tspan></text>
+
 
 <path
    d="M 90,648.054 H 86.5"
@@ -7358,6 +7522,7 @@
      sodipodi:role="line"
      id="tspan1256-0">PI329311</tspan></text>
 
+
 <path
    d="M 90,656.37 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -7370,6 +7535,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1262-27">PI453367</tspan></text>
+
 
 <path
    d="M 90,664.686 H 86.5"
@@ -7384,6 +7550,7 @@
      sodipodi:role="line"
      id="tspan1268-5">PI452587</tspan></text>
 
+
 <path
    d="M 90,673.002 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -7396,6 +7563,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1274-29">PI148084</tspan></text>
+
 
 <path
    d="M 90,681.318 H 86.5"
@@ -7410,6 +7578,7 @@
      sodipodi:role="line"
      id="tspan1280-0">PI453014</tspan></text>
 
+
 <path
    d="M 90,689.634 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -7422,6 +7591,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1286-7">PI453315</tspan></text>
+
 
 <path
    d="M 90,697.95 H 86.5"
@@ -7436,6 +7606,7 @@
      sodipodi:role="line"
      id="tspan1292-45">PI453464</tspan></text>
 
+
 <path
    d="M 90,706.266 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -7448,6 +7619,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1298-0">PI569452</tspan></text>
+
 
 <path
    d="M 90,714.582 H 86.5"
@@ -7462,6 +7634,7 @@
      sodipodi:role="line"
      id="tspan1304-78">PI453224</tspan></text>
 
+
 <path
    d="M 90,722.898 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -7474,6 +7647,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1310-3">PI329444</tspan></text>
+
 
 <path
    d="M 90,731.214 H 86.5"
@@ -7488,6 +7662,7 @@
      sodipodi:role="line"
      id="tspan1316-0">NSL55713</tspan></text>
 
+
 <path
    d="M 90,739.53 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -7500,6 +7675,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1322-7">NSL55345B</tspan></text>
+
 
 <path
    d="M 90,747.846 H 86.5"
@@ -7514,6 +7690,7 @@
      sodipodi:role="line"
      id="tspan1328-0">PI453494</tspan></text>
 
+
 <path
    d="M 90,756.162 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -7527,6 +7704,7 @@
      sodipodi:role="line"
      id="tspan1334-0">PI521155</tspan></text>
 
+
 <text
    transform="matrix(0,1,1,0,34.203125,320.62531)"
    style="font-variant:normal;font-weight:normal;font-size:20px;font-family:'DejaVu Sans';-inkscape-font-specification:DejaVuSans;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
@@ -7535,6 +7713,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1338-6">Sorghum inbred lines</tspan></text>
+
 
 <path
    d="M 90,95.04 V 760.32"
@@ -8132,6 +8311,7 @@
      sodipodi:role="line"
      id="tspan820-7">0.5</tspan></text>
 
+
 <path
    d="m 201.6,95.04 v -3.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -8144,6 +8324,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan826-9">0.6</tspan></text>
+
 
 <path
    d="m 313.2,95.04 v -3.5"
@@ -8158,6 +8339,7 @@
      sodipodi:role="line"
      id="tspan832-9">0.7</tspan></text>
 
+
 <path
    d="m 424.8,95.04 v -3.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -8170,6 +8352,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan838-4">0.8</tspan></text>
+
 
 <path
    d="m 536.4,95.04 v -3.5"
@@ -8184,6 +8367,7 @@
      sodipodi:role="line"
      id="tspan844-7">0.9</tspan></text>
 
+
 <path
    d="m 648,95.04 v -3.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -8197,6 +8381,7 @@
      sodipodi:role="line"
      id="tspan850-66">1.0</tspan></text>
 
+
 <text
    transform="matrix(1,0,0,-1,94.085937,57.211875)"
    style="font-variant:normal;font-weight:normal;font-size:20px;font-family:'DejaVu Sans';-inkscape-font-specification:DejaVuSans;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
@@ -8205,6 +8390,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan854-5">Top 20% posterior coincidence index based on inbreds</tspan></text>
+
 
 <path
    d="M 90,99.198 H 86.5"
@@ -8219,6 +8405,7 @@
      sodipodi:role="line"
      id="tspan860-76">PI329727</tspan></text>
 
+
 <path
    d="M 90,107.514 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -8231,6 +8418,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan866-9">PI452590</tspan></text>
+
 
 <path
    d="M 90,115.83 H 86.5"
@@ -8245,6 +8433,7 @@
      sodipodi:role="line"
      id="tspan872-8">PI454131</tspan></text>
 
+
 <path
    d="M 90,124.146 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -8257,6 +8446,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan878-81">PI329597</tspan></text>
+
 
 <path
    d="M 90,132.462 H 86.5"
@@ -8271,6 +8461,7 @@
      sodipodi:role="line"
      id="tspan884-3">PI452584</tspan></text>
 
+
 <path
    d="M 90,140.778 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -8283,6 +8474,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan890-4">PI452648</tspan></text>
+
 
 <path
    d="M 90,149.094 H 86.5"
@@ -8297,6 +8489,7 @@
      sodipodi:role="line"
      id="tspan896-56">PI453395</tspan></text>
 
+
 <path
    d="M 90,157.41 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -8309,6 +8502,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan902-6">PI452994</tspan></text>
+
 
 <path
    d="M 90,165.726 H 86.5"
@@ -8323,6 +8517,7 @@
      sodipodi:role="line"
      id="tspan908-44">PI452697</tspan></text>
 
+
 <path
    d="M 90,174.042 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -8335,6 +8530,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan914-6">PI453221</tspan></text>
+
 
 <path
    d="M 90,182.358 H 86.5"
@@ -8349,6 +8545,7 @@
      sodipodi:role="line"
      id="tspan920-0">PI452639</tspan></text>
 
+
 <path
    d="M 90,190.674 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -8361,6 +8558,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan926-6">PI456401A</tspan></text>
+
 
 <path
    d="M 90,198.99 H 86.5"
@@ -8375,6 +8573,7 @@
      sodipodi:role="line"
      id="tspan932-5">PI453341</tspan></text>
 
+
 <path
    d="M 90,207.306 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -8387,6 +8586,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan938-1">PI453490</tspan></text>
+
 
 <path
    d="M 90,215.622 H 86.5"
@@ -8401,6 +8601,7 @@
      sodipodi:role="line"
      id="tspan944-9">PI452988</tspan></text>
 
+
 <path
    d="M 90,223.938 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -8413,6 +8614,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan950-7">PI148086</tspan></text>
+
 
 <path
    d="M 90,232.254 H 86.5"
@@ -8427,6 +8629,7 @@
      sodipodi:role="line"
      id="tspan956-1">PI329403</tspan></text>
 
+
 <path
    d="M 90,240.57 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -8439,6 +8642,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan962-5">PI148083</tspan></text>
+
 
 <path
    d="M 90,248.886 H 86.5"
@@ -8453,6 +8657,7 @@
      sodipodi:role="line"
      id="tspan968-16">PI329569</tspan></text>
 
+
 <path
    d="M 90,257.202 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -8465,6 +8670,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan974-7">PI452991</tspan></text>
+
 
 <path
    d="M 90,265.518 H 86.5"
@@ -8479,6 +8685,7 @@
      sodipodi:role="line"
      id="tspan980-9">PI453349</tspan></text>
 
+
 <path
    d="M 90,273.834 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -8491,6 +8698,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan986-5">PI330165</tspan></text>
+
 
 <path
    d="M 90,282.15 H 86.5"
@@ -8505,6 +8713,7 @@
      sodipodi:role="line"
      id="tspan992-7">PI452982</tspan></text>
 
+
 <path
    d="M 90,290.466 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -8517,6 +8726,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan998-8">PI196049</tspan></text>
+
 
 <path
    d="M 90,298.782 H 86.5"
@@ -8531,6 +8741,7 @@
      sodipodi:role="line"
      id="tspan1004-38">PI454674</tspan></text>
 
+
 <path
    d="M 90,307.098 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -8543,6 +8754,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1010-9">PI452968</tspan></text>
+
 
 <path
    d="M 90,315.414 H 86.5"
@@ -8557,6 +8769,7 @@
      sodipodi:role="line"
      id="tspan1016-4">PI457183A</tspan></text>
 
+
 <path
    d="M 90,323.73 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -8569,6 +8782,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1022-19">PI454468</tspan></text>
+
 
 <path
    d="M 90,332.046 H 86.5"
@@ -8583,6 +8797,7 @@
      sodipodi:role="line"
      id="tspan1028-0">PI563330</tspan></text>
 
+
 <path
    d="M 90,340.362 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -8595,6 +8810,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1034-8">PI330095</tspan></text>
+
 
 <path
    d="M 90,348.678 H 86.5"
@@ -8609,6 +8825,7 @@
      sodipodi:role="line"
      id="tspan1040-6">PI456419</tspan></text>
 
+
 <path
    d="M 90,356.994 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -8621,6 +8838,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1046-3">PI453330</tspan></text>
+
 
 <path
    d="M 90,365.31 H 86.5"
@@ -8635,6 +8853,7 @@
      sodipodi:role="line"
      id="tspan1052-5">PI453522</tspan></text>
 
+
 <path
    d="M 90,373.626 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -8647,6 +8866,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1058-2">PI452578</tspan></text>
+
 
 <path
    d="M 90,381.942 H 86.5"
@@ -8661,6 +8881,7 @@
      sodipodi:role="line"
      id="tspan1064-6">PI452611</tspan></text>
 
+
 <path
    d="M 90,390.258 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -8673,6 +8894,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1070-3">PI452804</tspan></text>
+
 
 <path
    d="M 90,398.574 H 86.5"
@@ -8687,6 +8909,7 @@
      sodipodi:role="line"
      id="tspan1076-5">PI329299</tspan></text>
 
+
 <path
    d="M 90,406.89 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -8699,6 +8922,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1082-6">PI453346</tspan></text>
+
 
 <path
    d="M 90,415.206 H 86.5"
@@ -8713,6 +8937,7 @@
      sodipodi:role="line"
      id="tspan1088-3">NSL55476</tspan></text>
 
+
 <path
    d="M 90,423.522 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -8725,6 +8950,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1094-86">PI452625</tspan></text>
+
 
 <path
    d="M 90,431.838 H 86.5"
@@ -8739,6 +8965,7 @@
      sodipodi:role="line"
      id="tspan1100-57">PI453393</tspan></text>
 
+
 <path
    d="M 90,440.154 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -8751,6 +8978,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1106-3">PI148089</tspan></text>
+
 
 <path
    d="M 90,448.47 H 86.5"
@@ -8765,6 +8993,7 @@
      sodipodi:role="line"
      id="tspan1112-8">PI452628</tspan></text>
 
+
 <path
    d="M 90,456.786 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -8777,6 +9006,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1118-9">PI148114</tspan></text>
+
 
 <path
    d="M 90,465.102 H 86.5"
@@ -8791,6 +9021,7 @@
      sodipodi:role="line"
      id="tspan1124-4">PI456431</tspan></text>
 
+
 <path
    d="M 90,473.418 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -8803,6 +9034,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1130-0">PI453392</tspan></text>
+
 
 <path
    d="M 90,481.734 H 86.5"
@@ -8817,6 +9049,7 @@
      sodipodi:role="line"
      id="tspan1136-9">PI452995</tspan></text>
 
+
 <path
    d="M 90,490.05 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -8829,6 +9062,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1142-8">PI452534</tspan></text>
+
 
 <path
    d="M 90,498.366 H 86.5"
@@ -8843,6 +9077,7 @@
      sodipodi:role="line"
      id="tspan1148-50">PI330185</tspan></text>
 
+
 <path
    d="M 90,506.682 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -8855,6 +9090,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1154-8">PI453035</tspan></text>
+
 
 <path
    d="M 90,514.998 H 86.5"
@@ -8869,6 +9105,7 @@
      sodipodi:role="line"
      id="tspan1160-1">PI453336</tspan></text>
 
+
 <path
    d="M 90,523.314 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -8881,6 +9118,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1166-7">PI454241</tspan></text>
+
 
 <path
    d="M 90,531.63 H 86.5"
@@ -8895,6 +9133,7 @@
      sodipodi:role="line"
      id="tspan1172-9">PI452665</tspan></text>
 
+
 <path
    d="M 90,539.946 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -8907,6 +9146,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1178-1">PI452987</tspan></text>
+
 
 <path
    d="M 90,548.262 H 86.5"
@@ -8921,6 +9161,7 @@
      sodipodi:role="line"
      id="tspan1184-0">PI457145</tspan></text>
 
+
 <path
    d="M 90,556.578 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -8933,6 +9174,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1190-0">PI453335</tspan></text>
+
 
 <path
    d="M 90,564.894 H 86.5"
@@ -8947,6 +9189,7 @@
      sodipodi:role="line"
      id="tspan1196-0">PI453690</tspan></text>
 
+
 <path
    d="M 90,573.21 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -8959,6 +9202,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1202-5">PI457167</tspan></text>
+
 
 <path
    d="M 90,581.526 H 86.5"
@@ -8973,6 +9217,7 @@
      sodipodi:role="line"
      id="tspan1208-2">PI452577</tspan></text>
 
+
 <path
    d="M 90,589.842 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -8985,6 +9230,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1214-2">PI562732</tspan></text>
+
 
 <path
    d="M 90,598.158 H 86.5"
@@ -8999,6 +9245,7 @@
      sodipodi:role="line"
      id="tspan1220-9">PI453080</tspan></text>
 
+
 <path
    d="M 90,606.474 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -9011,6 +9258,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1226-1">NSL55671</tspan></text>
+
 
 <path
    d="M 90,614.79 H 86.5"
@@ -9025,6 +9273,7 @@
      sodipodi:role="line"
      id="tspan1232-9">PI456421</tspan></text>
 
+
 <path
    d="M 90,623.106 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -9037,6 +9286,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1238-1">PI453257</tspan></text>
+
 
 <path
    d="M 90,631.422 H 86.5"
@@ -9051,6 +9301,7 @@
      sodipodi:role="line"
      id="tspan1244-2">PI563329</tspan></text>
 
+
 <path
    d="M 90,639.738 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -9063,6 +9314,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1250-5">PI455852</tspan></text>
+
 
 <path
    d="M 90,648.054 H 86.5"
@@ -9077,6 +9329,7 @@
      sodipodi:role="line"
      id="tspan1256-3">PI329311</tspan></text>
 
+
 <path
    d="M 90,656.37 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -9089,6 +9342,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1262-5">PI453367</tspan></text>
+
 
 <path
    d="M 90,664.686 H 86.5"
@@ -9103,6 +9357,7 @@
      sodipodi:role="line"
      id="tspan1268-74">PI452587</tspan></text>
 
+
 <path
    d="M 90,673.002 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -9115,6 +9370,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1274-6">PI148084</tspan></text>
+
 
 <path
    d="M 90,681.318 H 86.5"
@@ -9129,6 +9385,7 @@
      sodipodi:role="line"
      id="tspan1280-15">PI453014</tspan></text>
 
+
 <path
    d="M 90,689.634 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -9141,6 +9398,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1286-4">PI453315</tspan></text>
+
 
 <path
    d="M 90,697.95 H 86.5"
@@ -9155,6 +9413,7 @@
      sodipodi:role="line"
      id="tspan1292-29">PI453464</tspan></text>
 
+
 <path
    d="M 90,706.266 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -9167,6 +9426,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1298-79">PI569452</tspan></text>
+
 
 <path
    d="M 90,714.582 H 86.5"
@@ -9181,6 +9441,7 @@
      sodipodi:role="line"
      id="tspan1304-8">PI453224</tspan></text>
 
+
 <path
    d="M 90,722.898 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -9193,6 +9454,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1310-5">PI329444</tspan></text>
+
 
 <path
    d="M 90,731.214 H 86.5"
@@ -9207,6 +9469,7 @@
      sodipodi:role="line"
      id="tspan1316-5">NSL55713</tspan></text>
 
+
 <path
    d="M 90,739.53 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -9219,6 +9482,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1322-74">NSL55345B</tspan></text>
+
 
 <path
    d="M 90,747.846 H 86.5"
@@ -9233,6 +9497,7 @@
      sodipodi:role="line"
      id="tspan1328-29">PI453494</tspan></text>
 
+
 <path
    d="M 90,756.162 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -9246,6 +9511,7 @@
      sodipodi:role="line"
      id="tspan1334-4">PI521155</tspan></text>
 
+
 <text
    transform="matrix(0,1,1,0,34.203125,320.62531)"
    style="font-variant:normal;font-weight:normal;font-size:20px;font-family:'DejaVu Sans';-inkscape-font-specification:DejaVuSans;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
@@ -9254,6 +9520,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1338-2">Sorghum inbred lines</tspan></text>
+
 
 <path
    d="M 90,95.04 V 760.32"
@@ -9851,6 +10118,7 @@
      sodipodi:role="line"
      id="tspan820-2">0.5</tspan></text>
 
+
 <path
    d="m 201.6,95.04 v -3.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -9863,6 +10131,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan826-2">0.6</tspan></text>
+
 
 <path
    d="m 313.2,95.04 v -3.5"
@@ -9877,6 +10146,7 @@
      sodipodi:role="line"
      id="tspan832-0">0.7</tspan></text>
 
+
 <path
    d="m 424.8,95.04 v -3.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -9889,6 +10159,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan838-1">0.8</tspan></text>
+
 
 <path
    d="m 536.4,95.04 v -3.5"
@@ -9903,6 +10174,7 @@
      sodipodi:role="line"
      id="tspan844-36">0.9</tspan></text>
 
+
 <path
    d="m 648,95.04 v -3.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -9916,6 +10188,7 @@
      sodipodi:role="line"
      id="tspan850-7">1.0</tspan></text>
 
+
 <text
    transform="matrix(1,0,0,-1,94.085937,57.211875)"
    style="font-variant:normal;font-weight:normal;font-size:20px;font-family:'DejaVu Sans';-inkscape-font-specification:DejaVuSans;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
@@ -9924,6 +10197,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan854-7">Top 20% posterior coincidence index based on inbreds</tspan></text>
+
 
 <path
    d="M 90,99.198 H 86.5"
@@ -9938,6 +10212,7 @@
      sodipodi:role="line"
      id="tspan860-18">PI329727</tspan></text>
 
+
 <path
    d="M 90,107.514 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -9950,6 +10225,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan866-2">PI452590</tspan></text>
+
 
 <path
    d="M 90,115.83 H 86.5"
@@ -9964,6 +10240,7 @@
      sodipodi:role="line"
      id="tspan872-2">PI454131</tspan></text>
 
+
 <path
    d="M 90,124.146 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -9976,6 +10253,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan878-5">PI329597</tspan></text>
+
 
 <path
    d="M 90,132.462 H 86.5"
@@ -9990,6 +10268,7 @@
      sodipodi:role="line"
      id="tspan884-0">PI452584</tspan></text>
 
+
 <path
    d="M 90,140.778 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -10002,6 +10281,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan890-3">PI452648</tspan></text>
+
 
 <path
    d="M 90,149.094 H 86.5"
@@ -10016,6 +10296,7 @@
      sodipodi:role="line"
      id="tspan896-0">PI453395</tspan></text>
 
+
 <path
    d="M 90,157.41 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -10028,6 +10309,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan902-3">PI452994</tspan></text>
+
 
 <path
    d="M 90,165.726 H 86.5"
@@ -10042,6 +10324,7 @@
      sodipodi:role="line"
      id="tspan908-9">PI452697</tspan></text>
 
+
 <path
    d="M 90,174.042 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -10054,6 +10337,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan914-4">PI453221</tspan></text>
+
 
 <path
    d="M 90,182.358 H 86.5"
@@ -10068,6 +10352,7 @@
      sodipodi:role="line"
      id="tspan920-9">PI452639</tspan></text>
 
+
 <path
    d="M 90,190.674 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -10080,6 +10365,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan926-11">PI456401A</tspan></text>
+
 
 <path
    d="M 90,198.99 H 86.5"
@@ -10094,6 +10380,7 @@
      sodipodi:role="line"
      id="tspan932-2">PI453341</tspan></text>
 
+
 <path
    d="M 90,207.306 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -10106,6 +10393,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan938-4">PI453490</tspan></text>
+
 
 <path
    d="M 90,215.622 H 86.5"
@@ -10120,6 +10408,7 @@
      sodipodi:role="line"
      id="tspan944-6">PI452988</tspan></text>
 
+
 <path
    d="M 90,223.938 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -10132,6 +10421,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan950-5">PI148086</tspan></text>
+
 
 <path
    d="M 90,232.254 H 86.5"
@@ -10146,6 +10436,7 @@
      sodipodi:role="line"
      id="tspan956-3">PI329403</tspan></text>
 
+
 <path
    d="M 90,240.57 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -10158,6 +10449,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan962-40">PI148083</tspan></text>
+
 
 <path
    d="M 90,248.886 H 86.5"
@@ -10172,6 +10464,7 @@
      sodipodi:role="line"
      id="tspan968-4">PI329569</tspan></text>
 
+
 <path
    d="M 90,257.202 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -10184,6 +10477,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan974-3">PI452991</tspan></text>
+
 
 <path
    d="M 90,265.518 H 86.5"
@@ -10198,6 +10492,7 @@
      sodipodi:role="line"
      id="tspan980-6">PI453349</tspan></text>
 
+
 <path
    d="M 90,273.834 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -10210,6 +10505,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan986-57">PI330165</tspan></text>
+
 
 <path
    d="M 90,282.15 H 86.5"
@@ -10224,6 +10520,7 @@
      sodipodi:role="line"
      id="tspan992-5">PI452982</tspan></text>
 
+
 <path
    d="M 90,290.466 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -10236,6 +10533,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan998-4">PI196049</tspan></text>
+
 
 <path
    d="M 90,298.782 H 86.5"
@@ -10250,6 +10548,7 @@
      sodipodi:role="line"
      id="tspan1004-7">PI454674</tspan></text>
 
+
 <path
    d="M 90,307.098 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -10262,6 +10561,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1010-6">PI452968</tspan></text>
+
 
 <path
    d="M 90,315.414 H 86.5"
@@ -10276,6 +10576,7 @@
      sodipodi:role="line"
      id="tspan1016-7">PI457183A</tspan></text>
 
+
 <path
    d="M 90,323.73 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -10288,6 +10589,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1022-0">PI454468</tspan></text>
+
 
 <path
    d="M 90,332.046 H 86.5"
@@ -10302,6 +10604,7 @@
      sodipodi:role="line"
      id="tspan1028-7">PI563330</tspan></text>
 
+
 <path
    d="M 90,340.362 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -10314,6 +10617,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1034-24">PI330095</tspan></text>
+
 
 <path
    d="M 90,348.678 H 86.5"
@@ -10328,6 +10632,7 @@
      sodipodi:role="line"
      id="tspan1040-4">PI456419</tspan></text>
 
+
 <path
    d="M 90,356.994 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -10340,6 +10645,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1046-72">PI453330</tspan></text>
+
 
 <path
    d="M 90,365.31 H 86.5"
@@ -10354,6 +10660,7 @@
      sodipodi:role="line"
      id="tspan1052-1">PI453522</tspan></text>
 
+
 <path
    d="M 90,373.626 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -10366,6 +10673,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1058-4">PI452578</tspan></text>
+
 
 <path
    d="M 90,381.942 H 86.5"
@@ -10380,6 +10688,7 @@
      sodipodi:role="line"
      id="tspan1064-9">PI452611</tspan></text>
 
+
 <path
    d="M 90,390.258 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -10392,6 +10701,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1070-8">PI452804</tspan></text>
+
 
 <path
    d="M 90,398.574 H 86.5"
@@ -10406,6 +10716,7 @@
      sodipodi:role="line"
      id="tspan1076-8">PI329299</tspan></text>
 
+
 <path
    d="M 90,406.89 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -10418,6 +10729,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1082-1">PI453346</tspan></text>
+
 
 <path
    d="M 90,415.206 H 86.5"
@@ -10432,6 +10744,7 @@
      sodipodi:role="line"
      id="tspan1088-7">NSL55476</tspan></text>
 
+
 <path
    d="M 90,423.522 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -10444,6 +10757,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1094-8">PI452625</tspan></text>
+
 
 <path
    d="M 90,431.838 H 86.5"
@@ -10458,6 +10772,7 @@
      sodipodi:role="line"
      id="tspan1100-9">PI453393</tspan></text>
 
+
 <path
    d="M 90,440.154 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -10470,6 +10785,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1106-4">PI148089</tspan></text>
+
 
 <path
    d="M 90,448.47 H 86.5"
@@ -10484,6 +10800,7 @@
      sodipodi:role="line"
      id="tspan1112-32">PI452628</tspan></text>
 
+
 <path
    d="M 90,456.786 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -10496,6 +10813,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1118-39">PI148114</tspan></text>
+
 
 <path
    d="M 90,465.102 H 86.5"
@@ -10510,6 +10828,7 @@
      sodipodi:role="line"
      id="tspan1124-9">PI456431</tspan></text>
 
+
 <path
    d="M 90,473.418 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -10522,6 +10841,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1130-2">PI453392</tspan></text>
+
 
 <path
    d="M 90,481.734 H 86.5"
@@ -10536,6 +10856,7 @@
      sodipodi:role="line"
      id="tspan1136-0">PI452995</tspan></text>
 
+
 <path
    d="M 90,490.05 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -10548,6 +10869,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1142-80">PI452534</tspan></text>
+
 
 <path
    d="M 90,498.366 H 86.5"
@@ -10562,6 +10884,7 @@
      sodipodi:role="line"
      id="tspan1148-1">PI330185</tspan></text>
 
+
 <path
    d="M 90,506.682 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -10574,6 +10897,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1154-7">PI453035</tspan></text>
+
 
 <path
    d="M 90,514.998 H 86.5"
@@ -10588,6 +10912,7 @@
      sodipodi:role="line"
      id="tspan1160-27">PI453336</tspan></text>
 
+
 <path
    d="M 90,523.314 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -10600,6 +10925,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1166-12">PI454241</tspan></text>
+
 
 <path
    d="M 90,531.63 H 86.5"
@@ -10614,6 +10940,7 @@
      sodipodi:role="line"
      id="tspan1172-2">PI452665</tspan></text>
 
+
 <path
    d="M 90,539.946 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -10626,6 +10953,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1178-2">PI452987</tspan></text>
+
 
 <path
    d="M 90,548.262 H 86.5"
@@ -10640,6 +10968,7 @@
      sodipodi:role="line"
      id="tspan1184-08">PI457145</tspan></text>
 
+
 <path
    d="M 90,556.578 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -10652,6 +10981,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1190-3">PI453335</tspan></text>
+
 
 <path
    d="M 90,564.894 H 86.5"
@@ -10666,6 +10996,7 @@
      sodipodi:role="line"
      id="tspan1196-5">PI453690</tspan></text>
 
+
 <path
    d="M 90,573.21 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -10678,6 +11009,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1202-6">PI457167</tspan></text>
+
 
 <path
    d="M 90,581.526 H 86.5"
@@ -10692,6 +11024,7 @@
      sodipodi:role="line"
      id="tspan1208-3">PI452577</tspan></text>
 
+
 <path
    d="M 90,589.842 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -10704,6 +11037,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1214-0">PI562732</tspan></text>
+
 
 <path
    d="M 90,598.158 H 86.5"
@@ -10718,6 +11052,7 @@
      sodipodi:role="line"
      id="tspan1220-3">PI453080</tspan></text>
 
+
 <path
    d="M 90,606.474 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -10730,6 +11065,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1226-16">NSL55671</tspan></text>
+
 
 <path
    d="M 90,614.79 H 86.5"
@@ -10744,6 +11080,7 @@
      sodipodi:role="line"
      id="tspan1232-2">PI456421</tspan></text>
 
+
 <path
    d="M 90,623.106 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -10756,6 +11093,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1238-17">PI453257</tspan></text>
+
 
 <path
    d="M 90,631.422 H 86.5"
@@ -10770,6 +11108,7 @@
      sodipodi:role="line"
      id="tspan1244-0">PI563329</tspan></text>
 
+
 <path
    d="M 90,639.738 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -10782,6 +11121,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1250-8">PI455852</tspan></text>
+
 
 <path
    d="M 90,648.054 H 86.5"
@@ -10796,6 +11136,7 @@
      sodipodi:role="line"
      id="tspan1256-8">PI329311</tspan></text>
 
+
 <path
    d="M 90,656.37 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -10808,6 +11149,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1262-9">PI453367</tspan></text>
+
 
 <path
    d="M 90,664.686 H 86.5"
@@ -10822,6 +11164,7 @@
      sodipodi:role="line"
      id="tspan1268-6">PI452587</tspan></text>
 
+
 <path
    d="M 90,673.002 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -10834,6 +11177,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1274-5">PI148084</tspan></text>
+
 
 <path
    d="M 90,681.318 H 86.5"
@@ -10848,6 +11192,7 @@
      sodipodi:role="line"
      id="tspan1280-9">PI453014</tspan></text>
 
+
 <path
    d="M 90,689.634 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -10860,6 +11205,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1286-3">PI453315</tspan></text>
+
 
 <path
    d="M 90,697.95 H 86.5"
@@ -10874,6 +11220,7 @@
      sodipodi:role="line"
      id="tspan1292-3">PI453464</tspan></text>
 
+
 <path
    d="M 90,706.266 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -10886,6 +11233,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1298-5">PI569452</tspan></text>
+
 
 <path
    d="M 90,714.582 H 86.5"
@@ -10900,6 +11248,7 @@
      sodipodi:role="line"
      id="tspan1304-3">PI453224</tspan></text>
 
+
 <path
    d="M 90,722.898 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -10912,6 +11261,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1310-6">PI329444</tspan></text>
+
 
 <path
    d="M 90,731.214 H 86.5"
@@ -10926,6 +11276,7 @@
      sodipodi:role="line"
      id="tspan1316-9">NSL55713</tspan></text>
 
+
 <path
    d="M 90,739.53 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -10938,6 +11289,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1322-5">NSL55345B</tspan></text>
+
 
 <path
    d="M 90,747.846 H 86.5"
@@ -10952,6 +11304,7 @@
      sodipodi:role="line"
      id="tspan1328-1">PI453494</tspan></text>
 
+
 <path
    d="M 90,756.162 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -10965,6 +11318,7 @@
      sodipodi:role="line"
      id="tspan1334-2">PI521155</tspan></text>
 
+
 <text
    transform="matrix(0,1,1,0,34.203125,320.62531)"
    style="font-variant:normal;font-weight:normal;font-size:20px;font-family:'DejaVu Sans';-inkscape-font-specification:DejaVuSans;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
@@ -10973,6 +11327,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1338-9">Sorghum inbred lines</tspan></text>
+
 
 <path
    d="M 90,95.04 V 760.32"
@@ -11570,6 +11925,7 @@
      sodipodi:role="line"
      id="tspan820-4">0.5</tspan></text>
 
+
 <path
    d="m 201.6,95.04 v -3.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -11582,6 +11938,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan826-6">0.6</tspan></text>
+
 
 <path
    d="m 313.2,95.04 v -3.5"
@@ -11596,6 +11953,7 @@
      sodipodi:role="line"
      id="tspan832-1">0.7</tspan></text>
 
+
 <path
    d="m 424.8,95.04 v -3.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -11608,6 +11966,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan838-5">0.8</tspan></text>
+
 
 <path
    d="m 536.4,95.04 v -3.5"
@@ -11622,6 +11981,7 @@
      sodipodi:role="line"
      id="tspan844-1">0.9</tspan></text>
 
+
 <path
    d="m 648,95.04 v -3.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -11635,6 +11995,7 @@
      sodipodi:role="line"
      id="tspan850-1">1.0</tspan></text>
 
+
 <text
    transform="matrix(1,0,0,-1,94.085937,57.211875)"
    style="font-variant:normal;font-weight:normal;font-size:20px;font-family:'DejaVu Sans';-inkscape-font-specification:DejaVuSans;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
@@ -11643,6 +12004,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan854-6">Top 20% posterior coincidence index based on inbreds</tspan></text>
+
 
 <path
    d="M 90,99.198 H 86.5"
@@ -11657,6 +12019,7 @@
      sodipodi:role="line"
      id="tspan860-6">PI329727</tspan></text>
 
+
 <path
    d="M 90,107.514 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -11669,6 +12032,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan866-5">PI452590</tspan></text>
+
 
 <path
    d="M 90,115.83 H 86.5"
@@ -11683,6 +12047,7 @@
      sodipodi:role="line"
      id="tspan872-6">PI454131</tspan></text>
 
+
 <path
    d="M 90,124.146 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -11695,6 +12060,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan878-9">PI329597</tspan></text>
+
 
 <path
    d="M 90,132.462 H 86.5"
@@ -11709,6 +12075,7 @@
      sodipodi:role="line"
      id="tspan884-99">PI452584</tspan></text>
 
+
 <path
    d="M 90,140.778 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -11721,6 +12088,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan890-2">PI452648</tspan></text>
+
 
 <path
    d="M 90,149.094 H 86.5"
@@ -11735,6 +12103,7 @@
      sodipodi:role="line"
      id="tspan896-48">PI453395</tspan></text>
 
+
 <path
    d="M 90,157.41 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -11747,6 +12116,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan902-5">PI452994</tspan></text>
+
 
 <path
    d="M 90,165.726 H 86.5"
@@ -11761,6 +12131,7 @@
      sodipodi:role="line"
      id="tspan908-2">PI452697</tspan></text>
 
+
 <path
    d="M 90,174.042 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -11773,6 +12144,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan914-2">PI453221</tspan></text>
+
 
 <path
    d="M 90,182.358 H 86.5"
@@ -11787,6 +12159,7 @@
      sodipodi:role="line"
      id="tspan920-92">PI452639</tspan></text>
 
+
 <path
    d="M 90,190.674 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -11799,6 +12172,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan926-0">PI456401A</tspan></text>
+
 
 <path
    d="M 90,198.99 H 86.5"
@@ -11813,6 +12187,7 @@
      sodipodi:role="line"
      id="tspan932-4">PI453341</tspan></text>
 
+
 <path
    d="M 90,207.306 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -11825,6 +12200,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan938-3">PI453490</tspan></text>
+
 
 <path
    d="M 90,215.622 H 86.5"
@@ -11839,6 +12215,7 @@
      sodipodi:role="line"
      id="tspan944-2">PI452988</tspan></text>
 
+
 <path
    d="M 90,223.938 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -11851,6 +12228,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan950-6">PI148086</tspan></text>
+
 
 <path
    d="M 90,232.254 H 86.5"
@@ -11865,6 +12243,7 @@
      sodipodi:role="line"
      id="tspan956-14">PI329403</tspan></text>
 
+
 <path
    d="M 90,240.57 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -11877,6 +12256,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan962-3">PI148083</tspan></text>
+
 
 <path
    d="M 90,248.886 H 86.5"
@@ -11891,6 +12271,7 @@
      sodipodi:role="line"
      id="tspan968-3">PI329569</tspan></text>
 
+
 <path
    d="M 90,257.202 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -11903,6 +12284,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan974-33">PI452991</tspan></text>
+
 
 <path
    d="M 90,265.518 H 86.5"
@@ -11917,6 +12299,7 @@
      sodipodi:role="line"
      id="tspan980-4">PI453349</tspan></text>
 
+
 <path
    d="M 90,273.834 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -11929,6 +12312,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan986-1">PI330165</tspan></text>
+
 
 <path
    d="M 90,282.15 H 86.5"
@@ -11943,6 +12327,7 @@
      sodipodi:role="line"
      id="tspan992-3">PI452982</tspan></text>
 
+
 <path
    d="M 90,290.466 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -11955,6 +12340,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan998-91">PI196049</tspan></text>
+
 
 <path
    d="M 90,298.782 H 86.5"
@@ -11969,6 +12355,7 @@
      sodipodi:role="line"
      id="tspan1004-4">PI454674</tspan></text>
 
+
 <path
    d="M 90,307.098 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -11981,6 +12368,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1010-0">PI452968</tspan></text>
+
 
 <path
    d="M 90,315.414 H 86.5"
@@ -11995,6 +12383,7 @@
      sodipodi:role="line"
      id="tspan1016-0">PI457183A</tspan></text>
 
+
 <path
    d="M 90,323.73 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -12007,6 +12396,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1022-9">PI454468</tspan></text>
+
 
 <path
    d="M 90,332.046 H 86.5"
@@ -12021,6 +12411,7 @@
      sodipodi:role="line"
      id="tspan1028-5">PI563330</tspan></text>
 
+
 <path
    d="M 90,340.362 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -12033,6 +12424,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1034-9">PI330095</tspan></text>
+
 
 <path
    d="M 90,348.678 H 86.5"
@@ -12047,6 +12439,7 @@
      sodipodi:role="line"
      id="tspan1040-8">PI456419</tspan></text>
 
+
 <path
    d="M 90,356.994 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -12059,6 +12452,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1046-36">PI453330</tspan></text>
+
 
 <path
    d="M 90,365.31 H 86.5"
@@ -12073,6 +12467,7 @@
      sodipodi:role="line"
      id="tspan1052-7">PI453522</tspan></text>
 
+
 <path
    d="M 90,373.626 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -12085,6 +12480,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1058-0">PI452578</tspan></text>
+
 
 <path
    d="M 90,381.942 H 86.5"
@@ -12099,6 +12495,7 @@
      sodipodi:role="line"
      id="tspan1064-2">PI452611</tspan></text>
 
+
 <path
    d="M 90,390.258 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -12111,6 +12508,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1070-85">PI452804</tspan></text>
+
 
 <path
    d="M 90,398.574 H 86.5"
@@ -12125,6 +12523,7 @@
      sodipodi:role="line"
      id="tspan1076-7">PI329299</tspan></text>
 
+
 <path
    d="M 90,406.89 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -12137,6 +12536,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1082-2">PI453346</tspan></text>
+
 
 <path
    d="M 90,415.206 H 86.5"
@@ -12151,6 +12551,7 @@
      sodipodi:role="line"
      id="tspan1088-75">NSL55476</tspan></text>
 
+
 <path
    d="M 90,423.522 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -12163,6 +12564,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1094-80">PI452625</tspan></text>
+
 
 <path
    d="M 90,431.838 H 86.5"
@@ -12177,6 +12579,7 @@
      sodipodi:role="line"
      id="tspan1100-8">PI453393</tspan></text>
 
+
 <path
    d="M 90,440.154 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -12189,6 +12592,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1106-50">PI148089</tspan></text>
+
 
 <path
    d="M 90,448.47 H 86.5"
@@ -12203,6 +12607,7 @@
      sodipodi:role="line"
      id="tspan1112-9">PI452628</tspan></text>
 
+
 <path
    d="M 90,456.786 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -12215,6 +12620,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1118-0">PI148114</tspan></text>
+
 
 <path
    d="M 90,465.102 H 86.5"
@@ -12229,6 +12635,7 @@
      sodipodi:role="line"
      id="tspan1124-2">PI456431</tspan></text>
 
+
 <path
    d="M 90,473.418 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -12241,6 +12648,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1130-00">PI453392</tspan></text>
+
 
 <path
    d="M 90,481.734 H 86.5"
@@ -12255,6 +12663,7 @@
      sodipodi:role="line"
      id="tspan1136-34">PI452995</tspan></text>
 
+
 <path
    d="M 90,490.05 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -12267,6 +12676,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1142-5">PI452534</tspan></text>
+
 
 <path
    d="M 90,498.366 H 86.5"
@@ -12281,6 +12691,7 @@
      sodipodi:role="line"
      id="tspan1148-7">PI330185</tspan></text>
 
+
 <path
    d="M 90,506.682 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -12293,6 +12704,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1154-4">PI453035</tspan></text>
+
 
 <path
    d="M 90,514.998 H 86.5"
@@ -12307,6 +12719,7 @@
      sodipodi:role="line"
      id="tspan1160-14">PI453336</tspan></text>
 
+
 <path
    d="M 90,523.314 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -12319,6 +12732,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1166-4">PI454241</tspan></text>
+
 
 <path
    d="M 90,531.63 H 86.5"
@@ -12333,6 +12747,7 @@
      sodipodi:role="line"
      id="tspan1172-1">PI452665</tspan></text>
 
+
 <path
    d="M 90,539.946 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -12345,6 +12760,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1178-08">PI452987</tspan></text>
+
 
 <path
    d="M 90,548.262 H 86.5"
@@ -12359,6 +12775,7 @@
      sodipodi:role="line"
      id="tspan1184-5">PI457145</tspan></text>
 
+
 <path
    d="M 90,556.578 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -12371,6 +12788,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1190-6">PI453335</tspan></text>
+
 
 <path
    d="M 90,564.894 H 86.5"
@@ -12385,6 +12803,7 @@
      sodipodi:role="line"
      id="tspan1196-09">PI453690</tspan></text>
 
+
 <path
    d="M 90,573.21 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -12397,6 +12816,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1202-80">PI457167</tspan></text>
+
 
 <path
    d="M 90,581.526 H 86.5"
@@ -12411,6 +12831,7 @@
      sodipodi:role="line"
      id="tspan1208-5">PI452577</tspan></text>
 
+
 <path
    d="M 90,589.842 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -12423,6 +12844,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1214-3">PI562732</tspan></text>
+
 
 <path
    d="M 90,598.158 H 86.5"
@@ -12437,6 +12859,7 @@
      sodipodi:role="line"
      id="tspan1220-6">PI453080</tspan></text>
 
+
 <path
    d="M 90,606.474 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -12449,6 +12872,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1226-5">NSL55671</tspan></text>
+
 
 <path
    d="M 90,614.79 H 86.5"
@@ -12463,6 +12887,7 @@
      sodipodi:role="line"
      id="tspan1232-8">PI456421</tspan></text>
 
+
 <path
    d="M 90,623.106 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -12475,6 +12900,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1238-9">PI453257</tspan></text>
+
 
 <path
    d="M 90,631.422 H 86.5"
@@ -12489,6 +12915,7 @@
      sodipodi:role="line"
      id="tspan1244-9">PI563329</tspan></text>
 
+
 <path
    d="M 90,639.738 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -12501,6 +12928,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1250-2">PI455852</tspan></text>
+
 
 <path
    d="M 90,648.054 H 86.5"
@@ -12515,6 +12943,7 @@
      sodipodi:role="line"
      id="tspan1256-5">PI329311</tspan></text>
 
+
 <path
    d="M 90,656.37 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -12527,6 +12956,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1262-52">PI453367</tspan></text>
+
 
 <path
    d="M 90,664.686 H 86.5"
@@ -12541,6 +12971,7 @@
      sodipodi:role="line"
      id="tspan1268-4">PI452587</tspan></text>
 
+
 <path
    d="M 90,673.002 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -12553,6 +12984,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1274-7">PI148084</tspan></text>
+
 
 <path
    d="M 90,681.318 H 86.5"
@@ -12567,6 +12999,7 @@
      sodipodi:role="line"
      id="tspan1280-7">PI453014</tspan></text>
 
+
 <path
    d="M 90,689.634 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -12579,6 +13012,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1286-0">PI453315</tspan></text>
+
 
 <path
    d="M 90,697.95 H 86.5"
@@ -12593,6 +13027,7 @@
      sodipodi:role="line"
      id="tspan1292-6">PI453464</tspan></text>
 
+
 <path
    d="M 90,706.266 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -12605,6 +13040,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1298-4">PI569452</tspan></text>
+
 
 <path
    d="M 90,714.582 H 86.5"
@@ -12619,6 +13055,7 @@
      sodipodi:role="line"
      id="tspan1304-2">PI453224</tspan></text>
 
+
 <path
    d="M 90,722.898 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -12631,6 +13068,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1310-2">PI329444</tspan></text>
+
 
 <path
    d="M 90,731.214 H 86.5"
@@ -12645,6 +13083,7 @@
      sodipodi:role="line"
      id="tspan1316-53">NSL55713</tspan></text>
 
+
 <path
    d="M 90,739.53 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -12657,6 +13096,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1322-9">NSL55345B</tspan></text>
+
 
 <path
    d="M 90,747.846 H 86.5"
@@ -12671,6 +13111,7 @@
      sodipodi:role="line"
      id="tspan1328-14">PI453494</tspan></text>
 
+
 <path
    d="M 90,756.162 H 86.5"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -12684,6 +13125,7 @@
      sodipodi:role="line"
      id="tspan1334-3">PI521155</tspan></text>
 
+
 <text
    transform="matrix(0,1,1,0,34.203125,320.62531)"
    style="font-variant:normal;font-weight:normal;font-size:20px;font-family:'DejaVu Sans';-inkscape-font-specification:DejaVuSans;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
@@ -12692,6 +13134,7 @@
      y="0"
      sodipodi:role="line"
      id="tspan1338-3">Sorghum inbred lines</tspan></text>
+
 
 <path
    d="M 90,95.04 V 760.32"
