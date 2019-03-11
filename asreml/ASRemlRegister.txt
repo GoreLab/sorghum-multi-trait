@@ -1,0 +1,47 @@
+VSN Registration File
+=====================
+This file contains the information needed to register your
+product and issue a license key. For rapid delivery of the
+key please ensure that you specify a valid email address.
+
+This file should be sent by email to: support@ASReml.co.uk
+
+Alternatively, it may be submitted by post or fax to the 
+VSN offices as follows:
+
+Product Registration
+VSN International Ltd.
+5 The Waterhouse
+Waterhouse Street
+Hemel Hempstead
+Herts HP1 1ES
+United Kingdom
+
+Phone: +44 (0)1442 450230
+Fax:   +44 (0)8701 215653
+
+NOTE: for network licenses you should contact your system
+administrator in the first instance.
+===========================================================
+
+ASReml registration details, saved at 11-Mar-2019 12:53
+
+Application:       ASReml
+Version:           3.0 /64
+Platform:          Linux 3.10.0-693.el7.x86_64 #1 SMP Tue Aug 22 21:09:27 UTC 2017 x86_64
+Hostname:          cbsugore02.biohpc.cornell.edu
+Flexnet version:   11.11.0
+Reg. Data:         B1eH000000000000
+
+Name:              jp2476
+Organisation:      
+Email:             
+Site Reference:    
+Address:
+
+Phone:             
+Fax:               
+
+Comments:
+
+
