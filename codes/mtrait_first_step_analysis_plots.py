@@ -130,15 +130,6 @@ h2_table
 # Add colors to be ploted:
 h2_table['colors'] = ['#006d2c', '#fe9929', '#ec7014', '#cc4c02', '#993404', '#662506', '#fee391', '#fec44f']
 
-# Plot heritabilities:
-# bar_cv = sns.barplot(x='labels', y='h2', data=h2_table)
-# bar_cv.set(xlabel='Traits', ylabel='Broad-sense Heritability')
-# plt.xticks(rotation=25)
-# bar_cv.tick_params(labelsize=6)
-# plt.savefig("barplot_heritabilities.pdf", dpi=150)
-# plt.savefig("barplot_heritabilities.png", dpi=150)
-# plt.clf()
-
 # Reordering the table:
 index = [0, 4, 5, 6, 7, 1, 2, 3]
 h2_table = h2_table.iloc[index]

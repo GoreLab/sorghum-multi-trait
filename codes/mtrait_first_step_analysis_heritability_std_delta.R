@@ -24,12 +24,36 @@ setwd(paste0(prefix_proj, 'asreml'))
 library(asreml)
 asreml.lic(license = "asreml.lic", install = TRUE)
 
+# Project prefix:
+prefix_proj = "/workdir/jp2476/repo/sorghum-multi-trait/"
+
+# Prefix where the outputs will be saved:
+prefix_out = "/workdir/jp2476/repo/resul_mtrait-proj/"
+	
+# Libraries to manipulate data:
+library(data.table)
+library(dplyr)
+library(tidyr)
+library(magrittr)
+library(stringr)
+library(Matrix)
+library(qdapTools)
+
+install.packages(paste0(prefix_proj, 'asreml/asreml_3.0_R_jy-linux-intel64.tar.gz'), repos = NULL, type="source")
+
+# Library for data analysis:
+library(sjstats)
+
+# Load asreml:
+setwd(paste0(prefix_proj, 'asreml'))
+library(asreml)
+asreml.lic(license = "asreml.lic", install = TRUE)
+
 # Load the package to compute the standard deviations of the heritability:
 library(nadiv)
 
-
 # Function to get the heritability and its standard deviation estimates with asreml v3.0:
-get_h2 <- function(asreml_obj) {
+get_h2 <- function(asreml_obj, n_env, n_rep) {
 
 	# Re-create the output from a basic, univariate model in asreml-R: 
 	asrMod <- list(gammas = asreml_obj$gammas, gammas.type = asreml_obj$gammas.type, ai = asreml_obj$ai)
@@ -38,8 +62,10 @@ get_h2 <- function(asreml_obj) {
 	names(asrMod[[1]]) <- names(asrMod[[2]]) <- names(asreml_obj$gammas)
 
 	# Compute the heritability and its standard deviation:
-	#---Observation: V4/3 is the var_GxE /#locations and V5/48 is the var_E /# locations * # blocks
-	return(nadiv:::pin(asrMod, h2 ~ V3 / (V1 + V2 + V3 + V4/3 + V5/48)))
+	#---Observation: V4/n_env is the var_GxE /#locations and V5/n_env*n_rep is the var_E /# locations * # blocks
+	formula = eval(parse(text=paste0('h2 ~ V3 / (V1 + V2 + V3 + V4/', n_env, '+ V5/', n_env*n_rep, ')')))
+
+	return(nadiv:::pin(asrMod, formula))
 
 }
 
@@ -75,7 +101,6 @@ df$env <- df$env %>% as.factor()
 fit = list()
 metrics = list()
 
-
 #------------------------------------------Biomass data analysis---------------------------------------------#
 
 # Index for mapping the results:
@@ -89,16 +114,20 @@ df_tmp$id_gbs = df_tmp$id_gbs %>% droplevels
 df_tmp$block = df_tmp$block %>% droplevels
 df_tmp$env = df_tmp$env %>% droplevels
 
+# Getting number of levels:
+n_env = df_tmp$env %>% nlevels
+n_rep = df_tmp$block %>% nlevels
+
 # Fitting the model:
 fit[[index]]  = asreml(drymass~ 1,
-			 		   random = ~ id_gbs + block:env + env + id_gbs:env,
+			 		   random = ~ id_gbs + env + block:env + id_gbs:env,
 			 		   na.method.Y = "include",
 			 		   control = asreml.control(
 			 		   maxiter = 200),
              		   data = df_tmp)
 
 # Compute the heritability and its standard deviation:
-metrics[["drymass-h2"]] = get_h2(fit[[index]])
+metrics[["drymass-h2"]] = get_h2(fit[[index]], n_env=n_env, n_rep=n_rep)
 
 #------------------------------------------Height data analysis----------------------------------------------#
 
@@ -115,6 +144,10 @@ for (i in dap_groups) {
 	df_tmp$block = df_tmp$block %>% droplevels
 	df_tmp$env = df_tmp$env %>% droplevels
 
+	# Getting number of levels:
+	n_env = df_tmp$env %>% nlevels
+	n_rep = df_tmp$block %>% nlevels
+
 	fit[[index]]  = asreml(height ~ 1,
 				 		   random = ~ id_gbs + block:env + env + id_gbs:env,
 				 		   na.method.Y = "include",
@@ -123,7 +156,7 @@ for (i in dap_groups) {
 	             		   data = df_tmp)
 
 	# Getting the metrics to evaluate model performance:
-	metrics[[paste0(index, "-h2")]] = get_h2(fit[[index]])
+	metrics[[paste0(index, "-h2")]] = get_h2(fit[[index]], n_env=n_env, n_rep=n_rep)
 
 	# Printing current analysis:
 	print(paste0("Analysis ", index, " done!"))
