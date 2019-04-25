@@ -19,7 +19,9 @@ Rscript -e 'install.packages("sjstats", repos="https://cran.rstudio.com")'
 #----------------------------------Define the path of repository folder--------------------------------------#
 
 # Prefix of the output directory is:
-ROOT_PATH=/home/jhonathan/Documents
+# ROOT_PATH=/home/jhonathan/Documents
+ROOT_PATH=/workdir/jp2476/repo
+
 
 #------------------------------------------Create directories------------------------------------------------#
 
@@ -44,8 +46,11 @@ REPO_PATH=${ROOT_PATH}/sorghum-multi-trait
 # Path of the output folder:
 OUT_PATH=${ROOT_PATH}/output_sorghum-multi-trait
 
+# Path where python is locally installed:
+PYTHON_PATH=/workdir/jp2476/software/python/bin
+
 # Run the code for processing the raw datas:
-python3 ${REPO_PATH}/clean_repository/codes/process_raw_data.py -dpath ${DATA_PATH} -rpath ${REPO_PATH} -opath ${OUT_PATH} & 
+${PYTHON_PATH}/python ${REPO_PATH}/clean_repository/codes/process_raw_data.py -dpath ${DATA_PATH} -rpath ${REPO_PATH} -opath ${OUT_PATH} & 
 
 
 #---------------------------------------Phenotypic data analysis-----------------------------------------------#

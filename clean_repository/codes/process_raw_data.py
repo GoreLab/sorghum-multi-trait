@@ -141,10 +141,10 @@ df[3] = df[3].sort_values(['plot'])
 tmp = ['loc', 'set', 'block', 'range', 'row']
 
 # Inclusion of the design variables to the combination height/2016
-df[2] = pd.concat([df[2], df[0].loc[:,tmp]], axis=1, sort = True)
+df[2] = pd.concat([df[2], df[0].loc[:,tmp]], axis=1)
 
 # Combine data frames into a unique data frame:
-df = pd.concat(df, axis=0, sort = True)
+df = pd.concat(df, axis=0)
 
 # Change the index of the data frame:
 df.index = np.arange(df.shape[0])
