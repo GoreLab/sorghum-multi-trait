@@ -25,7 +25,6 @@ os.chdir(prefix_proj + "codes")
 # Loading external functions:
 from external_functions import * 
 
-
 #-----------------------------------Loading Adjusted Means and plotting--------------------------------------#
 
 # Setting directory:

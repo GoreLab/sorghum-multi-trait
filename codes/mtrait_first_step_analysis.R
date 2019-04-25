@@ -147,23 +147,3 @@ save.image("mtrait_first_step_analysis.RData")
 # setwd(paste0(prefix_out, "outputs/first_step_analysis"))
 # load("mtrait_first_step_analysis.RData")
 
-
-
-c = rep(100, 3)
-a = rep(10, 3)
-r = rep(4, 3)
-
-out = matrix(NA, 3, 7)
-
-time = seq(30,120,15)/30
-
-counter=1
-for (t in time) {
-
-	out[,counter] = c / (1 + (a * exp(-r * t)))
-	counter = counter + 1
-}
-
-plot(x=time, y=out[1,],type="line")
-
-

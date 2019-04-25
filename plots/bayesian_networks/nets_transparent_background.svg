@@ -13,7 +13,7 @@
    viewBox="0 0 150 60"
    height="6cm"
    width="15cm"
-   sodipodi:docname="nets_white_background.svg"
+   sodipodi:docname="nets_transparent_background.svg"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
    inkscape:export-filename="/home/jhonathan/Documents/sorghum-multi-trait/plots/bayesian_networks/nets_white_background.png"
    inkscape:export-xdpi="350"
@@ -25,7 +25,7 @@
      objecttolerance="10"
      gridtolerance="10"
      guidetolerance="10"
-     inkscape:pageopacity="1"
+     inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:window-width="1920"
      inkscape:window-height="1012"
@@ -49,7 +49,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
