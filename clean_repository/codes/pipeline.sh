@@ -34,6 +34,7 @@ ${PYTHON_PATH}/bin/pip install pandas==0.24.2
 ${PYTHON_PATH}/bin/pip install sklearn==0.0
 ${PYTHON_PATH}/bin/pip install matplotlib==3.0.3
 ${PYTHON_PATH}/bin/pip install seaborn==0.9.0
+${PYTHON_PATH}/bin/pip install pystan==2.17.1.0
 
 # Install R packages (install these versions to avoid errors):
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/optparse/optparse_1.6.0.tar.gz", repos=NULL, type="source")'
@@ -93,6 +94,15 @@ ${PYTHON_PATH}/bin/python ${REPO_PATH}/clean_repository/codes/create_figures_phe
 
 #--------Files for 5-fold cross-validation (cv5f) and forward-chaining cross-validation (fcv) schemes--------#
 
+# Set python path:
+PYTHON_PATH=${ROOT_PATH}/local/python
+
+# Path of the output folder:
+OUT_PATH=${ROOT_PATH}/output_sorghum-multi-trait
+
+# Path of the repository folder:
+REPO_PATH=${ROOT_PATH}/sorghum-multi-trait
+
 # Run the code to split the data into different subsets for cross-validation:
 ${PYTHON_PATH}/bin/python ${REPO_PATH}/clean_repository/codes/split_data_cross_validation.py -opath ${OUT_PATH} & 
 
@@ -101,3 +111,47 @@ chmod +755 ${REPO_PATH}/clean_repository/codes/create_list_files_names_cross-val
 
 # Create list of the name of the files with the data for cross-validation:
 ${REPO_PATH}/clean_repository/codes/create_list_files_names_cross-validation.sh -o ${OUT_PATH}
+
+
+#-----------------To perform cross-validation analysis using the Bayesian Network model (CV1)----------------#
+
+# Set the root directory:
+ROOT_PATH=/workdir/jp2476
+
+# Set python path:
+PYTHON_PATH=${ROOT_PATH}/local/python
+
+# Path of the output folder:
+OUT_PATH=${ROOT_PATH}/output_sorghum-multi-trait
+
+# Path of the repository folder:
+REPO_PATH=${ROOT_PATH}/sorghum-multi-trait
+
+# Number of analysis:
+n_analysis=10
+
+for i in $(seq 1 ${n_analysis}); do  
+
+	# Name of the file with the phenotypes:
+	y=$(sed -n "${i}p" ${OUT_PATH}/processed_data/y_cv5f_bn_trn_files.txt)
+
+	# Name of the file with the features:
+	x=$(sed -n "${i}p" ${OUT_PATH}/processed_data/x_cv5f_bn_trn_files.txt)
+
+	# Name of the model that can be: 'BN' or 'PBN', or 'DBN':
+	model='BN'
+
+	# Getting the current fold of the cross-validation:
+	cv="$(cut -d'_' -f4 <<<"$y")"
+
+	# Defining the output directory for the outputs:
+	CV_OUT_PATH=${OUT_PATH}/cv/${model}/${PREFIX}/"$(cut -d'_' -f2 <<<"$y")"/"$(cut -d'_' -f3 <<<"$y")"/${cv}
+
+	# Running the code:
+	${PYTHON_PATH}/bin/python ${REPO_PATH}/clean_repository/codes/bayesian_network_analysis.py -y ${y} -x ${x} -model ${model} -rpath ${REPO_PATH} -opath ${OUT_PATH} -cvpath ${CV_OUT_PATH} & 
+
+	# Sleep for avoid exploding several processes:
+	sleep 5
+
+done;
+
