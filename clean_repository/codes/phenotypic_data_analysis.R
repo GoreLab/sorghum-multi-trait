@@ -22,8 +22,7 @@ opt_parser = OptionParser(option_list=option_list)
 args = parse_args(opt_parser)
 
 # Subset arguments:
-# OUT_PATH = args$opath
-OUT_PATH = '/home/jhonathan/Documents/output_sorghum-multi-trait'
+OUT_PATH = args$opath
 # OUT_PATH = '/workdir/jp2476/repo/output_sorghum-multi-trait'
 
 
