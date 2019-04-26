@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"herita",
+				"heritabilities"
+			],
+			[
+				"df_",
+				"df_updated"
+			],
+			[
 				"prefix",
 				"prefix_proj"
 			],
@@ -200,51 +208,133 @@
 	"buffers":
 	[
 		{
+			"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/bash_codes.sh",
+			"settings":
+			{
+				"buffer_size": 27433,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/jhonathan/Documents/sorghum-multi-trait/clean_repository/codes/pipeline.sh",
+			"settings":
+			{
+				"buffer_size": 3218,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/jhonathan/Documents/sorghum-multi-trait/clean_repository/codes/split_data_cross_validation.py",
+			"settings":
+			{
+				"buffer_size": 4823,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/mtrait_bayesian_networks.py",
+			"settings":
+			{
+				"buffer_size": 16909,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/jhonathan/Documents/sorghum-multi-trait/clean_repository/codes/create_figures_phenotypic_data_analysis.py",
+			"settings":
+			{
+				"buffer_size": 4528,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/jhonathan/Documents/sorghum-multi-trait/clean_repository/codes/create_directories.sh",
+			"settings":
+			{
+				"buffer_size": 8086,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/jhonathan/Documents/sorghum-multi-trait/clean_repository/codes/phenotypic_data_analysis.R",
+			"settings":
+			{
+				"buffer_size": 4350,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/jhonathan/Documents/sorghum-multi-trait/clean_repository/codes/process_raw_data.py",
+			"settings":
+			{
+				"buffer_size": 9166,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/mtrait_cross_validation_data_split.py",
+			"settings":
+			{
+				"buffer_size": 4691,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/mtrait_data_processing.py",
+			"settings":
+			{
+				"buffer_size": 13248,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/mtrait_first_step_analysis.R",
+			"settings":
+			{
+				"buffer_size": 4525,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/mtrait_first_step_analysis_heritability_std_delta.R",
+			"settings":
+			{
+				"buffer_size": 5446,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/mtrait_cross_validation_output_directories.sh",
+			"settings":
+			{
+				"buffer_size": 5640,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/jhonathan/Documents/sorghum-multi-trait/clean_repository/codes/functions.py",
+			"settings":
+			{
+				"buffer_size": 1329,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/external_functions.py",
 			"settings":
 			{
 				"buffer_size": 3175,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"settings":
-			{
-				"buffer_size": 0,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/deep_rnaseq_imputation.py",
-			"settings":
-			{
-				"buffer_size": 8495,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/jhonathan/Documents/merc-proj/codes/deep_evolution_quantitative.py",
-			"settings":
-			{
-				"buffer_size": 58275,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/jhonathan/Documents/diversity-proj/codes/resnet_diversity_feature_importance.py",
-			"settings":
-			{
-				"buffer_size": 10689,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/mtrait_first_step_analysis_plots.py",
-			"settings":
-			{
-				"buffer_size": 4709,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -263,15 +353,6 @@
 			"settings":
 			{
 				"buffer_size": 2917,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/mtrait_first_step_analysis_heritability_std_delta.R",
-			"settings":
-			{
-				"buffer_size": 5446,
-				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
@@ -310,10 +391,10 @@
 			}
 		},
 		{
-			"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/bash_codes.sh",
+			"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/mtrait_first_step_analysis_plots.py",
 			"settings":
 			{
-				"buffer_size": 27433,
+				"buffer_size": 4708,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -448,7 +529,7 @@
 			"file": "/home/jhonathan/Documents/phd1/my_theses/my_template/referencias/Capitulo2.bib",
 			"settings":
 			{
-				"buffer_size": 92098,
+				"buffer_size": 92349,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -547,8 +628,16 @@
 		"selected_items":
 		[
 			[
+				"git push",
+				"Git: Push"
+			],
+			[
 				"git com",
 				"Git: Commit"
+			],
+			[
+				"GIT ADD",
+				"Git: Add All"
 			],
 			[
 				"git add",
@@ -815,10 +904,6 @@
 				"Git: Commit"
 			],
 			[
-				"GIT ADD",
-				"Git: Add All"
-			],
-			[
 				"pan",
 				"Pandoc"
 			],
@@ -861,8 +946,21 @@
 	},
 	"file_history":
 	[
-		"/home/jhonathan/Documents/sorghum-multi-trait/codes/bayesian_network.stan",
+		"/home/jhonathan/Documents/sorghum-multi-trait/clean_repository/codes/figures_phenotypic_data_analysis.py",
+		"/home/jhonathan/Documents/sorghum-multi-trait/clean_repository/codes/cross_validation_data_split.py",
+		"/home/jhonathan/Documents/sorghum-multi-trait/clean_repository/codes/create_list_files_cross-validation.sh",
+		"/home/jhonathan/Documents/sorghum-multi-trait/clean_repository/codes/plots_phenotypic_data_analysis.py",
+		"/home/jhonathan/Documents/africa-proj/codes/functions_cervix/functions.R",
+		"/home/jhonathan/Documents/africa-proj/codes/functions_child/bn_africa_child_cancer_model-6.stan",
+		"/home/jhonathan/Documents/africa-proj/codes/functions_cervix/bn_cervix_model-6.stan",
 		"/home/jhonathan/Documents/sorghum-multi-trait/codes/mtrait_bayesian_networks.py",
+		"/home/jhonathan/Documents/sorghum-multi-trait/clean_repository/codes/test.py",
+		"/home/jhonathan/Documents/crop-proj/codes/crop-proj.R",
+		"/home/jhonathan/Documents/sorghum-multi-trait/clean_repository/codes/data_processing.py",
+		"/home/jhonathan/Documents/sorghum-multi-trait/codes/deep_rnaseq_imputation.py",
+		"/home/jhonathan/Documents/merc-proj/codes/deep_evolution_quantitative.py",
+		"/home/jhonathan/Documents/diversity-proj/codes/resnet_diversity_feature_importance.py",
+		"/home/jhonathan/Documents/sorghum-multi-trait/codes/bayesian_network.stan",
 		"/home/jhonathan/Documents/phd1/Project/bepe/bepe_project_with_resume/template/Capa.tex",
 		"/home/jhonathan/Documents/phd1/Project/projeto_jhonathan_fapesp/Projeto.tex",
 		"/home/jhonathan/Documents/phd1/Templates-do-Lab/Projetos e Relatórios FAPESP/template/Capa.tex",
@@ -922,7 +1020,6 @@
 		"/home/jhonathan/Documents/house-proj_kaggle/codes/bash_2layers.pbs",
 		"/home/jhonathan/Documents/house-proj_kaggle/codes/bash_2layers_day.py",
 		"/home/jhonathan/Documents/time-proj/codes/dbn_6_points.stan",
-		"/home/jhonathan/Documents/africa-proj/codes/functions_child/bn_africa_child_cancer_model-6.stan",
 		"/home/jhonathan/Documents/africa-proj/codes/functions_child/child_cancer.R",
 		"/home/jhonathan/Documents/time-proj/sh_codes/dbn_6_points_cockerham_cv23.pbs",
 		"/home/jhonathan/Documents/time-proj/Rscripts/rscript_rrblup_cockerham.R",
@@ -976,23 +1073,11 @@
 		"/home/jhonathan/Documents/time-proj/Rscripts/rscript_rrblup_cockerham_cv22.R",
 		"/home/jhonathan/Documents/time-proj/Rscripts/rscript_rrblup_cockerham_cv1.R",
 		"/home/jhonathan/Documents/time-proj/Rscripts/rscript_rrblup_rbf_cv1.R",
-		"/home/jhonathan/Documents/time-proj/Rscripts/rscript_rrblup_f2_cv1.R",
-		"/home/jhonathan/Documents/time-proj/codes/rrblup_code.R",
-		"/home/jhonathan/Documents/time-proj/Rscripts/rscript_dbn_2_points_cockerham_cv21.R",
-		"/home/jhonathan/Documents/time-proj/Rscripts/rscript_dbn_3_points_cockerham_cv21.R",
-		"/home/jhonathan/Documents/time-proj/Rscripts/rscript_dbn_3_points_cockerham_cv22.R",
-		"/home/jhonathan/Documents/phd1/Project/bepe/manifest_esalq/manufest_esalq.tex",
-		"/home/jhonathan/Documents/phd1/Project/bepe/manifest_esalq/Carta_português.tex",
-		"/home/jhonathan/Documents/time-proj/Rscripts/rscript_dbn_2_points_cockerham_cv22.R",
-		"/home/jhonathan/Documents/time-proj/Rscripts/rscript_dbn_6_points_rbf_cv23.R",
-		"/home/jhonathan/Documents/time-proj/Rscripts/rscript_dbn_6_points_rbf_cv22.R",
-		"/home/jhonathan/Documents/time-proj/Rscripts/rscript_dbn_6_points_rbf_cv21.R",
-		"/home/jhonathan/Documents/time-proj/Rscripts/rscript_dbn_2_points_cockerham.R",
-		"/home/jhonathan/Documents/time-proj/notes/cor_previous_result_cockerham_model.tex"
+		"/home/jhonathan/Documents/time-proj/Rscripts/rscript_rrblup_f2_cv1.R"
 	],
 	"find":
 	{
-		"height": 39.0
+		"height": 40.0
 	},
 	"find_in_files":
 	{
@@ -1006,6 +1091,36 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"cv1",
+			"cv2",
+			"5fcv",
+			"GBLUP_",
+			"LM",
+			"mtilm_models_fcv_list",
+			"LM",
+			"cv2",
+			"cv1",
+			"set",
+			"y_rep",
+			"itertools",
+			"np",
+			"prefix",
+			"setwd",
+			"df",
+			"itertools",
+			"glau",
+			"${PREFIX}",
+			"/outputs",
+			"resul",
+			"output",
+			"MTrGBLUP",
+			"MTiGBLUP",
+			"MTrLM",
+			"MTiLM",
+			"cross_validation",
+			"5fold",
+			"cv2",
+			"cv1",
 			"summ",
 			"Suma",
 			"glossy",
@@ -1103,37 +1218,7 @@
 			"out",
 			"results",
 			"n_layer",
-			"n_guess",
-			"model",
-			"starter_learning_rate = starter_learning_rate_lst[alt]\n# learning_rate = starter_learning_rate_lst[alt]\nbatch_size = batch_size_lst[alt]\ntotal_batch = int(len(X_trn.transpose()) / batch_size)                    # Total batch size\n",
-			"tst2",
-			"total_batch",
-			"bacth_mean",
-			"bath_mean",
-			"dev",
-			"B2",
-			"W2",
-			"h_units[0]",
-			"h_units[1]",
-			"\"B3",
-			"session.run(\"W3",
-			"beta1",
-			"beta2",
-			"gamma2",
-			"gamma1",
-			"session.run(\"W2",
-			"B2)",
-			"B1)",
-			"), X_",
-			"session.run(",
-			", X_",
-			"session.run(",
-			"1",
-			"2",
-			")*0.01",
-			"np.random.randn(",
-			"tst2",
-			"Z_neighborhood"
+			"n_guess"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1141,6 +1226,10 @@
 		"regex": false,
 		"replace_history":
 		[
+			"fcv",
+			"5fcv",
+			"y_gen",
+			"df_tst",
 			"\\beta",
 			"'",
 			"[1]",
@@ -1264,11 +1353,7 @@
 			"list_name",
 			"sigma_t_1",
 			"mu_t_1",
-			"1",
-			"ssm",
-			"blr",
-			"y_temp_t_1",
-			"y_temp_t"
+			"1"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -1279,24 +1364,404 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/external_functions.py",
+					"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/bash_codes.sh",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3175,
+						"buffer_size": 27433,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1426,
-								1426
+								5902,
+								5902
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/ShellScript/Bash.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1836.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/home/jhonathan/Documents/sorghum-multi-trait/clean_repository/codes/pipeline.sh",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3218,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3218,
+								3218
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/ShellScript/Bash.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/home/jhonathan/Documents/sorghum-multi-trait/clean_repository/codes/split_data_cross_validation.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4823,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/mtrait_bayesian_networks.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 16909,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 6987.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/home/jhonathan/Documents/sorghum-multi-trait/clean_repository/codes/create_figures_phenotypic_data_analysis.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4528,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								309,
+								309
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/home/jhonathan/Documents/sorghum-multi-trait/clean_repository/codes/create_directories.sh",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8086,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								82,
+								82
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/ShellScript/Bash.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1326.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "/home/jhonathan/Documents/sorghum-multi-trait/clean_repository/codes/phenotypic_data_analysis.R",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4350,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4225,
+								4225
+							]
+						],
+						"settings":
+						{
+							"auto_name": "",
+							"syntax": "Packages/R/R.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "/home/jhonathan/Documents/sorghum-multi-trait/clean_repository/codes/process_raw_data.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9166,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7143,
+								7143
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2856.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/mtrait_cross_validation_data_split.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4691,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4691,
+								4691
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1989.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/mtrait_data_processing.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 13248,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								13248,
+								13248
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 4845.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 15,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/mtrait_first_step_analysis.R",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4525,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4339,
+								4339
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/R/R.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1887.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 18,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/mtrait_first_step_analysis_heritability_std_delta.R",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5446,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5446,
+								5446
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/R/R.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2502.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 17,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/mtrait_cross_validation_output_directories.sh",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5640,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5640,
+								5640
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/ShellScript/Bash.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1428.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "/home/jhonathan/Documents/sorghum-multi-trait/clean_repository/codes/functions.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1329,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1329,
+								1329
 							]
 						],
 						"settings":
@@ -1309,156 +1774,41 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 21,
 					"type": "text"
 				},
 				{
-					"buffer": 1,
+					"buffer": 14,
+					"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/external_functions.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 0,
+						"buffer_size": 3175,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 35,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/deep_rnaseq_imputation.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8495,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								8118,
-								8118
+								290,
+								290
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 3199.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/home/jhonathan/Documents/merc-proj/codes/deep_evolution_quantitative.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 58275,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 14604.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 29,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "/home/jhonathan/Documents/diversity-proj/codes/resnet_diversity_feature_importance.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 10689,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								584,
-								584
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
+							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 16,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/mtrait_first_step_analysis_plots.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4709,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1521,
-								1521
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 399.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 30,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
+					"buffer": 15,
 					"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/mtrait_bayesian_networks_results.py",
 					"semi_transient": false,
 					"settings":
@@ -1481,14 +1831,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 16188.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 18,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 16,
 					"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/mtrait_gdrive.sh",
 					"semi_transient": false,
 					"settings":
@@ -1500,8 +1850,8 @@
 						"selection":
 						[
 							[
-								2587,
-								2587
+								1060,
+								1060
 							]
 						],
 						"settings":
@@ -1509,43 +1859,14 @@
 							"syntax": "Packages/ShellScript/Bash.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 171.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 17,
+					"stack_index": 19,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
-					"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/mtrait_first_step_analysis_heritability_std_delta.R",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5446,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								967,
-								967
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/R/R.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1482.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 27,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
+					"buffer": 17,
 					"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/junk_code.py",
 					"semi_transient": false,
 					"settings":
@@ -1568,14 +1889,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 12479.0,
+						"translation.y": 11750.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 28,
+					"stack_index": 23,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
+					"buffer": 18,
 					"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/tmp.R",
 					"semi_transient": false,
 					"settings":
@@ -1600,11 +1921,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 31,
+					"stack_index": 44,
 					"type": "text"
 				},
 				{
-					"buffer": 11,
+					"buffer": 19,
 					"file": "/home/jhonathan/Downloads/code_lab.R",
 					"semi_transient": false,
 					"settings":
@@ -1628,11 +1949,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 33,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
-					"buffer": 12,
+					"buffer": 20,
 					"file": "/home/jhonathan/Documents/phd1/Project/bepe/manuscript_terra-mepp_bayesian_networks/bib_latex.bib",
 					"semi_transient": false,
 					"settings":
@@ -1655,49 +1976,48 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 64.0,
+						"translation.y": 52.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 32,
+					"stack_index": 22,
 					"type": "text"
 				},
 				{
-					"buffer": 13,
-					"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/bash_codes.sh",
+					"buffer": 21,
+					"file": "/home/jhonathan/Documents/sorghum-multi-trait/codes/mtrait_first_step_analysis_plots.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 27433,
+						"buffer_size": 4708,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								842,
-								842
+								4708,
+								4708
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/ShellScript/Bash.sublime-syntax",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/Python/Python.sublime-syntax"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 34,
+					"stack_index": 10,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 6,
+			"selected": 0,
 			"sheets":
 			[
 				{
-					"buffer": 14,
+					"buffer": 22,
 					"file": "/home/jhonathan/Documents/phd1/my_theses/my_template/pre-textual/TodasInformações.tex",
 					"semi_transient": false,
 					"settings":
@@ -1720,14 +2040,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 108.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 26,
 					"type": "text"
 				},
 				{
-					"buffer": 15,
+					"buffer": 23,
 					"file": "/home/jhonathan/Documents/phd1/my_theses/my_template/pre-textual/Ficha.tex",
 					"semi_transient": false,
 					"settings":
@@ -1753,11 +2073,11 @@
 						"translation.y": 272.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 19,
+					"stack_index": 37,
 					"type": "text"
 				},
 				{
-					"buffer": 16,
+					"buffer": 24,
 					"file": "/home/jhonathan/Documents/phd1/my_theses/my_template/pre-textual/Agradecimentos.tex",
 					"semi_transient": false,
 					"settings":
@@ -1781,11 +2101,11 @@
 						"translation.y": 18.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 20,
+					"stack_index": 38,
 					"type": "text"
 				},
 				{
-					"buffer": 17,
+					"buffer": 25,
 					"file": "/home/jhonathan/Documents/phd1/my_theses/my_template/pre-textual/Dedicatoria.tex",
 					"semi_transient": false,
 					"settings":
@@ -1809,11 +2129,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 21,
+					"stack_index": 39,
 					"type": "text"
 				},
 				{
-					"buffer": 18,
+					"buffer": 26,
 					"file": "/home/jhonathan/Documents/phd1/my_theses/my_template/Tese.tex",
 					"semi_transient": false,
 					"settings":
@@ -1837,11 +2157,11 @@
 						"translation.y": 54.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 22,
+					"stack_index": 40,
 					"type": "text"
 				},
 				{
-					"buffer": 19,
+					"buffer": 27,
 					"file": "/home/jhonathan/Documents/phd1/my_theses/my_template/textual/Capitulo1.tex",
 					"semi_transient": false,
 					"settings":
@@ -1867,11 +2187,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 30,
 					"type": "text"
 				},
 				{
-					"buffer": 20,
+					"buffer": 28,
 					"file": "/home/jhonathan/Documents/phd1/my_theses/my_template/textual/Capitulo2.tex",
 					"semi_transient": false,
 					"settings":
@@ -1883,8 +2203,8 @@
 						"selection":
 						[
 							[
-								17307,
-								17307
+								16592,
+								16592
 							]
 						],
 						"settings":
@@ -1892,14 +2212,14 @@
 							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 1976.0,
+						"translation.y": 2476.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 25,
 					"type": "text"
 				},
 				{
-					"buffer": 21,
+					"buffer": 29,
 					"file": "/home/jhonathan/Documents/phd1/my_theses/my_template/pre-textual/Resumo.tex",
 					"semi_transient": false,
 					"settings":
@@ -1923,11 +2243,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 27,
 					"type": "text"
 				},
 				{
-					"buffer": 22,
+					"buffer": 30,
 					"file": "/home/jhonathan/Documents/phd1/my_theses/my_template/textual/Introduction.tex",
 					"semi_transient": false,
 					"settings":
@@ -1951,11 +2271,11 @@
 						"translation.y": 250.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 24,
+					"stack_index": 41,
 					"type": "text"
 				},
 				{
-					"buffer": 23,
+					"buffer": 31,
 					"file": "/home/jhonathan/Documents/phd1/my_theses/my_template/pre-textual/Abstract.tex",
 					"semi_transient": false,
 					"settings":
@@ -1979,11 +2299,11 @@
 						"translation.y": 36.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 25,
+					"stack_index": 42,
 					"type": "text"
 				},
 				{
-					"buffer": 24,
+					"buffer": 32,
 					"file": "/home/jhonathan/Documents/phd1/my_theses/cateto/pre-textual/TodasInformações.tex",
 					"semi_transient": false,
 					"settings":
@@ -2009,11 +2329,11 @@
 						"translation.y": 86.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 29,
 					"type": "text"
 				},
 				{
-					"buffer": 25,
+					"buffer": 33,
 					"file": "/home/jhonathan/Documents/phd1/events/pag_2019/my_template/Poster.tex",
 					"semi_transient": false,
 					"settings":
@@ -2038,11 +2358,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 16,
+					"stack_index": 36,
 					"type": "text"
 				},
 				{
-					"buffer": 26,
+					"buffer": 34,
 					"file": "/home/jhonathan/Documents/phd1/my_theses/my_template/referencias/Capitulo1.bib",
 					"semi_transient": false,
 					"settings":
@@ -2066,11 +2386,11 @@
 						"translation.y": 9760.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 31,
 					"type": "text"
 				},
 				{
-					"buffer": 27,
+					"buffer": 35,
 					"file": "/home/jhonathan/Documents/phd1/my_theses/my_template/referencias/Int_ref.bib",
 					"semi_transient": false,
 					"settings":
@@ -2095,24 +2415,24 @@
 						"translation.y": 4710.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 26,
+					"stack_index": 43,
 					"type": "text"
 				},
 				{
-					"buffer": 28,
+					"buffer": 36,
 					"file": "/home/jhonathan/Documents/phd1/my_theses/my_template/referencias/Capitulo2.bib",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 92098,
+						"buffer_size": 92349,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								52729,
-								52729
+								80179,
+								80179
 							]
 						],
 						"settings":
@@ -2122,14 +2442,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 11498.0,
+						"translation.y": 519.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 15,
+					"stack_index": 20,
 					"type": "text"
 				},
 				{
-					"buffer": 29,
+					"buffer": 37,
 					"file": "/home/jhonathan/Documents/phd1/my_theses/matheus/Dissertacao/Dissertacao_2_CAP/manuscript_terramepp_genetics_template/example-bibliography.bib",
 					"semi_transient": false,
 					"settings":
@@ -2152,14 +2472,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 144.0,
+						"translation.y": 130.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 36,
+					"stack_index": 13,
 					"type": "text"
 				},
 				{
-					"buffer": 30,
+					"buffer": 38,
 					"file": "/home/jhonathan/Documents/phd1/Project/projeto_jhonathan_fapesp/referencias/bibliografia.bib",
 					"semi_transient": false,
 					"settings":
@@ -2183,17 +2503,17 @@
 						"translation.y": 17530.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 37,
+					"stack_index": 45,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 1,
+			"selected": 6,
 			"sheets":
 			[
 				{
-					"buffer": 31,
+					"buffer": 39,
 					"file": "/home/jhonathan/Documents/phd1/fapesp_reports/fapesp_bepe_report/latex_fapesp_report_2017/Projeto.tex",
 					"semi_transient": false,
 					"settings":
@@ -2217,11 +2537,11 @@
 						"translation.y": 1460.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 28,
 					"type": "text"
 				},
 				{
-					"buffer": 32,
+					"buffer": 40,
 					"file": "/home/jhonathan/Documents/phd1/fapesp_reports/fapesp_final_report/latex_fapesp_report_2017/Projeto.tex",
 					"semi_transient": false,
 					"settings":
@@ -2242,14 +2562,14 @@
 							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 3978.0,
+						"translation.y": 289.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 24,
 					"type": "text"
 				},
 				{
-					"buffer": 33,
+					"buffer": 41,
 					"file": "/home/jhonathan/Documents/phd1/fapesp_reports/fapesp_bepe_report/latex_fapesp_report_2017/template/Capa.tex",
 					"semi_transient": false,
 					"settings":
@@ -2272,14 +2592,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 816.0,
+						"translation.y": 430.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 13,
+					"stack_index": 34,
 					"type": "text"
 				},
 				{
-					"buffer": 34,
+					"buffer": 42,
 					"file": "/home/jhonathan/Documents/phd1/fapesp_reports/fapesp_bepe_report/latex_fapesp_report_2017/template/Template_Projeto.sty",
 					"semi_transient": false,
 					"settings":
@@ -2302,14 +2622,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 51.0,
+						"translation.y": 47.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 32,
 					"type": "text"
 				},
 				{
-					"buffer": 35,
+					"buffer": 43,
 					"file": "/home/jhonathan/Documents/phd1/Project/bepe/bepe_project_with_resume/template/Template_Projeto.sty",
 					"semi_transient": false,
 					"settings":
@@ -2332,14 +2652,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1479.0,
+						"translation.y": 565.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 12,
+					"stack_index": 33,
 					"type": "text"
 				},
 				{
-					"buffer": 36,
+					"buffer": 44,
 					"file": "/home/jhonathan/Documents/phd1/Project/bepe/bepe_project_with_resume/Projeto.tex",
 					"semi_transient": false,
 					"settings":
@@ -2360,14 +2680,14 @@
 							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 5274.0,
+						"translation.y": 217.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 14,
+					"stack_index": 35,
 					"type": "text"
 				},
 				{
-					"buffer": 37,
+					"buffer": 45,
 					"file": "/home/jhonathan/Documents/phd1/fapesp_reports/fapesp_bepe_report/latex_fapesp_report_2017/referencias/bibliografia.bib",
 					"semi_transient": false,
 					"settings":
@@ -2388,10 +2708,10 @@
 							"syntax": "Packages/LaTeX/Bibtex.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 663.0,
+						"translation.y": 357.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 23,
+					"stack_index": 14,
 					"type": "text"
 				}
 			]
@@ -2399,7 +2719,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 28.0
+		"height": 32.0
 	},
 	"input":
 	{
@@ -2436,8 +2756,8 @@
 		"rows":
 		[
 			0.0,
-			0.0829015544043,
-			0.19170984456,
+			0.896373056994,
+			0.948186528497,
 			1.0
 		]
 	},
@@ -2448,7 +2768,7 @@
 	},
 	"output.git":
 	{
-		"height": 319.0
+		"height": 36.0
 	},
 	"output.sftp":
 	{
@@ -2458,7 +2778,7 @@
 	"project": "mtrait.sublime-project",
 	"replace":
 	{
-		"height": 70.0
+		"height": 72.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -2482,7 +2802,7 @@
 		[
 			[
 				"",
-				"~/Documents/crop-proj/sublime/crop.untitled.sublime-project"
+				"~/Documents/sorghum-multi-trait/sublime/mtrait.sublime-project"
 			],
 			[
 				"div",
@@ -2512,7 +2832,7 @@
 		],
 		"width": 392.0
 	},
-	"selected_group": 2,
+	"selected_group": 0,
 	"settings":
 	{
 	},

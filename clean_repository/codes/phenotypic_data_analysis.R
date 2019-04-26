@@ -6,16 +6,15 @@ library(optparse)
 library(data.table)
 library(magrittr)
 library(lme4)
-library(sjstats)
+library(stringr)
+
 
 #-----------------------------------------Adding flags to the code-------------------------------------------#
 
 # Set the flags:
 option_list = list(
-  make_option(c("-r", "--rpath"), type="character", default=NULL, 
-              help="The path of the repository", metavar="character"),
   make_option(c("-o", "--opath"), type="character", default=NULL, 
-              help="The path of the folder to receive outputs (also root of the processed data)", metavar="character")
+              help="The path of the folder to receive outputs", metavar="character")
 ) 
 
 # Parse the arguments:
@@ -23,10 +22,10 @@ opt_parser = OptionParser(option_list=option_list)
 args = parse_args(opt_parser)
 
 # Subset arguments:
-# REPO_PATH = args$rpath
 # OUT_PATH = args$opath
-REPO_PATH = '/home/jhonathan/Documents/sorghum-multi-trait'
 OUT_PATH = '/home/jhonathan/Documents/output_sorghum-multi-trait'
+# OUT_PATH = '/workdir/jp2476/repo/output_sorghum-multi-trait'
+
 
 #---------------------------------------------Loading data---------------------------------------------------#
 
@@ -65,7 +64,6 @@ df$env <- df$env %>% as.factor()
 
 # Initialize a list to receive the first stage results:
 fit = list()
-metrics = list()
 g = list()
 
 # Index for mapping the results:
@@ -82,11 +80,64 @@ df_tmp$env = df_tmp$env %>% droplevels
 # Fit the model:
 fit[[index]] = lmer(drymass ~ 1 + id_gbs + (1|block:env) + (1|env) + (1|id_gbs:env), data=df_tmp)
 
-# Get the metrics to evaluate model performance:
-metrics[["drymass-cv"]] = cv(fit[[index]]) %>% data.matrix
-
 # Store the corrected mean:
 g[[index]] = fixef(fit[[index]])[1] + fixef(fit[[index]])[-1]
 
 
+#------------------------------------------Height data analysis----------------------------------------------#
 
+for (i in dap_groups) {
+
+	# Index for mapping the results:
+	index = "height_" %>% paste0(i)
+
+	# Subsetting part of the data set: 
+	df_tmp = df[(df$trait == "PH" & df$dap == i)]  
+
+	# Dropping levels not present in the data subset:
+	df_tmp$id_gbs = df_tmp$id_gbs %>% droplevels
+	df_tmp$block = df_tmp$block %>% droplevels
+	df_tmp$env = df_tmp$env %>% droplevels
+
+	# Fitting the model:
+	fit[[index]] = lmer(height ~ 1 + id_gbs + (1|block:env) + (1|env) + (1|id_gbs:env), data=df_tmp)
+
+	# Storing the corrected mean:
+	g[[index]] = fixef(fit[[index]])[1] + fixef(fit[[index]])[-1]
+
+	# Printing current analysis:
+	print(paste0("Analysis ", index, " done!"))
+
+}
+
+# Initialize a new data frame:
+df_tmp = data.frame()
+
+# Transform list into data frame:
+for (i in names(g)) {
+
+	if (i=='drymass') {
+		 df_tmp = data.frame(id_gbs = str_split(names(g[[i]]), pattern="gbs", simplify = TRUE)[,2],
+		 					 y_hat = unname(g[[i]]),
+		 					 trait = rep('drymass', length(g[[i]])),
+		 					 dap = rep("NA", length(g[[i]])))
+    	 df_updated = df_tmp
+	}
+	if (i!='drymass') {
+		 df_tmp = data.frame(id_gbs = str_split(names(g[[i]]), pattern="gbs", simplify = TRUE)[,2],
+		 					 y_hat = unname(g[[i]]),
+		 					 trait = rep('height', length(g[[i]])),
+		 					 dap = rep(str_split(i, pattern="_", simplify = TRUE)[,2], length(g[[i]])))
+		 df_updated = rbind(df_updated, df_tmp)
+	}
+
+}
+
+
+#---------------------------------------------Saving outputs-------------------------------------------------#
+
+# Set directory:
+setwd(paste0(OUT_PATH, '/processed_data'))
+
+# Save adjusted means:
+write.csv(df_updated, file=paste0("adjusted_means.csv"))
