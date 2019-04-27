@@ -1,7 +1,7 @@
 
 #------------------------------------------------Modules-----------------------------------------------------#
 
-# Loading libraries:
+# Load libraries:
 import pandas as pd
 import numpy as np
 import os
@@ -66,14 +66,14 @@ if model=='PBN':
 #------------------------------------------Data input for stan-----------------------------------------------#
 
 if model == 'BN':
-	# Creating an empty list to receive the dictionaries:
+	# Create an empty list to receive the dictionaries:
 	dict_stan = []
-	# Subsetting time indexes and groups:
+	# Subset time indexes and groups:
 	index = X.iloc[:,0].values
 	group = X.iloc[:,0].unique()
-	# Droping the first column used just for mapping:
+	# Drop the first column used just for mapping:
 	X = X.drop(X.columns[0], axis=1)
-	# Building dictionaries:
+	# Build dictionaries:
 	for t in group:
 		dict_stan.append(dict(p_z = X[index==t].shape[1],
 							  n = X[index==t].shape[0],
@@ -82,19 +82,19 @@ if model == 'BN':
 						 	  phi = y[index==t].max().values[0]*10)) 
 
 if model == 'PBN':
-	# Creating an empty list to receive the dictionaries:
+	# Create an empty list to receive the dictionaries:
 	dict_stan = [] 
-	# Subsetting time indexes and groups:
+	# Subset time indexes and groups:
 	index1 = X_1.iloc[:,0].values
 	index0 = X_0.iloc[:,0].values
 	group1 = X_1.iloc[:,0].unique()
 	group0 = X_0.iloc[:,0].unique()
-	# Droping the first column used just for mapping:
+	# Drop the first column used just for mapping:
 	X_0 = X_0.drop(X_0.columns[0], axis=1)
 	X_1 = X_1.drop(X_1.columns[0], axis=1)
 	# Case where the first input file have measures over time:
 	if len(group1)==1:
-		# Building dictionaries:
+		# Build dictionaries:
 		for t in group0:
 			dict_stan.append(dict(p_z = X_0.shape[1],
 								  n_0 = X_0[index0==t].shape[0],
@@ -106,7 +106,7 @@ if model == 'PBN':
 							 	  phi = pd.concat([y_0[index0==t], y_1], axis=0).max().values[0]*10))
 	# Case where the second input file have measures over time:
 	if len(group0)==1:
-		# Building dictionaries:
+		# Build dictionaries:
 		for t in group1:
 			dict_stan.append(dict(p_z = X_0.shape[1],
 								  n_0 = X_0.shape[0],
@@ -118,7 +118,7 @@ if model == 'PBN':
 							 	  phi = pd.concat([y_0, y_1[index1==t]], axis=0).max().values[0]*10))
 	# Case where all input files have measures over time:
 	if (len(group0)!=1) & (len(group1)!=1):
-		# Building dictionaries:
+		# Build dictionaries:
 		for t0, t1 in zip(group0, group1):
 			dict_stan.append(dict(p_z = X_0.shape[1],
 								  n_0 = X_0[index0==t0].shape[0],
@@ -130,12 +130,12 @@ if model == 'PBN':
 							 	  phi = pd.concat([y_0[index0==t0], y_1[index1==t1]], axis=0).max().values[0]*10))
 
 if model == 'DBN-0~1':
-	# Subsetting time indexes and groups:
+	# Subset time indexes and groups:
 	index = X.iloc[:,0].values
 	group = X.iloc[:,0].unique()
-	# Subsetting the time covariate and the features:
+	# Subset the time covariate and the features:
 	Z = X.drop(X.columns[0], axis=1)
-	# Building dictionaries:
+	# Build dictionaries:
 	dict_stan = dict(p_z = Z[index==group[0]].shape[1],
 					 p_res = len(group),
 					 n_0 = Z[index==group[0]].shape[0],
@@ -147,12 +147,12 @@ if model == 'DBN-0~1':
 				 	 phi = y.max().values[0]*10) 
 
 if model == 'DBN-0~2':
-	# Subsetting time indexes and groups:
+	# Subset time indexes and groups:
 	index = X.iloc[:,0].values
 	group = X.iloc[:,0].unique()
-	# Subsetting the time covariate and the features:
+	# Subset the time covariate and the features:
 	Z = X.drop(X.columns[0], axis=1)
-	# Building dictionaries:
+	# Build dictionaries:
 	dict_stan = dict(p_z = Z[index==group[0]].shape[1],
 					 p_res = len(group),
 					 n_0 = Z[index==group[0]].shape[0],
@@ -167,12 +167,12 @@ if model == 'DBN-0~2':
 				 	 phi = y.max().values[0]*10) 
 
 if model == 'DBN-0~3':
-	# Subsetting time indexes and groups:
+	# Subset time indexes and groups:
 	index = X.iloc[:,0].values
 	group = X.iloc[:,0].unique()
-	# Subsetting the time covariate and the features:
+	# Subset the time covariate and the features:
 	Z = X.drop(X.columns[0], axis=1)
-	# Building dictionaries:
+	# Build dictionaries:
 	dict_stan = dict(p_z = Z[index==group[0]].shape[1],
 					 p_res = len(group),
 					 n_0 = Z[index==group[0]].shape[0],
@@ -190,12 +190,12 @@ if model == 'DBN-0~3':
 				 	 phi = y.max().values[0]*10) 
 
 if model == 'DBN-0~4':
-	# Subsetting time indexes and groups:
+	# Subset time indexes and groups:
 	index = X.iloc[:,0].values
 	group = X.iloc[:,0].unique()
-	# Subsetting the time covariate and the features:
+	# Subset the time covariate and the features:
 	Z = X.drop(X.columns[0], axis=1)
-	# Building dictionaries:
+	# Build dictionaries:
 	dict_stan = dict(p_z = Z[index==group[0]].shape[1],
 					 p_res = len(group),
 					 n_0 = Z[index==group[0]].shape[0],
@@ -216,12 +216,12 @@ if model == 'DBN-0~4':
 				 	 phi = y.max().values[0]*10) 
 
 if model == 'DBN-0~5':
-	# Subsetting time indexes and groups:
+	# Subset time indexes and groups:
 	index = X.iloc[:,0].values
 	group = X.iloc[:,0].unique()
-	# Subsetting the time covariate and the features:
+	# Subset the time covariate and the features:
 	Z = X.drop(X.columns[0], axis=1)
-	# Building dictionaries:
+	# Build dictionaries:
 	dict_stan = dict(p_z = Z[index==group[0]].shape[1],
 					 p_res = len(group),
 					 n_0 = Z[index==group[0]].shape[0],
@@ -245,12 +245,12 @@ if model == 'DBN-0~5':
 				 	 phi = y.max().values[0]*10) 
 
 if model == 'DBN-0~6':
-	# Subsetting time indexes and groups:
+	# Subset time indexes and groups:
 	index = X.iloc[:,0].values
 	group = X.iloc[:,0].unique()
-	# Subsetting the time covariate and the features:
+	# Subset the time covariate and the features:
 	Z = X.drop(X.columns[0], axis=1)
-	# Building dictionaries:
+	# Build dictionaries:
 	dict_stan = dict(p_z = Z[index==group[0]].shape[1],
 					 p_res = len(group),
 					 n_0 = Z[index==group[0]].shape[0],
@@ -284,21 +284,21 @@ os.chdir(REPO_PATH + "/clean_repository/codes")
 
 # For running the Bayesian Network model:s
 if model == 'BN':
-	# Compiling the Bayesian Network:
+	# Compile the Bayesian Network:
 	model_stan = ps.StanModel(file='bayesian_network.stan')
-	# Creating an empty list:
+	# Create an empty list:
 	fit = []
-	# Fitting the model:
+	# Fit the model:
 	for t in range(len(group)):
 		fit.append(model_stan.sampling(data=dict_stan[t], chains=4, iter=400))
 
-# For running the Pleiotropic Bayesian Network model:
+# Run the Pleiotropic Bayesian Network model:
 if model == 'PBN':
-	# Compiling the Pleiotropic Bayesian Network:
+	# Compile the Pleiotropic Bayesian Network:
 	model_stan = ps.StanModel(file='pleiotropic_bayesian_network.stan')
-	# Creating an empty list:
+	# Create an empty list:
 	fit = []
-	# Fitting the model:
+	# Fit the model:
 	if len(group1)==1:
 		for t in range(len(group0)):
 			fit.append(model_stan.sampling(data=dict_stan[t], chains=4, iter=400))
@@ -309,55 +309,55 @@ if model == 'PBN':
 		for t in range(len(group0)):
 			fit.append(model_stan.sampling(data=dict_stan[t], chains=4, iter=400))
 
-# Compiling the DBN model:
+# Compile the DBN model:
 if model == 'DBN-0~1':
 	model_stan = ps.StanModel(file='dynamic_bayesian_network_0_1.stan')
-	# Fitting the model:
+	# Fit the model:
 	fit = model_stan.sampling(data=dict_stan, chains=4, iter=400)
 
-# Compiling the DBN model:
+# Compile the DBN model:
 if model == 'DBN-0~2':
 	model_stan = ps.StanModel(file='dynamic_bayesian_network_0_2.stan')
-	# Fitting the model:
+	# Fit the model:
 	fit = model_stan.sampling(data=dict_stan, chains=4, iter=400)
 
-# Compiling the DBN model:
+# Compile the DBN model:
 if model == 'DBN-0~3':
 	model_stan = ps.StanModel(file='dynamic_bayesian_network_0_3.stan')
-	# Fitting the model:
+	# Fit the model:
 	fit = model_stan.sampling(data=dict_stan, chains=4, iter=400)
 
-# Compiling the DBN model:
+# Compile the DBN model:
 if model == 'DBN-0~4':
 	model_stan = ps.StanModel(file='dynamic_bayesian_network_0_4.stan')
-	# Fitting the model:
+	# Fit the model:
 	fit = model_stan.sampling(data=dict_stan, chains=4, iter=400)
 
-# Compiling the DBN model:
+# Compile the DBN model:
 if model == 'DBN-0~5':
 	model_stan = ps.StanModel(file='dynamic_bayesian_network_0_5.stan')
-	# Fitting the model:
+	# Fit the model:
 	fit = model_stan.sampling(data=dict_stan, chains=4, iter=400)
 
-# Compiling the DBN model:
+# Compile the DBN model:
 if model == 'DBN-0~6':
 	model_stan = ps.StanModel(file='dynamic_bayesian_network_0_6.stan')
-	# Fitting the model:
+	# Fit the model:
 	fit = model_stan.sampling(data=dict_stan, chains=4, iter=400)
 
 
 #---------------------------------Saving outputs from the Bayesian Network-----------------------------------#
 
-# Setting directory:
+# Set directory:
 os.chdir(CV_OUT_PATH)
 
-# Saving stan fit object and model for the BN:
+# Save stan fit object and model for the BN:
 if model == 'BN':
 	for t in range(len(group)):
 		with open('output_' + model.lower() + '_fit_' + str(t) + '.pkl', 'wb') as f:
 		    pickle.dump({'model' : model_stan, 'fit' : fit[t]}, f, protocol=-1)
 
-# Saving stan fit object and model for the PBN:
+# Save stan fit object and model for the PBN:
 if model == 'PBN':
 	if len(group1)==1:
 		for t in range(len(group0)):
@@ -372,7 +372,7 @@ if model == 'PBN':
 			with open('output_' + model.lower() + '_fit_' + str(t) + '.pkl', 'wb') as f:
 			    pickle.dump({'model' : model_stan, 'fit' : fit[t]}, f, protocol=-1)
 
-# Saving stan fit object and model for the DBN:
+# Save stan fit object and model for the DBN:
 if bool(re.search('DBN', model)):
 	with open('output_' + model.lower() + '.pkl', 'wb') as f:
 	    pickle.dump({'model' : model_stan, 'fit' : fit}, f, protocol=-1)

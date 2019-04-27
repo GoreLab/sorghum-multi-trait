@@ -92,7 +92,7 @@ Rscript ${REPO_PATH}/clean_repository/codes/phenotypic_data_analysis.R --opath $
 ${PYTHON_PATH}/bin/python ${REPO_PATH}/clean_repository/codes/create_figures_phenotypic_data_analysis.py -rpath ${REPO_PATH} -opath ${OUT_PATH} & 
 
 
-#--------Files for 5-fold cross-validation (cv5f) and forward-chaining cross-validation (fcv) schemes--------#
+#--------------Files for 5-fold cross-validation and forward-chaining cross-validation schemes---------------#
 
 # Set python path:
 PYTHON_PATH=${ROOT_PATH}/local/python
@@ -113,7 +113,7 @@ chmod +755 ${REPO_PATH}/clean_repository/codes/create_list_files_names_cross-val
 ${REPO_PATH}/clean_repository/codes/create_list_files_names_cross-validation.sh -o ${OUT_PATH}
 
 
-#-----------------To perform cross-validation analysis using the Bayesian Network model (CV1)----------------#
+#-------------------To perform 5-fold cross-validation using the Bayesian Network model----------------------#
 
 # Set the root directory:
 ROOT_PATH=/workdir/jp2476
@@ -127,7 +127,7 @@ OUT_PATH=${ROOT_PATH}/output_sorghum-multi-trait
 # Path of the repository folder:
 REPO_PATH=${ROOT_PATH}/sorghum-multi-trait
 
-# Number of analysis:
+# Number of analysis (each analysis will use 4 threads to run 4 Markov chains):
 n_analysis=10
 
 for i in $(seq 1 ${n_analysis}); do  
@@ -141,17 +141,246 @@ for i in $(seq 1 ${n_analysis}); do
 	# Name of the model that can be: 'BN' or 'PBN', or 'DBN':
 	model='BN'
 
-	# Getting the current fold of the cross-validation:
+	# Get the current fold of the cross-validation:
 	cv="$(cut -d'_' -f4 <<<"$y")"
 
-	# Defining the output directory for the outputs:
-	CV_OUT_PATH=${OUT_PATH}/cv/${model}/${PREFIX}/"$(cut -d'_' -f2 <<<"$y")"/"$(cut -d'_' -f3 <<<"$y")"/${cv}
+	# Define the output directory for the outputs:
+	CV_OUT_PATH=${OUT_PATH}/cv/${model}/"$(cut -d'_' -f2 <<<"$y")"/"$(cut -d'_' -f3 <<<"$y")"/${cv}
 
-	# Running the code:
+	# Run the code:
 	${PYTHON_PATH}/bin/python ${REPO_PATH}/clean_repository/codes/bayesian_network_analysis.py -y ${y} -x ${x} -model ${model} -rpath ${REPO_PATH} -opath ${OUT_PATH} -cvpath ${CV_OUT_PATH} & 
 
 	# Sleep for avoid exploding several processes:
 	sleep 5
 
 done;
+
+
+#---------------To perform forward-chaining cross-validation using the Bayesian Network model----------------#
+
+# Set the root directory:
+ROOT_PATH=/workdir/jp2476
+
+# Set python path:
+PYTHON_PATH=${ROOT_PATH}/local/python
+
+# Path of the output folder:
+OUT_PATH=${ROOT_PATH}/output_sorghum-multi-trait
+
+# Path of the repository folder:
+REPO_PATH=${ROOT_PATH}/sorghum-multi-trait
+
+# Number of analysis (each analysis will use 4 threads to run 4 Markov chains):
+n_analysis=6
+
+for i in $(seq 1 ${n_analysis}); do  
+
+	# Name of the file with the phenotypes:
+	y=$(sed -n "${i}p" ${OUT_PATH}/processed_data/y_fcv_bn_trn_files.txt)
+
+	# Name of the file with the features:
+	x=$(sed -n "${i}p" ${OUT_PATH}/processed_data/x_fcv_bn_trn_files.txt)
+
+	# Name of the model that can be: 'BN' or 'PBN', or 'DBN':
+	model='BN'
+
+	# Define the output directory for the outputs:
+	CV_OUT_PATH=${OUT_PATH}/cv/${model}/"$(cut -d'_' -f2 <<<"$y")"/"$(cut -d'_' -f3 <<<"$y")"
+
+	# Run the code:
+	${PYTHON_PATH}/bin/python ${REPO_PATH}/clean_repository/codes/bayesian_network_analysis.py -y ${y} -x ${x} -model ${model} -rpath ${REPO_PATH} -opath ${OUT_PATH} -cvpath ${CV_OUT_PATH} & 
+
+	# Sleep for avoid exploding several processes:
+	sleep 5
+
+done;
+
+
+#--------------To perform 5-fold cross-validation using the Pleiotropic Bayesian Network model---------------#
+
+# Set the root directory:
+ROOT_PATH=/workdir/jp2476
+
+# Set python path:
+PYTHON_PATH=${ROOT_PATH}/local/python
+
+# Path of the output folder:
+OUT_PATH=${ROOT_PATH}/output_sorghum-multi-trait
+
+# Path of the repository folder:
+REPO_PATH=${ROOT_PATH}/sorghum-multi-trait
+
+# Number of analysis (each analysis will use 4 threads to run 4 Markov chains):
+n_analysis=5
+
+for i in $(seq 1 ${n_analysis}); do
+
+	# Name of the file with the phenotypes:
+	y=$(sed -n "${i}p" ${OUT_PATH}/processed_data/y_cv5f_pbn_trn_files.txt)
+
+	# Name of the file with the features:
+	x=$(sed -n "${i}p" ${OUT_PATH}/processed_data/x_cv5f_pbn_trn_files.txt)
+
+	# Name of the model that can be: 'BN' or 'PBN', or 'DBN':
+	model='PBN'
+
+	# Get the name of the cross-validation scheme and traits:
+	tmp1="$(cut -d'_' -f2 <<<"$y")"
+	tmp2="$(cut -d'-' -f1 <<<"$y")"
+	tmp2="$(cut -d'_' -f3 <<<"$tmp2")"
+	tmp3="$(cut -d'&' -f2 <<<"$y")"
+	tmp3="$(cut -d'_' -f3 <<<"$tmp3")"
+
+	# Get the current fold of the cross-validation:
+	cv="$(cut -d'_' -f4 <<<"$y")"
+
+	# Create the name of the output directory:
+	CV_OUT_PATH=${OUT_PATH}/cv/${model}/${tmp1}/${tmp2}-${tmp3}/${cv}
+
+	# Run the code:
+	${PYTHON_PATH}/bin/python ${REPO_PATH}/clean_repository/codes/bayesian_network_analysis.py -y ${y} -x ${x} -model ${model} -rpath ${REPO_PATH} -opath ${OUT_PATH} -cvpath ${CV_OUT_PATH} & 
+
+	# Sleep for avoid exploding several processes:
+	sleep 5
+
+done;
+
+
+#---------To perform forward-chaining cross-validation using the Pleiotropic Bayesian Network model----------#
+
+# Set the root directory:
+ROOT_PATH=/workdir/jp2476
+
+# Set python path:
+PYTHON_PATH=${ROOT_PATH}/local/python
+
+# Path of the output folder:
+OUT_PATH=${ROOT_PATH}/output_sorghum-multi-trait
+
+# Path of the repository folder:
+REPO_PATH=${ROOT_PATH}/sorghum-multi-trait
+
+# Number of analysis (each analysis will use 4 threads to run 4 Markov chains):
+n_analysis=6
+
+for i in $(seq 1 ${n_analysis}); do
+
+	# Name of the file with the phenotypes:
+	y=$(sed -n "${i}p" ${OUT_PATH}/processed_data/y_fcv_pbn_trn_files.txt)
+
+	# Name of the file with the features:
+	x=$(sed -n "${i}p" ${OUT_PATH}/processed_data/x_fcv_pbn_trn_files.txt)
+
+	# Name of the model that can be: 'BN' or 'PBN', or 'DBN'
+	model='PBN'
+
+	# Get the name of the cross-validation scheme and traits:
+	tmp1="$(cut -d'_' -f5 <<<"$y")"
+	tmp2="$(cut -d'-' -f1 <<<"$y")"
+	tmp2="$(cut -d'_' -f3 <<<"$tmp2")"
+	tmp3="$(cut -d'_' -f6 <<<"$y")"
+
+	# Get the current fold of the cross-validation:
+	cv="$(cut -d'_' -f4 <<<"$y")"
+
+	# Create the name of the output directory:
+	CV_OUT_PATH=${OUT_PATH}/cv/${model}/${tmp1}/${tmp2}-${tmp3}
+
+	# Run the code:
+	${PYTHON_PATH}/bin/python ${REPO_PATH}/clean_repository/codes/bayesian_network_analysis.py -y ${y} -x ${x} -model ${model} -rpath ${REPO_PATH} -opath ${OUT_PATH} -cvpath ${CV_OUT_PATH} & 
+
+	# Sleep for avoid exploding several processes:
+	sleep 5
+
+done;
+
+
+#----------------To perform 5-fold cross-validation using the Dynamic Bayesian Network model-----------------#
+
+# Set the root directory:
+ROOT_PATH=/workdir/jp2476
+
+# Set python path:
+PYTHON_PATH=${ROOT_PATH}/local/python
+
+# Path of the output folder:
+OUT_PATH=${ROOT_PATH}/output_sorghum-multi-trait
+
+# Path of the repository folder:
+REPO_PATH=${ROOT_PATH}/sorghum-multi-trait
+
+# Number of analysis (each analysis will use 4 threads to run 4 Markov chains):
+n_analysis=5
+
+for i in $(seq 1 ${n_analysis}); do
+
+	# Name of the file with the phenotypes:
+	y=$(sed -n "${i}p" ${OUT_PATH}/processed_data/y_cv5f_dbn_trn_files.txt)
+
+	# Name of the file with the features:
+	x=$(sed -n "${i}p" ${OUT_PATH}/processed_data/x_cv5f_dbn_trn_files.txt)
+
+	# Name of the model that can be: 'BN' or 'PBN', or 'DBN'
+	model='DBN-0~6'
+
+	# Get just the model prefix:
+	tmp="$(cut -d'-' -f1 <<<"$model")"
+
+	# Get the current fold of the cross-validation:
+	cv="$(cut -d'_' -f4 <<<"$y")"
+
+	# Define the output directory for the outputs:
+	CV_OUT_PATH=${OUT_PATH}/cv/${tmp}/"$(cut -d'_' -f2 <<<"$y")"/"$(cut -d'_' -f3 <<<"$y")"/${cv}
+
+	# Run the code:
+	${PYTHON_PATH}/bin/python ${REPO_PATH}/clean_repository/codes/bayesian_network_analysis.py -y ${y} -x ${x} -model ${model} -rpath ${REPO_PATH} -opath ${OUT_PATH} -cvpath ${CV_OUT_PATH} & 
+
+	# Sleep for avoid exploding several processes:
+	sleep 5
+
+done;
+
+
+#-----------To perform forward-chaining cross-validation using the Dynamic Bayesian Network model------------#
+
+# Set the root directory:
+ROOT_PATH=/workdir/jp2476
+
+# Set python path:
+PYTHON_PATH=${ROOT_PATH}/local/python
+
+# Path of the output folder:
+OUT_PATH=${ROOT_PATH}/output_sorghum-multi-trait
+
+# Path of the repository folder:
+REPO_PATH=${ROOT_PATH}/sorghum-multi-trait
+
+# Number of analysis (each analysis will use 4 threads to run 4 Markov chains):
+n_analysis=5
+
+for i in $(seq 1 ${n_analysis}); do
+
+	# Name of the file with the phenotypes:
+	y=$(sed -n "${i}p" ${OUT_PATH}/processed_data/y_fcv_dbn_trn_files.txt)
+
+	# Name of the file with the features:
+	x=$(sed -n "${i}p" ${OUT_PATH}/processed_data/x_fcv_dbn_trn_files.txt)
+
+	# Name of the model that can be: 'BN' or 'PBN', or 'DBN'
+	model=$(sed -n "${i}p" ${OUT_PATH}/processed_data/dbn_models_fcv_list.txt)
+
+	# Get just the model prefix:
+	tmp="$(cut -d'-' -f1 <<<"$model")"
+
+	# Define the output directory for the outputs:
+	CV_OUT_PATH=${OUT_PATH}/cv/${tmp}/"$(cut -d'_' -f2 <<<"$y")"/"$(cut -d'_' -f3 <<<"$y")"
+
+	# Run the code:
+	${PYTHON_PATH}/bin/python ${REPO_PATH}/clean_repository/codes/bayesian_network_analysis.py -y ${y} -x ${x} -model ${model} -rpath ${REPO_PATH} -opath ${OUT_PATH} -cvpath ${CV_OUT_PATH} & 
+
+	# Sleep for avoid exploding several processes:
+	sleep 5
+
+done;
+
 

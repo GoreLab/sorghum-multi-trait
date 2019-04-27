@@ -20,7 +20,7 @@ done
 # Set directory where the data is:
 cd ${OUT_PATH}/processed_data
 
-# List training data files names related to the cv5f scheme and storing it for latter usage:
+# List training data files names related to the 5-fold cross-validation scheme (cv5f) scheme and storing it for latter usage:
 ls y*cv5f*trn* > y_cv5f_bn_trn_files.txt
 ls x*cv5f*trn* > x_cv5f_bn_trn_files.txt
 ls y*cv5f*height*trn* > y_cv5f_dbn_trn_files.txt
@@ -35,7 +35,7 @@ grep "height" x_cv5f_bn_trn_files.txt > tmp2.txt
 paste -d'&' tmp1.txt tmp2.txt > x_cv5f_pbn_trn_files.txt
 rm tmp1.txt tmp2.txt
 
-# List training phenotypic data files names related to the fcv scheme and storing it for latter usage (BN):
+# List training phenotypic data files names related to the forward-chaining cross-validation (fcv) scheme and storing it for latter usage (BN):
 ls y*fcv*only*trn* > y_fcv_bn_trn_files.txt
 ls x*fcv*only*trn* > x_fcv_bn_trn_files.txt
 
@@ -78,7 +78,7 @@ done;
 paste -d'&' tmp1.txt y_fcv_dbn_trn_files.txt > fcv_mtr-gblup_files.txt
 rm tmp1.txt
 
-# Create a text file to store the different types of Multi Time GBLUP(MTiGBLUP) models for latter usage;
+# Create a text file to store the different types of Multi Time GBLUP (MTiGBLUP) models for latter usage;
 echo "MTiGBLUP-0~5" > mti-gblup_models_fcv_list.txt
 echo "MTiGBLUP-0~1" >> mti-gblup_models_fcv_list.txt
 echo "MTiGBLUP-0~2" >> mti-gblup_models_fcv_list.txt
