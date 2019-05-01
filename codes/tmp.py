@@ -1,209 +1,95 @@
 
+#----Compute coincidence index for dry biomass indirect selection using height adjusted means time series-----#
+
+# Store into a list different DAP values:
+dap_group = ['30', '45', '60', '75', '90', '105', '120']
+
+# List of models to use:
+model_set = ['bn', 'pbn']
+
+# Compute coincidence index for the Bayesian network and Pleiotropic Bayesian Network model:
+for k in model_set:
+  for i in range(len(dap_group[:-1])):
+    # Subset expectations and observations for coincidence index computation:
+    expect_tmp = expect_fcv[k + '_fcv_height_trained!on!dap:' + dap_group[i]]
+    y_obs_tmp = df[df.trait=='drymass'].y_hat
+    # Get the number of selected individuals for 20% selection intensity:
+    n_selected = int(y_obs_tmp.size * 0.2)
+    # Build the indexes for computing the coincidence index:
+    rank_obs = np.argsort(y_obs_tmp)[::-1][0:n_selected].index
+    # Selected lines:
+    top_lines_obs = df[df.trait=='drymass'].id_gbs[rank_obs]
+    # Vector for coincidence indexes:
+    ci_post_tmp = pd.DataFrame(index=expect_tmp.index, columns=['ci'])
+    # Compute the coincidence index:
+    for sim in range(ci_post_tmp.shape[0]):
+      # Build the indexes for computing the coincidence index:
+      rank_pred = np.argsort(expect_tmp.iloc[sim])[::-1][0:n_selected]
+      # Selected lines:
+      top_lines_pred = df.id_gbs[expect_tmp.iloc[sim].iloc[rank_pred].index]
+      # Compute coincidence index in the top 20% or not: 
+      ci_post_tmp.iloc[sim] = top_lines_pred.isin(top_lines_obs).mean(axis=0)
+    if (k==model_set[0]) & (i==0):
+      # Store the coincidence index:
+      ci_post = pd.DataFrame(columns=['post', 'model', 'dap'])
+      ci_post['model'] = np.repeat(k.upper(), ci_post_tmp.shape[0])
+      ci_post['dap'] = np.repeat(('DAP ' + dap_group[i] + '*'), ci_post_tmp.shape[0])
+      ci_post['post'] = ci_post_tmp.ci.values
+    else:
+      # Store the coincidence index:
+      tmp1 = np.repeat(k.upper(), ci_post_tmp.shape[0])  
+      tmp2 = np.repeat(('DAP ' + dap_group[i] + '*'), ci_post_tmp.shape[0])
+      tmp = pd.DataFrame({'post': ci_post_tmp.ci.values, 'model': tmp1, 'dap': tmp2})   
+      ci_post = pd.concat([ci_post, tmp], axis=0)
+    print('Model: {}, DAP_i: {}'.format(k, dap_group[i]))
+
+# Store into a list different DAP values interv
+dap_group = ['30~45', '30~60', '30~75', '30~90', '30~105']
+
+# Compute coincidence index for the Dynamic Bayesian network:
+for i in range(len(dap_group)):
+  # Subset expectations and observations for coincidence index:
+  expect_tmp = expect_fcv['dbn_fcv_height_trained!on!dap:' + dap_group[i]]
+  y_obs_tmp = df[df.trait=='drymass'].y_hat
+  # Get the upper bound of the interval:
+  upper = int(dap_group[i].split('~')[1])
+  # Get the number of selected individuals for 20% selection intensity:
+  n_selected = int(y_obs_tmp.size * 0.2)
+  # Build the indexes for computing the coincidence index:
+  rank_obs = np.argsort(y_obs_tmp)[::-1][0:n_selected]
+  # Vector for coincidence indexes:
+  ci_post_tmp = pd.DataFrame(index=expect_tmp.index, columns=['ci'])
+  # Compute the coincidence index:
+  for sim in range(ci_post_tmp.shape[0]):
+    # Build the indexes for computing the coincidence index:
+    rank_pred = np.argsort(expect_tmp.iloc[sim])[::-1][0:n_selected]
+    # Selected lines:
+    top_lines_pred = df.id_gbs[expect_tmp.iloc[sim].iloc[rank_pred].index]
+    # Compute coincidence index in the top 20% or not: 
+    ci_post_tmp.iloc[sim] = top_lines_pred.isin(top_lines_obs).mean(axis=0)
+  # Store the coincidence index:
+  tmp1 = np.repeat('DBN', ci_post_tmp.shape[0])  
+  tmp2 = np.repeat(('DAP ' + str(upper) + '*'), ci_post_tmp.shape[0])
+  tmp = pd.DataFrame({'post': ci_post_tmp.ci.values, 'model': tmp1, 'dap': tmp2})   
+  ci_post = pd.concat([ci_post, tmp], axis=0)
+  print('Model: dbn, DAP_i: {}'.format(dap_group[i]))
+
+# Change data type:
+ci_post['post'] = ci_post['post'].astype(float)
+
+# Change labels:
+ci_post.columns = ['Days after planting', 'Model', 'Coincidence index posterior values']
+
+# Set directory:
+os.chdir(prefix_proj + 'plots/cv/ciplot')
+
+# Plot coincidence indexes:
+ax = sns.violinplot(x='Days after planting',
+                    y='Coincidence index posterior values',
+                    data=ci_post,
+                    hue='Model')
+plt.ylim(0.12, 0.42)
+plt.savefig("ci_plot.pdf", dpi=150)
+plt.savefig("ci_plot.png", dpi=150)
+plt.clf()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# A list to receive the results:
-results = [None] * n_alt
-
-# Generating iterations:
-setIter = range(1000)
-
-# Generating epochs:
-range_epoch = range(50)
-
-# Small epsilon value for batch norm
-epsilon = 1e-7
-
-# Type of processor (CPU or GPU):
-proc_type = "CPU"
-
-# Number of hidden layers:
-np.random.seed(seed)
-n_layers_lst = sample_n_h_layers(min=1,          # Maximum number of hidden units
-                                 max=20,         # Number of hidden layers
-                                 n_guess=n_alt,  # Number of guesses
-                                 same_str=2)     # False: Random guess; [Some architecture]: architecture to be replicated across guesses
-
-# Batch norm (True or False):
-np.random.seed(seed)
-batch_mode_lst = np.random.choice([True, False], size=n_alt)
-
-# Dropout (True or False):
-np.random.seed(seed)
-dropout_mode_lst = np.random.choice([True, False], size=n_alt) 
-
-# Sampling the hidden units:
-np.random.seed(seed)
-h_units_lst =  sample_h_units(min=1,                    # Minimum number of hidden units
-                              max=5,                    # Maximum number of hidden units
-                              n_layers=n_layers_lst,    # Number of hidden layers (it should be a list)
-                              n_guess=n_alt,            # Number of alternatives or guesses:
-                              same_str=False)           # False: Random guess; [Some architecture]: architecture to be replicated across guesses
-
-# Sampling the initial learning rate:
-np.random.seed(seed)
-starter_learning_rate_lst = sample_interval(min = 0.0001,        # Minimum of the quantitative interval
-                                            max = 1,             # Maximum of the quantitative interval
-                                            n_guess = n_alt,     # Number of guesses
-                                            same_str = False)    # False: Random guess; [Value] insert a value to replicate
-
-# Sampling Frobenius regularizer:
-np.random.seed(seed)
-lamb_lst = sample_interval(min = 0.0001,     # Minimum of the quantitative interval
-                       max = 2,          # Maximum of the quantitative interval
-                       n_guess = n_alt,  # Number of guesses
-                       same_str = False) # False: Random guess; [Value] insert a value to replicate
-
-# Sampling batch size:
-np.random.seed(seed)
-batch_size_lst = sample_batch(n = X['trn'].shape[1],        # Number of observations, or examples, or target
-                              n_guess = n_alt,              # Number of guesses
-                              same_str = X['trn'].shape[1]) # False: Random guess; [Value] insert a value to replicate
-
-# Sampling dropout keep prob hyperparameter:
-np.random.seed(seed)
-keep_prob_lst = sample_interval(min = 0.0001,      # Minimum of the quantitative interval
-                                max = 1,           # Maximum of the quantitative interval
-                                n_guess = n_alt,   # Number of guesses
-                                same_str = False)  # False: Random guess; [Value] insert a value to replicate
-
-
-
-###############
-
-
-m=6
-n_alt=40
-
-
-seed = int(str(m) + str(n_alt))
-
-
-np.random.seed(seed)
-
-
-# A list to receive the results:
-results = [None] * n_alt
-
-# Generating iterations:
-setIter = range(1000)
-
-# Generating epochs:
-range_epoch = range(50)
-
-# Small epsilon value for batch norm
-epsilon = 1e-7
-
-# Type of processor (CPU or GPU):
-proc_type = "CPU"
-
-# Number of hidden layers:
-# np.random.seed(seed)
-n_layers_lst = sample_n_h_layers(min=1,          # Maximum number of hidden units
-                                 max=20,         # Number of hidden layers
-                                 n_guess=n_alt,  # Number of guesses
-                                 same_str=2)     # False: Random guess; [Some architecture]: architecture to be replicated across guesses
-
-# Batch norm (True or False):
-# np.random.seed(seed)
-batch_mode_lst = np.random.choice([True, False], size=n_alt)
-
-# Dropout (True or False):
-# np.random.seed(seed)
-dropout_mode_lst = np.random.choice([True, False], size=n_alt) 
-
-# Sampling the hidden units:
-# np.random.seed(seed)
-h_units_lst =  sample_h_units(min=1,                    # Minimum number of hidden units
-                              max=5,                    # Maximum number of hidden units
-                              n_layers=n_layers_lst,    # Number of hidden layers (it should be a list)
-                              n_guess=n_alt,            # Number of alternatives or guesses:
-                              same_str=False)           # False: Random guess; [Some architecture]: architecture to be replicated across guesses
-
-# Sampling the initial learning rate:
-# np.random.seed(seed)
-starter_learning_rate_lst = sample_interval(min = 0.0001,        # Minimum of the quantitative interval
-                                            max = 1,             # Maximum of the quantitative interval
-                                            n_guess = n_alt,     # Number of guesses
-                                            same_str = False)    # False: Random guess; [Value] insert a value to replicate
-
-# Sampling Frobenius regularizer:
-# np.random.seed(seed)
-lamb_lst = sample_interval(min = 0.0001, # Minimum of the quantitative interval
-                       max = 2,          # Maximum of the quantitative interval
-                       n_guess = n_alt,  # Number of guesses
-                       same_str = False) # False: Random guess; [Value] insert a value to replicate
-
-# Sampling batch size:
-# np.random.seed(seed)
-batch_size_lst = sample_batch(n = X['trn'].shape[1],        # Number of observations, or examples, or target
-                              n_guess = n_alt,              # Number of guesses
-                              same_str = X['trn'].shape[1]) # False: Random guess; [Value] insert a value to replicate
-
-# Sampling dropout keep prob hyperparameter:
-# np.random.seed(seed)
-keep_prob_lst = sample_interval(min = 0.0001,      # Minimum of the quantitative interval
-                                max = 1,           # Maximum of the quantitative interval
-                                n_guess = n_alt,   # Number of guesses
-                                same_str = False)  # False: Random guess; [Value] insert a value to replicate
-
-
-
-print(batch_mode_lst)
-print(dropout_mode_lst)
-
-print(n_layers_lst)
-print(h_units_lst)
-
-print(starter_learning_rate_lst)
-print(lamb_lst)
-print(batch_size_lst)
-print(keep_prob_lst)
-
-
-print(batch_mode_lst[6])
-print(dropout_mode_lst[6])
-
-print(n_layers_lst[6])
-print(h_units_lst[6])
-
-print(starter_learning_rate_lst[6])
-print(lamb_lst[6])
-print(batch_size_lst[6])
-print(keep_prob_lst[6])
-
-
->>> print(batch_mode_lst[6])
-False
->>> print(dropout_mode_lst[6])
-False
->>> 
->>> print(n_layers_lst[6])
-2
->>> print(h_units_lst[6])
-[4 4 1]
->>> 
->>> print(starter_learning_rate_lst[6])
-0.1809194251820892
->>> print(lamb_lst[6])
-0.0005156945746242638
->>> print(batch_size_lst[6])
-26870
->>> print(keep_prob_lst[6])
-0.0006587624926100591

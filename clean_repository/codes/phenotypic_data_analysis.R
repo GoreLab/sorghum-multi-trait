@@ -23,7 +23,7 @@ args = parse_args(opt_parser)
 
 # Subset arguments:
 OUT_PATH = args$opath
-# OUT_PATH = '/workdir/jp2476/repo/output_sorghum-multi-trait'
+# OUT_PATH = '/workdir/jp2476/output_sorghum-multi-trait'
 
 
 #---------------------------------------------Loading data---------------------------------------------------#
@@ -51,12 +51,56 @@ dap_groups = df$dap %>% unique %>% na.omit %>% as.integer
 df$env <- paste0(as.character(df$loc), "_",as.character(df$year))
 df$env <- df$env %>% as.factor()
 
-# # For mike:
-# df[df$env == 'FF_16',]$block %>% as.character() %>% unique %>% length
-# df[df$env == 'EF_16',]$block %>% as.character() %>% unique %>% length
-# df[df$env == 'EF_17',]$block %>% as.character() %>% unique %>% length
-# df[df$env == 'MW_17',]$block %>% as.character() %>% unique %>% length
-# df %>% str
+# For mike:
+df[df$env == 'FF_16',]$block %>% as.character() %>% unique %>% length
+df[df$env == 'EF_16',]$block %>% as.character() %>% unique %>% length
+df[df$env == 'EF_17',]$block %>% as.character() %>% unique %>% length
+df[df$env == 'MW_17',]$block %>% as.character() %>% unique %>% length
+df %>% str
+
+mask1= df$block==1 & df$env == 'FF_16'
+mask2= df$block==2 & df$env == 'FF_16'
+intersect(as.character(df[mask1,]$id_gbs),as.character(df[mask2,]$id_gbs))
+
+
+mask1= df$block==1 & df$env == 'FF_16'
+mask2= df$block==3 & df$env == 'FF_16'
+intersect(as.character(df[mask1,]$id_gbs),as.character(df[mask2,]$id_gbs))
+
+mask1= df$block==1 & df$env == 'FF_16'
+mask2= df$block==4 & df$env == 'FF_16'
+intersect(as.character(df[mask1,]$id_gbs),as.character(df[mask2,]$id_gbs))
+
+mask1= df$block==1 & df$env == 'FF_16'
+mask2= df$block==5 & df$env == 'FF_16'
+intersect(as.character(df[mask1,]$id_gbs),as.character(df[mask2,]$id_gbs))
+
+mask1= df$block==1 & df$env == 'FF_16'
+mask2= df$block==6 & df$env == 'FF_16'
+intersect(as.character(df[mask1,]$id_gbs),as.character(df[mask2,]$id_gbs))
+
+mask1= df$block==1 & df$env == 'EF_17'
+mask2= df$block==2 & df$env == 'EF_17'
+intersect(as.character(df[mask1,]$id_gbs),as.character(df[mask2,]$id_gbs))
+
+
+mask1= df$block==1 & df$env == 'EF_17'
+mask2= df$block==3 & df$env == 'EF_17'
+intersect(as.character(df[mask1,]$id_gbs),as.character(df[mask2,]$id_gbs))
+
+
+mask1= df$block==1 & df$env == 'EF_17'
+mask2= df$block==4 & df$env == 'EF_17'
+intersect(as.character(df[mask1,]$id_gbs),as.character(df[mask2,]$id_gbs))
+
+
+mask1= df$block==1 & df$env == 'EF_17'
+mask2= df$block==5 & df$env == 'EF_17'
+intersect(as.character(df[mask1,]$id_gbs),as.character(df[mask2,]$id_gbs))
+
+mask1= df$block==1 & df$env == 'EF_17'
+mask2= df$block==6 & df$env == 'EF_17'
+intersect(as.character(df[mask1,]$id_gbs),as.character(df[mask2,]$id_gbs))
 
 
 #------------------------------------------Biomass data analysis---------------------------------------------#

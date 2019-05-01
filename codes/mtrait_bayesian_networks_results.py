@@ -1261,19 +1261,19 @@ prefix_out = "/workdir/jp2476/repo/resul_mtrait-proj/"
 # data = [y, X, y_pred_cv1, y_pred_cv2, y_obs_cv1, y_obs_cv2, prob_dict, expect_cv2, df]
 # np.savez('mtrait_results.npz', data)
 
-# Loading data:
-os.chdir(prefix_out + "outputs/tmp")
-container = np.load('mtrait_results.npz')
-data = [container[key] for key in container]
-y = data[0][0]
-X = data[0][1]
-y_pred_cv1 = data[0][2]
-y_pred_cv2 = data[0][3]
-y_obs_cv1 = data[0][4]
-y_obs_cv2 = data[0][5]
-prob_dict = data[0][6]
-expect_cv2 = data[0][7]
-df = data[0][8]
+# # Loading data:
+# os.chdir(prefix_out + "outputs/tmp")
+# container = np.load('mtrait_results.npz')
+# data = [container[key] for key in container]
+# y = data[0][0]
+# X = data[0][1]
+# y_pred_cv1 = data[0][2]
+# y_pred_cv2 = data[0][3]
+# y_obs_cv1 = data[0][4]
+# y_obs_cv2 = data[0][5]
+# prob_dict = data[0][6]
+# expect_cv2 = data[0][7]
+# df = data[0][8]
 
 
 
