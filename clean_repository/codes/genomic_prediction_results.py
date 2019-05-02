@@ -23,11 +23,11 @@ parser.add_argument("-opath", "--opath", dest = "opath", help="The path of the f
 # Parse the paths:
 args = parser.parse_args()
 
-# # Subset arguments:
-# REPO_PATH = args.rpath
-# OUT_PATH = args.opath
-REPO_PATH = '/workdir/jp2476/sorghum-multi-trait'
-OUT_PATH = '/workdir/jp2476/output_sorghum-multi-trait'
+# Subset arguments:
+REPO_PATH = args.rpath
+OUT_PATH = args.opath
+# REPO_PATH = '/workdir/jp2476/sorghum-multi-trait'
+# OUT_PATH = '/workdir/jp2476/output_sorghum-multi-trait'
 
 
 #-----------------------------------------Read train and test data-------------------------------------------#
@@ -453,6 +453,10 @@ for m in models:
       # Printing the standard deviation of the predictive accuracies:
       cv5f_table_std.loc['DB', 'pbn'] = float(np.round(cor_tmp.std(axis=0),3))
 
+# Covert model names to upper case:
+cv5f_table_mean.columns = list(map(lambda x:x.upper(), cv5f_table_mean.columns.tolist()))
+cv5f_table_std.columns = list(map(lambda x:x.upper(), cv5f_table_std.columns.tolist()))
+
 # Set directory:
 os.chdir(REPO_PATH + "/clean_repository/tables")
 
@@ -580,38 +584,34 @@ dap_group2 = ['30', '45', '60', '75', '90', '105', '120']
 
 # Compute CIL for the Dynamic Bayesian network model (best Bayesian model on the fcv):
 for i in range(len(dap_group1)):
-  # Subset predictions for correlation computation:
-  y_pred_tmp = y_pred_fcv['dbn_fcv_height_trained!on!dap:' + dap_group1[i]]
-  y_obs_tmp = y_obs_fcv['fcv_height_for!trained!on:' + dap_group1[i]].y_hat
-  for j in range(len(dap_group2)):    
-    # Get the upper bound of the interval:
-    upper = int(dap_group1[i].split('~')[1])
-    # Conditional to compute correlation just forward in time:
-    if (int(dap_group2[j])>upper):
-      # Subset indexes for subsetting the data:
-      subset = df[df.dap==int(dap_group2[j])].index
-      # Get the number of selected individuals for 20% selection intensity:
-      n_selected = int(y_obs_tmp[subset].size * 0.2)
-      # Build the indexes for computing the CIL:
-      rank_obs = np.argsort(y_obs_tmp[subset])[::-1].index[0:n_selected]
-      # Selected lines:
-      top_lines_obs = df.id_gbs[rank_obs]
-      # Vector for storing the indicators:
-      ind_vec = pd.DataFrame(index=y_pred_tmp[subset].index, columns=y_pred_tmp[subset].columns)
-      # Build CIL matrix for the Bayesian Network model:
-      for sim in range(y_pred_tmp.shape[0]):
-        # Top predicted lines:
-        rank_pred = np.argsort(y_pred_tmp[subset].iloc[sim])[::-1][0:n_selected]
-        top_lines_pred = df.id_gbs[y_pred_tmp[subset].iloc[sim].iloc[rank_pred].index]
-        # Compute the indicator of coincidence in the top 20%
-        ind_tmp = top_lines_pred.isin(top_lines_obs)
-        index_tmp = ind_tmp.iloc[np.where(ind_tmp)].index
-        ind_vec.iloc[sim] = y_pred_tmp[subset].iloc[sim].index.isin(index_tmp)
-      # Index to store cilabilties into dictionary:
-      index = 'dbn_' + dap_group1[i] + '_' + dap_group2[j]
-      # Compute CIL:
-      cil_dict[index]=ind_vec.mean(axis=0)
-      print('Model: dbn, DAP_i: {}, DAP_j: {}'.format(dap_group1[i], dap_group2[j]))
+	# Subset predictions for correlation computation:
+	y_pred_tmp = y_pred_fcv['dbn_fcv_height_trained!on!dap:' + dap_group1[i]]
+	y_obs_tmp = y_obs_fcv['fcv_height_for!trained!on:' + dap_group1[i]].y_hat
+	for j in range(len(dap_group2)):
+		# Get the upper bound of the interval:
+		upper = int(dap_group1[i].split('~')[1])
+		# Conditional to compute correlation just forward in time:
+		if (int(dap_group2[j])>upper):
+			# Subset indexes for subsetting the data:
+			subset = df[df.dap==int(dap_group2[j])].index
+			# Get the number of selected individuals for 20% selection intensity:
+			n_selected = int(y_obs_tmp[subset].size * 0.2)
+			# Build the indexes for computing the CIL:
+			top_rank_obs = np.argsort(y_obs_tmp[subset])[::-1][0:n_selected]
+			# Vector for storing the indicators:
+			ind_vec = pd.DataFrame(index=y_pred_tmp[subset].index, columns=y_pred_tmp[subset].columns)
+			# Build CIL matrix for the Bayesian Network model:
+			for sim in range(y_pred_tmp.shape[0]):
+				# Top predicted lines:
+				top_rank_pred = np.argsort(y_pred_tmp[subset].iloc[sim])[::-1][0:n_selected]
+				# Top indicator:
+				ind_tmp = top_rank_pred.isin(top_rank_obs)
+				ind_vec.loc['s_' + str(sim), ind_tmp.index] = ind_tmp
+			# Index to store CIL into dictionary:
+			index = 'dbn_' + dap_group1[i] + '_' + dap_group2[j]
+			# Compute CIL:
+			cil_dict[index]=ind_vec.mean(axis=0)
+			print('Model: dbn, DAP_i: {}, DAP_j: {}'.format(dap_group1[i], dap_group2[j]))
 
 # Set directory:
 os.chdir(REPO_PATH + "/clean_repository/figures")
@@ -621,24 +621,27 @@ dap_group = ['45', '60', '75', '90', '105']
 
 # Generating panel plot:
 for i in range(len(dap_group)):
-  # Subset CIL for plotting:
-  cil=cil_dict['dbn_30~' + dap_group[i] + '_120']
-  if i==0:
-    # Get the order of the cilabilities:
-    order_index = np.argsort(cil)[::-1]
-    # Individuais displaying CIL higher then 80%:
-    mask = cil.iloc[order_index] > 0.8
-  # Subset CIL for plotting:
-  p1 = cil.iloc[order_index][mask].plot.barh(color='red', figsize=(10,12))
-  p1.set(yticklabels=df.id_gbs[mask.index])
-  p1.tick_params(axis='y', labelsize=7)
-  p1.tick_params(axis='x', labelsize=12)
-  plt.xlabel('Top 20% posterior coincidence index based on lines', fontsize=20)
-  plt.ylabel('Sorghum lines', fontsize=20)
-  plt.xlim(0.5, 1)
-  plt.savefig('cilplot_fcv_' + 'dbn_30~' + dap_group[i] + '_120.pdf', dpi=150)
-  plt.savefig('cilplot_fcv_' + 'dbn_30~' + dap_group[i] + '_120.png', dpi=150)
-  plt.clf()
+	# Subset CIL for plotting:
+	cil=cil_dict['dbn_30~' + dap_group[i] + '_120']
+	# Remove entries from other time points with nan:
+	cil = cil[~np.isnan(cil)]
+	# Get the order of the first slice used to train, to plot the order of the other slices:
+	if i==0:
+		# Get the order decreasing of the CIL:
+		order_index = np.argsort(cil)[::-1]
+		# Individuais displaying CIL higher then 80%:
+		mask = cil.iloc[order_index] > 0.5
+	# Subset CIL for plotting:
+	p1 = cil.iloc[order_index][mask].plot.barh(color='red', figsize=(10,12))
+	p1.set(yticklabels=df.id_gbs[mask.index])
+	p1.tick_params(axis='y', labelsize=5)
+	p1.tick_params(axis='x', labelsize=12)
+	plt.xlabel('Top 20% posterior coincidence index based on lines', fontsize=20)
+	plt.ylabel('Sorghum lines', fontsize=20)
+	plt.xlim(0.5, 1)
+	plt.savefig('cilplot_fcv_' + 'dbn_30~' + dap_group[i] + '_120.pdf', dpi=350)
+	plt.savefig('cilplot_fcv_' + 'dbn_30~' + dap_group[i] + '_120.png', dpi=350)
+	plt.clf()
 
 
 #----Compute coincidence index for dry biomass indirect selection using height adjusted means time series-----#
@@ -652,69 +655,75 @@ model_set = ['bn', 'pbn']
 # Compute coincidence index for the Bayesian network and Pleiotropic Bayesian Network model:
 for k in model_set:
   for i in range(len(dap_group[:-1])):
-    # Subset expectations and observations for coincidence index computation:
-    expect_tmp = expect_fcv[k + '_fcv_height_trained!on!dap:' + dap_group[i]]
-    y_obs_tmp = df[df.trait=='drymass'].y_hat
-    # Get the number of selected individuals for 20% selection intensity:
-    n_selected = int(y_obs_tmp.size * 0.2)
-    # Build the indexes for computing the coincidence index:
-    rank_obs = np.argsort(y_obs_tmp)[::-1][0:n_selected].index
-    # Selected lines:
-    top_lines_obs = df[df.trait=='drymass'].id_gbs[rank_obs]
-    # Vector for coincidence indexes:
-    ci_post_tmp = pd.DataFrame(index=expect_tmp.index, columns=['ci'])
-    # Compute the coincidence index:
-    for sim in range(ci_post_tmp.shape[0]):
-      # Build the indexes for computing the coincidence index:
-      rank_pred = np.argsort(expect_tmp.iloc[sim])[::-1][0:n_selected]
-      # Selected lines:
-      top_lines_pred = df.id_gbs[expect_tmp.iloc[sim].iloc[rank_pred].index]
-      # Compute coincidence index in the top 20% or not: 
-      ci_post_tmp.iloc[sim] = top_lines_pred.isin(top_lines_obs).mean(axis=0)
-    if (k==model_set[0]) & (i==0):
-      # Store the coincidence index:
-      ci_post = pd.DataFrame(columns=['post', 'model', 'dap'])
-      ci_post['model'] = np.repeat(k.upper(), ci_post_tmp.shape[0])
-      ci_post['dap'] = np.repeat(('DAP ' + dap_group[i] + '*'), ci_post_tmp.shape[0])
-      ci_post['post'] = ci_post_tmp.ci.values
-    else:
-      # Store the coincidence index:
-      tmp1 = np.repeat(k.upper(), ci_post_tmp.shape[0])  
-      tmp2 = np.repeat(('DAP ' + dap_group[i] + '*'), ci_post_tmp.shape[0])
-      tmp = pd.DataFrame({'post': ci_post_tmp.ci.values, 'model': tmp1, 'dap': tmp2})   
-      ci_post = pd.concat([ci_post, tmp], axis=0)
-    print('Model: {}, DAP_i: {}'.format(k, dap_group[i]))
+  	# Subset expectations and observations for coincidence index computation:
+  	expect_tmp = expect_fcv[k + '_fcv_height_trained!on!dap:' + dap_group[i]].copy(deep=True)
+  	# Get the name of the lines from the entries of the expectation:
+  	expect_tmp.columns = df.loc[expect_tmp.columns].id_gbs
+  	# Subset data frame:
+  	df_tmp = df[df.trait=='drymass']
+  	df_tmp.index = df_tmp.id_gbs
+  	# Subset observations:
+  	y_obs_tmp = df_tmp.y_hat[expect_tmp.columns]
+  	# Get the number of selected individuals for 20% selection intensity:
+  	n_selected = int(y_obs_tmp.size * 0.2)
+  	# Build the indexes for computing the coincidence index:
+  	top_rank_obs = np.argsort(y_obs_tmp)[::-1][0:n_selected]
+  	# Vector for coincidence indexes:
+  	ci_post_tmp = pd.DataFrame(index=expect_tmp.index, columns=['ci'])
+  	# Compute the coincidence index:
+  	for sim in range(ci_post_tmp.shape[0]):
+  		# Build the indexes for computing the coincidence index:
+  		top_rank_pred = np.argsort(expect_tmp.loc['s_' + str(sim)])[::-1][0:n_selected]
+  		# Compute coincidence index in the top 20% or not: 
+  		ci_post_tmp.loc['s_' + str(sim)] = top_rank_pred.isin(top_rank_obs).mean(axis=0)
+  	if (k==model_set[0]) & (i==0):
+  	  # Store the coincidence index:
+  	  ci_post = pd.DataFrame(columns=['post', 'model', 'dap'])
+  	  ci_post['model'] = np.repeat(k.upper(), ci_post_tmp.shape[0])
+  	  ci_post['dap'] = np.repeat((dap_group[i] + '*'), ci_post_tmp.shape[0])
+  	  ci_post['post'] = ci_post_tmp.ci.values
+  	else:
+  	  # Store the coincidence index:
+  	  tmp1 = np.repeat(k.upper(), ci_post_tmp.shape[0])  
+  	  tmp2 = np.repeat((dap_group[i] + '*'), ci_post_tmp.shape[0])
+  	  tmp = pd.DataFrame({'post': ci_post_tmp.ci.values, 'model': tmp1, 'dap': tmp2})   
+  	  ci_post = pd.concat([ci_post, tmp], axis=0)
+  	print('Model: {}, DAP_i: {}'.format(k, dap_group[i]))
 
 # Store into a list different DAP values interv
 dap_group = ['30~45', '30~60', '30~75', '30~90', '30~105']
 
 # Compute coincidence index for the Dynamic Bayesian network:
 for i in range(len(dap_group)):
-  # Subset expectations and observations for coincidence index:
-  expect_tmp = expect_fcv['dbn_fcv_height_trained!on!dap:' + dap_group[i]]
-  y_obs_tmp = df[df.trait=='drymass'].y_hat
-  # Get the upper bound of the interval:
-  upper = int(dap_group[i].split('~')[1])
-  # Get the number of selected individuals for 20% selection intensity:
-  n_selected = int(y_obs_tmp.size * 0.2)
-  # Build the indexes for computing the coincidence index:
-  rank_obs = np.argsort(y_obs_tmp)[::-1][0:n_selected]
-  # Vector for coincidence indexes:
-  ci_post_tmp = pd.DataFrame(index=expect_tmp.index, columns=['ci'])
-  # Compute the coincidence index:
-  for sim in range(ci_post_tmp.shape[0]):
-    # Build the indexes for computing the coincidence index:
-    rank_pred = np.argsort(expect_tmp.iloc[sim])[::-1][0:n_selected]
-    # Selected lines:
-    top_lines_pred = df.id_gbs[expect_tmp.iloc[sim].iloc[rank_pred].index]
-    # Compute coincidence index in the top 20% or not: 
-    ci_post_tmp.iloc[sim] = top_lines_pred.isin(top_lines_obs).mean(axis=0)
-  # Store the coincidence index:
-  tmp1 = np.repeat('DBN', ci_post_tmp.shape[0])  
-  tmp2 = np.repeat(('DAP ' + str(upper) + '*'), ci_post_tmp.shape[0])
-  tmp = pd.DataFrame({'post': ci_post_tmp.ci.values, 'model': tmp1, 'dap': tmp2})   
-  ci_post = pd.concat([ci_post, tmp], axis=0)
-  print('Model: dbn, DAP_i: {}'.format(dap_group[i]))
+	# Subset expectations:
+	expect_tmp = expect_fcv['dbn_fcv_height_trained!on!dap:' + dap_group[i]].copy(deep=True)
+	# Get the name of the lines from the entries of the expectation:
+	expect_tmp.columns = df.loc[expect_tmp.columns].id_gbs
+	# Sub set data frame:
+	df_tmp = df[df.trait=='drymass']
+	df_tmp.index = df_tmp.id_gbs
+	# Subset observations:
+	y_obs_tmp = df_tmp.y_hat[expect_tmp.columns]
+	# Get the upper bound of the interval:
+	upper = int(dap_group[i].split('~')[1])
+	# Get the number of selected individuals for 20% selection intensity:
+	n_selected = int(y_obs_tmp.size * 0.2)
+	# Build the indexes for computing the coincidence index:
+	top_rank_obs = np.argsort(y_obs_tmp)[::-1][0:n_selected]
+	# Vector for coincidence indexes:
+	ci_post_tmp = pd.DataFrame(index=expect_tmp.index, columns=['ci'])
+	# Compute the coincidence index:
+	for sim in range(ci_post_tmp.shape[0]):
+		# Build the indexes for computing the coincidence index:
+		top_rank_pred = np.argsort(expect_tmp.loc['s_' + str(sim)])[::-1][0:n_selected]
+		# Compute coincidence index in the top 20% or not: 
+		ci_post_tmp.iloc[sim] = top_rank_pred.isin(top_rank_obs).mean(axis=0)
+	# Store the coincidence index:
+	tmp1 = np.repeat('DBN', ci_post_tmp.shape[0])  
+	tmp2 = np.repeat((str(upper) + '*'), ci_post_tmp.shape[0])
+	tmp = pd.DataFrame({'post': ci_post_tmp.ci.values, 'model': tmp1, 'dap': tmp2})   
+	ci_post = pd.concat([ci_post, tmp], axis=0)
+	print('Model: dbn, DAP_i: {}'.format(dap_group[i]))
 
 # Change data type:
 ci_post['post'] = ci_post['post'].astype(float)
@@ -726,14 +735,20 @@ ci_post.columns = ['Coincidence index posterior values', 'Model', 'Days after pl
 os.chdir(REPO_PATH + "/clean_repository/figures")
 
 # Plot coincidence indexes:
-ax = sns.violinplot(x='Days after planting',
-                    y='Coincidence index posterior values',
-                    data=ci_post,
-                    hue='Model')
-plt.ylim(0.12, 0.42)
-plt.savefig("ci_plot.pdf", dpi=150)
-plt.savefig("ci_plot.png", dpi=150)
-plt.clf()
+plt.figure(figsize=(20,15))
+with sns.plotting_context(font_scale=1):
+	ax = sns.violinplot(x='Days after planting',
+	                    y='Coincidence index posterior values',
+	                    data=ci_post,
+	                    hue='Model')
+	plt.ylim(0.12, 0.35)
+	ax.tick_params(labelsize=30)
+	plt.xlabel('Days after planting', fontsize=40)
+	plt.ylabel(	'Coincidence index posterior values', fontsize=40)
+	plt.legend(fontsize='xx-large', title_fontsize=40)
+	plt.savefig("ci_plot.pdf", dpi=350)
+	plt.savefig("ci_plot.png", dpi=350)
+	plt.clf()
 
 
 ###############################################################

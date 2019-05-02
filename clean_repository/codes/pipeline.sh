@@ -383,3 +383,20 @@ for i in $(seq 1 ${n_analysis}); do
 
 done;
 
+
+#---------To obtain results from the genomic prediction analysis under the cross-validation schemes----------#
+
+# Set the root directory:
+ROOT_PATH=/workdir/jp2476
+
+# Set python path:
+PYTHON_PATH=${ROOT_PATH}/local/python
+
+# Path of the output folder:
+OUT_PATH=${ROOT_PATH}/output_sorghum-multi-trait
+
+# Path of the repository folder:
+REPO_PATH=${ROOT_PATH}/sorghum-multi-trait
+
+# Run the code to split the data into different subsets for cross-validation:
+${PYTHON_PATH}/bin/python ${REPO_PATH}/clean_repository/codes/genomic_prediction_results.py -rpath ${REPO_PATH} -opath ${OUT_PATH} & 
