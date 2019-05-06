@@ -22,8 +22,8 @@ opt_parser = OptionParser(option_list=option_list)
 args = parse_args(opt_parser)
 
 # Subset arguments:
-OUT_PATH = args$opath
-# OUT_PATH = '/workdir/jp2476/output_sorghum-multi-trait'
+# OUT_PATH = args$opath
+OUT_PATH = '/workdir/jp2476/output_sorghum-multi-trait'
 # OUT_PATH = '/home/jhonathan/Documents/output_sorghum-multi-trait'
 
 #---------------------------------------------Loading data---------------------------------------------------#
@@ -52,55 +52,38 @@ df$env <- paste0(as.character(df$loc), "_",as.character(df$year))
 df$env <- df$env %>% as.factor()
 
 # For mike:
-# df[df$env == 'FF_16',]$block %>% as.character() %>% unique %>% length
-# df[df$env == 'EF_16',]$block %>% as.character() %>% unique %>% length
-# df[df$env == 'EF_17',]$block %>% as.character() %>% unique %>% length
-# df[df$env == 'MW_17',]$block %>% as.character() %>% unique %>% length
-# df %>% str
 
-# mask1= df$block==1 & df$env == 'FF_16'
-# mask2= df$block==2 & df$env == 'FF_16'
-# intersect(as.character(df[mask1,]$id_gbs),as.character(df[mask2,]$id_gbs))
+for (j in unique(as.character(df$env))) {
 
+	subset=list()
+	for (i in 1:16) {
+		subset[[paste0('block_', i)]] = df[df$block==i & df$env == j & df$trait=='DM',]$id_gbs %>% as.character
+	}
 
-# mask1= df$block==1 & df$env == 'FF_16'
-# mask2= df$block==3 & df$env == 'FF_16'
-# intersect(as.character(df[mask1,]$id_gbs),as.character(df[mask2,]$id_gbs))
-
-# mask1= df$block==1 & df$env == 'FF_16'
-# mask2= df$block==4 & df$env == 'FF_16'
-# intersect(as.character(df[mask1,]$id_gbs),as.character(df[mask2,]$id_gbs))
-
-# mask1= df$block==1 & df$env == 'FF_16'
-# mask2= df$block==5 & df$env == 'FF_16'
-# intersect(as.character(df[mask1,]$id_gbs),as.character(df[mask2,]$id_gbs))
-
-# mask1= df$block==1 & df$env == 'FF_16'
-# mask2= df$block==6 & df$env == 'FF_16'
-# intersect(as.character(df[mask1,]$id_gbs),as.character(df[mask2,]$id_gbs))
-
-# mask1= df$block==1 & df$env == 'EF_17'
-# mask2= df$block==2 & df$env == 'EF_17'
-# intersect(as.character(df[mask1,]$id_gbs),as.character(df[mask2,]$id_gbs))
+	print(paste0('Common checks for environment ', j, ':'))
+	print(Reduce(intersect, subset))
 
 
-# mask1= df$block==1 & df$env == 'EF_17'
-# mask2= df$block==3 & df$env == 'EF_17'
-# intersect(as.character(df[mask1,]$id_gbs),as.character(df[mask2,]$id_gbs))
+}
+
+for (d in unique(df$dap)[-1]) {
+	
+	for (j in unique(as.character(df$env))) {
+
+		subset=list()
+		for (i in 1:16) {
+			subset[[paste0('block_', i)]] = df[df$block==i & df$env == j & df$trait=='PH' & df$dap==d,]$id_gbs %>% as.character
+		}
+
+		print(paste0('Common checks for environment ', j, ' and DAP ', d, ':'))
+		print(Reduce(intersect, subset))
 
 
-# mask1= df$block==1 & df$env == 'EF_17'
-# mask2= df$block==4 & df$env == 'EF_17'
-# intersect(as.character(df[mask1,]$id_gbs),as.character(df[mask2,]$id_gbs))
+	}
+
+}
 
 
-# mask1= df$block==1 & df$env == 'EF_17'
-# mask2= df$block==5 & df$env == 'EF_17'
-# intersect(as.character(df[mask1,]$id_gbs),as.character(df[mask2,]$id_gbs))
-
-# mask1= df$block==1 & df$env == 'EF_17'
-# mask2= df$block==6 & df$env == 'EF_17'
-# intersect(as.character(df[mask1,]$id_gbs),as.character(df[mask2,]$id_gbs))
 
 
 #------------------------------------------Biomass data analysis---------------------------------------------#

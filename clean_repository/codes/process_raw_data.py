@@ -22,9 +22,9 @@ args = parser.parse_args()
 DATA_PATH = args.dpath
 REPO_PATH = args.rpath
 OUT_PATH = args.opath
-# DATA_PATH = '/home/jhonathan/Documents/raw_data_sorghum-multi-trait'
-# REPO_PATH = '/home/jhonathan/Documents/sorghum-multi-trait'
-# OUT_PATH = '/home/jhonathan/Documents/output_sorghum-multi-trait'
+# DATA_PATH = '/workdir/jp2476/raw_data_sorghum-multi-trait'
+# REPO_PATH = '/workdir/jp2476/sorghum-multi-trait'
+# OUT_PATH = '/workdir/jp2476/output_sorghum-multi-trait'
 
 
 #--------------------------------------------Processing data-------------------------------------------------#
@@ -140,10 +140,10 @@ df[3] = df[3].sort_values(['plot'])
 tmp = ['loc', 'set', 'block', 'range', 'row']
 
 # Inclusion of the design variables to the combination height/2016
-df[2] = pd.concat([df[2], df[0].loc[:,tmp]], sort=True, axis=1)
+df[2] = pd.concat([df[2], df[0].loc[:,tmp]], sort=False, axis=1)
 
 # Combine data frames into a unique data frame:
-df = pd.concat(df, sort=True, axis=0)
+df = pd.concat(df, sort=False, axis=0)
 
 # Change the index of the data frame:
 df.index = np.arange(df.shape[0])

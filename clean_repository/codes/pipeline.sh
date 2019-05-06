@@ -37,6 +37,7 @@ ${PYTHON_PATH}/bin/pip install seaborn==0.9.0
 ${PYTHON_PATH}/bin/pip install pystan==2.17.1.0
 
 # Install R packages (install these versions to avoid errors):
+# Obs: asreml v3.0 should already be installed to work the script to estimate the heritability 
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/optparse/optparse_1.6.0.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/data.table/data.table_1.12.0.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/magrittr/magrittr_1.0.1.tar.gz", repos=NULL, type="source")'
@@ -400,3 +401,5 @@ REPO_PATH=${ROOT_PATH}/sorghum-multi-trait
 
 # Run the code to split the data into different subsets for cross-validation:
 ${PYTHON_PATH}/bin/python ${REPO_PATH}/clean_repository/codes/genomic_prediction_results.py -rpath ${REPO_PATH} -opath ${OUT_PATH} & 
+
+
