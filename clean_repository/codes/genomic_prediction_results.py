@@ -13,6 +13,9 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 parser = argparse.ArgumentParser()
 
+# Turn off interactive mode:
+plt.ioff()
+
 
 #-------------------------------------------Add flags to the code--------------------------------------------#
 
