@@ -11,6 +11,9 @@ import seaborn as sns
 import argparse
 parser = argparse.ArgumentParser()
 
+# Turn off interactive mode:
+plt.ioff()
+
 #-----------------------------------------Adding flags to the code-------------------------------------------#
 
 # Get flags:
@@ -23,8 +26,8 @@ args = parser.parse_args()
 # Subset arguments:
 REPO_PATH = args.rpath
 OUT_PATH = args.opath
-# REPO_PATH = '/home/jhonathan/Documents/sorghum-multi-trait'
-# OUT_PATH = '/home/jhonathan/Documents/output_sorghum-multi-trait'
+REPO_PATH = '/workdir/jp2476/sorghum-multi-trait'
+OUT_PATH = '/workdir/jp2476/output_sorghum-multi-trait'
 
 
 #-----------------------------------------------Load data----------------------------------------------------#
@@ -78,8 +81,8 @@ heat.set_xlabel('')
 heat.tick_params(labelsize=7.6)
 plt.xticks(rotation=25)
 plt.yticks(rotation=45)
-plt.savefig("heatplot_traits_adjusted_means.pdf", dpi=150)
-plt.savefig("heatplot_traits_adjusted_means.png", dpi=150)
+plt.savefig("heatplot_traits_adjusted_means.pdf", dpi=350)
+plt.savefig("heatplot_traits_adjusted_means.png", dpi=350)
 plt.clf()
 
 # Density plot of the adjusted means from dry mass:
@@ -90,8 +93,8 @@ den_dm.get_lines()[0].set_color('#006d2c')
 x = den_dm.get_lines()[0].get_data()[0]
 y = den_dm.get_lines()[0].get_data()[1]
 plt.fill_between(x,y, color='#006d2c').set_alpha(.25)
-plt.savefig("denplot_drymass_adjusted_means.pdf", dpi=150)
-plt.savefig("denplot_drymass_adjusted_means.png", dpi=150)
+plt.savefig("denplot_drymass_adjusted_means.pdf", dpi=350)
+plt.savefig("denplot_drymass_adjusted_means.png", dpi=350)
 plt.clf()
 
 # Box plot of the adjusted means from height measures:
@@ -104,8 +107,8 @@ colors = ['#fee391', '#fec44f', '#fe9929', '#ec7014', '#cc4c02', '#993404', '#66
 for i in range(1,len(colors)): 
 	box_ph.artists[i].set_facecolor(colors[i])
 
-plt.savefig("boxplot_height_adjusted_means.pdf", dpi=150)
-plt.savefig("boxplot_height_adjusted_means.png", dpi=150)
+plt.savefig("boxplot_height_adjusted_means.pdf", dpi=350)
+plt.savefig("boxplot_height_adjusted_means.png", dpi=350)
 plt.clf()
 
 # # Set directory:
@@ -140,8 +143,8 @@ plt.clf()
 # plt.xticks(rotation=25)
 # plt.xlabel('Traits')
 # plt.ylabel('Broad-sense Heritability')
-# plt.savefig("barplot_heritabilities.pdf", dpi=150)
-# plt.savefig("barplot_heritabilities.png", dpi=150)
+# plt.savefig("barplot_heritabilities.pdf", dpi=350)
+# plt.savefig("barplot_heritabilities.png", dpi=350)
 # plt.clf()
 
 
