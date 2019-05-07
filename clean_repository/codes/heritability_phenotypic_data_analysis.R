@@ -57,30 +57,33 @@ df$env <- df$env %>% as.factor()
 fit = list()
 
 # Create a table to receive the heritabilities:
-h2_pev = data.frame(trait=c('DM', paste0('PH_', unique(df$dap))), h2=NA)
-h2_comp = data.frame(trait=c('DM', paste0('PH_', unique(df$dap))), n_env=NA, n_plot=NA, h2=NA, se=NA)
+h2_pev = data.frame(trait=c('DM', paste0('PH_', unique(df$dap[!is.na(df$dap)]))), h2=NA)
+h2_comp = data.frame(trait=c('DM', paste0('PH_', unique(df$dap[!is.na(df$dap)]))), n_env=NA, n_plot=NA, h2=NA, se=NA)
 
 
 #######
 
 
-t='DM'
+t='PH_30'
 
-for (i in unique(as.character(df$id_gbs))) {
+for (t in as.character(h2_comp$trait)) {
+
+df_tmp = df[df$trait == str_split(t, pattern="_", simplify = TRUE)[,2]]
+for (i in unique(as.character(df_tmp$id_gbs))) {
 
 	if (t == 'DM') {
-		mask = df$id_gbs==i & df$trait=='DM' & (!is.na(df$drymass))
+		mask = df_tmp$id_gbs==i & df_tmp$trait=='DM' & (!is.na(df_tmp$drymass))
 	}
 	if (str_detect(t, 'PH')) {
-		mask = df$id_gbs==i & df$trait=='PH' & df$dap == str_split(t, pattern="_", simplify = TRUE)[,2] & (!is.na(df$height))
+		mask = df_tmp$id_gbs==i & df_tmp$trait=='PH' & df_tmp$dap == str_split(t, pattern="_", simplify = TRUE)[,2] & (!is.na(df_tmp$height))
 	}
 
-	n_env_tmp = c(length(unique(as.character(df[mask, ]$env))))
-	n_plot_tmp = c(nrow(df[mask, ]))
+	n_env_tmp = c(length(unique(as.character(df_tmp[mask, ]$env))))
+	n_plot_tmp = c(nrow(df_tmp[mask, ]))
 	names(n_env_tmp) = i
 	names(n_plot_tmp) = i
 
-	if (i==unique(as.character(df$id_gbs))[1]) {
+	if (i==unique(as.character(df_tmp$id_gbs))[1]) {
 
 		n_env = n_env_tmp
 		n_plot = n_plot_tmp
@@ -92,9 +95,15 @@ for (i in unique(as.character(df$id_gbs))) {
 		n_plot = c(n_plot, n_plot_tmp)
 
 	}
-	print(i)
 
 }
+print(paste0('The check lines in environment ', j, ' is:'))
+print(n_plot[n_plot>4])
+
+}
+
+
+
 
 n_plot[n_plot>4]
 
