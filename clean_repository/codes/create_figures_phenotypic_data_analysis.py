@@ -26,8 +26,8 @@ args = parser.parse_args()
 # Subset arguments:
 REPO_PATH = args.rpath
 OUT_PATH = args.opath
-REPO_PATH = '/workdir/jp2476/sorghum-multi-trait'
-OUT_PATH = '/workdir/jp2476/output_sorghum-multi-trait'
+# REPO_PATH = '/workdir/jp2476/sorghum-multi-trait'
+# OUT_PATH = '/workdir/jp2476/output_sorghum-multi-trait'
 
 
 #-----------------------------------------------Load data----------------------------------------------------#
