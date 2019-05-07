@@ -63,45 +63,55 @@ h2_comp = data.frame(trait=c('DM', paste0('PH_', unique(df$dap[!is.na(df$dap)]))
 
 #######
 
-
-t='PH_30'
-
+# Compute the harmonic mean of the number of environments in which each line was observed
+#-->  and the harmonic mean of the total number of plots in which each line was observed:
 for (t in as.character(h2_comp$trait)) {
 
-df_tmp = df[df$trait == str_split(t, pattern="_", simplify = TRUE)[,2]]
-for (i in unique(as.character(df_tmp$id_gbs))) {
-
+	# Mask to subset the data of the trait:
 	if (t == 'DM') {
-		mask = df_tmp$id_gbs==i & df_tmp$trait=='DM' & (!is.na(df_tmp$drymass))
+		mask = df$trait=='DM' & (!is.na(df$drymass))
 	}
 	if (str_detect(t, 'PH')) {
-		mask = df_tmp$id_gbs==i & df_tmp$trait=='PH' & df_tmp$dap == str_split(t, pattern="_", simplify = TRUE)[,2] & (!is.na(df_tmp$height))
+		mask = df$trait=='PH' & df$dap == str_split(t, pattern="_", simplify = TRUE)[,2] & (!is.na(df$height))
 	}
 
-	n_env_tmp = c(length(unique(as.character(df_tmp[mask, ]$env))))
-	n_plot_tmp = c(nrow(df_tmp[mask, ]))
-	names(n_env_tmp) = i
-	names(n_plot_tmp) = i
+	# Subset the data:
+	df_tmp = df[mask]
 
-	if (i==unique(as.character(df_tmp$id_gbs))[1]) {
+	for (i in unique(as.character(df_tmp$id_gbs))) {
 
-		n_env = n_env_tmp
-		n_plot = n_plot_tmp
+		# Subset the line:
+		mask = df_tmp$id_gbs==i 
+
+		# Count the number of environments and plots the line i was evaluated:
+		n_env_tmp = c(length(unique(as.character(df_tmp[mask, ]$env))))
+		n_plot_tmp = c(nrow(df_tmp[mask, ]))
+		names(n_env_tmp) = i
+		names(n_plot_tmp) = i
+
+		# Stack numbers in the vector:
+		if (i==unique(as.character(df_tmp$id_gbs))[1]) {
+
+			n_env = n_env_tmp
+			n_plot = n_plot_tmp
+
+		}
+		else {
+
+			n_env = c(n_env, n_env_tmp)
+			n_plot = c(n_plot, n_plot_tmp)
+
+		}
 
 	}
-	else {
 
-		n_env = c(n_env, n_env_tmp)
-		n_plot = c(n_plot, n_plot_tmp)
+	# Compute the harmonic mean of the number of environments and plots lines were evaluated:
+	h2_comp[h2_comp$trait==t, 'n_env'] = 1/mean(1/n_env)
+	h2_comp[h2_comp$trait==t, 'n_plot'] = 1/mean(1/n_plot)
 
-	}
+	print(h2_comp)
 
 }
-print(paste0('The check lines in environment ', j, ' is:'))
-print(n_plot[n_plot>4])
-
-}
-
 
 
 
