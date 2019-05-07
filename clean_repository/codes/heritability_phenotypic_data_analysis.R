@@ -64,15 +64,15 @@ h2_comp = data.frame(trait=c('DM', paste0('PH_', unique(df$dap))), n_env=NA, n_p
 #######
 
 
-t='PH_120'
+t='DM'
 
 for (i in unique(as.character(df$id_gbs))) {
 
 	if (t == 'DM') {
-		mask = df$id_gbs==i & df$trait=='DM'
+		mask = df$id_gbs==i & df$trait=='DM' & (!is.na(df$drymass))
 	}
 	if (str_detect(t, 'PH')) {
-		mask = df$id_gbs==i & df$trait=='PH' & df$dap == str_split(t, pattern="_", simplify = TRUE)[,2]
+		mask = df$id_gbs==i & df$trait=='PH' & df$dap == str_split(t, pattern="_", simplify = TRUE)[,2] & (!is.na(df$height))
 	}
 
 	n_env_tmp = c(length(unique(as.character(df[mask, ]$env))))

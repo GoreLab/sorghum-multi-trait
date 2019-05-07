@@ -240,7 +240,7 @@ df.trait[df.trait == 'height'] = 'PH'
 df.index = range(df.shape[0]) 
 
 # Changing the data type of the 'year' feature:
-df['year'] = df['drymass'].astype(str)
+df['year'] = df['year'].astype(str)
 df['drymass'] = df['drymass'].astype(str)
 
 # Remove duplicate rows:
