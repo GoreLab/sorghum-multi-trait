@@ -64,7 +64,7 @@ h2_comp = data.frame(trait=c('DM', paste0('PH_', unique(df$dap))), n_env=NA, n_p
 #######
 
 
-t='PH_45'
+t='PH_120'
 
 for (i in unique(as.character(df$id_gbs))) {
 
@@ -96,7 +96,7 @@ for (i in unique(as.character(df$id_gbs))) {
 
 }
 
-n_plot[n_plot>6]
+n_plot[n_plot>4]
 
 # DM
 > n_plot[n_plot>4]
@@ -105,7 +105,32 @@ NSL50601 NSL50748 PI148084 PI148089 PI276801 PI524948 PI525882
 
 # PH_30
 
-data.frame(df[df$id_gbs=='PI276801' & df$trait=='PH' & df$dap=='30'])
+data.frame(df[df$id_gbs=='PI276801' & df$trait=='PH' & df$dap=='30' & df$block=='1'])
+
+
+tmp.loc[((tmp['id_gbs']=='PI276801') & (df['block']=='1')),]
+
+1074   PI276801     1  EF   16    PH   30        NaN    32.5
+1091   PI276801     1  FF   16    PH   30        NaN    37.5
+2052   PI276801     1  EF   16    PH   30        NaN    32.5
+
+tmp.loc[1074, 'year']
+tmp.loc[2052, 'year']
+
+tmp.loc[1074] == tmp.loc[2052]
+
+
+
+
+
+
+
+df[3][(df[3].name2== 'PI276801') & (df[3].block == '1')]
+df[2][(df[2].name2== 'PI276801') & (df[2]['plot'] == '16EF0001')]
+df[2][(df[2].name2== 'PI276801') & (df[2]['plot'] == '16FF0091')]
+df[2][(df[2].name2== 'PI276801') & (df[2]['h1'] == 41.0)]
+df[2][(df[2].name2== 'PI276801') & (df[2]['h1'] == 32.5)]
+
 
 #######
 
@@ -115,6 +140,53 @@ data.frame(df[df$id_gbs=='PI276801' & df$trait=='PH' & df$dap=='30'])
 9  PI276801     1  EF   16    PH  30      NA 32.50000 EF_16*
 
 
+     id_gbs block loc year trait dap drymass   height   env
+1  PI276801     1  EF   16    PH  45      NA 78.80000 EF_16
+9  PI276801     1  EF   16    PH  45      NA 77.50000 EF_16
+	
+
+df[0][(df[0].name2== 'PI276801') & (df[0].block == 1)]
+
+df[2][(df[2].name2 == 'PI276801') & (df[2].name2 == 'PI276801')]
+
+
+
+
+> data.frame(df[df$id_gbs=='PI276801' & df$trait=='PH' & df$dap=='30' & df$block=='1'])
+    id_gbs block loc year trait dap drymass height   env
+1 PI276801     1  EF   16    PH  30      NA   32.5 EF_16
+2 PI276801     1  EF   16    PH  30      NA   41.0 EF_16
+3 PI276801     1  FF   16    PH  30      NA   37.5 FF_16
+4 PI276801     1  FF   16    PH  30      NA   26.5 FF_16
+5 PI276801     1  EF   16    PH  30      NA   32.5 EF_16
+6 PI276801     1  FF   16    PH  30      NA   37.5 FF_16
+7 PI276801     1  EF   17    PH  30      NA   17.0 EF_17
+8 PI276801     1  MW   17    PH  30      NA   27.0 MW_17
+
+
+          plot    name1     name2    h1    h2     h3     h4     h5     h6     h7   trait year
+1290  16EF0001  PRE0146  PI276801  32.5  77.5  207.0  287.0  351.0  387.0  417.0  height   16
+1324  16FF0091  PRE0146  PI276801  37.5  69.5  138.0  263.0  319.0  391.0  408.0  height   16
+
+          plot    name1     name2    h1    h2     h3     h4     h5     h6     h7   trait year
+1291  16EF0011  PRE0146  PI276801  41.0  79.5  228.0  312.0  353.0  401.0  426.0  height   16
+1294  16EF0144  PRE0146  PI276801  41.0  64.0  209.5  291.0  344.0  367.5  427.0  height   16
+
+          plot    name1     name2    h1    h2     h3     h4     h5     h6     h7   trait year
+1290  16EF0001  PRE0146  PI276801  32.5  77.5  207.0  287.0  351.0  387.0  417.0  height   16
+1325  16FF0144  PRE0146  PI276801  32.5  65.5  145.0  270.5  313.0  355.0  406.0  height   16
+
+
+
+df[0].loc[df[0]['plot']=='16EF0011',]
+df[1].loc[df[1]['plot']=='16EF0011',]
+df[2].loc[df[2]['plot']=='16EF0011',]
+df[3].loc[df[3]['plot']=='16EF0011',]
+
+
+
+
+df.loc[df['plot']=='16EF0011',]
 
 
 
