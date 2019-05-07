@@ -22,8 +22,8 @@ opt_parser = OptionParser(option_list=option_list)
 args = parse_args(opt_parser)
 
 # Subset arguments:
-# OUT_PATH = args$opath
-OUT_PATH = '/workdir/jp2476/output_sorghum-multi-trait'
+OUT_PATH = args$opath
+# OUT_PATH = '/workdir/jp2476/output_sorghum-multi-trait'
 # OUT_PATH = '/home/jhonathan/Documents/output_sorghum-multi-trait'
 
 #---------------------------------------------Loading data---------------------------------------------------#
@@ -51,39 +51,37 @@ dap_groups = df$dap %>% unique %>% na.omit %>% as.integer
 df$env <- paste0(as.character(df$loc), "_",as.character(df$year))
 df$env <- df$env %>% as.factor()
 
-# For mike:
+# # For mike:
 
-for (j in unique(as.character(df$env))) {
+# for (j in unique(as.character(df$env))) {
 
-	subset=list()
-	for (i in 1:16) {
-		subset[[paste0('block_', i)]] = df[df$block==i & df$env == j & df$trait=='DM',]$id_gbs %>% as.character
-	}
+# 	subset=list()
+# 	for (i in 1:16) {
+# 		subset[[paste0('block_', i)]] = df[df$block==i & df$env == j & df$trait=='DM',]$id_gbs %>% as.character
+# 	}
 
-	print(paste0('Common checks for environment ', j, ':'))
-	print(Reduce(intersect, subset))
+# 	print(paste0('Common checks for environment ', j, ':'))
+# 	print(Reduce(intersect, subset))
 
 
-}
+# }
 
-for (d in unique(df$dap)[-1]) {
+# for (d in unique(df$dap)[-1]) {
 	
-	for (j in unique(as.character(df$env))) {
+# 	for (j in unique(as.character(df$env))) {
 
-		subset=list()
-		for (i in 1:16) {
-			subset[[paste0('block_', i)]] = df[df$block==i & df$env == j & df$trait=='PH' & df$dap==d,]$id_gbs %>% as.character
-		}
+# 		subset=list()
+# 		for (i in 1:16) {
+# 			subset[[paste0('block_', i)]] = df[df$block==i & df$env == j & df$trait=='PH' & df$dap==d,]$id_gbs %>% as.character
+# 		}
 
-		print(paste0('Common checks for environment ', j, ' and DAP ', d, ':'))
-		print(Reduce(intersect, subset))
-
-
-	}
-
-}
+# 		print(paste0('Common checks for environment ', j, ' and DAP ', d, ':'))
+# 		print(Reduce(intersect, subset))
 
 
+# 	}
+
+# }
 
 
 #------------------------------------------Biomass data analysis---------------------------------------------#
