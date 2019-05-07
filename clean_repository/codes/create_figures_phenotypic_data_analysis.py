@@ -82,8 +82,8 @@ plt.savefig("heatplot_traits_adjusted_means.pdf", dpi=150)
 plt.savefig("heatplot_traits_adjusted_means.png", dpi=150)
 plt.clf()
 
-# Density plot of the adjusted means from dry mass (2.241699: from US t/acre to t/ha):
-den_dm = sns.kdeplot(df.y_hat[df.trait=="drymass"]*2.241699, bw=1, shade=True, legend=False)
+# Density plot of the adjusted means from dry mass:
+den_dm = sns.kdeplot(df.y_hat[df.trait=="drymass"], bw=1, shade=True, legend=False)
 den_dm.set_ylabel('Density')    
 den_dm.set_xlabel('Biomass (t/ha)')
 den_dm.get_lines()[0].set_color('#006d2c')
