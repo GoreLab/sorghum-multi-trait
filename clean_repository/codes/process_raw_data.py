@@ -187,7 +187,7 @@ W = W_model(x=M.transpose())
 # Build the bin matrix:
 tmp = get_bin(x=W, n_bin=1000, method='pca')
 W_bin = tmp[0]
-W_bin.index = M.columns
+W_bin.index = line_names
 
 # Store the position of the bins into the genome:
 bin_map = tmp[2]
