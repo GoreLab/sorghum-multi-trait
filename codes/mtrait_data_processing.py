@@ -238,7 +238,6 @@ W = W_model(x=M.transpose())
 # Building the bin matrix:
 tmp = get_bin(x=W, n_bin=1000, method='pca')
 W_bin = tmp[0]
-rownames(W_bin) = colnames(M)
  
 # Store the variação explained by the pca:
 w_e_bin = tmp[1]
