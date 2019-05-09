@@ -80,6 +80,10 @@ for (t in as.character(h2_comp$trait)) {
 	# Subset the data:
 	df_tmp = df[mask]
 
+	# Remove hybrids from the data:
+	mask = !(df_tmp$name2 %in% c('Pacesetter', 'SPX'))
+	df_tmp = df_tmp[mask]
+
 	for (i in unique(as.character(df_tmp$id_gbs))) {
 
 		# Subset the line:

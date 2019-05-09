@@ -178,12 +178,8 @@ if (str_detect(model, 'MTr')) {
 	# Select height data used for train:
 	tmp = time[time <= time[upper+1]]
 	df_melt = df_melt[, c('id','drymass', tmp)]
-
-	# Change row and column names:
 	rownames(df_melt) = df_melt$id
 	colnames(df_melt) = c('id_gbs','dm', paste0('h', seq(30, time[upper+1], by=15)))
-
-	# Eliminate height phenotypes from only 11 inbred lines missing in the drymass for balance:
 	mask = !is.na(df_melt$dm)
 	df_melt = df_melt[mask,]
 	mask = rownames(A) %in% df_melt$id_gbs

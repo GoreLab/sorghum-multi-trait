@@ -5,7 +5,6 @@
 library(optparse)
 library(data.table)
 library(magrittr)
-library(lme4)
 library(stringr)
 
 
@@ -13,6 +12,8 @@ library(stringr)
 
 # Set the flags:
 option_list = list(
+  make_option(c("-a", "--asremlpath"), type="character", default=NULL, 
+              help="The path of the folder with asreml license", metavar="character")
   make_option(c("-o", "--opath"), type="character", default=NULL, 
               help="The path of the folder to receive outputs", metavar="character")
 ) 
@@ -23,8 +24,17 @@ args = parse_args(opt_parser)
 
 # Subset arguments:
 OUT_PATH = args$opath
-OUT_PATH = '/workdir/jp2476/output_sorghum-multi-trait'
+ASREML_PATH = args$asremlpath
+# OUT_PATH = '/workdir/jp2476/output_sorghum-multi-trait'
 # OUT_PATH = '/home/jhonathan/Documents/output_sorghum-multi-trait'
+# ASREML_PATH = '/workdir/jp2476/asreml'
+
+#---------------------------------------------Load asreml----------------------------------------------------#
+
+# Load asreml:
+setwd(ASREML_PATH)
+library(asreml)
+asreml.lic(license = "asreml.lic", install = TRUE)
 
 #---------------------------------------------Loading data---------------------------------------------------#
 
@@ -70,11 +80,19 @@ df_tmp$name2 = df_tmp$name2 %>% droplevels
 df_tmp$block = df_tmp$block %>% droplevels
 df_tmp$env = df_tmp$env %>% droplevels
 
-# Fit the model:
-fit[[index]] = lmer(drymass ~ 1 + name2 + (1|block:env) + (1|env) + (1|name2:env), data=df_tmp)
+fit[[index]] = asreml(drymass~ 1 + name2,
+			 		  random = ~ block:env + env + name2:env,
+			 		  na.method.Y = "include",
+			 		  control = asreml.control(
+			 		  maxiter = 200),
+             		  data = df_tmp)
+
+
+# Extract fixed effects:
+fixed_eff = summary(fit[[index]], all=T)$coef.fi[,1]
 
 # Store the corrected mean:
-g[[index]] = fixef(fit[[index]])[1] + fixef(fit[[index]])[-1]
+g[[index]] = fixed_eff[length(fixed_eff)] + fixed_eff[-length(fixed_eff)]
 
 
 #------------------------------------------Height data analysis----------------------------------------------#
@@ -92,11 +110,19 @@ for (i in dap_groups) {
 	df_tmp$block = df_tmp$block %>% droplevels
 	df_tmp$env = df_tmp$env %>% droplevels
 
-	# Fitting the model:
-	fit[[index]] = lmer(height ~ 1 + name2 + (1|block:env) + (1|env) + (1|name2:env), data=df_tmp)
+	fit[[index]] = asreml(height~ 1 + name2,
+				 		  random = ~ block:env + env + name2:env,
+				 		  na.method.Y = "include",
+				 		  control = asreml.control(
+				 		  maxiter = 200),
+	             		  data = df_tmp)
 
-	# Storing the corrected mean:
-	g[[index]] = fixef(fit[[index]])[1] + fixef(fit[[index]])[-1]
+
+	# Extract fixed effects:
+	fixed_eff = summary(fit[[index]], all=T)$coef.fi[,1]
+
+	# Store the corrected mean:
+	g[[index]] = fixed_eff[length(fixed_eff)] + fixed_eff[-length(fixed_eff)]
 
 	# Printing current analysis:
 	print(paste0("Analysis ", index, " done!"))
@@ -110,14 +136,14 @@ df_tmp = data.frame()
 for (i in names(g)) {
 
 	if (i=='drymass') {
-		 df_tmp = data.frame(name2 = str_split(names(g[[i]]), pattern="name2", simplify = TRUE)[,2],
+		 df_tmp = data.frame(name2 = str_split(names(g[[i]]), pattern="name2_", simplify = TRUE)[,2],
 		 					 y_hat = unname(g[[i]]),
 		 					 trait = rep('drymass', length(g[[i]])),
 		 					 dap = rep("NA", length(g[[i]])))
     	 df_updated = df_tmp
 	}
 	if (i!='drymass') {
-		 df_tmp = data.frame(name2 = str_split(names(g[[i]]), pattern="name2", simplify = TRUE)[,2],
+		 df_tmp = data.frame(name2 = str_split(names(g[[i]]), pattern="name2_", simplify = TRUE)[,2],
 		 					 y_hat = unname(g[[i]]),
 		 					 trait = rep('height', length(g[[i]])),
 		 					 dap = rep(str_split(i, pattern="_", simplify = TRUE)[,2], length(g[[i]])))
@@ -126,13 +152,28 @@ for (i in names(g)) {
 
 }
 
-# Loading bin matrix to filter for only genotyped lines:
-W_bin = read.csv('W_bin.csv', row.names=TRUE)
+# Read bin matrix:
+W_bin = read.csv('W_bin.csv', row.names=1)
 
+# Get the ID:
+id = df[!duplicated(df[,c('name2', 'id_gbs')])][,c('name2', 'id_gbs')]
 
-W_bin = fread('W_bin.csv', header=T)
+# Subset line names that were phenotyped and genotyped:
+id = id[id$id_gbs %in% rownames(W_bin),]
 
-df[duplicated(df[,c('name2', 'id_gbs')])]
+# Subset adjusted means of the lines that were phenotyped and genotyped:
+df_updated = df_updated[df_updated$name2 %in% id$name2,]
+
+# Add column mapping the ID of the GBS:
+df_updated= merge(df_updated, id, by='name2', sort=F) 
+
+# Dropping levels:
+df_updated$id_gbs = df_updated$id_gbs %>% droplevels
+
+# Reodering the name of the data frame and eliminating the name2 identifier:
+df_updated = df_updated[,c("id_gbs", "y_hat", "trait", "dap")] 
+df_updated = df_updated[order(df_updated$trait),]
+df_updated = df_updated[order(df_updated$dap),]
 
 
 #---------------------------------------------Saving outputs-------------------------------------------------#

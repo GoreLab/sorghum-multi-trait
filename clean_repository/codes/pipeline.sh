@@ -37,7 +37,7 @@ ${PYTHON_PATH}/bin/pip install seaborn==0.9.0
 ${PYTHON_PATH}/bin/pip install pystan==2.17.1.0
 
 # Install R packages (install these versions to avoid errors):
-# Obs: asreml v3.0 should already be installed to work the script to estimate the heritability 
+# Obs: asreml v3.0 should already be installed to work the scripts of the phenotypic analysis to obtain adjusted means and heritabilities
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/optparse/optparse_1.6.0.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/data.table/data.table_1.12.0.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/magrittr/magrittr_1.0.1.tar.gz", repos=NULL, type="source")'
@@ -77,6 +77,9 @@ OUT_PATH=${ROOT_PATH}/output_sorghum-multi-trait
 # Path of the raw data folder:
 DATA_PATH=${ROOT_PATH}/raw_data_sorghum-multi-trait
 
+# Path of the asreml license:
+ASREML_PATH='${ROOT_PATH}/asreml'
+
 # Path of the repository folder:
 REPO_PATH=${ROOT_PATH}/sorghum-multi-trait
 
@@ -84,7 +87,7 @@ REPO_PATH=${ROOT_PATH}/sorghum-multi-trait
 ${PYTHON_PATH}/bin/python ${REPO_PATH}/clean_repository/codes/process_raw_data.py -dpath ${DATA_PATH} -rpath ${REPO_PATH} -opath ${OUT_PATH} & 
 
 # Run the code for phenotypic data analysis:
-Rscript ${REPO_PATH}/clean_repository/codes/phenotypic_data_analysis.R --opath ${OUT_PATH} & 
+Rscript ${REPO_PATH}/clean_repository/codes/phenotypic_data_analysis.R --asremlpath ${ASREML_PATH} --opath ${OUT_PATH} & 
 
 # # Run the code to estimate the heritability:
 # Rscript ${PREFIX_code}/mtrait_first_step_analysis_heritability_std_delta.R & 
