@@ -8,6 +8,7 @@ import pandas as pd
 import argparse
 parser = argparse.ArgumentParser()
 
+
 #-----------------------------------------Adding flags to the code-------------------------------------------#
 
 # Get flags:
@@ -22,9 +23,9 @@ args = parser.parse_args()
 DATA_PATH = args.dpath
 REPO_PATH = args.rpath
 OUT_PATH = args.opath
-DATA_PATH = '/workdir/jp2476/raw_data_sorghum-multi-trait'
-REPO_PATH = '/workdir/jp2476/sorghum-multi-trait'
-OUT_PATH = '/workdir/jp2476/output_sorghum-multi-trait'
+# DATA_PATH = '/workdir/jp2476/raw_data_sorghum-multi-trait'
+# REPO_PATH = '/workdir/jp2476/sorghum-multi-trait'
+# OUT_PATH = '/workdir/jp2476/output_sorghum-multi-trait'
 
 
 #--------------------------------------------Processing data-------------------------------------------------#
