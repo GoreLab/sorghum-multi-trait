@@ -127,7 +127,10 @@ for (i in names(g)) {
 }
 
 # Loading bin matrix to filter for only genotyped lines:
-W_bin = read.csv('W_bin.csv')
+W_bin = read.csv('W_bin.csv', row.names=TRUE)
+
+
+W_bin = fread('W_bin.csv', header=T)
 
 df[duplicated(df[,c('name2', 'id_gbs')])]
 
