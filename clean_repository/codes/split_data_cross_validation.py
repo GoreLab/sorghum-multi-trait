@@ -19,7 +19,7 @@ args = parser.parse_args()
 
 # Subset arguments:
 OUT_PATH = args.opath
-OUT_PATH = '/workdir/jp2476/output_sorghum-multi-trait'
+# OUT_PATH = '/workdir/jp2476/output_sorghum-multi-trait'
 
 
 #------------------------------------Load Adjusted Means and plotting----------------------------------------#
@@ -35,9 +35,6 @@ df.dap = df.dap.fillna(0).astype(int)
 
 # Read marker binned matrix:
 W_bin = pd.read_csv("W_bin.csv", header = 0, index_col=0)
-
-# Filter just rows of the marker matrix that we have phenotypes:
-W_bin = W_bin.loc[df.id_gbs.unique()]
 
 
 #----------------------------Split data into groups for 5th-fold cross-validation----------------------------#
