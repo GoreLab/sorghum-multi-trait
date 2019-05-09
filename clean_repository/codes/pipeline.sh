@@ -78,7 +78,7 @@ OUT_PATH=${ROOT_PATH}/output_sorghum-multi-trait
 DATA_PATH=${ROOT_PATH}/raw_data_sorghum-multi-trait
 
 # Path of the asreml license:
-ASREML_PATH='${ROOT_PATH}/asreml'
+ASREML_PATH=${ROOT_PATH}/asreml
 
 # Path of the repository folder:
 REPO_PATH=${ROOT_PATH}/sorghum-multi-trait

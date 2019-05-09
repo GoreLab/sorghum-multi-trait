@@ -13,7 +13,7 @@ library(stringr)
 # Set the flags:
 option_list = list(
   make_option(c("-a", "--asremlpath"), type="character", default=NULL, 
-              help="The path of the folder with asreml license", metavar="character")
+              help="The path of the folder with asreml license", metavar="character"),
   make_option(c("-o", "--opath"), type="character", default=NULL, 
               help="The path of the folder to receive outputs", metavar="character")
 ) 
