@@ -22,9 +22,9 @@ args = parser.parse_args()
 DATA_PATH = args.dpath
 REPO_PATH = args.rpath
 OUT_PATH = args.opath
-# DATA_PATH = '/workdir/jp2476/raw_data_sorghum-multi-trait'
-# REPO_PATH = '/workdir/jp2476/sorghum-multi-trait'
-# OUT_PATH = '/workdir/jp2476/output_sorghum-multi-trait'
+DATA_PATH = '/workdir/jp2476/raw_data_sorghum-multi-trait'
+REPO_PATH = '/workdir/jp2476/sorghum-multi-trait'
+OUT_PATH = '/workdir/jp2476/output_sorghum-multi-trait'
 
 
 #--------------------------------------------Processing data-------------------------------------------------#
@@ -145,7 +145,7 @@ for i in range(len(df)):
 		df[i] = df[i].rename(index=str, columns={'taxa_y': 'id_gbs'})
 	else:
 		df[i] = df[i].rename(index=str, columns={'taxa': 'id_gbs'})
-	df[i] = df[i].loc[~df[i].id_gbs.isnull(),]
+	# df[i] = df[i].loc[~df[i].id_gbs.isnull(),]
 
 # Index of for selecting columns of the df mapping the design related to biomass collected on 2016:
 tmp = ['plot','loc', 'set', 'block', 'range', 'row']
@@ -165,7 +165,7 @@ df = pd.concat(df, sort=False, axis=0)
 df.index = np.arange(df.shape[0])
 
 # Drop identifiers that will not be used:
-df = df.drop(['name1', 'name2'], axis=1)
+df = df.drop(['name1'], axis=1)
 
 # Load marker matrix:
 M = pd.read_csv("gbs.csv")
@@ -174,7 +174,9 @@ M = pd.read_csv("gbs.csv")
 loci_info = pd.read_csv("gbs_info.csv", index_col=0)
 
 # Intersection between IDs:
-line_names = np.intersect1d(np.unique(df['id_gbs'].astype(str)), list(M))
+mask = ~df['id_gbs'].isnull()
+line_names = np.intersect1d(np.unique(df['id_gbs'][mask].astype(str)), list(M))
+# line_names = np.intersect1d(np.unique(df['id_gbs'].astype(str)), list(M))
 
 # Subset the inbred lines that we have phenotypes:
 M = M.loc[:, line_names]
@@ -196,8 +198,8 @@ loci_info['bin'] = np.repeat(np.nan, loci_info.shape[0])
 for i in range(len(bin_map)):
 	loci_info['bin'].iloc[bin_map[i]] = np.repeat(["bin_" + str(i)], bin_map[i].size)
 
-# Subset only the lines used in the experiment:
-df = df.loc[df.id_gbs.isin(line_names),]
+# # Subset only the lines used in the experiment:
+# df = df.loc[df.id_gbs.isin(line_names),]
 
 # Name of the height covariates (columns that will be melt):
 tmp = []
@@ -230,7 +232,7 @@ df.dap[index] = np.nan
 df = df.drop('range', axis=1)
 
 # Get just the features used in the paper:
-df = df[['id_gbs', 'block', 'loc', 'year', 'trait', 'dap', 'drymass', 'height']]
+df = df[['name2', 'id_gbs', 'block', 'loc', 'year', 'trait', 'dap', 'drymass', 'height']]
 
 # Changing traits codification:
 df.trait[df.trait == 'biomass'] = 'DM'

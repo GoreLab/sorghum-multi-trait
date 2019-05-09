@@ -36,6 +36,7 @@ df = fread('df.csv', header=T)[,-1]
 
 # Change classes:
 df$id_gbs = df$id_gbs %>% as.factor
+df$name2 = df$name2 %>% as.factor
 df$block = df$block %>% as.factor
 df$loc = df$loc %>% as.factor
 df$year = df$year %>% as.factor
@@ -51,38 +52,6 @@ dap_groups = df$dap %>% unique %>% na.omit %>% as.integer
 df$env <- paste0(as.character(df$loc), "_",as.character(df$year))
 df$env <- df$env %>% as.factor()
 
-# # For mike:
-
-# for (j in unique(as.character(df$env))) {
-
-# 	subset=list()
-# 	for (i in 1:16) {
-# 		subset[[paste0('block_', i)]] = df[df$block==i & df$env == j & df$trait=='DM',]$id_gbs %>% as.character
-# 	}
-
-# 	print(paste0('Common checks for environment ', j, ':'))
-# 	print(Reduce(intersect, subset))
-
-
-# }
-
-# for (d in unique(df$dap)[-1]) {
-	
-# 	for (j in unique(as.character(df$env))) {
-
-# 		subset=list()
-# 		for (i in 1:16) {
-# 			subset[[paste0('block_', i)]] = df[df$block==i & df$env == j & df$trait=='PH' & df$dap==d,]$id_gbs %>% as.character
-# 		}
-
-# 		print(paste0('Common checks for environment ', j, ' and DAP ', d, ':'))
-# 		print(Reduce(intersect, subset))
-
-
-# 	}
-
-# }
-
 
 #------------------------------------------Biomass data analysis---------------------------------------------#
 
@@ -97,12 +66,12 @@ index = "drymass"
 df_tmp = df[df$trait == "DM"]
 
 # Drop levels not present in the data subset:
-df_tmp$id_gbs = df_tmp$id_gbs %>% droplevels
+df_tmp$name2 = df_tmp$name2 %>% droplevels
 df_tmp$block = df_tmp$block %>% droplevels
 df_tmp$env = df_tmp$env %>% droplevels
 
 # Fit the model:
-fit[[index]] = lmer(drymass ~ 1 + id_gbs + (1|block:env) + (1|env) + (1|id_gbs:env), data=df_tmp)
+fit[[index]] = lmer(drymass ~ 1 + name2 + (1|block:env) + (1|env) + (1|name2:env), data=df_tmp)
 
 # Store the corrected mean:
 g[[index]] = fixef(fit[[index]])[1] + fixef(fit[[index]])[-1]
@@ -119,12 +88,12 @@ for (i in dap_groups) {
 	df_tmp = df[(df$trait == "PH" & df$dap == i)]  
 
 	# Dropping levels not present in the data subset:
-	df_tmp$id_gbs = df_tmp$id_gbs %>% droplevels
+	df_tmp$name2 = df_tmp$name2 %>% droplevels
 	df_tmp$block = df_tmp$block %>% droplevels
 	df_tmp$env = df_tmp$env %>% droplevels
 
 	# Fitting the model:
-	fit[[index]] = lmer(height ~ 1 + id_gbs + (1|block:env) + (1|env) + (1|id_gbs:env), data=df_tmp)
+	fit[[index]] = lmer(height ~ 1 + name2 + (1|block:env) + (1|env) + (1|name2:env), data=df_tmp)
 
 	# Storing the corrected mean:
 	g[[index]] = fixef(fit[[index]])[1] + fixef(fit[[index]])[-1]
@@ -141,14 +110,14 @@ df_tmp = data.frame()
 for (i in names(g)) {
 
 	if (i=='drymass') {
-		 df_tmp = data.frame(id_gbs = str_split(names(g[[i]]), pattern="gbs", simplify = TRUE)[,2],
+		 df_tmp = data.frame(name2 = str_split(names(g[[i]]), pattern="name2", simplify = TRUE)[,2],
 		 					 y_hat = unname(g[[i]]),
 		 					 trait = rep('drymass', length(g[[i]])),
 		 					 dap = rep("NA", length(g[[i]])))
     	 df_updated = df_tmp
 	}
 	if (i!='drymass') {
-		 df_tmp = data.frame(id_gbs = str_split(names(g[[i]]), pattern="gbs", simplify = TRUE)[,2],
+		 df_tmp = data.frame(name2 = str_split(names(g[[i]]), pattern="name2", simplify = TRUE)[,2],
 		 					 y_hat = unname(g[[i]]),
 		 					 trait = rep('height', length(g[[i]])),
 		 					 dap = rep(str_split(i, pattern="_", simplify = TRUE)[,2], length(g[[i]])))
@@ -156,6 +125,11 @@ for (i in names(g)) {
 	}
 
 }
+
+# Loading bin matrix to filter for only genotyped lines:
+W_bin = read.csv('W_bin.csv')
+
+df[duplicated(df[,c('name2', 'id_gbs')])]
 
 
 #---------------------------------------------Saving outputs-------------------------------------------------#
