@@ -173,9 +173,9 @@ fit[[index]]  = asreml(drymass~ 1 + id_gbs:d_hybrids,
              		   data = df_tmp)
 
 # Compute the heritability and its standard deviation:
-h2_comp[h2_pev$trait == 'DM', c('h2','se')] = round(get_h2(fit[[index]], 
-										  				   n_env=h2_comp$n_env[h2_pev$trait == 'DM'],
-														   n_plot=h2_comp$n_plot[h2_pev$trait == 'DM']), 4)
+h2_comp[h2_comp$trait == 'DM', c('h2','se')] = round(get_h2(fit[[index]], 
+										  				   n_env=h2_comp$n_env[h2_comp$trait == 'DM'],
+														   n_plot=h2_comp$n_plot[h2_comp$trait == 'DM']), 4)
  
 
 #------------------------------------------Height data analysis------------------------------------------------#
@@ -203,9 +203,9 @@ for (index in as.character(h2_comp$trait)[-1]) {
 	             		   data = df_tmp)
 
 	# Compute the heritability and its standard deviation:
-	h2_comp[h2_pev$trait == index, c('h2','se')] = round(get_h2(fit[[index]], 
-											  				   n_env=h2_comp$n_env[h2_pev$trait == index],
-															   n_plot=h2_comp$n_plot[h2_pev$trait == index]), 4)
+	h2_comp[h2_comp$trait == index, c('h2','se')] = round(get_h2(fit[[index]], 
+											  				   n_env=h2_comp$n_env[h2_comp$trait == index],
+															   n_plot=h2_comp$n_plot[h2_comp$trait == index]), 4)
 
 	# Printing current analysis:
 	print(paste0("Analysis ", index, " done!"))
