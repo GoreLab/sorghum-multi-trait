@@ -88,8 +88,8 @@ ${PYTHON_PATH}/bin/python ${REPO_PATH}/clean_repository/codes/process_raw_data.p
 # Run the code for phenotypic data analysis:
 Rscript ${REPO_PATH}/clean_repository/codes/phenotypic_data_analysis.R --asremlpath ${ASREML_PATH} --opath ${OUT_PATH} & 
 
-# # Run the code to estimate the heritability:
-# Rscript ${PREFIX_code}/mtrait_first_step_analysis_heritability_std_delta.R & 
+# Run the code to estimate the heritability:
+Rscript ${REPO_PATH}/clean_repository/codes/heritability_phenotypic_data_analysis.R --asremlpath ${ASREML_PATH} --opath ${OUT_PATH} & 
 
 # Run the code for processing the raw data:
 ${PYTHON_PATH}/bin/python ${REPO_PATH}/clean_repository/codes/create_figures_phenotypic_data_analysis.py -rpath ${REPO_PATH} -opath ${OUT_PATH} & 
@@ -403,5 +403,4 @@ REPO_PATH=${ROOT_PATH}/sorghum-multi-trait
 
 # Run the code to split the data into different subsets for cross-validation:
 ${PYTHON_PATH}/bin/python ${REPO_PATH}/clean_repository/codes/genomic_prediction_results.py -rpath ${REPO_PATH} -opath ${OUT_PATH} & 
-
 
