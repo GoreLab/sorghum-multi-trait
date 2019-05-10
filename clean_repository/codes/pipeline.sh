@@ -391,7 +391,7 @@ for i in $(seq 1 ${n_analysis}); do
 done;
 
 
-#----------------To perform 5-fold cross-validation using the Multi Time GBLUP (MTiGBLUP)--------------------#
+#---------------To perform 5-fold cross-validation using the Multi Time GBLUP (MTi-GBLUP)--------------------#
 
 # Set the root directory:
 ROOT_PATH=/workdir/jp2476
@@ -402,7 +402,7 @@ OUT_PATH=${ROOT_PATH}/output_sorghum-multi-trait
 # Path of the repository folder:
 REPO_PATH=${ROOT_PATH}/sorghum-multi-trait
 
-# Number of analysis (each analysis will use 4 threads to run 4 Markov chains):
+# Number of analysis:
 n_analysis=5
 
 for i in $(seq 1 ${n_analysis}); do
@@ -431,7 +431,44 @@ for i in $(seq 1 ${n_analysis}); do
 done;
 
 
-#------------To perform forward-chaining cross-validation using the Multi Time GBLUP (MTiGBLUP)--------------#
+#-----------To perform forward-chaining cross-validation using the Multi Time GBLUP (MTi-GBLUP)--------------#
+
+# Set the root directory:
+ROOT_PATH=/workdir/jp2476
+
+# Path of the output folder:
+OUT_PATH=${ROOT_PATH}/output_sorghum-multi-trait
+
+# Path of the repository folder:
+REPO_PATH=${ROOT_PATH}/sorghum-multi-trait
+
+# Number of analysis:
+n_analysis=5
+
+for i in $(seq 1 ${n_analysis}); do
+
+	# Name of the file with the phenotypes:
+	y=$(sed -n "${i}p" ${OUT_PATH}/processed_data/fcv_mti-gblup_files.txt)
+
+	# Name of the model: Multivariate Linear Mixed (MLM) model
+	model=$(sed -n "${i}p" ${OUT_PATH}/processed_data/mti-gblup_models_fcv_list.txt)
+
+	# Getting just the model prefix:
+	tmp="$(cut -d'-' -f1 <<<"$model")-$(cut -d'-' -f2 <<<"$model")"
+
+	# Define the output directory for the outputs:
+	CV_OUT_PATH=${OUT_PATH}/cv/${tmp}/"$(cut -d'_' -f2 <<<"$y")"/"$(cut -d'_' -f3 <<<"$y")"
+
+	# Run the code:
+	Rscript ${REPO_PATH}/clean_repository/codes/mixed_model_analysis.R --y ${y} --model ${model} --opath ${OUT_PATH} --cvpath ${CV_OUT_PATH};
+
+	# Sleep for avoid exploding several processes:
+	sleep 5
+
+done;
+
+
+#----------------To perform 5-fold cross-validation using the Multi Trait GBLUP (MTr-GBLUP)------------------#
 
 # Set the root directory:
 ROOT_PATH=/workdir/jp2476
@@ -447,75 +484,71 @@ n_analysis=5
 
 for i in $(seq 1 ${n_analysis}); do
 
-i=1
+	# Name of the file with the phenotypes:
+	y=$(sed -n "${i}p" ${OUT_PATH}/processed_data/cv5f_mtr-gblup_files.txt)
 
-# Name of the file with the phenotypes:
-y=$(sed -n "${i}p" ${OUT_PATH}/processed_data/fcv_mti-gblup_files.txt)
+	# Name of the model: Multivariate Linear Mixed (MLM) model
+	model="MTr-GBLUP-0~6"
 
-# Name of the model: Multivariate Linear Mixed (MLM) model
-model=$(sed -n "${i}p" ${OUT_PATH}/processed_data/mti-gblup_models_fcv_list.txt)
+	# Getting the current fold of the cross-validation:
+	cv="$(cut -d'_' -f4 <<<"$y")"
 
-# Getting just the model prefix:
-tmp="$(cut -d'-' -f1 <<<"$model")"
+	# Getting just the model prefix:
+	tmp="$(cut -d'-' -f1 <<<"$model")-$(cut -d'-' -f2 <<<"$model")"
 
-# Define the output directory for the outputs:
-CV_OUT_PATH=${OUT_PATH}/cv/${tmp}/"$(cut -d'_' -f2 <<<"$y")"/"$(cut -d'_' -f3 <<<"$y")"
+	# Traits:
+	traits="$(cut -d'_' -f3 <<<"$y")"-"$(cut -d'_' -f7 <<<"$y")"
 
-# Run the code:
-Rscript ${REPO_PATH}/clean_repository/codes/mixed_model_analysis.R --y ${y} --model ${model} --opath ${OUT_PATH} --cvpath ${CV_OUT_PATH};
+	# Define the output directory for the outputs:
+	CV_OUT_PATH=${OUT_PATH}/cv/${tmp}/"$(cut -d'_' -f2 <<<"$y")"/${traits}/${cv}
 
-# Sleep for avoid exploding several processes:
-sleep 5
+	# Run the code:
+	Rscript ${REPO_PATH}/clean_repository/codes/mixed_model_analysis.R --y ${y} --model ${model} --opath ${OUT_PATH} --cvpath ${CV_OUT_PATH};
+
+	# Sleep for avoid exploding several processes:
+	sleep 5
 
 done;
 
 
-i=5
+#----------To perform forward-chaining cross-validation using the Multi Trait GBLUP (MTr-GBLUP)--------------#
 
-# Directory of the folder where y and x are stored:
-dir_in="/workdir/jp2476/repo/resul_mtrait-proj/data/cross_validation/"
+# Set the root directory:
+ROOT_PATH=/workdir/jp2476
 
-# Name of the file with the phenotypes:
-y=$(sed -n "${i}p" ${dir_in}/cv2_mtilm_files.txt)
+# Path of the output folder:
+OUT_PATH=${ROOT_PATH}/output_sorghum-multi-trait
 
-# Name of the model that can be: 'BN' or 'PBN', or 'DBN':
-model=$(sed -n "${i}p" ${dir_in}/mtilm_models_cv2_list.txt)
+# Path of the repository folder:
+REPO_PATH=${ROOT_PATH}/sorghum-multi-trait
 
-# Directory of the project folder:
-dir_proj="/workdir/jp2476/repo/sorghum-multi-trait/"
+# Number of analysis:
+n_analysis=5
 
-# Getting just the model prefix:
-tmp="$(cut -d'-' -f1 <<<"$model")"
+for i in $(seq 1 ${n_analysis}); do
 
-# Prefix of the output directory:
-PREFIX="/workdir/jp2476/repo/resul_mtrait-proj/outputs/cross_validation/${tmp}"
+	# Name of the file with the phenotypes:
+	y=$(sed -n "${i}p" ${OUT_PATH}/processed_data/fcv_mtr-gblup_files.txt)
 
-# Defining the output directory for the outputs:
-dir_out=${PREFIX}/"$(cut -d'_' -f2 <<<"$y")"/"$(cut -d'_' -f3 <<<"$y")"
+	# Name of the model: Multivariate Linear Mixed (MLM) model
+	model=$(sed -n "${i}p" ${OUT_PATH}/processed_data/mtr-gblup_models_fcv_list.txt)
 
-# Run the code:
-Rscript ${dir_proj}/codes/mtrait_mixed_models.R ${y} ${model} ${dir_in} ${dir_proj} ${dir_out};
+	# Getting just the model prefix:
+	tmp="$(cut -d'-' -f1 <<<"$model")-$(cut -d'-' -f2 <<<"$model")"
 
-# Sleep for avoid exploding several processes:
-sleep 5
+	# Traits:
+	traits="$(cut -d'_' -f3 <<<"$y")"-"$(cut -d'_' -f6 <<<"$y")"
 
+	# Define the output directory for the outputs:
+	CV_OUT_PATH=${OUT_PATH}/cv/${tmp}/"$(cut -d'_' -f5 <<<"$y")"/${traits}
 
+	# Run the code:
+	Rscript ${REPO_PATH}/clean_repository/codes/mixed_model_analysis.R --y ${y} --model ${model} --opath ${OUT_PATH} --cvpath ${CV_OUT_PATH};
 
+	# Sleep for avoid exploding several processes:
+	sleep 5
 
-
-
-
-
-
-
-
-#----------------To perform 5-fold cross-validation using the Multi Trait GBLUP (MTrGBLUP)-------------------#
-
-
-
-
-
-
+done;
 
 
 #---------To obtain results from the genomic prediction analysis under the cross-validation schemes----------#

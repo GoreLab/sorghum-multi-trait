@@ -35,10 +35,10 @@ args = parse_args(opt_parser)
 # OUT_PATH = args$opath
 # CV_OUT_PATH = args$opath
 
-y = 'y_cv5f_height_k0_trn.csv'
-model = 'MTi-GBLUP-0~6'
+y = 'y_fcv_drymass_trn.csv&y_fcv-30~60_height_trn.csv'
+model = 'MTr-GBLUP-0~2'
 OUT_PATH = '/workdir/jp2476/output_sorghum-multi-trait'
-CV_OUT_PATH = '/workdir/jp2476/output_sorghum-multi-trait/cv/MTi-GBLUP/cv5f/height/k0'
+CV_OUT_PATH = '/workdir/jp2476/output_sorghum-multi-trait/cv/MTr-GBLUP/fcv-30~60/drymass-height'
 
 #---------------------------------Define function for spectral decomposition---------------------------------#
 
@@ -159,9 +159,11 @@ if (str_detect(model, 'MTr')) {
 	# Subset just time points used for training:
 	upper = str_split(model, '~', simplify = TRUE)[1,2] %>% as.numeric
 
+	# Subset columns:
+	df_tmp = df[,colnames(df)!='trait']
+
 	# Melting the data frame:
-	df_melt = df %>% select(-trait) %>%
-	 		      	 spread(key = dap, value=y_hat)
+	df_melt = df_tmp %>% spread(key = dap, value=y_hat)
 	
 	# Subset the desired columns:
 	df_melt = df_melt[,c('id','drymass', as.character(seq(30,120,by=15)))]
