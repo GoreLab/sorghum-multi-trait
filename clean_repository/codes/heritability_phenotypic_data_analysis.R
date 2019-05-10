@@ -23,10 +23,36 @@ opt_parser = OptionParser(option_list=option_list)
 args = parse_args(opt_parser)
 
 # Subset arguments:
-# OUT_PATH = args$opath
-OUT_PATH = '/workdir/jp2476/output_sorghum-multi-trait'
+OUT_PATH = args$opath
+ASREML_PATH = args$asremlpath
+# OUT_PATH = '/workdir/jp2476/output_sorghum-multi-trait'
 # OUT_PATH = '/home/jhonathan/Documents/output_sorghum-multi-trait'
-ASREML_PATH = '/workdir/jp2476/asreml'
+# ASREML_PATH = '/workdir/jp2476/asreml'
+
+
+#--------------------------------Load asreml and function for heritability-------------------------------------#
+
+# Load asreml:
+setwd(ASREML_PATH)
+library(asreml)
+asreml.lic(license = "asreml.lic", install = TRUE)
+
+# Function to get the heritability and its standard deviation estimates with asreml v3.0:
+get_h2 <- function(asreml_obj, n_env, n_plot) {
+
+	# Re-create the output from a basic, univariate model in asreml-R: 
+	asrMod <- list(gammas = asreml_obj$gammas, gammas.type = asreml_obj$gammas.type, ai = asreml_obj$ai)
+
+	# Name objects:
+	names(asrMod[[1]]) <- names(asrMod[[2]]) <- names(asreml_obj$gammas)
+
+	# Compute the heritability and its standard deviation:
+	#---Observation: V4/n_env is the var_GxE/#environment and V5/#plot is the var_E/#plot
+	formula = eval(parse(text=paste0('h2 ~ V3 / (V3 + V4/', n_env, '+ V5/', n_plot, ')')))
+
+	return(nadiv:::pin(asrMod, formula))
+
+}
 
 
 #----------------------------------------------Load data-----------------------------------------------------#
@@ -59,7 +85,6 @@ df$env <- df$env %>% as.factor()
 fit = list()
 
 # Create a table to receive the heritabilities:
-h2_pev = data.frame(trait=c('DM', paste0('PH_', unique(df$dap[!is.na(df$dap)]))), h2=NA)
 h2_comp = data.frame(trait=c('DM', paste0('PH_', unique(df$dap[!is.na(df$dap)]))), n_env=NA, n_plot=NA, h2=NA, se=NA)
 
 
@@ -84,10 +109,10 @@ for (t in as.character(h2_comp$trait)) {
 	mask = !(df_tmp$name2 %in% c('Pacesetter', 'SPX'))
 	df_tmp = df_tmp[mask]
 
-	for (i in unique(as.character(df_tmp$id_gbs))) {
+	for (i in unique(as.character(df_tmp$name2))) {
 
 		# Subset the line:
-		mask = df_tmp$id_gbs==i 
+		mask = df_tmp$name2==i 
 
 		# Count the number of environments and plots the line i was evaluated:
 		n_env_tmp = c(length(unique(as.character(df_tmp[mask, ]$env))))
@@ -96,7 +121,7 @@ for (t in as.character(h2_comp$trait)) {
 		names(n_plot_tmp) = i
 
 		# Stack numbers in the vector:
-		if (i==unique(as.character(df_tmp$id_gbs))[1]) {
+		if (i==unique(as.character(df_tmp$name2))[1]) {
 
 			n_env = n_env_tmp
 			n_plot = n_plot_tmp
@@ -117,66 +142,12 @@ for (t in as.character(h2_comp$trait)) {
 
 }
 
-#************
-# save.image(file = "tmp.RData")
-
-#--------------------------------Load asreml and function for heritability-------------------------------------#
-
-# Load asreml:
-setwd(ASREML_PATH)
-library(asreml)
-asreml.lic(license = "asreml.lic", install = TRUE)
-
-# Function to compute heritability:
-get_h2_pev = function(fit) {
-
-	# Get the PEV:
-	pred = predict(fit, classify = 'id_gbs', sed=TRUE)
-	pev <- unname(pred$predictions$avsed[2]^2)
-	
-	# Compute heritability:
-	h2 <- 1-(pev/(2*summary(fit, all=T)$varcomp['id_gbs!id_gbs.var',2]))
-
-	return(h2)
-
-}
-
-# # Function to get the heritability and its standard deviation estimates with asreml v3.0:
-# get_h2 <- function(asreml_obj, n_env, n_plot) {
-
-# 	# Re-create the output from a basic, univariate model in asreml-R: 
-# 	asrMod <- list(gammas = asreml_obj$gammas, gammas.type = asreml_obj$gammas.type, ai = asreml_obj$ai)
-
-# 	# Name objects:
-# 	names(asrMod[[1]]) <- names(asrMod[[2]]) <- names(asreml_obj$gammas)
-
-# 	# Compute the heritability and its standard deviation:
-# 	#---Observation: V4/n_env is the var_GxE/#environment and V5/#plot is the var_E/#plot
-# 	formula = eval(parse(text=paste0('h2 ~ V3 / (V1 + V2 + V3 + V4/', n_env, '+ V5/', n_plot, ')')))
-
-# 	return(nadiv:::pin(asrMod, formula))
-
-# }
-
-# Function to get the heritability and its standard deviation estimates with asreml v3.0:
-get_h2 <- function(asreml_obj, n_env, n_plot) {
-
-	# Re-create the output from a basic, univariate model in asreml-R: 
-	asrMod <- list(gammas = asreml_obj$gammas, gammas.type = asreml_obj$gammas.type, ai = asreml_obj$ai)
-
-	# Name objects:
-	names(asrMod[[1]]) <- names(asrMod[[2]]) <- names(asreml_obj$gammas)
-
-	# Compute the heritability and its standard deviation:
-	#---Observation: V4/n_env is the var_GxE/#environment and V5/#plot is the var_E/#plot
-	formula = eval(parse(text=paste0('h2 ~ V3 / (V3 + V4/', n_env, '+ V5/', n_plot, ')')))
-
-	return(nadiv:::pin(asrMod, formula))
-
-}
-
 
 #-----------------------------------------Biomass data analysis------------------------------------------------#
+
+# Adding to the data frame dummy variables to discriminate diverse lines from hybrids:
+df$d_hybrids = as.numeric((df$name2 %in% c('Pacesetter', 'SPX')))
+df$d_lines = as.numeric(!(df$name2 %in% c('Pacesetter', 'SPX')))
 
 # Index for mapping the results:
 index = "drymass"
@@ -194,15 +165,14 @@ n_env = df_tmp$env %>% nlevels
 n_rep = df_tmp$block %>% nlevels
 
 # Fitting the model:
-fit[[index]]  = asreml(drymass~ 1,
-			 		   random = ~ id_gbs + env + block:env + id_gbs:env,
+fit[[index]]  = asreml(drymass~ 1 + id_gbs:d_hybrids,
+			 		   random = ~ id_gbs:d_lines + env + block:env + id_gbs:d_lines:env,
 			 		   na.method.Y = "include",
 			 		   control = asreml.control(
 			 		   maxiter = 200),
              		   data = df_tmp)
 
 # Compute the heritability and its standard deviation:
-h2_pev[h2_pev$trait == 'DM', 'h2'] = round(get_h2_pev(fit[[index]]), 4)
 h2_comp[h2_pev$trait == 'DM', c('h2','se')] = round(get_h2(fit[[index]], 
 										  				   n_env=h2_comp$n_env[h2_pev$trait == 'DM'],
 														   n_plot=h2_comp$n_plot[h2_pev$trait == 'DM']), 4)
@@ -225,15 +195,14 @@ for (index in as.character(h2_comp$trait)[-1]) {
 	n_env = df_tmp$env %>% nlevels
 	n_rep = df_tmp$block %>% nlevels
 
-	fit[[index]]  = asreml(height ~ 1,
-				 		   random = ~ id_gbs + block:env + env + id_gbs:env,
+	fit[[index]]  = asreml(height ~ 1 + id_gbs:d_hybrids,
+				 		   random = ~ id_gbs:d_lines + block:env + env + id_gbs:d_lines:env,
 				 		   na.method.Y = "include",
 				 		   control = asreml.control(
 				 		   maxiter = 200),
 	             		   data = df_tmp)
 
 	# Compute the heritability and its standard deviation:
-	h2_pev[h2_pev$trait == index, 'h2'] = round(get_h2_pev(fit[[index]]), 4)
 	h2_comp[h2_pev$trait == index, c('h2','se')] = round(get_h2(fit[[index]], 
 											  				   n_env=h2_comp$n_env[h2_pev$trait == index],
 															   n_plot=h2_comp$n_plot[h2_pev$trait == index]), 4)
@@ -243,3 +212,8 @@ for (index in as.character(h2_comp$trait)[-1]) {
 
 }
 
+# Set the directory:
+setwd(paste0(OUT_PATH, '/heritabilities'))
+
+# Save adjusted means:
+write.csv(h2_comp, file="heritabilities.csv")

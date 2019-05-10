@@ -41,7 +41,6 @@ ${PYTHON_PATH}/bin/pip install pystan==2.17.1.0
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/optparse/optparse_1.6.0.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/data.table/data.table_1.12.0.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/magrittr/magrittr_1.0.1.tar.gz", repos=NULL, type="source")'
-Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/lme4/lme4_1.1-18-1.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/stringr/stringr_1.3.1.tar.gz", repos=NULL, type="source")'
 
 
