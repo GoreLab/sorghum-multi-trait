@@ -111,41 +111,40 @@ plt.savefig("boxplot_height_adjusted_means.pdf", dpi=350)
 plt.savefig("boxplot_height_adjusted_means.png", dpi=350)
 plt.clf()
 
-# # Set directory:
-# os.chdir(OUT_PATH + "/heritabilities")
+# Set directory:
+os.chdir(OUT_PATH + "/heritabilities")
 
-# # Read heritability values:
-# h2_table = pd.read_csv('mtrait_first_step_analysis_heritability.txt', index_col=0)
+# Read heritability values:
+h2_table = pd.read_csv('heritabilities.csv', index_col=0)
 
-# # Add new labels to the h2_table for plotting:
-# h2_table['labels'] = labels
-# h2_table
+# Add new labels to the h2_table for plotting:
+h2_table['trait'] = labels
+h2_table
 
-# # Add colors to be ploted:
-# h2_table['colors'] = ['#006d2c', '#fe9929', '#ec7014', '#cc4c02', '#993404', '#662506', '#fee391', '#fec44f']
+# Add colors to be ploted:
+h2_table['colors'] = ['#006d2c', '#fe9929', '#ec7014', '#cc4c02', '#993404', '#662506', '#fee391', '#fec44f']
 
-# # Reorder the table:
-# index = [0, 4, 5, 6, 7, 1, 2, 3]
-# h2_table = h2_table.iloc[index]
+# Reset index:
+h2_table = h2_table.reset_index(drop=True)
 
-# # Set directory:
-# os.chdir(REPO_PATH + "/clean_repository/figures")
+# Set directory:
+os.chdir(REPO_PATH + "/clean_repository/figures")
 
-# # Plot heritabilities:
-# bar_obj=plt.bar(h2_table['labels'].tolist(), h2_table['Estimate'].tolist(),
-#  			    yerr = h2_table['SE'].tolist(),
-#  			    align='center',
-#  			    alpha=1,
-#  			    color= h2_table['colors'].tolist()
-#  			    )
-# plt.tick_params(labelsize=7.6)
-# plt.xticks(h2_table['labels'].tolist())
-# plt.xticks(rotation=25)
-# plt.xlabel('Traits')
-# plt.ylabel('Broad-sense Heritability')
-# plt.savefig("barplot_heritabilities.pdf", dpi=350)
-# plt.savefig("barplot_heritabilities.png", dpi=350)
-# plt.clf()
+# Plot heritabilities:
+bar_obj=plt.bar(h2_table['trait'].tolist(), h2_table['h2'].tolist(),
+ 			    yerr = h2_table['se'].tolist(),
+ 			    align='center',
+ 			    alpha=1,
+ 			    color= h2_table['colors'].tolist()
+ 			    )
+plt.tick_params(labelsize=7.6)
+plt.xticks(h2_table['trait'].tolist())
+plt.xticks(rotation=25)
+plt.xlabel('Traits')
+plt.ylabel('Broad-sense Heritability')
+plt.savefig("barplot_heritabilities.pdf", dpi=350)
+plt.savefig("barplot_heritabilities.png", dpi=350)
+plt.clf()
 
 
 
