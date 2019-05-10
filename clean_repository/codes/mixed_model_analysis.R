@@ -7,6 +7,8 @@ library(data.table)
 library(stringr)
 library(magrittr)
 library(EMMREML)
+library(rrBLUP)
+library(tidyr)
 
 
 #-----------------------------------------Adding flags to the code-------------------------------------------#
@@ -28,13 +30,15 @@ opt_parser = OptionParser(option_list=option_list)
 args = parse_args(opt_parser)
 
 # Subset arguments:
-y = args$y
-model = args$model
-OUT_PATH = args$opath
-CV_OUT_PATH = args$opath
+# y = args$y
+# model = args$model
+# OUT_PATH = args$opath
+# CV_OUT_PATH = args$opath
 
-
-y=
+y = 'y_cv5f_height_k0_trn.csv'
+model = 'MTi-GBLUP-0~6'
+OUT_PATH = '/workdir/jp2476/output_sorghum-multi-trait'
+CV_OUT_PATH = '/workdir/jp2476/output_sorghum-multi-trait/cv/MTi-GBLUP/cv5f/height/k0'
 
 #---------------------------------Define function for spectral decomposition---------------------------------#
 
@@ -113,7 +117,7 @@ rownames(A) = rownames(M)
 colnames(A) = rownames(M)
 
 # Change the names of the columns:
-colnames(df) = c('id', 'trait', 'dap', 'y_hat')
+colnames(df) = c("id", "y_hat", "trait", "dap")
 
 # Conditional based on models:
 if (str_detect(model, 'MTi')) {
@@ -127,11 +131,12 @@ if (str_detect(model, 'MTi')) {
 	# Change DAP class on the data frame:
 	df$dap = df$dap %>% as.character %>% as.numeric
 
+	# Subset data frame:
+	df_tmp = df[!is.na(df$dap),]
+	df_tmp = df_tmp[df_tmp$dap <= time[upper+1],]
+
 	# Melting the data frame:
-	df_melt = df %>% suppressWarnings() %>%
-					 filter(dap != 'NA') %>%
-					 filter(dap <= time[upper+1]) %>%
-	 		      	 spread(key = dap, value=y_hat)
+	df_melt = df_tmp %>% spread(key = dap, value=y_hat)
 
 	# Subset the desired columns:
 	df_melt = df_melt[,c('id', as.character(seq(30, time[upper+1], by=15)))]

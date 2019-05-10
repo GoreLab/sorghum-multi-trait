@@ -78,17 +78,17 @@ done;
 paste -d'&' tmp1.txt y_fcv_dbn_trn_files.txt > fcv_mtr-gblup_files.txt
 rm tmp1.txt
 
-# Create a text file to store the different types of Multi Time GBLUP (MTiGBLUP) models for latter usage;
-echo "MTiGBLUP-0~5" > mti-gblup_models_fcv_list.txt
-echo "MTiGBLUP-0~1" >> mti-gblup_models_fcv_list.txt
-echo "MTiGBLUP-0~2" >> mti-gblup_models_fcv_list.txt
-echo "MTiGBLUP-0~3" >> mti-gblup_models_fcv_list.txt
-echo "MTiGBLUP-0~4" >> mti-gblup_models_fcv_list.txt
+# Create a text file to store the different types of Multi Time GBLUP (MTi-GBLUP) models for latter usage;
+echo "MTi-GBLUP-0~5" > mti-gblup_models_fcv_list.txt
+echo "MTi-GBLUP-0~1" >> mti-gblup_models_fcv_list.txt
+echo "MTi-GBLUP-0~2" >> mti-gblup_models_fcv_list.txt
+echo "MTi-GBLUP-0~3" >> mti-gblup_models_fcv_list.txt
+echo "MTi-GBLUP-0~4" >> mti-gblup_models_fcv_list.txt
 
-# Create a text file to store the different types of Multi Trait GBLUP (MTrGBLUP) models for latter usage;
-echo "MTrGBLUP-0~5" > mtr-gblup_models_fcv_list.txt
-echo "MTrGBLUP-0~1" >> mtr-gblup_models_fcv_list.txt
-echo "MTrGBLUP-0~2" >> mtr-gblup_models_fcv_list.txt
-echo "MTrGBLUP-0~3" >> mtr-gblup_models_fcv_list.txt
-echo "MTrGBLUP-0~4" >> mtr-gblup_models_fcv_list.txt
+# Create a text file to store the different types of Multi Trait GBLUP (MTr-GBLUP) models for latter usage;
+echo "MTr-GBLUP-0~5" > mtr-gblup_models_fcv_list.txt
+echo "MTr-GBLUP-0~1" >> mtr-gblup_models_fcv_list.txt
+echo "MTr-GBLUP-0~2" >> mtr-gblup_models_fcv_list.txt
+echo "MTr-GBLUP-0~3" >> mtr-gblup_models_fcv_list.txt
+echo "MTr-GBLUP-0~4" >> mtr-gblup_models_fcv_list.txt
 
