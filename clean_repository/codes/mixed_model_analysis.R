@@ -30,15 +30,15 @@ opt_parser = OptionParser(option_list=option_list)
 args = parse_args(opt_parser)
 
 # Subset arguments:
-# y = args$y
-# model = args$model
-# OUT_PATH = args$opath
-# CV_OUT_PATH = args$opath
+y = args$y
+model = args$model
+OUT_PATH = args$opath
+CV_OUT_PATH = args$opath
 
-y = 'y_fcv_drymass_trn.csv&y_fcv-30~60_height_trn.csv'
-model = 'MTr-GBLUP-0~2'
-OUT_PATH = '/workdir/jp2476/output_sorghum-multi-trait'
-CV_OUT_PATH = '/workdir/jp2476/output_sorghum-multi-trait/cv/MTr-GBLUP/fcv-30~60/drymass-height'
+# y = 'y_fcv_drymass_trn.csv&y_fcv-30~60_height_trn.csv'
+# model = 'MTr-GBLUP-0~2'
+# OUT_PATH = '/workdir/jp2476/output_sorghum-multi-trait'
+# CV_OUT_PATH = '/workdir/jp2476/output_sorghum-multi-trait/cv/MTr-GBLUP/fcv-30~60/drymass-height'
 
 #---------------------------------Define function for spectral decomposition---------------------------------#
 
