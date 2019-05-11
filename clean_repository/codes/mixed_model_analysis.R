@@ -132,7 +132,7 @@ if (str_detect(model, 'MTi')) {
 	df$dap = df$dap %>% as.character
 
 	# Subset data frame:
-	df_tmp = df[!is.na(df$dap),]
+	df_tmp = df[!(df$dap=='NA'),]
 	df_tmp = df_tmp[as.numeric(df_tmp$dap) <= time[upper+1],]
 
 	# Melting the data frame:
