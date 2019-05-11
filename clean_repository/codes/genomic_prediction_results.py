@@ -29,8 +29,8 @@ args = parser.parse_args()
 # Subset arguments:
 REPO_PATH = args.rpath
 OUT_PATH = args.opath
-# REPO_PATH = '/workdir/jp2476/sorghum-multi-trait'
-# OUT_PATH = '/workdir/jp2476/output_sorghum-multi-trait'
+REPO_PATH = '/workdir/jp2476/sorghum-multi-trait'
+OUT_PATH = '/workdir/jp2476/output_sorghum-multi-trait'
 
 
 #-----------------------------------------Read train and test data-------------------------------------------#
@@ -386,7 +386,7 @@ for c in range(len(fcv_type)):
 #--------------------Compute prediction accuracies for the cv5f scheme (table and figures)--------------------#
 
 # Different models:
-models = ['bn', 'pbn', 'dbn']
+models = ['BN', 'PBN', 'DBN', 'MTi-GBLUP', 'MTr-GBLUP']
 
 # Different DAP measures:
 dap_group = ['30', '45', '60', '75', '90', '105', '120']  
@@ -397,19 +397,22 @@ n_sim = 800
 # Initialize table to store prediction accuracy based on the posterior mean of the predictions from the Bayesian models:
 cv5f_table_mean = pd.DataFrame(index = ['DB'] + ['PH-' + str(i) for i in dap_group], columns=models)
 
+# Models for computing predictive accuracy:
+models = ['BN', 'PBN', 'DBN']
+
 # Accuracies based on the posterior means of the predictions for cv5f related to the height prediction:
 for m in models:
   for d in dap_group:
-    index = y_pred_cv5f[m + '_cv5f_height_trained!on!dap:' + d].columns
-    cor_tmp = np.round(pearsonr(y_pred_cv5f[m + '_cv5f_height_trained!on!dap:' + d].mean(axis=0), y_obs_cv5f['cv5f_height_dap:' + d][index])[0],2)
+    index = y_pred_cv5f[m.lower() + '_cv5f_height_trained!on!dap:' + d].columns
+    cor_tmp = np.round(pearsonr(y_pred_cv5f[m.lower() + '_cv5f_height_trained!on!dap:' + d].mean(axis=0), y_obs_cv5f['cv5f_height_dap:' + d][index])[0],2)
     cv5f_table_mean.loc['PH-' + str(d), m] = cor_tmp
 
 # Prediction accuracies based on the posterior means of the predictions for cv5f related to dry biomass prediction:
 index = y_pred_cv5f['bn_cv5f_drymass'].columns
-cv5f_table_mean.loc['DB', 'bn'] = np.round(pearsonr(y_pred_cv5f['bn_cv5f_drymass'].mean(axis=0), y_obs_cv5f['cv5f_drymass'][index])[0],2)
+cv5f_table_mean.loc['DB', 'BN'] = np.round(pearsonr(y_pred_cv5f['bn_cv5f_drymass'].mean(axis=0), y_obs_cv5f['cv5f_drymass'][index])[0],2)
 
 index = y_pred_cv5f['pbn_cv5f_drymass_ensambled'].columns
-cv5f_table_mean.loc['DB', 'pbn'] = np.round(pearsonr(y_pred_cv5f['pbn_cv5f_drymass_ensambled'].mean(axis=0), y_obs_cv5f['cv5f_drymass'][index])[0],2)
+cv5f_table_mean.loc['DB', 'PBN'] = np.round(pearsonr(y_pred_cv5f['pbn_cv5f_drymass_ensambled'].mean(axis=0), y_obs_cv5f['cv5f_drymass'][index])[0],2)
 
 # Initialize table to store the standard deviation of the prediction accuracies based on the samples of the posterior distribution of the predictions obtained by the Bayesian models:
 cv5f_table_std = pd.DataFrame(index = ['DB'] + ['PH-' + str(i) for i in dap_group], columns=models)
@@ -420,10 +423,10 @@ for m in models:
   cor_tmp = pd.DataFrame(index=["s_" + str(i) for i in range(n_sim)], columns=['acc'])
   # To compute the standard deviation of the accuracies in the posterior level:
   for d in dap_group:
-    index1 = y_pred_cv5f[m + '_cv5f_height_trained!on!dap:' + d].columns
-    index2 = y_pred_cv5f[m + '_cv5f_height_trained!on!dap:' + d].index
+    index1 = y_pred_cv5f[m.lower() + '_cv5f_height_trained!on!dap:' + d].columns
+    index2 = y_pred_cv5f[m.lower() + '_cv5f_height_trained!on!dap:' + d].index
     for s in index2:
-      cor_tmp.loc[s] = pearsonr(y_pred_cv5f[m + '_cv5f_height_trained!on!dap:' + d].loc[s], y_obs_cv5f['cv5f_height_dap:' + d][index1])[0]
+      cor_tmp.loc[s] = pearsonr(y_pred_cv5f[m.lower() + '_cv5f_height_trained!on!dap:' + d].loc[s], y_obs_cv5f['cv5f_height_dap:' + d][index1])[0]
       print('Model: {}, DAP: {}, Simulation: {}'.format(m.upper(), d, s))
     # Printing the standard deviation of the predictive accuracies:
     cv5f_table_std.loc['PH-' + str(d), m] = float(np.round(cor_tmp.std(axis=0),3))
@@ -451,21 +454,21 @@ for m in models:
       print('Model: {}, Simulation: {}'.format(m.upper(), s))
     if m=='bn_biomass':
       # Printing the standard deviation of the predictive accuracies:
-      cv5f_table_std.loc['DB', 'bn'] = float(np.round(cor_tmp.std(axis=0),3))
+      cv5f_table_std.loc['DB', 'BN'] = float(np.round(cor_tmp.std(axis=0),3))
     if m=='pbn_biomass':
       # Printing the standard deviation of the predictive accuracies:
-      cv5f_table_std.loc['DB', 'pbn'] = float(np.round(cor_tmp.std(axis=0),3))
+      cv5f_table_std.loc['DB', 'PBN'] = float(np.round(cor_tmp.std(axis=0),3))
 
-# Covert model names to upper case:
-cv5f_table_mean.columns = list(map(lambda x:x.upper(), cv5f_table_mean.columns.tolist()))
-cv5f_table_std.columns = list(map(lambda x:x.upper(), cv5f_table_std.columns.tolist()))
+# # Covert model names to upper case:
+# cv5f_table_mean.columns = list(map(lambda x:x.upper(), cv5f_table_mean.columns.tolist()))
+# cv5f_table_std.columns = list(map(lambda x:x.upper(), cv5f_table_std.columns.tolist()))
 
-# Set directory:
-os.chdir(REPO_PATH + "/clean_repository/tables")
+# # Set directory:
+# os.chdir(REPO_PATH + "/clean_repository/tables")
 
-# Save tables with the results from the cv5f:
-cv5f_table_mean.to_csv("cv5f_accuracy_table_mean.csv")
-cv5f_table_std.to_csv("cv5f_accuracy_table_std.csv")
+# # Save tables with the results from the cv5f:
+# cv5f_table_mean.to_csv("cv5f_accuracy_table_mean.csv")
+# cv5f_table_std.to_csv("cv5f_accuracy_table_std.csv")
 
 
 #-----------------------------Compute prediction accuracies for the fcv scheme--------------------------------#
@@ -752,6 +755,9 @@ with sns.plotting_context(font_scale=1):
 	plt.savefig("ci_plot.pdf", dpi=350)
 	plt.savefig("ci_plot.png", dpi=350)
 	plt.clf()
+
+
+
 
 
 ###############################################################
