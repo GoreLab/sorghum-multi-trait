@@ -17,7 +17,7 @@ option_list = list(
   make_option(c("-r", "--rpath"), type="character", default=NULL, 
               help="The path of the repository", metavar="character"),
   make_option(c("-o", "--opath"), type="character", default=NULL, 
-              help="The path of the folder to receive outputs", metavar="character"),
+              help="The path of the folder to receive outputs", metavar="character")
 ) 
 
 # Parse the arguments:

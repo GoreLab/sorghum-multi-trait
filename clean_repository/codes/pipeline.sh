@@ -423,7 +423,7 @@ for i in $(seq 1 ${n_analysis}); do
 	CV_OUT_PATH=${OUT_PATH}/cv/${tmp}/"$(cut -d'_' -f2 <<<"$y")"/"$(cut -d'_' -f3 <<<"$y")"/${cv}
 
 	# Run the code:
-	Rscript ${REPO_PATH}/clean_repository/codes/mixed_model_analysis.R --y ${y} --model ${model} --opath ${OUT_PATH} --cvpath ${CV_OUT_PATH};
+	Rscript ${REPO_PATH}/clean_repository/codes/mixed_model_analysis.R --y ${y} --model ${model} --opath ${OUT_PATH} --cvpath ${CV_OUT_PATH} &
 
 	# Sleep for avoid exploding several processes:
 	sleep 5
@@ -460,7 +460,7 @@ for i in $(seq 1 ${n_analysis}); do
 	CV_OUT_PATH=${OUT_PATH}/cv/${tmp}/"$(cut -d'_' -f2 <<<"$y")"/"$(cut -d'_' -f3 <<<"$y")"
 
 	# Run the code:
-	Rscript ${REPO_PATH}/clean_repository/codes/mixed_model_analysis.R --y ${y} --model ${model} --opath ${OUT_PATH} --cvpath ${CV_OUT_PATH};
+	Rscript ${REPO_PATH}/clean_repository/codes/mixed_model_analysis.R --y ${y} --model ${model} --opath ${OUT_PATH} --cvpath ${CV_OUT_PATH} &
 
 	# Sleep for avoid exploding several processes:
 	sleep 5
@@ -503,7 +503,7 @@ for i in $(seq 1 ${n_analysis}); do
 	CV_OUT_PATH=${OUT_PATH}/cv/${tmp}/"$(cut -d'_' -f2 <<<"$y")"/${traits}/${cv}
 
 	# Run the code:
-	Rscript ${REPO_PATH}/clean_repository/codes/mixed_model_analysis.R --y ${y} --model ${model} --opath ${OUT_PATH} --cvpath ${CV_OUT_PATH};
+	Rscript ${REPO_PATH}/clean_repository/codes/mixed_model_analysis.R --y ${y} --model ${model} --opath ${OUT_PATH} --cvpath ${CV_OUT_PATH} &
 
 	# Sleep for avoid exploding several processes:
 	sleep 5
@@ -543,12 +543,27 @@ for i in $(seq 1 ${n_analysis}); do
 	CV_OUT_PATH=${OUT_PATH}/cv/${tmp}/"$(cut -d'_' -f5 <<<"$y")"/${traits}
 
 	# Run the code:
-	Rscript ${REPO_PATH}/clean_repository/codes/mixed_model_analysis.R --y ${y} --model ${model} --opath ${OUT_PATH} --cvpath ${CV_OUT_PATH};
+	Rscript ${REPO_PATH}/clean_repository/codes/mixed_model_analysis.R --y ${y} --model ${model} --opath ${OUT_PATH} --cvpath ${CV_OUT_PATH} &
 
 	# Sleep for avoid exploding several processes:
 	sleep 5
 
 done;
+
+
+#--------To process results from the multivariate linear mixed models fitted with the EMMREML package--------#
+
+# Set the root directory:
+ROOT_PATH=/workdir/jp2476
+
+# Path of the output folder:
+OUT_PATH=${ROOT_PATH}/output_sorghum-multi-trait
+
+# Path of the repository folder:
+REPO_PATH=${ROOT_PATH}/sorghum-multi-trait
+
+# To process results from the multivariate linear mixed models fitted with the EMMREML package:
+Rscript ${REPO_PATH}/clean_repository/codes/process_emmreml_output.R --rpath ${REPO_PATH} --opath ${OUT_PATH} &
 
 
 #---------To obtain results from the genomic prediction analysis under the cross-validation schemes----------#
