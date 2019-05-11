@@ -395,7 +395,7 @@ dap_group = ['30', '45', '60', '75', '90', '105', '120']
 n_sim = 800
 
 # Initialize table to store prediction accuracy based on the posterior mean of the predictions from the Bayesian models:
-cv5f_table_mean = pd.DataFrame(index = ['DB'] + ['PH-' + str(i) for i in dap_group], columns=models)
+cv5f_table_mean = pd.DataFrame(index = ['DB'] + ['PH_' + str(i) for i in dap_group], columns=models)
 
 # Models for computing predictive accuracy:
 models = ['BN', 'PBN', 'DBN']
@@ -405,7 +405,7 @@ for m in models:
   for d in dap_group:
     index = y_pred_cv5f[m.lower() + '_cv5f_height_trained!on!dap:' + d].columns
     cor_tmp = np.round(pearsonr(y_pred_cv5f[m.lower() + '_cv5f_height_trained!on!dap:' + d].mean(axis=0), y_obs_cv5f['cv5f_height_dap:' + d][index])[0],2)
-    cv5f_table_mean.loc['PH-' + str(d), m] = cor_tmp
+    cv5f_table_mean.loc['PH_' + str(d), m] = cor_tmp
 
 # Prediction accuracies based on the posterior means of the predictions for cv5f related to dry biomass prediction:
 index = y_pred_cv5f['bn_cv5f_drymass'].columns
@@ -415,7 +415,7 @@ index = y_pred_cv5f['pbn_cv5f_drymass_ensambled'].columns
 cv5f_table_mean.loc['DB', 'PBN'] = np.round(pearsonr(y_pred_cv5f['pbn_cv5f_drymass_ensambled'].mean(axis=0), y_obs_cv5f['cv5f_drymass'][index])[0],2)
 
 # Initialize table to store the standard deviation of the prediction accuracies based on the samples of the posterior distribution of the predictions obtained by the Bayesian models:
-cv5f_table_std = pd.DataFrame(index = ['DB'] + ['PH-' + str(i) for i in dap_group], columns=models)
+cv5f_table_std = pd.DataFrame(index = ['DB'] + ['PH_' + str(i) for i in dap_group], columns=models)
 
 # Standard deviation of the prediction accuracies based on the samples of the posterior distribution of the predictions obtained by the Bayesian models for height:
 for m in models:
@@ -429,7 +429,7 @@ for m in models:
       cor_tmp.loc[s] = pearsonr(y_pred_cv5f[m.lower() + '_cv5f_height_trained!on!dap:' + d].loc[s], y_obs_cv5f['cv5f_height_dap:' + d][index1])[0]
       print('Model: {}, DAP: {}, Simulation: {}'.format(m.upper(), d, s))
     # Printing the standard deviation of the predictive accuracies:
-    cv5f_table_std.loc['PH-' + str(d), m] = float(np.round(cor_tmp.std(axis=0),3))
+    cv5f_table_std.loc['PH_' + str(d), m] = float(np.round(cor_tmp.std(axis=0),3))
 
 # Different models:
 models = ['bn_biomass', 'pbn_biomass']
@@ -458,17 +458,6 @@ for m in models:
     if m=='pbn_biomass':
       # Printing the standard deviation of the predictive accuracies:
       cv5f_table_std.loc['DB', 'PBN'] = float(np.round(cor_tmp.std(axis=0),3))
-
-# # Covert model names to upper case:
-# cv5f_table_mean.columns = list(map(lambda x:x.upper(), cv5f_table_mean.columns.tolist()))
-# cv5f_table_std.columns = list(map(lambda x:x.upper(), cv5f_table_std.columns.tolist()))
-
-# # Set directory:
-# os.chdir(REPO_PATH + "/clean_repository/tables")
-
-# # Save tables with the results from the cv5f:
-# cv5f_table_mean.to_csv("cv5f_accuracy_table_mean.csv")
-# cv5f_table_std.to_csv("cv5f_accuracy_table_std.csv")
 
 
 #-----------------------------Compute prediction accuracies for the fcv scheme--------------------------------#
@@ -757,7 +746,59 @@ with sns.plotting_context(font_scale=1):
 	plt.clf()
 
 
+#--------------------------Accuracy heatmap for the multivariate linear mixed model--------------------------#
 
+# Set directory:
+os.chdir(REPO_PATH + "/clean_repository/tables")
+
+# Initialize a dictionary to receive the accuracies:
+gblup_dict = dict()
+
+# Load predictive accuracies of the GBLUP models and store on the final table:
+gblup_dict['MTi-GBLUP_cv5f'] = pd.read_csv('acc_MTi-GBLUP_cv5f.csv', header = 0, index_col=0)
+gblup_dict['MTr-GBLUP_cv5f'] = pd.read_csv('acc_MTr-GBLUP_cv5f.csv', header = 0, index_col=0)
+cv5f_table_mean['MTi-GBLUP'][gblup_dict['MTi-GBLUP_cv5f'].index] = np.round(gblup_dict['MTi-GBLUP_cv5f'].values.flatten(),3)
+cv5f_table_mean['MTr-GBLUP'][gblup_dict['MTr-GBLUP_cv5f'].index] = np.round(gblup_dict['MTr-GBLUP_cv5f'].values.flatten(),3)
+
+# Load correlation matrices:
+gblup_dict['MTi-GBLUP_fcv'] = pd.read_csv('acc_MTi-GBLUP_fcv.csv', header = 0, index_col=0)
+gblup_dict['MTr-GBLUP_fcv'] = pd.read_csv('acc_MTr-GBLUP_fcv.csv', header = 0, index_col=0)
+
+# List of models to use:
+model_set = ['MTi-GBLUP', 'MTr-GBLUP']
+
+# Set directory:
+os.chdir(REPO_PATH + "/clean_repository/figures")
+
+# Generate accuracy heatmaps:
+for i in range(len(model_set)):
+  # Labels for plotting the heatmap for the Dynamic Bayesian model:
+  labels_axis0 = ['DAP 30:45*', 'DAP 30:60*', 'DAP 30:75*', 'DAP 30:90*', 'DAP 30:105*']
+  # Labels for plotting the heatmap:
+  labels_axis1 = ['DAP 60', 'DAP 75', 'DAP 90', 'DAP 105', 'DAP 120']
+  # Heat map of the adjusted means across traits:
+  heat = sns.heatmap(gblup_dict[model_set[i] + '_fcv'],
+             linewidths=0.25,
+             vmin=0.3,
+             vmax=1,
+             annot=True,
+             annot_kws={"size": 18},
+             xticklabels=labels_axis0,
+             yticklabels=labels_axis1)
+  heat.set_ylabel('')    
+  heat.set_xlabel('')
+  plt.xticks(rotation=25)
+  plt.yticks(rotation=45)
+  plt.savefig("heatplot_fcv_" + model_set[i] + "_accuracy.pdf", dpi=150)
+  plt.savefig("heatplot_fcv_" + model_set[i] + "_accuracy.png", dpi=150)
+  plt.clf()
+
+# Set directory:
+os.chdir(REPO_PATH + "/clean_repository/tables")
+
+# Save tables with the results from the cv5f:
+cv5f_table_mean.to_csv("cv5f_accuracy_table_mean_all_genomic_prediction_models.csv")
+cv5f_table_std.to_csv("cv5f_accuracy_table_std_bayesian_genomic_prediction_models.csv")
 
 
 ###############################################################
