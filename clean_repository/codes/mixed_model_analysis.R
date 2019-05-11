@@ -35,10 +35,10 @@ model = args$model
 OUT_PATH = args$opath
 CV_OUT_PATH = args$cvpath
 
-y = 'y_fcv-30~105_height_trn.csv'
-model = 'MTi-GBLUP-0~5'
-OUT_PATH = '/workdir/jp2476/output_sorghum-multi-trait'
-CV_OUT_PATH = '/workdir/jp2476/output_sorghum-multi-trait/cv/MTi-GBLUP/fcv-30~105/heightUP/fcv-30~60/drymass-height'
+# y = 'y_fcv-30~105_height_trn.csv'
+# model = 'MTi-GBLUP-0~5'
+# OUT_PATH = '/workdir/jp2476/output_sorghum-multi-trait'
+# CV_OUT_PATH = '/workdir/jp2476/output_sorghum-multi-trait/cv/MTi-GBLUP/fcv-30~105/heightUP/fcv-30~60/drymass-height'
 
 #---------------------------------Define function for spectral decomposition---------------------------------#
 
