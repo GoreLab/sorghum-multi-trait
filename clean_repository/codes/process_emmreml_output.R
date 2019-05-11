@@ -318,15 +318,14 @@ for (m in model_set) {
 
 }
 
-# Set directory:
-setwd(paste0(REPO_PATH, "/clean_repository/tables"))
-
 # Rename entries of the cv5f accuracy:
 names(acc_lst[['MTi-GBLUP']][['cv5f']]) = paste0('PH_', seq(30,120,15))
 names(acc_lst[['MTr-GBLUP']][['cv5f']]) = c('DB', paste0('PH_', seq(30,120,15)))
 
+# Set directory:
+setwd(paste0(REPO_PATH, "/clean_repository/tables"))
+
 # Write accuracy files:
-setwd(paste0(prefix_proj, 'plots/cv/heatplot'))
 for (i in names(acc_lst[["MTi-GBLUP"]])) write.csv(acc_lst[["MTi-GBLUP"]][[i]], file=paste0("acc_MTi-GBLUP_", i, ".csv"))
 for (i in names(acc_lst[["MTr-GBLUP"]])) write.csv(acc_lst[["MTr-GBLUP"]][[i]], file=paste0("acc_MTr-GBLUP_", i, ".csv"))
 
