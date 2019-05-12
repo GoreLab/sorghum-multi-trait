@@ -95,6 +95,9 @@ Rscript ${REPO_PATH}/clean_repository/codes/phenotypic_data_analysis.R --asremlp
 # Run the code to estimate the heritability:
 Rscript ${REPO_PATH}/clean_repository/codes/heritability_phenotypic_data_analysis.R --asremlpath ${ASREML_PATH} --opath ${OUT_PATH} & 
 
+# Copy heritability table to the repository:
+cp ${OUT_PATH}/heritabilities/heritabilities.csv ${REPO_PATH}/clean_repository/tables/
+
 # Run the code for processing the raw data:
 ${PYTHON_PATH}/bin/python ${REPO_PATH}/clean_repository/codes/create_figures_phenotypic_data_analysis.py -rpath ${REPO_PATH} -opath ${OUT_PATH} & 
 

@@ -57,7 +57,7 @@ os.chdir(REPO_PATH + "/clean_repository/figures")
 tmp = df.pivot(index='id_gbs', columns='dap', values='y_hat')
 
 # Labels for plotting the heatmap:
-labels = ["Biomass",
+labels = ["Dry biomass",
   		  "Height DAP 30",
 		  "Height DAP 45",
 		  "Height DAP 60",
