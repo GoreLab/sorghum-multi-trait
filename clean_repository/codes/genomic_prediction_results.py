@@ -757,8 +757,8 @@ gblup_dict = dict()
 # Load predictive accuracies of the GBLUP models and store on the final table:
 gblup_dict['MTi-GBLUP_cv5f'] = pd.read_csv('acc_MTi-GBLUP_cv5f.csv', header = 0, index_col=0)
 gblup_dict['MTr-GBLUP_cv5f'] = pd.read_csv('acc_MTr-GBLUP_cv5f.csv', header = 0, index_col=0)
-cv5f_table_mean['MTi-GBLUP'][gblup_dict['MTi-GBLUP_cv5f'].index] = np.round(gblup_dict['MTi-GBLUP_cv5f'].values.flatten(),3)
-cv5f_table_mean['MTr-GBLUP'][gblup_dict['MTr-GBLUP_cv5f'].index] = np.round(gblup_dict['MTr-GBLUP_cv5f'].values.flatten(),3)
+cv5f_table_mean['MTi-GBLUP'][gblup_dict['MTi-GBLUP_cv5f'].index] = np.round(gblup_dict['MTi-GBLUP_cv5f'].values.flatten(),2)
+cv5f_table_mean['MTr-GBLUP'][gblup_dict['MTr-GBLUP_cv5f'].index] = np.round(gblup_dict['MTr-GBLUP_cv5f'].values.flatten(),2)
 
 # Load correlation matrices:
 gblup_dict['MTi-GBLUP_fcv'] = pd.read_csv('acc_MTi-GBLUP_fcv.csv', header = 0, index_col=0)
