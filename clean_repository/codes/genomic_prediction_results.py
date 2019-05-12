@@ -736,7 +736,7 @@ with sns.plotting_context(font_scale=1):
 	                    y='Coincidence index posterior values',
 	                    data=ci_post,
 	                    hue='Model')
-	plt.ylim(0.12, 0.35)
+	plt.ylim(0.12, 0.4)
 	ax.tick_params(labelsize=30)
 	plt.xlabel('Days after planting', fontsize=40)
 	plt.ylabel(	'Coincidence index posterior values', fontsize=40)
