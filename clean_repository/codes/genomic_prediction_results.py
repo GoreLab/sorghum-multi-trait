@@ -779,6 +779,7 @@ for i in range(len(model_set)):
   # Heat map of the adjusted means across traits:
   heat = sns.heatmap(gblup_dict[model_set[i] + '_fcv'],
              linewidths=0.25,
+             cmap='YlOrBr',
              vmin=0.3,
              vmax=1,
              annot=True,
@@ -789,8 +790,8 @@ for i in range(len(model_set)):
   heat.set_xlabel('')
   plt.xticks(rotation=25)
   plt.yticks(rotation=45)
-  plt.savefig("heatplot_fcv_" + model_set[i] + "_accuracy.pdf", dpi=150)
-  plt.savefig("heatplot_fcv_" + model_set[i] + "_accuracy.png", dpi=150)
+  plt.savefig("heatplot_fcv_" + model_set[i] + "_accuracy.pdf", dpi=350)
+  plt.savefig("heatplot_fcv_" + model_set[i] + "_accuracy.png", dpi=350)
   plt.clf()
 
 # Set directory:
