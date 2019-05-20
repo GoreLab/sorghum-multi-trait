@@ -145,10 +145,6 @@ for (t in as.character(h2_comp$trait)) {
 
 #-----------------------------------------Biomass data analysis------------------------------------------------#
 
-# Adding to the data frame dummy variables to discriminate diverse lines from hybrids:
-df$d_hybrids = as.numeric((df$name2 %in% c('Pacesetter', 'SPX')))
-df$d_lines = as.numeric(!(df$name2 %in% c('Pacesetter', 'SPX')))
-
 # Index for mapping the results:
 index = "drymass"
 
@@ -165,8 +161,8 @@ n_env = df_tmp$env %>% nlevels
 n_rep = df_tmp$block %>% nlevels
 
 # Fitting the model:
-fit[[index]]  = asreml(drymass~ 1 + id_gbs:d_hybrids,
-			 		   random = ~ id_gbs:d_lines + env + block:env + id_gbs:d_lines:env,
+fit[[index]]  = asreml(drymass~ 1 + id_gbs,
+			 		   random = ~ id_gbs + env + block:env + id_gbs:env,
 			 		   na.method.Y = "include",
 			 		   control = asreml.control(
 			 		   maxiter = 200),
@@ -195,8 +191,8 @@ for (index in as.character(h2_comp$trait)[-1]) {
 	n_env = df_tmp$env %>% nlevels
 	n_rep = df_tmp$block %>% nlevels
 
-	fit[[index]]  = asreml(height ~ 1 + id_gbs:d_hybrids,
-				 		   random = ~ id_gbs:d_lines + block:env + env + id_gbs:d_lines:env,
+	fit[[index]]  = asreml(height ~ 1 + id_gbs,
+				 		   random = ~ id_gbs + block:env + env + id_gbs:env,
 				 		   na.method.Y = "include",
 				 		   control = asreml.control(
 				 		   maxiter = 200),
