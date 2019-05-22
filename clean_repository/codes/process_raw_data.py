@@ -46,10 +46,10 @@ n_df = 4
 df = []
 
 # Load data:
-df.append(pd.read_csv("Biomass_2016.csv"))
-df.append(pd.read_csv("Biomass_SF2017.csv"))
-df.append(pd.read_csv("heights_2016.csv"))
-df.append(pd.read_csv("heights_SF2017.csv"))
+df.append(pd.read_csv("Biomass_2016.csv", index_col=0))
+df.append(pd.read_csv("Biomass_SF2017.csv", index_col=0))
+df.append(pd.read_csv("heights_2016.csv", index_col=0))
+df.append(pd.read_csv("heights_SF2017.csv", index_col=0))
 
 # Get names of the data frame variables:
 tmp = []
@@ -61,43 +61,21 @@ df[0] = df[0].rename(index=str, columns={tmp[0][0]: 'loc',
 								 		 tmp[0][2]: 'name1',
 								 		 tmp[0][3]: 'name2',
 								 		 tmp[0][4]: 'set',
-								 		 tmp[0][5]: 'range',
-								 		 tmp[0][6]: 'row',
-								 		 tmp[0][7]: 'block',
-								 		 tmp[0][8]: 'moisture',
-								 		 tmp[0][9]: 'drymass',
-								 		 tmp[0][10]: 'starch',
-								 		 tmp[0][11]: 'protein',
-								 		 tmp[0][12]: 'adf',
-								 		 tmp[0][13]: 'ndf'})
+								 		 tmp[0][5]: 'block',
+								 		 tmp[0][6]: 'drymass'})
 
 df[1] = df[1].rename(index=str, columns={tmp[1][0]: 'plot',
 		  							 	 tmp[1][1]: 'name1',
 								 		 tmp[1][2]: 'name2',
 								 		 tmp[1][3]: 'loc',
-								 		 tmp[1][4]: 'row',
-								 		 tmp[1][5]: 'range',
-								 		 tmp[1][6]: 'set',
-								 		 tmp[1][7]: 'block',
-								 		 tmp[1][8]: 'date',
-								 		 tmp[1][9]: 'moisture',
-								 		 tmp[1][10]: 'drymass',
-								 		 tmp[1][11]: 'starch',
-								 		 tmp[1][12]: 'protein',
-								 		 tmp[1][13]: 'adf',
-								 		 tmp[1][14]: 'ndf'})
+								 		 tmp[1][4]: 'set',
+								 		 tmp[1][5]: 'block',
+								 		 tmp[1][6]: 'drymass'})
 
 
 df[2] = df[2].rename(index=str, columns={tmp[2][0]: 'plot',
 		  							 	 tmp[2][1]: 'name1',
-								 		 tmp[2][2]: 'name2',
-								 		 tmp[2][3]: 'h1',
-								 		 tmp[2][4]: 'h2',
-								 		 tmp[2][5]: 'h3',
-								 		 tmp[2][6]: 'h4',
-								 		 tmp[2][7]: 'h5',
-								 		 tmp[2][8]: 'h6',
-								 		 tmp[2][9]: 'h7'})
+								 		 tmp[2][2]: 'name2'})
 
 df[3] = df[3].rename(index=str, columns={tmp[3][0]: 'plot',
 		  							 	 tmp[3][1]: 'name1',
@@ -106,16 +84,7 @@ df[3] = df[3].rename(index=str, columns={tmp[3][0]: 'plot',
 								 		 tmp[3][4]: 'year',
 								 		 tmp[3][5]: 'loc',
 								 		 tmp[3][6]: 'set',
-								 		 tmp[3][7]: 'block',
-								 		 tmp[3][8]: 'range',
-								 		 tmp[3][9]: 'row',
-								 		 tmp[3][10]: 'h1',
-								 		 tmp[3][11]: 'h2',
-								 		 tmp[3][12]: 'h3',
-								 		 tmp[3][13]: 'h4',
-								 		 tmp[3][14]: 'h5',
-								 		 tmp[3][15]: 'h6',
-								 		 tmp[3][16]: 'h7'})
+								 		 tmp[3][7]: 'block'})
 
 # Add column mapping traits to the df:
 df[0] = df[0].assign(trait=pd.Series(np.repeat('biomass', df[0].shape[0])).values)
@@ -177,9 +146,8 @@ loci_info = pd.read_csv("gbs_info.csv", index_col=0)
 # Intersection between IDs:
 mask = ~df['id_gbs'].isnull()
 line_names = np.intersect1d(np.unique(df['id_gbs'][mask].astype(str)), list(M))
-# line_names = np.intersect1d(np.unique(df['id_gbs'].astype(str)), list(M))
 
-# Subset the inbred lines that we have phenotypes:
+# Ordering lines:
 M = M.loc[:, line_names]
 
 # Function to build the Cockerham's model:
@@ -199,9 +167,6 @@ loci_info['bin'] = np.repeat(np.nan, loci_info.shape[0])
 # Add the bins names for the bin column mapping its position:
 for i in range(len(bin_map)):
 	loci_info['bin'].iloc[bin_map[i]] = np.repeat(["bin_" + str(i)], bin_map[i].size)
-
-# # Subset only the lines used in the experiment:
-# df = df.loc[df.id_gbs.isin(line_names),]
 
 # Name of the height covariates (columns that will be melt):
 tmp = []

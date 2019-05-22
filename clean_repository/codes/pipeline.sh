@@ -482,7 +482,7 @@ OUT_PATH=${ROOT_PATH}/output_sorghum-multi-trait
 # Path of the repository folder:
 REPO_PATH=${ROOT_PATH}/sorghum-multi-trait
 
-# Number of analysis (each analysis will use 4 threads to run 4 Markov chains):
+# Number of analysis:
 n_analysis=5
 
 for i in $(seq 1 ${n_analysis}); do
