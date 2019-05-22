@@ -253,9 +253,6 @@ df = df.drop_duplicates()
 # Changing the data type:
 df['drymass'] = df['drymass'].astype(float)
 
-# Transform dry mass scale (2.241699: from US t/acre to t/ha):
-df['drymass'] = df['drymass']*2.241699
-
 ## Writing into the disk the cleaned data:
 
 # Set the directory to store processed data:

@@ -1,62 +1,51 @@
 
 
+import pandas as pd
+import os
+import numpy as np
 
-# Set directory:
-os.chdir(REPO_PATH + "/clean_repository/tables")
+os.chdir("/home/jhonathan/Documents/dos_Santos_Genomic_Prediction_2019/raw_data")
+df1 = pd.read_csv('Biomass_2016.csv')
+df2 = pd.read_csv('Biomass_SF2017.csv')
+df3 = pd.read_csv('heights_2016.csv')
+df4 = pd.read_csv('heights_SF2017.csv')
 
-# Initialize a dictionary to receive the accuracies:
-table = dict()
+df1.DryTonsAcre = df1.DryTonsAcre*2.241699
+df2.DryTonsAcre = df2.DryTonsAcre*2.241699
 
-# Load correlation matrices:
-table['MTi-GBLUP_fcv'] = np.round(pd.read_csv('acc_MTi-GBLUP_fcv.csv', header = 0, index_col=0).values,4)
-table['MTr-GBLUP_fcv'] = np.round(pd.read_csv('acc_MTr-GBLUP_fcv.csv', header = 0, index_col=0).values,4)
+df1 = df1.rename(columns = {"DryTonsAcre": "dby"}) 
+df2 = df2.rename(columns = {"DryTonsAcre": "dby"})
 
-# List of models to use:
-model_set = ['bn', 'pbn', 'dbn']
+mask1 = df1.isnull()
+mask2 = df2.isnull()
+mask3 = df3.isnull()
+mask4 = df4.isnull()
 
-# Generate accuracy heatmaps:
-for i in model_set:
-  # Heat map of the adjusted means across traits:
-  table [i + '_fcv']= np.flip(np.flip(cor_dict['fcv_' + i],axis=1), axis=0)
+df1 = df1.astype(str)
+df2 = df2.astype(str)
+df3 = df3.astype(str)
+df4 = df4.astype(str)
 
+df1[mask1] = 'NA'
+df2[mask2] = 'NA'
+df3[mask3] = 'NA'
+df4[mask4] = 'NA'
 
-table['bn_fcv']
-table['pbn_fcv']
-table['dbn_fcv']
-table['MTi-GBLUP_fcv']
-table['MTr-GBLUP_fcv']
+df1 = df1.drop(columns=['Range', 'Row', 'Moisture_%', 'Starch', 'Protein', 'ADF', 'NDF'])
+df2 = df2.drop(columns=['range', 'row', 'Moisture_%', 'Starch', 'Protein', 'ADF', 'NDF', 'Date'])
+df4 = df4.drop(columns=['range', 'row'])
 
+df1.reset_index(level=0, inplace=True)
+df2.reset_index(level=0, inplace=True)
+df3.reset_index(level=0, inplace=True)
+df4.reset_index(level=0, inplace=True)
 
-(table['pbn_fcv'] - table['bn_fcv'])/table['bn_fcv']*100
-np.nanmin((table['pbn_fcv'] - table['bn_fcv'])/table['bn_fcv']*100)
-np.nanmax((table['pbn_fcv'] - table['bn_fcv'])/table['bn_fcv']*100)
+df1.head(10)
+df2.head(10)
+df3.head(10)
+df4.head(10)
 
-(table['dbn_fcv'] - table['bn_fcv'])/table['bn_fcv']*100
-np.nanmin((table['dbn_fcv'] - table['bn_fcv'])/table['bn_fcv']*100)
-np.nanmax((table['dbn_fcv'] - table['bn_fcv'])/table['bn_fcv']*100)
-
-(table['MTi-GBLUP_fcv'] - table['bn_fcv'])/table['bn_fcv']*100
-np.nanmin((table['MTi-GBLUP_fcv'] - table['bn_fcv'])/table['bn_fcv']*100)
-np.nanmax((table['MTi-GBLUP_fcv'] - table['bn_fcv'])/table['bn_fcv']*100)
-
-(table['MTr-GBLUP_fcv'] - table['bn_fcv'])/table['bn_fcv']*100
-np.nanmin((table['MTr-GBLUP_fcv'] - table['bn_fcv'])/table['bn_fcv']*100)
-np.nanmax((table['MTr-GBLUP_fcv'] - table['bn_fcv'])/table['bn_fcv']*100)
-
-
-lines = pd.DataFrame(['Pacesetter', 'PI276801', 'PI148089', 'PI524948', 'NSL50748', 'PI148084', 'NSL50748', 'PI148084', 'PI525882', 'PI660560', 'SPX'],columns=['id'])
-
-for i in lines.id:
-  print('line ', i, sum(df.id_gbs.unique() == i))
-
-
-
-tmp1 = pd.DataFrame(['Pacesetter', 'PI276801', 'PI148089', 'PI524948', 'NSL50748', 'PI148084'], columns=['id'])
-tmp2 = pd.DataFrame(['Pacesetter', 'PI276801', 'PI148089', 'PI524948', 'PI525882', 'PI660560', 'SPX'], columns=['id'])
-
-
-
-
-
-
-
+df1.to_csv("Biomass_2016.csv", index=False)
+df2.to_csv("Biomass_SF2017.csv", index=False)
+df3.to_csv("heights_2016.csv", index=False)
+df4.to_csv("heights_SF2017.csv", index=False)
