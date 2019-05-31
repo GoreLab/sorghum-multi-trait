@@ -12,7 +12,7 @@ The ability to connect information between traits over time allow Bayesian netwo
 
 # **Guideline**
 
-A tutorial to reproduce the results of the manuscript is available on the file > README.txt
+A tutorial to reproduce the results of the manuscript is available on the file `README.txt`
 
 
 # Folder 'codes'
