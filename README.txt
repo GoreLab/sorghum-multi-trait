@@ -1,8 +1,38 @@
+#------------------------------------------------------------------------------------------------------------#
+#------------------------------------------------------------------------------------------------------------#
+#---------------------------------Tutorial for reproducing the study:----------------------------------------#
+#------------------------------------------------------------------------------------------------------------#
+#--------Novel Bayesian Networks for Genomic Prediction of Developmental Traits in Biomass Sorghum-----------#
+#------------------------------------------------------------------------------------------------------------#
+#------------------------------------------------------------------------------------------------------------#
+#--------------Written by: Jhonathan Pedroso Rigal dos Santos, contact: jhowpd@gmail.com---------------------#
+#------------------------------------------------------------------------------------------------------------#
+#------------------------------------------------------------------------------------------------------------#
 
-#----------If you do not have sudo permision install python locally (for install packages via pip)-----------#
+
+#-------------------------------Downloading the data used for the study--------------------------------------#
 
 # Prefix of the output directory is:
 ROOT_PATH=/workdir/jp2476
+
+# Download the data used for the study:
+Obs--> Link for download: https://de.cyverse.org/de/?type=data&folder=/iplant/home/shared/GoreLab/dataFromPubs/dosSantos_BayesianNetworks_2019
+
+# The data should be save under the following path structure (README.txt contains information of the files):
+ROOT_PATH
+└── dosSantos_GenomicPrediction_2019
+    ├── raw_data
+    │   ├── Biomass_2016.csv
+    │   ├── Biomass_SF2017.csv
+    │   ├── gbs.csv
+    │   ├── gbs_info.csv
+    │   ├── gbs_unimputed_markers.vcf.gz
+    │   ├── genotype_names_corrected.csv
+    │   ├── heights_2016.csv
+    │   └── heights_SF2017.csv
+    └── README.txt
+     
+#----------If you do not have sudo permision install python locally (for install packages via pip)-----------#
 
 # Create a path to instal the softwere locally:
 mkdir ${ROOT_PATH}/local/
@@ -25,7 +55,6 @@ ROOT_PATH=/workdir/jp2476
 #------> execute pip and python. The Python 3 is required to run the codes. If errors happen 
 #------> caused by dependencies we recommend to install python locally following the above instructions.
 PYTHON_PATH=${ROOT_PATH}/local/python
-
 
 # Install python packages (install these versions to avoid errors):
 ${PYTHON_PATH}/bin/pip install argparse==1.4.0
