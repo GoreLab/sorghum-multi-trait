@@ -1,7 +1,0 @@
-
-1. Ghosal, S. 2018 - An explainable deep machine vision framework for
-plant stress phenotyping
-
-2. Jiang, Y. 2018 - Haplotype-based genome-wide prediction models exploit local epistatic interactions among markers.pdf
-
-

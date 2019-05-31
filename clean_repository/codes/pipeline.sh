@@ -78,7 +78,7 @@ PYTHON_PATH=${ROOT_PATH}/local/python
 OUT_PATH=${ROOT_PATH}/output_sorghum-multi-trait
 
 # Path of the raw data folder:
-DATA_PATH=${ROOT_PATH}/raw_data_sorghum-multi-trait
+DATA_PATH=${ROOT_PATH}/dosSantos_GenomicPrediction_2019
 
 # Path of the asreml license:
 ASREML_PATH=${ROOT_PATH}/asreml
