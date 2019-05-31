@@ -11,4 +11,4 @@ The ability to connect information between traits over time allow Bayesian netwo
 
 # **Guidelines**
 
-Instructions to reproduce the project, codes description, and data avaibility is available on the file `README.txt`.
+Instructions to reproduce the project, codes description, and data data availability on the file `README.txt`.
