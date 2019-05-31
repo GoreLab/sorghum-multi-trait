@@ -618,6 +618,6 @@ OUT_PATH=${ROOT_PATH}/output_sorghum-multi-trait
 # Path of the repository folder:
 REPO_PATH=${ROOT_PATH}/sorghum-multi-trait
 
-# Run the code to split the data into different subsets for cross-validation:
+# To obtain the final results from the genomic prediction analysis:
 ${PYTHON_PATH}/bin/python ${REPO_PATH}/clean_repository/codes/genomic_prediction_results.py -rpath ${REPO_PATH} -opath ${OUT_PATH} & 
 
