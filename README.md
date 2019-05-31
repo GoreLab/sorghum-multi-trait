@@ -1,6 +1,19 @@
-# General information
 
-The repository contains codes and information related to the **sorghum multi trait project**. The data set has height measures over different days after planting, dry mass content, and other biomass compositional traits. The main goal of the project is the development of a **Bayesian Network** and a **Random Deep Neural Networks** that **integrates crop, physiological, genomic, and transcriptomic data**, and **recovery of information across traits** though the inclusion of **pleiotropic effects** into a unique model (Bayesian Network architecture). The benchmarking will be done via multi trait linear mixed models. A user friendly bash script will be written for massive run of deep neural networks through random guesses of hyperparameters in a multidimensional surface using **TensorFlow**, and the Bayesian Network will be written in the probabilistic programming language **stan**. The function should have as arguments the data frame, number of cores, and numbers of serial runs per core, everything automated for easy run in the linux terminal. The script will outputs rmse errors of the train, dev, and tests for all models evaluated, as well as plots for visualization of the results. 
+# **Novel Bayesian Networks for Genomic Prediction of Developmental Traits in Biomass Sorghum**
+![language: R](https://img.shields.io/badge/language-R-blue.svg)
+![language: Python](https://img.shields.io/badge/language-Python-green.svg)
+![status: WIP](https://img.shields.io/badge/status-WorkInProgress-red.svg)
+
+![alt text](https://github.com/GoreLab/Sorghum-HapMap/blob/master/CIRCOS/Figure1.svg)
+
+# **Abstract**
+
+The ability to connect information between traits over time allow Bayesian networks to offer a powerful probabilistic framework to construct genomic prediction models. In this study, we phenotyped a diversity panel of 869 biomass sorghum lines, which had been genotyped with 100,435 SNP markers, for plant height (PH) with biweekly measurements from 30 to 120 days after planting (DAP) and for end-of-season dry biomass yield (DBY) in four environments. We developed and evaluated five genomic prediction models: Bayesian network (BN), Pleiotropic Bayesian network (PBN), Dynamic Bayesian network (DBN), multi-trait GBLUP (MTr-GBLUP), and multi-time GBLUP (MTi-GBLUP) models. In 5-fold cross-validation, prediction accuracies ranged from 0.48 (PBN) to 0.51 (MTr-GBLUP) for DBY and from 0.47 (DBN, DAP120) to 0.74 (MTi-GBLUP, DAP60) for PH. Forward-chaining cross-validation further improved prediction accuracies (42-51\%) of the DBN, MTi-GBLUP and MTr-GBLUP models for PH (train on 45 DAP, predict 120 DAP). Coincidence indices (target: biomass, secondary: PH) and a coincidence index based on lines (PH time series) showed that the ranking of lines by PH changed minimally after 45 DAP. These results suggest a two-level indirect selection method for PH at harvest (first-level target trait) could be performed earlier in the season based on ranking of lines by PH at 45 DAP (secondary trait) and DBY (second-level target trait). With the advance of high-throughput phenotyping technologies, statistical approaches such as our proposed two-level indirect selection framework could be valuable for enhancing genetic gain per unit of time when selecting on developmental traits.
+
+# **Guideline**
+
+A tutorial to reproduce the results of the manuscript is available on the file > README.txt
+
 
 # Folder 'codes'
 
