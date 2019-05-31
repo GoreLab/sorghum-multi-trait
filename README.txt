@@ -31,6 +31,12 @@ ROOT_PATH
     │   ├── heights_2016.csv
     │   └── heights_SF2017.csv
     └── README.txt
+
+# The repository should also be in root directory:
+ROOT_PATH
+|── sorghum-multi-trait
+└── dosSantos_GenomicPrediction_2019
+
      
 #----------If you do not have sudo permision install python locally (for install packages via pip)-----------#
 
