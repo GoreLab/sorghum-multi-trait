@@ -3,7 +3,7 @@
 ![language: Python](https://img.shields.io/badge/language-Python-green.svg)
 ![status: WIP](https://img.shields.io/badge/status-WorkInProgress-red.svg)
 
-![alt text](https://github.com/GoreLab/sorghum-multi-trait/edited_figures/all_final_edited_figures/Figure2.eps)
+![alt text](https://github.com/GoreLab/sorghum-multi-trait/edited_figures/figure_1_bayesian_networks_figures/inkscape/nets.png)
 
 # **Abstract**
 
