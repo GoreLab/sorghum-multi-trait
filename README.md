@@ -2,7 +2,7 @@
 ![language: R](https://img.shields.io/badge/language-R-blue.svg)
 ![language: Python](https://img.shields.io/badge/language-Python-green.svg)
 ![status: WIP](https://img.shields.io/badge/status-WorkInProgress-red.svg)
-<a href="https://github.com/GoreLab/sorghum-multi-trait/blob/master/edited_figures/figure_3_forward_cross_validation_figures/inkscape/heatplot_fcv_accuracy.svg"><img src="https://github.com/GoreLab/sorghum-multi-trait/blob/master/edited_figures/figure_3_forward_cross_validation_figures/inkscape/heatplot_fcv_accuracy.svg" width="963.9" height="385.9"/></a>
+<a href="https://github.com/GoreLab/sorghum-multi-trait/blob/master/edited_figures/figure_3_forward_cross_validation_figures/inkscape/heatplot_fcv_accuracy.png"><img src="https://github.com/GoreLab/sorghum-multi-trait/blob/master/edited_figures/figure_3_forward_cross_validation_figures/inkscape/heatplot_fcv_accuracy.png" width="963.9" height="385.9"/></a>
 
 # **Abstract**
 
