@@ -3,7 +3,7 @@
 ![language: Python](https://img.shields.io/badge/language-Python-green.svg)
 ![status: WIP](https://img.shields.io/badge/status-WorkInProgress-red.svg)
 
-<div style="text-align:center"><a href="https://github.com/GoreLab/sorghum-multi-trait/blob/master/edited_figures/figure_3_forward_cross_validation_figures/inkscape/heatplot_fcv_accuracy.png"><img src="https://github.com/GoreLab/sorghum-multi-trait/blob/master/edited_figures/figure_3_forward_cross_validation_figures/inkscape/heatplot_fcv_accuracy.png" width="555" height="328"/></a>
+<p align="center"><a href="https://github.com/GoreLab/sorghum-multi-trait/blob/master/edited_figures/figure_3_forward_cross_validation_figures/inkscape/heatplot_fcv_accuracy.png"><img src="https://github.com/GoreLab/sorghum-multi-trait/blob/master/edited_figures/figure_3_forward_cross_validation_figures/inkscape/heatplot_fcv_accuracy.png" width="555" height="328"/></a>
 
 # **Abstract**
 
