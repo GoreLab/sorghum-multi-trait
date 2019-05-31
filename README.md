@@ -6,7 +6,7 @@
 
 ![alt text](https://github.com/GoreLab/sorghum-multi-trait/blob/master/edited_figures/figure_1_bayesian_networks_figures/inkscape/nets.png) -->
 
-<a href="https://github.com/GoreLab/sorghum-multi-trait/blob/master/edited_figures/figure_1_bayesian_networks_figures/inkscape/nets.svg"><img src="https://github.com/GoreLab/sorghum-multi-trait/blob/master/edited_figures/figure_1_bayesian_networks_figures/inkscape/nets.svg" width="567" height="227"/></a>
+<a href="https://github.com/GoreLab/sorghum-multi-trait/blob/master/edited_figures/figure_1_bayesian_networks_figures/inkscape/nets.svg"><img src="https://github.com/GoreLab/sorghum-multi-trait/blob/master/edited_figures/figure_1_bayesian_networks_figures/inkscape/nets.svg" width="850.5" height="340.5"/></a>
 
 # **Abstract**
 
