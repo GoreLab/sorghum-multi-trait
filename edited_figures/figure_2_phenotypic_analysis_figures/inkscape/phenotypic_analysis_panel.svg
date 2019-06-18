@@ -2854,8 +2854,8 @@
      showgrid="false"
      inkscape:lockguides="true"
      inkscape:zoom="1.1450579"
-     inkscape:cx="480.67791"
-     inkscape:cy="387.33766"
+     inkscape:cx="673.35632"
+     inkscape:cy="371.97003"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -3526,14 +3526,14 @@
 <text
    transform="scale(1,-1)"
    y="-210.82341"
-   x="70.595222"
+   x="42.095222"
    style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.82182598px;font-family:serif;-inkscape-font-specification:serif;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.18218255"
    id="text84-7"><tspan
      y="-210.82341"
-     x="70.595222"
+     x="42.095222"
      style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:serif;-inkscape-font-specification:'serif Bold';stroke-width:1.18218255"
      sodipodi:role="line"
-     id="tspan82-8">Biomass adjusted means</tspan></text>
+     id="tspan82-8">Dry biomass yield adjusted means</tspan></text>
 
 
 
@@ -5155,14 +5155,14 @@
 <text
    style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.61267233px;font-family:serif;-inkscape-font-specification:serif;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.10211217"
    id="text206-6-6-1-0-5-2-1-9-4-2"
-   x="304.68619"
-   y="-276.57169"
+   x="291.95615"
+   y="-276.80478"
    transform="matrix(0.69426737,0.72018364,0.69426737,-0.72018364,0,0)"><tspan
-     y="-276.57169"
-     x="304.68619"
+     y="-276.80478"
+     x="291.95615"
      sodipodi:role="line"
      id="tspan204-5-8-2-7-0-0-8-9-3-8"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:serif;-inkscape-font-specification:serif;stroke-width:1.10211217">Dry biomass</tspan></text>
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:serif;-inkscape-font-specification:serif;stroke-width:1.10211217">Dry biomass yeild</tspan></text>
 
 
 
@@ -5502,15 +5502,15 @@
 
 <text
    transform="matrix(0.70623835,0.70797628,0.70623835,-0.70797628,0,0)"
-   y="58.040726"
-   x="404.38174"
+   y="58.017242"
+   x="385.28998"
    id="text206-6-6-1-0-5-2-1-9-4-6-0"
    style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.83097887px;font-family:serif;-inkscape-font-specification:serif;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.13849664"><tspan
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:serif;-inkscape-font-specification:serif;stroke-width:1.13849664"
      id="tspan204-5-8-2-7-0-0-8-9-8-7-8"
      sodipodi:role="line"
-     x="404.38174"
-     y="58.040726">Dry biomass</tspan></text>
+     x="385.28998"
+     y="58.017242">Dry biomass yield</tspan></text>
 
 
 
@@ -5519,15 +5519,15 @@
 
 <text
    transform="matrix(0.70623835,0.70797628,0.70623835,-0.70797628,0,0)"
-   y="-138.3083"
-   x="208.7677"
+   y="-136.21046"
+   x="189.67841"
    id="text206-6-6-1-0-5-2-1-9-4-6-0-3"
    style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.83097839px;font-family:serif;-inkscape-font-specification:serif;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.13849664"><tspan
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:serif;-inkscape-font-specification:serif;stroke-width:1.13849664"
      id="tspan204-5-8-2-7-0-0-8-9-8-7-8-6"
      sodipodi:role="line"
-     x="208.7677"
-     y="-138.3083">Dry biomass</tspan></text>
+     x="189.67841"
+     y="-136.21046">Dry biomass yield</tspan></text>
 
 
 
@@ -5855,7 +5855,7 @@
      x="98.87542"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.11069489px;font-family:serif;-inkscape-font-specification:serif;stroke-width:1.1712234"
      sodipodi:role="line"
-     id="tspan82-4-1-5">Dry biomass (t/ha)</tspan></text>
+     id="tspan82-4-1-5">Dry biomass yield (t/ha)</tspan></text>
 
 
 
