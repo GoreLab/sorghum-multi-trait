@@ -16,7 +16,7 @@
 ROOT_PATH=/workdir/jp2476
 
 # Download the data used for the study:
-Obs--> Link for download: https://de.cyverse.org/de/?type=data&folder=/iplant/home/shared/GoreLab/dataFromPubs/dosSantos_BayesianNetworks_2019
+Obs--> Link for download: http://datacommons.cyverse.org/browse/iplant/home/shared/GoreLab/dataFromPubs/dosSantos_BayesianNetworks_2019
 
 # The data should be save under the following path structure (README.txt contains information of the files):
 ROOT_PATH

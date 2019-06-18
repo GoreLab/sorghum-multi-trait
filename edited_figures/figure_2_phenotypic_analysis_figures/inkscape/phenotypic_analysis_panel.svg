@@ -2854,8 +2854,8 @@
      showgrid="false"
      inkscape:lockguides="true"
      inkscape:zoom="1.1450579"
-     inkscape:cx="131.96964"
-     inkscape:cy="421.12695"
+     inkscape:cx="134.94698"
+     inkscape:cy="527.06859"
      inkscape:window-x="0"
      inkscape:window-y="32"
      inkscape:window-maximized="1"
@@ -2895,6 +2895,8 @@
 
 
 
+
+
 <text
    xml:space="preserve"
    style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:23px;line-height:1.25;font-family:serif;-inkscape-font-specification:serif;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.75;"
@@ -2907,6 +2909,8 @@
      x="218.92883"
      y="-3.6199279"
      style="stroke-width:0.75;-inkscape-font-specification:serif;font-family:serif;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;" /></text>
+
+
 
 
 
@@ -3511,6 +3515,8 @@
      sodipodi:role="line"
      id="tspan164" /></text>
 
+
+
 <text
    transform="scale(1,-1)"
    y="-210.82341"
@@ -3522,6 +3528,8 @@
      style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:serif;-inkscape-font-specification:'serif Bold';stroke-width:1.18218255"
      sodipodi:role="line"
      id="tspan82-8">Biomass adjusted means</tspan></text>
+
+
 
 <text
    transform="scale(1,-1)"
@@ -3535,6 +3543,8 @@
      style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:serif;-inkscape-font-specification:'serif Bold';stroke-width:1.18218255"
      sodipodi:role="line">Height adjusted means</tspan></text>
 
+
+
 <text
    id="text84-7-60"
    style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.82182598px;font-family:serif;-inkscape-font-specification:serif;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.08534956"
@@ -3547,6 +3557,8 @@
      x="35.140118"
      y="-470.26489">Correlation between adjusted means</tspan></text>
 
+
+
 <text
    id="text84-7-60-7"
    style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.82182598px;font-family:serif;-inkscape-font-specification:serif;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.08534956"
@@ -3558,6 +3570,8 @@
      style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:11.82182598px;font-family:serif;-inkscape-font-specification:'serif Bold';stroke-width:1.08534956"
      x="354.55548"
      y="-470.26508">Broad-sense heritability</tspan></text>
+
+
 
 <path
    d="M 53.102817,279.16583 H 243.47072 V 455.84332 H 53.102817 Z"
@@ -3894,6 +3908,8 @@
      y="-443.4039"
      x="62.342236">1</tspan></text>
 
+
+
 <text
    y="-443.4039"
    x="79.745644"
@@ -3905,6 +3921,8 @@
      sodipodi:role="line"
      y="-443.4039"
      x="79.745644 84.821892">0.10</tspan></text>
+
+
 
 <text
    y="-443.4039"
@@ -3918,6 +3936,8 @@
      y="-443.4039"
      x="103.49825 108.57446 111.11259 116.18884">0.28</tspan></text>
 
+
+
 <text
    y="-443.4039"
    x="127.25119"
@@ -3929,6 +3949,8 @@
      sodipodi:role="line"
      y="-443.4039"
      x="127.25119 132.32741 134.86552 139.94177">0.27</tspan></text>
+
+
 
 <text
    y="-443.4039"
@@ -3942,6 +3964,8 @@
      y="-443.4039"
      x="151.00414 156.08035 158.61844 163.69469">0.29</tspan></text>
 
+
+
 <text
    y="-443.4039"
    x="174.75705"
@@ -3953,6 +3977,8 @@
      sodipodi:role="line"
      y="-443.4039"
      x="174.75705 179.8333 182.37141 187.44763">0.29</tspan></text>
+
+
 
 <text
    y="-443.4039"
@@ -3966,6 +3992,8 @@
      y="-443.4039"
      x="198.51003 203.58623 206.12436 211.20061">0.31</tspan></text>
 
+
+
 <text
    y="-443.4039"
    x="222.26292"
@@ -3977,6 +4005,8 @@
      sodipodi:role="line"
      y="-443.4039"
      x="222.26292 227.33914 229.87727 234.95352">0.31</tspan></text>
+
+
 
 <text
    y="-421.27917"
@@ -3990,6 +4020,8 @@
      y="-421.27917"
      x="55.992695 61.068943">0.10</tspan></text>
 
+
+
 <text
    y="-421.27917"
    x="86.095177"
@@ -4000,6 +4032,8 @@
      id="tspan286-4"
      y="-421.27917"
      x="86.095177">1</tspan></text>
+
+
 
 <text
    y="-421.27917"
@@ -4013,6 +4047,8 @@
      y="-421.27917"
      x="103.49825 108.57446 111.11259 116.18884">0.65</tspan></text>
 
+
+
 <text
    y="-421.27917"
    x="127.25119"
@@ -4024,6 +4060,8 @@
      sodipodi:role="line"
      y="-421.27917"
      x="127.25119 132.32741 134.86552 139.94177">0.54</tspan></text>
+
+
 
 <text
    y="-421.27917"
@@ -4037,6 +4075,8 @@
      y="-421.27917"
      x="151.00414 156.08035 158.61844 163.69469">0.47</tspan></text>
 
+
+
 <text
    y="-421.27917"
    x="174.75705"
@@ -4048,6 +4088,8 @@
      sodipodi:role="line"
      y="-421.27917"
      x="174.75705 179.8333 182.37141 187.44763">0.46</tspan></text>
+
+
 
 <text
    y="-421.27917"
@@ -4061,6 +4103,8 @@
      y="-421.27917"
      x="198.51003 203.58623 206.12436 211.20061">0.45</tspan></text>
 
+
+
 <text
    y="-421.27917"
    x="222.2626"
@@ -4072,6 +4116,8 @@
      sodipodi:role="line"
      y="-421.27917"
      x="222.2626 227.33882 229.87694">0.40</tspan></text>
+
+
 
 <text
    y="-399.15448"
@@ -4085,6 +4131,8 @@
      y="-399.15448"
      x="55.992363 61.068611 63.606705 68.682953">0.28</tspan></text>
 
+
+
 <text
    y="-399.15448"
    x="79.745308"
@@ -4097,6 +4145,8 @@
      y="-399.15448"
      x="79.745308 84.821495 87.35965 92.43589">0.65</tspan></text>
 
+
+
 <text
    y="-399.15448"
    x="109.84809"
@@ -4107,6 +4157,8 @@
      id="tspan322-6"
      y="-399.15448"
      x="109.84809">1</tspan></text>
+
+
 
 <text
    y="-399.15448"
@@ -4120,6 +4172,8 @@
      y="-399.15448"
      x="127.25155 132.32776 134.86588">0.80</tspan></text>
 
+
+
 <text
    y="-399.15448"
    x="151.00414"
@@ -4131,6 +4185,8 @@
      sodipodi:role="line"
      y="-399.15448"
      x="151.00414 156.08035 158.61844 163.69469">0.74</tspan></text>
+
+
 
 <text
    y="-399.15448"
@@ -4144,6 +4200,8 @@
      y="-399.15448"
      x="174.75705 179.8333 182.37141 187.44763">0.72</tspan></text>
 
+
+
 <text
    y="-399.15448"
    x="198.51039"
@@ -4155,6 +4213,8 @@
      sodipodi:role="line"
      y="-399.15448"
      x="198.51039 203.58664 206.12476">0.70</tspan></text>
+
+
 
 <text
    y="-399.15448"
@@ -4168,6 +4228,8 @@
      y="-399.15448"
      x="222.26292 227.33914 229.87727 234.95352">0.61</tspan></text>
 
+
+
 <text
    y="-377.02975"
    x="55.992363"
@@ -4179,6 +4241,8 @@
      sodipodi:role="line"
      y="-377.02975"
      x="55.992363 61.068611 63.606705 68.682953">0.27</tspan></text>
+
+
 
 <text
    y="-377.02975"
@@ -4192,6 +4256,8 @@
      y="-377.02975"
      x="79.745308 84.821495 87.35965 92.43589">0.54</tspan></text>
 
+
+
 <text
    y="-377.02975"
    x="103.4986"
@@ -4204,6 +4270,8 @@
      y="-377.02975"
      x="103.4986 108.57484 111.11295">0.80</tspan></text>
 
+
+
 <text
    y="-377.02975"
    x="133.60103"
@@ -4214,6 +4282,8 @@
      id="tspan358-8"
      y="-377.02975"
      x="133.60103">1</tspan></text>
+
+
 
 <text
    y="-377.02975"
@@ -4227,6 +4297,8 @@
      y="-377.02975"
      x="151.00414 156.08035 158.61844 163.69469">0.95</tspan></text>
 
+
+
 <text
    y="-377.02975"
    x="174.75705"
@@ -4238,6 +4310,8 @@
      sodipodi:role="line"
      y="-377.02975"
      x="174.75705 179.8333 182.37141 187.44763">0.93</tspan></text>
+
+
 
 <text
    y="-377.02975"
@@ -4251,6 +4325,8 @@
      y="-377.02975"
      x="198.51003 203.58623 206.12436 211.20061">0.92</tspan></text>
 
+
+
 <text
    y="-377.02975"
    x="222.26292"
@@ -4262,6 +4338,8 @@
      sodipodi:role="line"
      y="-377.02975"
      x="222.26292 227.33914 229.87727 234.95352">0.85</tspan></text>
+
+
 
 <text
    y="-354.90506"
@@ -4275,6 +4353,8 @@
      y="-354.90506"
      x="55.992363 61.068611 63.606705 68.682953">0.29</tspan></text>
 
+
+
 <text
    y="-354.90506"
    x="79.745308"
@@ -4286,6 +4366,8 @@
      sodipodi:role="line"
      y="-354.90506"
      x="79.745308 84.821495 87.35965 92.43589">0.47</tspan></text>
+
+
 
 <text
    y="-354.90506"
@@ -4299,6 +4381,8 @@
      y="-354.90506"
      x="103.49825 108.57446 111.11259 116.18884">0.74</tspan></text>
 
+
+
 <text
    y="-354.90506"
    x="127.25119"
@@ -4311,6 +4395,8 @@
      y="-354.90506"
      x="127.25119 132.32741 134.86552 139.94177">0.95</tspan></text>
 
+
+
 <text
    y="-354.90506"
    x="157.35397"
@@ -4321,6 +4407,8 @@
      id="tspan394-7"
      y="-354.90506"
      x="157.35397">1</tspan></text>
+
+
 
 <text
    y="-354.90506"
@@ -4334,6 +4422,8 @@
      y="-354.90506"
      x="174.75705 179.8333 182.37141 187.44763">0.95</tspan></text>
 
+
+
 <text
    y="-354.90506"
    x="198.51003"
@@ -4345,6 +4435,8 @@
      sodipodi:role="line"
      y="-354.90506"
      x="198.51003 203.58623 206.12436 211.20061">0.94</tspan></text>
+
+
 
 <text
    y="-354.90506"
@@ -4358,6 +4450,8 @@
      y="-354.90506"
      x="222.26292 227.33914 229.87727 234.95352">0.89</tspan></text>
 
+
+
 <text
    y="-332.78033"
    x="55.992363"
@@ -4369,6 +4463,8 @@
      sodipodi:role="line"
      y="-332.78033"
      x="55.992363 61.068611 63.606705 68.682953">0.29</tspan></text>
+
+
 
 <text
    y="-332.78033"
@@ -4382,6 +4478,8 @@
      y="-332.78033"
      x="79.745308 84.821495 87.35965 92.43589">0.46</tspan></text>
 
+
+
 <text
    y="-332.78033"
    x="103.49825"
@@ -4393,6 +4491,8 @@
      sodipodi:role="line"
      y="-332.78033"
      x="103.49825 108.57446 111.11259 116.18884">0.72</tspan></text>
+
+
 
 <text
    y="-332.78033"
@@ -4406,6 +4506,8 @@
      y="-332.78033"
      x="127.25119 132.32741 134.86552 139.94177">0.93</tspan></text>
 
+
+
 <text
    y="-332.78033"
    x="151.00414"
@@ -4418,6 +4520,8 @@
      y="-332.78033"
      x="151.00414 156.08035 158.61844 163.69469">0.95</tspan></text>
 
+
+
 <text
    y="-332.78033"
    x="181.10692"
@@ -4428,6 +4532,8 @@
      id="tspan430-9"
      y="-332.78033"
      x="181.10692">1</tspan></text>
+
+
 
 <text
    y="-332.78033"
@@ -4441,6 +4547,8 @@
      y="-332.78033"
      x="198.51003 203.58623 206.12436 211.20061">0.96</tspan></text>
 
+
+
 <text
    y="-332.78033"
    x="222.26292"
@@ -4452,6 +4560,8 @@
      sodipodi:role="line"
      y="-332.78033"
      x="222.26292 227.33914 229.87727 234.95352">0.92</tspan></text>
+
+
 
 <text
    y="-310.65564"
@@ -4465,6 +4575,8 @@
      y="-310.65564"
      x="55.992363 61.068611 63.606705 68.682953">0.31</tspan></text>
 
+
+
 <text
    y="-310.65564"
    x="79.745308"
@@ -4476,6 +4588,8 @@
      sodipodi:role="line"
      y="-310.65564"
      x="79.745308 84.821495 87.35965 92.43589">0.45</tspan></text>
+
+
 
 <text
    y="-310.65564"
@@ -4489,6 +4603,8 @@
      y="-310.65564"
      x="103.4986 108.57484 111.11295">0.70</tspan></text>
 
+
+
 <text
    y="-310.65564"
    x="127.25119"
@@ -4500,6 +4616,8 @@
      sodipodi:role="line"
      y="-310.65564"
      x="127.25119 132.32741 134.86552 139.94177">0.92</tspan></text>
+
+
 
 <text
    y="-310.65564"
@@ -4513,6 +4631,8 @@
      y="-310.65564"
      x="151.00414 156.08035 158.61844 163.69469">0.94</tspan></text>
 
+
+
 <text
    y="-310.65564"
    x="174.75705"
@@ -4525,6 +4645,8 @@
      y="-310.65564"
      x="174.75705 179.8333 182.37141 187.44763">0.96</tspan></text>
 
+
+
 <text
    y="-310.65564"
    x="204.85986"
@@ -4535,6 +4657,8 @@
      id="tspan466-4"
      y="-310.65564"
      x="204.85986">1</tspan></text>
+
+
 
 <text
    y="-310.65564"
@@ -4548,6 +4672,8 @@
      y="-310.65564"
      x="222.26292 227.33914 229.87727 234.95352">0.94</tspan></text>
 
+
+
 <text
    y="-288.53091"
    x="55.992363"
@@ -4559,6 +4685,8 @@
      sodipodi:role="line"
      y="-288.53091"
      x="55.992363 61.068611 63.606705 68.682953">0.31</tspan></text>
+
+
 
 <text
    y="-288.53091"
@@ -4572,6 +4700,8 @@
      y="-288.53091"
      x="79.745644 84.821831 87.359985">0.40</tspan></text>
 
+
+
 <text
    y="-288.53091"
    x="103.49825"
@@ -4583,6 +4713,8 @@
      sodipodi:role="line"
      y="-288.53091"
      x="103.49825 108.57446 111.11259 116.18884">0.61</tspan></text>
+
+
 
 <text
    y="-288.53091"
@@ -4596,6 +4728,8 @@
      y="-288.53091"
      x="127.25119 132.32741 134.86552 139.94177">0.85</tspan></text>
 
+
+
 <text
    y="-288.53091"
    x="151.00414"
@@ -4607,6 +4741,8 @@
      sodipodi:role="line"
      y="-288.53091"
      x="151.00414 156.08035 158.61844 163.69469">0.89</tspan></text>
+
+
 
 <text
    y="-288.53091"
@@ -4620,6 +4756,8 @@
      y="-288.53091"
      x="174.75705 179.8333 182.37141 187.44763">0.92</tspan></text>
 
+
+
 <text
    y="-288.53091"
    x="198.51003"
@@ -4632,6 +4770,8 @@
      y="-288.53091"
      x="198.51003 203.58623 206.12436 211.20061">0.94</tspan></text>
 
+
+
 <text
    y="-288.53091"
    x="228.61281"
@@ -4642,6 +4782,8 @@
      id="tspan502-5"
      y="-288.53091"
      x="228.61281">1</tspan></text>
+
+
 
 <path
    d="m 255.36871,279.16583 v 0.69015 175.2972 0.69015 h 8.86592 v -0.69015 -175.2972 -0.69015 z"
@@ -4672,6 +4814,8 @@
      y="-298.54172"
      x="268.41248 272.64267 274.75778">0.2</tspan></text>
 
+
+
 <path
    inkscape:connector-curvature="0"
    id="path528-4"
@@ -4687,6 +4831,8 @@
      sodipodi:role="line"
      y="-337.44229"
      x="268.41248 272.64267 274.75778">0.4</tspan></text>
+
+
 
 <path
    inkscape:connector-curvature="0"
@@ -4704,6 +4850,8 @@
      y="-376.3429"
      x="268.41248 272.64267 274.75778">0.6</tspan></text>
 
+
+
 <path
    inkscape:connector-curvature="0"
    id="path540-3"
@@ -4719,6 +4867,8 @@
      sodipodi:role="line"
      y="-415.2435"
      x="268.41248 272.64267 274.75778">0.8</tspan></text>
+
+
 
 <path
    inkscape:connector-curvature="0"
@@ -4736,6 +4886,8 @@
      y="-454.14407"
      x="268.41248 272.64267 274.75778">1.0</tspan></text>
 
+
+
 <text
    transform="matrix(0.70838834,0.70582754,0.70838834,-0.70582754,0,0)"
    y="-268.18121"
@@ -4747,6 +4899,8 @@
      sodipodi:role="line"
      x="289.60678"
      y="-268.18121">Height DAP 30</tspan></text>
+
+
 
 <text
    transform="matrix(0.70838834,0.70582754,0.70838834,-0.70582754,0,0)"
@@ -4760,6 +4914,8 @@
      x="273.66348"
      y="-253.07027">Height DAP 45</tspan></text>
 
+
+
 <text
    transform="matrix(0.70838834,0.70582754,0.70838834,-0.70582754,0,0)"
    y="-238.23682"
@@ -4771,6 +4927,8 @@
      sodipodi:role="line"
      x="258.99319"
      y="-238.23682">Height DAP 60</tspan></text>
+
+
 
 <text
    transform="matrix(0.70838834,0.70582754,0.70838834,-0.70582754,0,0)"
@@ -4784,6 +4942,8 @@
      x="243.50145"
      y="-224.0101">Height DAP 75</tspan></text>
 
+
+
 <text
    transform="matrix(0.70838834,0.70582754,0.70838834,-0.70582754,0,0)"
    y="-207.61815"
@@ -4795,6 +4955,8 @@
      sodipodi:role="line"
      x="229.49905"
      y="-207.61815">Height DAP 90</tspan></text>
+
+
 
 <text
    transform="matrix(0.70838834,0.70582754,0.70838834,-0.70582754,0,0)"
@@ -4808,6 +4970,8 @@
      x="211.63673"
      y="-194.50465">Height DAP 105</tspan></text>
 
+
+
 <text
    transform="matrix(0.70838834,0.70582754,0.70838834,-0.70582754,0,0)"
    y="-178.56934"
@@ -4819,6 +4983,8 @@
      sodipodi:role="line"
      x="195.84189"
      y="-178.56934">Height DAP 120</tspan></text>
+
+
 
 <text
    style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.61267233px;font-family:serif;-inkscape-font-specification:serif;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.10211217"
@@ -4832,6 +4998,8 @@
      id="tspan204-5-8-2-7-0-0-8-9-3-8"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:serif;-inkscape-font-specification:serif;stroke-width:1.10211217">Dry biomass</tspan></text>
 
+
+
 <text
    transform="matrix(0.70838833,0.70582755,0.70838833,-0.70582755,0,0)"
    y="-101.44368"
@@ -4843,6 +5011,8 @@
      sodipodi:role="line"
      x="234.30392"
      y="-101.44368">Height DAP 45</tspan></text>
+
+
 
 <text
    transform="matrix(0.70838833,0.70582755,0.70838833,-0.70582755,0,0)"
@@ -4856,6 +5026,8 @@
      x="251.71176"
      y="-84.035851">Height DAP 60</tspan></text>
 
+
+
 <text
    transform="matrix(0.70838833,0.70582755,0.70838833,-0.70582755,0,0)"
    y="-67.866547"
@@ -4867,6 +5039,8 @@
      sodipodi:role="line"
      x="267.88101"
      y="-67.866547">Height DAP 75</tspan></text>
+
+
 
 <text
    transform="matrix(0.70838833,0.70582755,0.70838833,-0.70582755,0,0)"
@@ -4880,6 +5054,8 @@
      x="285.00659"
      y="-50.741203">Height DAP 90</tspan></text>
 
+
+
 <text
    transform="matrix(0.70838833,0.70582755,0.70838833,-0.70582755,0,0)"
    y="-34.96389"
@@ -4891,6 +5067,8 @@
      sodipodi:role="line"
      x="295.88593"
      y="-34.96389">Height DAP 105</tspan></text>
+
+
 
 <text
    transform="matrix(0.70838833,0.70582755,0.70838833,-0.70582755,0,0)"
@@ -4904,6 +5082,8 @@
      x="310.02661"
      y="-20.823408">Height DAP 120</tspan></text>
 
+
+
 <text
    transform="matrix(0.70838833,0.70582755,0.70838833,-0.70582755,0,0)"
    y="-117.71368"
@@ -4915,6 +5095,8 @@
      sodipodi:role="line"
      x="218.03377"
      y="-117.71368">Height DAP 30</tspan></text>
+
+
 
 <text
    transform="scale(0.99877182,-1.0012297)"
@@ -4928,6 +5110,8 @@
      sodipodi:role="line"
      id="tspan152-3-7-8-2-7">0.0</tspan></text>
 
+
+
 <text
    transform="scale(0.99877182,-1.0012297)"
    y="-312.75864"
@@ -4939,6 +5123,8 @@
      y="-312.75864"
      sodipodi:role="line"
      id="tspan158-5-8-6-2-0-9">0.2</tspan></text>
+
+
 
 <text
    transform="scale(0.99877182,-1.0012297)"
@@ -4952,6 +5138,8 @@
      sodipodi:role="line"
      id="tspan164-2-0-3-8-6-2">0.4</tspan></text>
 
+
+
 <text
    transform="scale(0.99877182,-1.0012297)"
    y="-383.46964"
@@ -4963,6 +5151,8 @@
      y="-383.46964"
      sodipodi:role="line"
      id="tspan170-7-8-3-6-6-3">0.6</tspan></text>
+
+
 
 <text
    transform="scale(0.99877182,-1.0012297)"
@@ -4976,6 +5166,8 @@
      sodipodi:role="line"
      id="tspan176-8-9-3-8-1">0.8</tspan></text>
 
+
+
 <text
    id="text136-3-4-6-9-7-9-2"
    style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.14245129px;font-family:serif;-inkscape-font-specification:serif;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.11424506"
@@ -4986,12 +5178,14 @@
      x="318.93259"
      id="tspan134-0-8-1-6-9-6-2"
      sodipodi:role="line"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.20180702px;font-family:serif;-inkscape-font-specification:serif;stroke-width:1.11424506">Board-sense Heritability</tspan><tspan
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.20180702px;font-family:serif;-inkscape-font-specification:serif;stroke-width:1.11424506">Broad-sense heritability</tspan><tspan
      id="tspan1663-4-0-0-0"
      y="315.18939"
      x="318.93259"
      sodipodi:role="line"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.20180702px;font-family:serif;-inkscape-font-specification:serif;stroke-width:1.11424506" /></text>
+
+
 
 <g
    id="g1670"
@@ -5011,6 +5205,8 @@
      y="97.794411">Height DAP 45</tspan></text>
 
 
+
+
 <text
    transform="matrix(0.70623835,0.70797628,0.70623835,-0.70797628,0,0)"
    y="117.09942"
@@ -5022,6 +5218,8 @@
      sodipodi:role="line"
      x="454.7749"
      y="117.09942">Height DAP 60</tspan></text>
+
+
 
 
 <text
@@ -5037,6 +5235,8 @@
      y="135.1761">Height DAP 75</tspan></text>
 
 
+
+
 <text
    transform="matrix(0.70623835,0.70797628,0.70623835,-0.70797628,0,0)"
    y="154.201"
@@ -5048,6 +5248,8 @@
      sodipodi:role="line"
      x="491.87653"
      y="154.201">Height DAP 90</tspan></text>
+
+
 
 
 <text
@@ -5063,6 +5265,8 @@
      y="174.94914">Height DAP 105</tspan></text>
 
 
+
+
 <text
    transform="matrix(0.70623835,0.70797628,0.70623835,-0.70797628,0,0)"
    y="194.07399"
@@ -5074,6 +5278,8 @@
      sodipodi:role="line"
      x="526.89191"
      y="194.07399">Height DAP 120</tspan></text>
+
+
 
 
 <text
@@ -5089,6 +5295,8 @@
      y="78.597717">Height DAP 30</tspan></text>
 
 
+
+
 <text
    transform="matrix(0.70623835,0.70797628,0.70623835,-0.70797628,0,0)"
    y="58.040726"
@@ -5100,6 +5308,8 @@
      sodipodi:role="line"
      x="404.38174"
      y="58.040726">Dry biomass</tspan></text>
+
+
 
 
 <text
@@ -5115,6 +5325,8 @@
      y="-138.3083">Dry biomass</tspan></text>
 
 
+
+
 </g></g></g></g><text
    id="text42-7"
    style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.4572506px;font-family:serif;-inkscape-font-specification:serif;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.64572507"
@@ -5125,6 +5337,8 @@
      y="-14.36483"
      x="47.85009"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.64572507">0</tspan></text>
+
+
 
 <text
    id="text54-0"
@@ -5138,6 +5352,8 @@
      x="141.48875 145.59557"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.64572507">20</tspan></text>
 
+
+
 <text
    id="text60-7"
    style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.4572506px;font-family:serif;-inkscape-font-specification:serif;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.64572507"
@@ -5150,6 +5366,8 @@
      x="189.33469 193.4415"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.64572507">30</tspan></text>
 
+
+
 <text
    id="text66-3"
    style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.4572506px;font-family:serif;-inkscape-font-specification:serif;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.64572507"
@@ -5161,6 +5379,8 @@
      y="-14.36483"
      x="237.18062 241.28745"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.64572507">40</tspan></text>
+
+
 
 <path
    d="M 42.158735,23.78838 H 272.76007 v 171.8352 H 42.158735 Z"
@@ -5194,6 +5414,8 @@
      x="93.642799 97.749619"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.64572507">10</tspan></text>
 
+
+
 <path
    inkscape:connector-curvature="0"
    id="path50-51"
@@ -5222,6 +5444,8 @@
      x="23.261181 27.367994 29.421402 33.528214"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.64572507">0.00</tspan></text>
 
+
+
 <path
    inkscape:connector-curvature="0"
    id="path78"
@@ -5237,6 +5461,8 @@
      y="-49.444855"
      x="23.261181 27.367994 29.421402 33.528214"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.64572507">0.01</tspan></text>
+
+
 
 <path
    inkscape:connector-curvature="0"
@@ -5254,6 +5480,8 @@
      x="23.261181 27.367994 29.421402 33.528214"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.64572507">0.02</tspan></text>
 
+
+
 <path
    inkscape:connector-curvature="0"
    id="path90-59"
@@ -5269,6 +5497,8 @@
      y="-90.039894"
      x="23.261181 27.367994 29.421402 33.528214"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.64572507">0.03</tspan></text>
+
+
 
 <path
    inkscape:connector-curvature="0"
@@ -5286,6 +5516,8 @@
      x="23.261181 27.367994 29.421402 33.528214"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.64572507">0.04</tspan></text>
 
+
+
 <path
    inkscape:connector-curvature="0"
    id="path102"
@@ -5301,6 +5533,8 @@
      y="-130.63495"
      x="23.261181 27.367994 29.421402 33.528214"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.64572507">0.05</tspan></text>
+
+
 
 <path
    inkscape:connector-curvature="0"
@@ -5318,6 +5552,8 @@
      x="23.261181 27.367994 29.421402 33.528214"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.64572507">0.06</tspan></text>
 
+
+
 <path
    inkscape:connector-curvature="0"
    id="path114"
@@ -5334,6 +5570,8 @@
      x="23.261181 27.367994 29.421402 33.528214"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.64572507">0.07</tspan></text>
 
+
+
 <path
    inkscape:connector-curvature="0"
    id="path120"
@@ -5349,6 +5587,8 @@
      y="-191.5275"
      x="23.261181 27.367994 29.421402 33.528214"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.64572507">0.08</tspan></text>
+
+
 
 <path
    d="m 52.640616,31.616013 3.301379,0.06011 3.301379,0.232349 1.65069,0.22264 3.301379,0.651504 4.952069,1.186464 1.650688,0.519796 1.650693,0.711863 1.650687,0.956277 4.952072,3.425957 1.650686,0.771907 1.650693,0.4488 1.650686,0.19688 3.30138,0.04588 3.301379,-0.143823 3.301379,-0.411353 3.301379,-0.468403 1.650693,-0.038 1.650683,0.241938 1.6507,0.636383 1.65068,1.142771 1.6507,1.742004 1.65068,2.384838 1.65069,3.001549 1.65069,3.533846 1.65069,3.955518 4.95207,12.869017 1.65069,3.766882 1.65069,3.003532 1.65069,2.16152 1.65069,1.551806 1.65069,1.429474 1.65069,1.862471 1.65069,2.720175 1.65069,3.777408 1.65069,4.834118 1.65069,5.749709 4.95207,19.13745 1.65068,5.17553 1.6507,3.88183 1.65068,2.76488 1.6507,2.26243 1.65068,2.51567 1.6507,3.2557 3.30138,7.91717 1.65068,3.29728 1.65069,2.19132 3.30138,2.73213 1.65069,2.39268 1.65069,4.00633 1.65069,5.53894 3.30138,12.52327 1.65069,4.88048 1.65069,2.77454 1.65069,0.21544 1.65069,-2.36117 1.65069,-4.55876 1.65069,-6.11476 4.95207,-21.02634 1.65068,-6.32309 1.6507,-5.52767 1.65068,-4.66101 1.6507,-3.94035 1.65068,-3.62715 1.6507,-3.91368 1.65068,-4.80237 1.6507,-6.05513 1.65068,-7.24605 3.30138,-15.630007 1.65069,-6.686993 1.65069,-5.142413 1.65069,-3.644614 3.30138,-5.311037 1.65069,-3.177788 1.65069,-4.053797 4.95207,-14.325528 1.65069,-3.888602 1.65069,-3.06534 1.65069,-2.358759 1.65069,-1.852866 1.65069,-1.517023 1.65068,-1.276402 1.6507,-1.071706 1.65068,-0.877294 1.6507,-0.688787 1.65068,-0.506502 1.6507,-0.328923 1.65068,-0.154252 1.6507,0.01566 1.65068,0.171011 3.30138,0.636678 1.65069,0.311349 1.65069,0.18577 1.65069,0.0012 1.65069,-0.185092 6.60276,-1.274779 1.65069,-0.171976 3.30138,-0.149603 1.65069,-0.02 v 0"
@@ -5382,6 +5622,8 @@
      sodipodi:role="line"
      id="tspan82-4-1-5">Dry biomass (t/ha)</tspan></text>
 
+
+
 <text
    id="text136-3-7-8"
    style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.24302197px;font-family:serif;-inkscape-font-specification:serif;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.22430205"
@@ -5393,6 +5635,8 @@
      id="tspan134-0-2-4"
      sodipodi:role="line"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.11069489px;font-family:serif;-inkscape-font-specification:serif;stroke-width:1.22430205">Density</tspan></text>
+
+
 
 <path
    inkscape:connector-curvature="0"
@@ -5442,6 +5686,8 @@
      sodipodi:role="line"
      id="tspan90-8">30</tspan></text>
 
+
+
 <path
    d="M 370.96927,23.695474 V 21.433492"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5196448;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -5457,6 +5703,8 @@
      y="-14.336102"
      sodipodi:role="line"
      id="tspan96-0">45</tspan></text>
+
+
 
 <path
    d="M 404.27571,23.695474 V 21.433492"
@@ -5474,6 +5722,8 @@
      sodipodi:role="line"
      id="tspan102-3">60</tspan></text>
 
+
+
 <path
    d="M 437.58215,23.695474 V 21.433492"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5196448;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -5489,6 +5739,8 @@
      y="-14.336102"
      sodipodi:role="line"
      id="tspan108-2">75</tspan></text>
+
+
 
 <path
    d="M 470.88859,23.695474 V 21.433492"
@@ -5506,6 +5758,8 @@
      sodipodi:role="line"
      id="tspan114-0">90</tspan></text>
 
+
+
 <path
    d="M 504.19503,23.695474 V 21.433492"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5196448;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -5521,6 +5775,8 @@
      y="-14.336102"
      sodipodi:role="line"
      id="tspan120-7">105</tspan></text>
+
+
 
 <path
    d="M 537.50147,23.695474 V 21.433492"
@@ -5538,6 +5794,8 @@
      sodipodi:role="line"
      id="tspan126-6">120</tspan></text>
 
+
+
 <path
    d="m 321.00962,26.625859 h -2.28497"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5196448;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -5552,6 +5810,8 @@
      x="310.71326"
      y="-24.294514"
      id="tspan136-1">0</tspan></text>
+
+
 
 <path
    d="m 321.00962,63.029914 h -2.28497"
@@ -5569,6 +5829,8 @@
      sodipodi:role="line"
      id="tspan142-9">100</tspan></text>
 
+
+
 <path
    d="m 321.00962,99.43397 h -2.28497"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5196448;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -5584,6 +5846,8 @@
      y="-97.471626"
      sodipodi:role="line"
      id="tspan148-3">200</tspan></text>
+
+
 
 <path
    d="m 321.00962,135.83803 h -2.28497"
@@ -5601,6 +5865,8 @@
      sodipodi:role="line"
      id="tspan154-6">300</tspan></text>
 
+
+
 <path
    d="m 321.00962,172.24208 h -2.28497"
    style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5196448;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -5616,6 +5882,8 @@
      y="-170.64873"
      sodipodi:role="line"
      id="tspan160-1">400</tspan></text>
+
+
 
 <path
    inkscape:connector-curvature="0"
@@ -6108,6 +6376,8 @@
      x="83.56778"
      y="295.24539">Height (cm)</tspan></text>
 
+
+
 <text
    id="text84-4-0-9"
    style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.76301575px;font-family:serif;-inkscape-font-specification:serif;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.17630148"
@@ -6118,7 +6388,9 @@
      sodipodi:role="line"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.15453243px;font-family:serif;-inkscape-font-specification:serif;stroke-width:1.17630148"
      x="382.04471"
-     y="-1.5422788">Days after Planting</tspan></text>
+     y="-1.5422788">Days after planting</tspan></text>
+
+
 
 <text
    xml:space="preserve"
@@ -6133,6 +6405,8 @@
      y="-214.6879"
      style="stroke-width:0.75;-inkscape-font-specification:serif;font-family:serif;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;" /></text>
 
+
+
 <text
    transform="scale(1,-1)"
    id="text1565"
@@ -6145,6 +6419,8 @@
      x="-30.32567"
      id="tspan1563"
      sodipodi:role="line" /></text>
+
+
 
 <g
    transform="translate(775.25103,181.44636)"
