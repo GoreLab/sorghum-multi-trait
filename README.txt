@@ -20,7 +20,7 @@ Obs--> Link for download: http://datacommons.cyverse.org/browse/iplant/home/shar
 
 # The data should be save under the following path structure (README.txt contains information of the files):
 ROOT_PATH
-└── dosSantos_GenomicPrediction_2019
+└── dosSantos_BayesianNetworks_2019
     ├── raw_data
     │   ├── Biomass_2016.csv
     │   ├── Biomass_SF2017.csv
@@ -35,7 +35,7 @@ ROOT_PATH
 # The repository should also be in root directory:
 ROOT_PATH
 |── sorghum-multi-trait
-└── dosSantos_GenomicPrediction_2019
+└── dosSantos_BayesianNetworks_2019
 
      
 #----------If you do not have sudo permision install python locally (for install packages via pip)-----------#
@@ -113,7 +113,7 @@ PYTHON_PATH=${ROOT_PATH}/local/python
 OUT_PATH=${ROOT_PATH}/output_sorghum-multi-trait
 
 # Path of the raw data folder:
-DATA_PATH=${ROOT_PATH}/dosSantos_GenomicPrediction_2019
+DATA_PATH=${ROOT_PATH}/dosSantos_BayesianNetworks_2019
 
 # Path of the asreml license:
 ASREML_PATH=${ROOT_PATH}/asreml
