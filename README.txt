@@ -145,11 +145,14 @@ PYTHON_PATH=${ROOT_PATH}/local/python
 # Path of the output folder:
 OUT_PATH=${ROOT_PATH}/output_sorghum-multi-trait
 
+# Path of the raw data folder:
+DATA_PATH=${ROOT_PATH}/dosSantos_GenomicPrediction_2019
+
 # Path of the repository folder:
 REPO_PATH=${ROOT_PATH}/sorghum-multi-trait
 
 # Run the code to split the data into different subsets for cross-validation:
-${PYTHON_PATH}/bin/python ${REPO_PATH}/clean_repository/codes/split_data_cross_validation.py -opath ${OUT_PATH} & 
+${PYTHON_PATH}/bin/python ${REPO_PATH}/clean_repository/codes/split_data_cross_validation.py -dpath ${DATA_PATH} -opath ${OUT_PATH} & 
 
 # Transform the .sh file into executable:
 chmod +755 ${REPO_PATH}/clean_repository/codes/create_list_files_names_cross-validation.sh
