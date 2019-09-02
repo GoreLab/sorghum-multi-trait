@@ -280,7 +280,7 @@ if model == 'DBN-0~6':
 #--------------------------------------Running the Bayesian Network------------------------------------------#
 
 # Set directory:
-os.chdir(REPO_PATH + "/clean_repository/codes")
+os.chdir(REPO_PATH + "/codes")
 
 # For running the Bayesian Network model:s
 if model == 'BN':
