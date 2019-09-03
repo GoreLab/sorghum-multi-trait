@@ -323,7 +323,7 @@ names(acc_lst[['MTi-GBLUP']][['cv5f']]) = paste0('PH_', seq(30,120,15))
 names(acc_lst[['MTr-GBLUP']][['cv5f']]) = c('DB', paste0('PH_', seq(30,120,15)))
 
 # Set directory:
-setwd(paste0(REPO_PATH, "/clean_repository/tables"))
+setwd(paste0(REPO_PATH, "/tables"))
 
 # Write accuracy files:
 for (i in names(acc_lst[["MTi-GBLUP"]])) write.csv(acc_lst[["MTi-GBLUP"]][[i]], file=paste0("acc_MTi-GBLUP_", i, ".csv"))
