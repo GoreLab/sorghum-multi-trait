@@ -133,50 +133,50 @@ for s in sets:
 				X[key_index] = X[key_index].replace(to_replace=0, value=1) \
 										   .rename(columns={'dap': 'mu_index'})
 
-# # Name of the forward-chaining cross-validation schemes:
-# fcv_types = ['fcv-30~45', 'fcv-30~60', 'fcv-30~75', 'fcv-30~90', 'fcv-30~105']
+# Name of the forward-chaining cross-validation schemes:
+fcv_types = ['fcv-30~45', 'fcv-30~60', 'fcv-30~75', 'fcv-30~90', 'fcv-30~105']
 
-# # Build the sets of the data for the forward-chaining cross-validation schemes for the DBN model:
-# for c in fcv_types:
-# 	for s in sets:
-# 		# Key index for building the dictionary:
-# 		key_index = c + '_height_' + s
-# 		# Get the upper index of the dap:
-# 		upper_index = int(c.split('~')[1])
-# 		if s == 'trn':
-# 			# Logical vector for indexation:
-# 			index = (df.trait=='height') & (df.dap<=upper_index)
-# 		if s == 'tst':
-# 			# Logical vector for indexation:
-# 			index = (df.trait=='height') & (df.dap>upper_index)
-# 		# Build the response vector for the subset of data:
-# 		y[key_index] = df.y_hat[index]
-# 		# Build feature matrix for the subset of data:
-# 		X[key_index] = X_all[index]
+# Build the sets of the data for the forward-chaining cross-validation schemes for the DBN model:
+for c in fcv_types:
+	for s in sets:
+		# Key index for building the dictionary:
+		key_index = c + '_height_' + s
+		# Get the upper index of the dap:
+		upper_index = int(c.split('~')[1])
+		if s == 'trn':
+			# Logical vector for indexation:
+			index = (df.trait=='height') & (df.dap<=upper_index)
+		if s == 'tst':
+			# Logical vector for indexation:
+			index = (df.trait=='height') & (df.dap>upper_index)
+		# Build the response vector for the subset of data:
+		y[key_index] = df.y_hat[index]
+		# Build feature matrix for the subset of data:
+		X[key_index] = X_all[index]
 
-# # Get DAP groups:
-# dap_group = df.dap.unique()[1:7]
+# Get DAP groups:
+dap_group = df.dap.unique()[1:7]
 
-# # Build the sets of the data for the forward-chaining cross-validation schemes for the PBN and BN models using all data:
-# for d in dap_group:
-# 	for s in sets:
-# 		# Key index for mapping data into dictionary:
-# 		key_index = 'fcv-' + str(d) + '~only' + '_height_' + s
-# 		if s == 'trn':
-# 			# Logical vector for indexation:
-# 			index = (df.trait=='height') & (df.dap==d)
-# 		if s == 'tst':
-# 			# Logical vector for indexation:
-# 			index = (df.trait=='height') & (df.dap!=d)
-# 		# Build the response vector for the subset of data:
-# 		y[key_index] = df.y_hat[index]
-# 		# Build feature matrix for the subset of data:
-# 		X[key_index] = X_all[index]
+# Build the sets of the data for the forward-chaining cross-validation schemes for the PBN and BN models using all data:
+for d in dap_group:
+	for s in sets:
+		# Key index for mapping data into dictionary:
+		key_index = 'fcv-' + str(d) + '~only' + '_height_' + s
+		if s == 'trn':
+			# Logical vector for indexation:
+			index = (df.trait=='height') & (df.dap==d)
+		if s == 'tst':
+			# Logical vector for indexation:
+			index = (df.trait=='height') & (df.dap!=d)
+		# Build the response vector for the subset of data:
+		y[key_index] = df.y_hat[index]
+		# Build feature matrix for the subset of data:
+		X[key_index] = X_all[index]
 
-# # Create the sets only for the PBN model with drymass data together with height data:
-# key_index = 'fcv_drymass_trn'
-# y[key_index] = df.y_hat[df.trait=='drymass']
-# X[key_index] = X_all[df.trait=='drymass']
+# Create the sets only for the PBN model with drymass data together with height data:
+key_index = 'fcv_drymass_trn'
+y[key_index] = df.y_hat[df.trait=='drymass']
+X[key_index] = X_all[df.trait=='drymass']
 
 
 #------------------------------------Save different subsets of the data--------------------------------------#

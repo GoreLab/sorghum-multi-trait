@@ -534,7 +534,7 @@ print(cor_dict['fcv_pbn'])
 print(cor_dict['fcv_dbn'])
 
 # Set directory:
-os.chdir(REPO_PATH + "/clean_repository/figures")
+os.chdir(REPO_PATH + "/figures")
 
 # List of models to use:
 model_set = ['bn', 'pbn', 'dbn']
@@ -609,7 +609,7 @@ for i in range(len(dap_group1)):
 			print('Model: dbn, DAP_i: {}, DAP_j: {}'.format(dap_group1[i], dap_group2[j]))
 
 # Set directory:
-os.chdir(REPO_PATH + "/clean_repository/figures")
+os.chdir(REPO_PATH + "/figures")
 
 # DAP groups used for plotting
 dap_group = ['45', '60', '75', '90', '105']
@@ -727,7 +727,7 @@ ci_post['post'] = ci_post['post'].astype(float)
 ci_post.columns = ['Coincidence index posterior values', 'Model', 'Days after planting']
 
 # Set directory:
-os.chdir(REPO_PATH + "/clean_repository/figures")
+os.chdir(REPO_PATH + "/figures")
 
 # Plot coincidence indexes:
 plt.figure(figsize=(20,15))
@@ -749,7 +749,7 @@ with sns.plotting_context(font_scale=1):
 #--------------------------Accuracy heatmap for the multivariate linear mixed model--------------------------#
 
 # Set directory:
-os.chdir(REPO_PATH + "/clean_repository/tables")
+os.chdir(REPO_PATH + "/tables")
 
 # Initialize a dictionary to receive the accuracies:
 gblup_dict = dict()
@@ -768,7 +768,7 @@ gblup_dict['MTr-GBLUP_fcv'] = pd.read_csv('acc_MTr-GBLUP_fcv.csv', header = 0, i
 model_set = ['MTi-GBLUP', 'MTr-GBLUP']
 
 # Set directory:
-os.chdir(REPO_PATH + "/clean_repository/figures")
+os.chdir(REPO_PATH + "/figures")
 
 # Generate accuracy heatmaps:
 for i in range(len(model_set)):
@@ -795,7 +795,7 @@ for i in range(len(model_set)):
   plt.clf()
 
 # Set directory:
-os.chdir(REPO_PATH + "/clean_repository/tables")
+os.chdir(REPO_PATH + "/tables")
 
 # Save tables with the results from the cv5f:
 cv5f_table_mean.to_csv("cv5f_accuracy_table_mean_all_genomic_prediction_models.csv")
