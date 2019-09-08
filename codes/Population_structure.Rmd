@@ -1,0 +1,171 @@
+---
+title: "Population structure analysis"
+output:
+  pdf_document: default
+  html_notebook: default
+---
+
+# POPULATION STRUCTURE THROUGH PCA
+
+## Calculating PCAs 
+
+```{r}
+
+#source("http://bioconductor.org/biocLite.R")
+#biocLite("gdsfmt")
+#biocLite("SNPRelate")
+
+library(gdsfmt)
+library(SNPRelate)
+library(dplyr)
+library(magrittr)
+library(tidyr)
+
+# Get the path of the plink files
+bed.fn <- "/workdir/share/Jhonathan_tmp/Exact/FINAL.bed"
+fam.fn <- "/workdir/share/Jhonathan_tmp/Exact/FINAL.fam"
+bim.fn <- "/workdir/share/Jhonathan_tmp/Exact/FINAL.bim"
+
+# Build the gdsdb
+snpgdsBED2GDS(bed.fn, fam.fn, bim.fn,out.gdsfn ="final.gds")
+snpgdsSummary("final.gds")
+genofile <- snpgdsOpen("final.gds")
+
+# Getting the PCA object
+pca <- snpgdsPCA(genofile, num.thread=2)
+
+# Calculate the percentage of variance explained by the first 10 PC
+pc.percent <- pca$varprop*100
+head(round(pc.percent, 2)) 
+
+```
+
+## Coloring by Individuals with a known Race assignment
+
+```{r}
+
+tab <- data.frame(sample.id = pca$sample.id,
+    EV1 = pca$eigenvect[,1],    # the first eigenvector
+    EV2 = pca$eigenvect[,2],    # the second eigenvector
+    EV3 = pca$eigenvect[,3],
+    EV4 = pca$eigenvect[,4],
+    EV5 = pca$eigenvect[,5],
+    stringsAsFactors = FALSE)
+colnames(tab) <- c("ID", "EV1", "EV2", "EV3", "EV4", "EV5")
+
+write.table(tab, file = "/workdir/share/Jhonathan_tmp/Exact/EVs", row.names = F, col.names = F, sep = "\t", quote = F)
+
+
+SIMPLEID <- read.delim("/workdir/share/Jhonathan_tmp/Exact/EVs_IDs", stringsAsFactors = F, header = F)
+tab$ID <- SIMPLEID$V1
+
+POPS <- read.delim("/workdir/share/Jhonathan_tmp/Exact/BN_str.4.meanQ", stringsAsFactors = F, header = F) %>%
+  `colnames<-`(c("POP1", "POP2", "POP3", "POP4"))
+
+metadata <- cbind(tab, POPS)
+
+
+#Load the metadata
+Races <- read.delim("/workdir/share/Jhonathan_tmp/metadata/meta", stringsAsFactors = F) %>%
+  select(ID, RACE)
+
+
+
+metadata2 <- metadata %>%
+  left_join(Races, by="ID") %>%
+  distinct %>%
+  mutate(RACE= case_when( is.na(RACE) ~ "NA",
+                          RACE == "PCA outlier" ~ "NA",
+                         TRUE  ~ RACE))
+
+
+library(ggplot2)
+library(wesanderson)
+library(patchwork)
+
+fill <- wes_palette("IsleofDogs1")
+
+
+pal <- wes_palette("Zissou1", 5, type = "continuous")
+
+
+p1 <- ggplot(metadata2, aes(EV1, EV2)) +
+  geom_point(aes(colour = factor(RACE)), alpha =0.5, shape=19) +
+  #scale_color_manual(values=c("red", "blue", fill[1], fill[2], fill[3], fill[4])) +
+  scale_color_manual(values = c("black", pal[1], pal[1], pal[3], pal[3], "olivedrab4", "olivedrab4", "olivedrab4", "red", "lightgrey")) +
+  ylab("PC 2 (4.20%)") +
+  xlab("PC 1 (5.59%)") +
+  theme(legend.position="right", legend.direction="vertical",
+        legend.title = element_blank()) +
+  theme(axis.line.x = element_line(size=1, colour = "black"),
+        axis.line.y = element_line(size=1, colour = "black"),
+        panel.grid.major = element_line(colour = "#d3d3d3"), panel.grid.minor = element_blank(),
+        panel.border = element_blank(), panel.background = element_blank()) +
+  theme(plot.title = element_text(size = 14, family = "Tahoma", face = "bold"),
+        text=element_text(family="Tahoma"),
+        axis.text.x=element_text(colour="black", size = 10),
+        axis.text.y=element_text(colour="black", size = 10),
+        legend.key=element_rect(fill="white", colour="white"))
+
+p1
+
+```
+
+## Coloring by the subpopulations estimated using fastStructure
+
+```{r}
+
+metadata3 <- metadata2 %>%
+  mutate(K= case_when( POP1 > POP2 & POP1 > POP3 & POP1 >POP4   ~ "POP1",
+                       POP2 > POP1 & POP2 > POP3 & POP2 >POP4   ~ "POP2",
+                       POP3 > POP1 & POP3 > POP2 & POP3 >POP4   ~ "POP3",
+                       POP4 > POP1 & POP4 > POP2 & POP4 >POP3   ~ "POP4",
+                       TRUE ~ "MIX"))
+ 
+  
+
+p2 <- ggplot(metadata3, aes(EV1, EV2)) +
+  geom_point(aes(colour = factor(K)), alpha =0.5, shape=19) +
+  #scale_color_manual(values=c("red", "blue", fill[1], fill[2], fill[3], fill[4])) +
+  scale_color_manual(values = c("black", "red", "green", "cyan", "purple")) +
+  ylab("PC 2 (4.20%)") +
+  xlab("PC 1 (5.59%)") +
+  theme(legend.position="right", legend.direction="vertical",
+        legend.title = element_blank()) +
+  theme(axis.line.x = element_line(size=1, colour = "black"),
+        axis.line.y = element_line(size=1, colour = "black"),
+        panel.grid.major = element_line(colour = "#d3d3d3"), panel.grid.minor = element_blank(),
+        panel.border = element_blank(), panel.background = element_blank()) +
+  theme(plot.title = element_text(size = 14, family = "Tahoma", face = "bold"),
+        text=element_text(family="Tahoma"),
+        axis.text.x=element_text(colour="black", size = 10),
+        axis.text.y=element_text(colour="black", size = 10),
+        legend.key=element_rect(fill="white", colour="white"))
+
+p2
+
+
+```
+
+## Exporting the subpopulation assignmentas a table:
+
+```{r}
+metadata4 <- metadata3   %>%
+  mutate(PERC= case_when( K == "POP1"   ~ POP1,
+                       K == "POP2"   ~ POP2,
+                       K == "POP3"   ~ POP3,
+                       K == "POP4"   ~ POP4,
+                       K == "MIX" ~ 0.25))
+
+
+metadata5 <- metadata4 %>%
+  mutate(CATEGORY = case_when(PERC < 0.8 ~ "ADMIX",
+                              TRUE ~ K)) %>%
+  select(ID, CATEGORY)
+
+
+write.table(x = metadata5, file="./Exact/Structure_groups_extended_simple.txt", quote = F, row.names = F, col.names = T, sep = "\t")
+
+```
+
+
